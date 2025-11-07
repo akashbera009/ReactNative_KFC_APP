@@ -32,9 +32,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>RCTNewArchEnabled</key>
-	<false/>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -49,5 +49,42 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Friz Quadrata Bold.otf</string>
+		<string>TestNational2Condensed-Black.otf</string>
+		<string>TestNational2Condensed-BlackItalic.otf</string>
+		<string>TestNational2Condensed-Bold.otf</string>
+		<string>TestNational2Condensed-BoldItalic.otf</string>
+		<string>TestNational2Condensed-Extrabold.otf</string>
+		<string>TestNational2Condensed-ExtraboldItalic.otf</string>
+		<string>TestNational2Condensed-Extralight.otf</string>
+		<string>TestNational2Condensed-ExtralightItalic.otf</string>
+		<string>TestNational2Condensed-Light.otf</string>
+		<string>TestNational2Condensed-LightItalic.otf</string>
+		<string>TestNational2Condensed-Medium.otf</string>
+		<string>TestNational2Condensed-MediumItalic.otf</string>
+		<string>TestNational2Condensed-Regular.otf</string>
+		<string>TestNational2Condensed-RegularItalic.otf</string>
+		<string>TestNational2Condensed-Thin.otf</string>
+		<string>TestNational2Condensed-ThinItalic.otf</string>
+		<string>Playball-Regular.ttf</string>
+		<string>RobotoSlab-Black.ttf</string>
+		<string>RobotoSlab-Bold.ttf</string>
+		<string>RobotoSlab-ExtraBold.ttf</string>
+		<string>RobotoSlab-ExtraLight.ttf</string>
+		<string>RobotoSlab-Light.ttf</string>
+		<string>RobotoSlab-Medium.ttf</string>
+		<string>RobotoSlab-Regular.ttf</string>
+		<string>RobotoSlab-SemiBold.ttf</string>
+		<string>RobotoSlab-Thin.ttf</string>
+		<string>RobotoSlab-VariableFont_wght.ttf</string>
+		<string>Rubik-Italic-VariableFont_wght.ttf</string>
+		<string>Rubik-VariableFont_wght.ttf</string>
+		<string>ZalandoSansSemiExpanded-Italic-VariableFont_wght.ttf</string>
+		<string>ZalandoSansSemiExpanded-VariableFont_wght.ttf</string>
+		<string>friz-quadrata-bold-italic-os-5870341205e0f.ttf</string>
+		<string>friz-quadrata-regular-os-5870333951e7c.ttf</string>
+	</array>
 </dict>
 </plist>

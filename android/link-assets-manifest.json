@@ -1,0 +1,153 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/asstes/Fonts/Friz Quadrata Bold.otf",
+      "sha1": "3334952ea462c0578cf5487c64636f8679ce1c25"
+    },
+    {
+      "path": "src/asstes/Fonts/Playball-Regular.ttf",
+      "sha1": "0a3aa7581907061912b301cf5c9fe50051b4e73c"
+    },
+    {
+      "path": "src/asstes/Fonts/RobotoSlab-Black.ttf",
+      "sha1": "ffefd0fd104487bdd78e9b5f9ba4c00d323bfdc4"
+    },
+    {
+      "path": "src/asstes/Fonts/RobotoSlab-Bold.ttf",
+      "sha1": "d3dfcf889c8e6684eef9ca9cf5e9e4b91687f01e"
+    },
+    {
+      "path": "src/asstes/Fonts/RobotoSlab-ExtraBold.ttf",
+      "sha1": "7aa1e9c4ac0591eeeda28df7e2e35e484c76b54c"
+    },
+    {
+      "path": "src/asstes/Fonts/RobotoSlab-ExtraLight.ttf",
+      "sha1": "8348efde845d446da8939a8a212b895b87d9e546"
+    },
+    {
+      "path": "src/asstes/Fonts/RobotoSlab-Light.ttf",
+      "sha1": "a10a75d23f1f825e80ee6403cb432e94be2a12de"
+    },
+    {
+      "path": "src/asstes/Fonts/RobotoSlab-Medium.ttf",
+      "sha1": "b57ebc70e3c1ef98fbffe8051d290264d7efcbae"
+    },
+    {
+      "path": "src/asstes/Fonts/RobotoSlab-Regular.ttf",
+      "sha1": "ff03d465c6c05463866d8627bb41f8a854d1d12f"
+    },
+    {
+      "path": "src/asstes/Fonts/RobotoSlab-SemiBold.ttf",
+      "sha1": "880225069848b373260dce9ea9d52b8651223e04"
+    },
+    {
+      "path": "src/asstes/Fonts/RobotoSlab-Thin.ttf",
+      "sha1": "046ae9043d0c654d8463b95f714ec1f58782c90a"
+    },
+    {
+      "path": "src/asstes/Fonts/RobotoSlab-VariableFont_wght.ttf",
+      "sha1": "5722dc9fcc8b77ac8239ab33ab32c2f224784d78"
+    },
+    {
+      "path": "src/asstes/Fonts/Roboto_Slab/LICENSE.txt",
+      "sha1": "47b573e3824cd5e02a1a3ae99e2735b49e0256e4"
+    },
+    {
+      "path": "src/asstes/Fonts/Roboto_Slab/README.txt",
+      "sha1": "21d04e9ca4e2a775754c2d3581afd949461abd1c"
+    },
+    {
+      "path": "src/asstes/Fonts/Roboto_Slab.zip",
+      "sha1": "991b7c93c0f4e430d07aa7f09c16eb907baa973d"
+    },
+    {
+      "path": "src/asstes/Fonts/Rubik-Italic-VariableFont_wght.ttf",
+      "sha1": "9672d1c26dff8567ba38a3f4bdcbdbf79aec1d49"
+    },
+    {
+      "path": "src/asstes/Fonts/Rubik-VariableFont_wght.ttf",
+      "sha1": "0e060a8b51ec5af31a47c46f976b09ab470ba016"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-Black.otf",
+      "sha1": "0a3e846e99580429525c8b56d2418bc7642ce1ba"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-BlackItalic.otf",
+      "sha1": "e2198753605acc55a6b7f94b4360e390f114c1e7"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-Bold.otf",
+      "sha1": "303356db731faf14e9ba8afa6d2ba26d0dee8cfe"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-BoldItalic.otf",
+      "sha1": "34b48f52a52b476a5621e471965da44738e57cf6"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-Extrabold.otf",
+      "sha1": "b258b7cd9893dd403ff2acac5c9459d0b2b0de94"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-ExtraboldItalic.otf",
+      "sha1": "cfc2549c9eb67258734af520e9707e313ad43053"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-Extralight.otf",
+      "sha1": "77d1e1ff8775d66a202a8251ed46808ebbcdb2fe"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-ExtralightItalic.otf",
+      "sha1": "a8f1814d804f63f7136fb2d527a2d9346b669101"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-Light.otf",
+      "sha1": "f1e4dd49931044282ce4c31cf0ac245ef0d3edf6"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-LightItalic.otf",
+      "sha1": "ee120b87443dde0a56cf23b49dbf73d35a87048e"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-Medium.otf",
+      "sha1": "7a30cf1eda29a0cde6f6a1bd583d1cb2744067da"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-MediumItalic.otf",
+      "sha1": "f17f9c6134e2f07f06da4abcc952b6880f71770a"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-Regular.otf",
+      "sha1": "dfa7deb8cf5e0fb4bc6b36ccf39abea357b0a50b"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-RegularItalic.otf",
+      "sha1": "e570f197dd263f8a14a5ac1cd0ed0c7f3fe2de14"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-Thin.otf",
+      "sha1": "c6ba5a5e04847a5a3adefe8c484f214a88e02b7c"
+    },
+    {
+      "path": "src/asstes/Fonts/TestNational2Condensed-ThinItalic.otf",
+      "sha1": "a060950fa9b138661e1462050138905440ac8797"
+    },
+    {
+      "path": "src/asstes/Fonts/ZalandoSansSemiExpanded-Italic-VariableFont_wght.ttf",
+      "sha1": "9ee8ba7f59a412eeb55e133635c0e8c3135128bc"
+    },
+    {
+      "path": "src/asstes/Fonts/ZalandoSansSemiExpanded-VariableFont_wght.ttf",
+      "sha1": "3a78a0316042aae56fb6a6bd055a17d90f0759d2"
+    },
+    {
+      "path": "src/asstes/Fonts/friz-quadrata-bold-italic-os-5870341205e0f.ttf",
+      "sha1": "b30cfb693b1db8870e24c156dc4c02146943391c"
+    },
+    {
+      "path": "src/asstes/Fonts/friz-quadrata-regular-os-5870333951e7c.ttf",
+      "sha1": "8656d8cd738ac6aac7f8c27e905822f1cab41bab"
+    }
+  ]
+}
