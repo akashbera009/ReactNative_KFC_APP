@@ -8,6 +8,7 @@ export const CountryInfo: countryType[] = [
         mobileCode: '+971',
         mobileNoLength: 9,
         mobileNoFraction: 3, 
+        currencyCode: 'AED',
     },
     {
         name: 'India',
@@ -15,7 +16,8 @@ export const CountryInfo: countryType[] = [
         code: 'in',
         mobileCode: '+91',
         mobileNoLength: 10,
-        mobileNoFraction: 5 
+        mobileNoFraction: 5 ,
+        currencyCode: 'INR',
     },
     {
         name: 'Kuwait',
@@ -23,6 +25,7 @@ export const CountryInfo: countryType[] = [
         code: 'kw',
         mobileCode: '+965',
         mobileNoLength: 8,
-        mobileNoFraction: 4
+        mobileNoFraction: 4,
+        currencyCode: 'KWD',
     },
 ]

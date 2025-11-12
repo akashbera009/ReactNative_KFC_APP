@@ -14,29 +14,43 @@ import { useCountry } from '../../../context/CountryContext';
 
 
 export default function CountrySelectionBottomSheet() {
-  const slide = useRef(new Animated.Value(0)).current;
+  const slide = useRef(new Animated.Value(500)).current;
+  const fade = useRef(new Animated.Value(0)).current;
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts)
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
   const { countrySelected, setCountrySelected } = useCountry();
 
   const slideUp = () => {
-    Animated.timing(slide, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
+    Animated.parallel([
+      Animated.timing(slide, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(fade, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      })
+    ]).start();
   };
 
   const slideDown = () => {
-    Animated.timing(slide, {
-      toValue: 500,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
+    Animated.parallel([
+      Animated.timing(slide, {
+        toValue: 500,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(fade, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      })
+    ]).start();
   };
 
   const closeModal = () => {
@@ -50,10 +64,9 @@ export default function CountrySelectionBottomSheet() {
     slideUp();
   }, []);
   return (
-    <View style={Styles.backDrop}>
-      <TouchableWithoutFeedback
-        onPress={closeModal}
-      >
+    <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
+      <TouchableWithoutFeedback onPress={closeModal}>
+        <View style={StyleSheet.absoluteFillObject} />
       </TouchableWithoutFeedback>
       <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
         <View style={Styles.OuterContainer}>
@@ -65,7 +78,7 @@ export default function CountrySelectionBottomSheet() {
             </View>
             <View style={Styles.bottomSheeetContentContainer}>
               <Text style={Styles.WelcomeHeader}>{Strings?.welcome}</Text>
-              <Text style={Styles.countryDescription} >{Strings?.countryDescription}</Text>
+              <Text style={Styles.countryDescription} numberOfLines={3} >{Strings?.countryDescription}</Text>
               <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={Styles.CountryContainer}>
@@ -108,7 +121,7 @@ export default function CountrySelectionBottomSheet() {
           </View>
         </View>
       </Animated.View>
-    </View>
+    </Animated.View >
   )
 }
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
@@ -133,8 +146,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     InnerContainer: {
       height: '100%',
       backgroundColor: Colors.bodyColor,
-      borderTopRightRadius: 20,
-      borderTopLeftRadius: 20,
+      borderTopRightRadius: 40,
+      borderTopLeftRadius: 40,
       position: 'relative',
     },
     ThreeColumnStyle: {
@@ -176,15 +189,17 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     countryDescription: {
       width: "90%",
       alignSelf: 'center',
-      fontFamily: Fonts?.font5,
-      fontSize: 18,
-      fontWeight: 400,
+      fontFamily: Fonts?.fon17,
+      fontSize: 17,
+      fontWeight: 500,
       textAlign: 'center',
       color: Colors?.textFadeBlack,
-      marginTop: 15
+      marginTop: 15,
+      lineHeight: 27 ,
     },
     CountryContainer: {
       maxHeight: 230,
+      marginTop: 10 , 
       width: '100%',
       alignSelf: 'center',
       display: 'flex',

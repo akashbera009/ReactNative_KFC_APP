@@ -210,6 +210,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'flex-end',
             justifyContent: 'flex-end',
             backgroundColor: Colors?.bodyColor,
+            shadowColor:Colors?.blueShadows,
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
         },
         innerNavigationContainer: {
             width: '100%',

@@ -6,6 +6,50 @@
       "sha1": "3334952ea462c0578cf5487c64636f8679ce1c25"
     },
     {
+      "path": "src/asstes/Fonts/HelveticaNeueBold.otf",
+      "sha1": "32a5639cbf87b4992575738e1f72578d7530744c"
+    },
+    {
+      "path": "src/asstes/Fonts/HelveticaNeueBoldItalic.otf",
+      "sha1": "cb203709a92b4b9f03c21c650592746a855192cf"
+    },
+    {
+      "path": "src/asstes/Fonts/HelveticaNeueItalic.ttf",
+      "sha1": "8081f356ced0ad5265c41c8b08e07fe2f1458f35"
+    },
+    {
+      "path": "src/asstes/Fonts/HelveticaNeueLight.otf",
+      "sha1": "6013aa8c5fb912f30e935a310c5fa203317d00d8"
+    },
+    {
+      "path": "src/asstes/Fonts/HelveticaNeueLightItalic.otf",
+      "sha1": "60551308f4bd22f8ec96ca7a49ae067f17668fb7"
+    },
+    {
+      "path": "src/asstes/Fonts/HelveticaNeueMedium.otf",
+      "sha1": "d46c2de0310e80f35934124d36a5556f08948700"
+    },
+    {
+      "path": "src/asstes/Fonts/HelveticaNeueMediumItalic.otf",
+      "sha1": "d2df0a24a6ef04ec121c07a8b929274e2eef36f1"
+    },
+    {
+      "path": "src/asstes/Fonts/HelveticaNeueThin.otf",
+      "sha1": "623d2934160c3816be359f0cfb443deab769935f"
+    },
+    {
+      "path": "src/asstes/Fonts/HelveticaNeueThinItalic.otf",
+      "sha1": "2cfad870d95c40f8c3920a9c7f2dc53644523302"
+    },
+    {
+      "path": "src/asstes/Fonts/HelveticaNeueUltraLight.otf",
+      "sha1": "b06e239b40449bc372366eaf4e8200f223642673"
+    },
+    {
+      "path": "src/asstes/Fonts/HelveticaNeueUltraLightItalic.otf",
+      "sha1": "906ed4cfe0d2cea212f64354be1e5453d6fb7883"
+    },
+    {
       "path": "src/asstes/Fonts/Playball-Regular.ttf",
       "sha1": "0a3aa7581907061912b301cf5c9fe50051b4e73c"
     },
@@ -48,18 +92,6 @@
     {
       "path": "src/asstes/Fonts/RobotoSlab-VariableFont_wght.ttf",
       "sha1": "5722dc9fcc8b77ac8239ab33ab32c2f224784d78"
-    },
-    {
-      "path": "src/asstes/Fonts/Roboto_Slab/LICENSE.txt",
-      "sha1": "47b573e3824cd5e02a1a3ae99e2735b49e0256e4"
-    },
-    {
-      "path": "src/asstes/Fonts/Roboto_Slab/README.txt",
-      "sha1": "21d04e9ca4e2a775754c2d3581afd949461abd1c"
-    },
-    {
-      "path": "src/asstes/Fonts/Roboto_Slab.zip",
-      "sha1": "991b7c93c0f4e430d07aa7f09c16eb907baa973d"
     },
     {
       "path": "src/asstes/Fonts/Rubik-Italic-VariableFont_wght.ttf",
@@ -148,6 +180,26 @@
     {
       "path": "src/asstes/Fonts/friz-quadrata-regular-os-5870333951e7c.ttf",
       "sha1": "8656d8cd738ac6aac7f8c27e905822f1cab41bab"
+    },
+    {
+      "path": "src/asstes/Fonts/helvetica-neue-5/HelveticaNeueBlack.otf",
+      "sha1": "1cfd5b59e8a2c42433874c9d38d7b3daeb74e6fb"
+    },
+    {
+      "path": "src/asstes/Fonts/helvetica-neue-5/HelveticaNeueBlackItalic.otf",
+      "sha1": "d9d8574a6268e3a9a61280ad266aea90f2891bba"
+    },
+    {
+      "path": "src/asstes/Fonts/helvetica-neue-5/HelveticaNeueHeavy.otf",
+      "sha1": "de70a16801a647e2a2157a7dd3832e29756f06a3"
+    },
+    {
+      "path": "src/asstes/Fonts/helvetica-neue-5/HelveticaNeueHeavyItalic.otf",
+      "sha1": "7879a0c065b62ac71f369b4bffb8ee4425340a52"
+    },
+    {
+      "path": "src/asstes/Fonts/helvetica-neue-5/HelveticaNeueRoman.otf",
+      "sha1": "8e7dc6cf7246db5e6dacf75c0f91e67ba70ab6b9"
     }
   ]
 }

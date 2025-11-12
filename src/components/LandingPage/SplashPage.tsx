@@ -11,17 +11,17 @@ export default function SplashPage() {
     const Colors = useThemeColors()
     const Strings = useStrings()
     const inset = useSafeAreaInsets()
+    const Styles = createDynamicStyles(Colors, Fonts)
     return (
-        <View style={[Styles.HomeScreen, { backgroundColor: Colors?.KFC_red }]}>
+        <View style={Styles.HomeScreen}>
             <View style={Styles.backGroundContainer}>
-
                 <View style={Styles.ThreeColumnStyle}>
-                    <View style={[Styles.singleCOlumnStyle, { backgroundColor: Colors?.constantWhite }]} />
-                    <View style={[Styles.singleCOlumnStyle, { backgroundColor: Colors?.constantWhite }]} />
-                    <View style={[Styles.singleCOlumnStyle, { backgroundColor: Colors?.constantWhite }]} />
+                    <View style={Styles.singleCOlumnStyle} />
+                    <View style={Styles.singleCOlumnStyle} />
+                    <View style={Styles.singleCOlumnStyle} />
                 </View>
                 <View style={[Styles.LowerContainer, { marginBottom: inset.bottom + 80 }]}>
-                    <Text numberOfLines={2} style={[Styles.mainText, { fontFamily: Fonts.firstPageCUrsuve, color: Colors?.constantWhite }]}>
+                    <Text numberOfLines={2} style={Styles.mainText}>
                         "{Strings?.lickingGood}"
                     </Text>
                 </View>
@@ -29,15 +29,16 @@ export default function SplashPage() {
             <View style={Styles.logoImageContainer}>
                 <Image source={Images?.KFC_logo_image} style={Styles.LogoImage} />
             </View>
-            
         </View>
     )
 }
 
+const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
 const Styles = StyleSheet.create({
     HomeScreen: {
         width: '100%',
-        height: '100%'
+        height: '100%',
+        backgroundColor: Colors?.KFC_red
     },
     backGroundContainer: {
         width: '100%',
@@ -57,12 +58,13 @@ const Styles = StyleSheet.create({
     singleCOlumnStyle: {
         height: 120,
         width: 40,
+        backgroundColor: Colors?.constantWhite
     },
     LowerContainer: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
-
+        transform: [{ rotate: '-8deg' }],
     },
     logoImageContainer: {
         position: 'absolute',
@@ -79,11 +81,14 @@ const Styles = StyleSheet.create({
         width: 220,
         marginHorizontal: 'auto',
     },
-    mainText: {
-        transform: [{ rotate: '-8deg' }],
+    mainText: { 
+        fontFamily: Fonts.firstPageCUrsuve, 
+        color: Colors?.constantWhite,
         fontSize: 65,
         maxWidth: '90%',
         marginHorizontal: 'auto',
         textAlign: 'center'
     }
 })
+    return Styles
+}

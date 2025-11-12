@@ -49,7 +49,7 @@ export default function LoginPage2() {
         //     return
         // await Keyboard.dismiss()
         // comment
-        navigation.navigate(Strings?.OTPScreen, {
+        navigation.push(Strings?.OTPScreen, {
             phoneNo: mobileNo
         })
     }

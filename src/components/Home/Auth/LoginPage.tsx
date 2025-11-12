@@ -77,7 +77,9 @@ export default function LoginPage() {
                 style={[Styles.checkBox]}
               >
                 {language == 'en' && (
-                  <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
+                  <View style={Styles.TickMarkImageContainer}>
+                    <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
+                  </View>
                 )}
               </TouchableOpacity>
             </View>
@@ -89,7 +91,9 @@ export default function LoginPage() {
                 style={[Styles.checkBox]}
               >
                 {language == 'ar' && (
-                  <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
+                  <View style={Styles.TickMarkImageContainer}>
+                    <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
+                  </View>
                 )}
               </TouchableOpacity>
             </View>
@@ -99,19 +103,20 @@ export default function LoginPage() {
               <Image source={countrySelected?.flag} style={Styles.flagImage} />
               <Text style={[Styles.CountryName,]}>{countrySelected?.name}</Text>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate(Strings?.LoginPageCountryBottomSheetScreen)}>
+            <TouchableOpacity onPress={() => navigation.navigate('LoginPageCountryBottomSheetScreen')}>
               <Text style={[Styles.changeText, { fontFamily: Fonts?.subHeader, color: Colors?.ButtonBlueColor }]}>{Strings?.change}</Text>
             </TouchableOpacity>
           </View>
+
           <TouchableOpacity
             activeOpacity={.5}
             style={[Styles.loginButton, {}]}
-            onPress={() => navigation.navigate(Strings?.LoginScreen2)}>
+            onPress={() => navigation.push(Strings?.LoginScreen2)}>
             <Text style={[Styles.LoginButtonText]}>{Strings?.login}</Text>
           </TouchableOpacity>
           <View style={[Styles.BottomTermsContainer, { marginBottom: inset.bottom + 10 }]}>
             <TouchableOpacity >
-              <Text style={[{ fontFamily: Fonts?.subHeader, color: Colors?.fadeWhiteText }]}>{Strings?.termsCondition}</Text>
+              <Text style={[{ fontFamily: Fonts?.subHeader, color: Colors?.fadeWhiteText }]}>{Strings?.termsCondition.toUpperCase()}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate(Strings?.HomeScreen)}>
@@ -255,11 +260,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       borderColor: Colors?.fadeborder
     },
     tickMark: {
-      height: 25,
-      width: 25,
+      height: 15,
+      width: 15,
+    },
+    TickMarkImageContainer: {
       borderRadius: 50,
       padding: 6,
-      tintColor: Colors?.constantWhite, backgroundColor: Colors?.KFC_red
+      tintColor: Colors?.constantWhite,
+      backgroundColor: Colors?.KFC_red
     },
     CountryChangeContainer: {
       width: '90%',

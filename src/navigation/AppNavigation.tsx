@@ -18,6 +18,9 @@ import LoginScreen2 from '../screens/LoginScreen2';
 import OTPScreen from '../screens/OTPScreen';
 import LoginPageCountryBottomSheetScreen from '../screens/LoginPageCountryBottomSheetScreen';
 import CreateProfileScreen from '../screens/CreateProfileScreen';
+import ChangeLocationBottomSheetScreen from '../screens/ChangeLocationBottomSheetScreen';
+import PopUpScreens from '../screens/PopUpScreens';
+import ExploreMenuScreen from '../screens/ExploreMenuScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -26,7 +29,7 @@ const Drawer = createDrawerNavigator()
 function StackNavigator() {
     const Strings = useStrings()
     return (
-        <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName={Strings?.HomeScreen} screenOptions={{ headerShown: false }}>
             <Stack.Screen
                 name={Strings?.SplashScreen}
                 component={SplashScreen}
@@ -34,6 +37,20 @@ function StackNavigator() {
             <Stack.Screen
                 name={Strings?.HomeScreen}
                 component={HomeScreen}
+            />
+            <Stack.Screen
+                name={Strings?.ChangeLocationBottomSheetScreen}
+                component={ChangeLocationBottomSheetScreen}
+                options={{
+                    presentation: 'transparentModal'
+                }}
+                />
+            <Stack.Screen
+                name={Strings?.PopUpScreens}
+                component={PopUpScreens}
+                options={{
+                    presentation: 'transparentModal'
+                }}
             />
             <Stack.Screen
                 name={Strings?.LoginScreen}
@@ -53,6 +70,10 @@ function StackNavigator() {
             <Stack.Screen
                 name={Strings?.OTPScreen}
                 component={OTPScreen}
+            />
+           <Stack.Screen
+                name={Strings?.ExploreMenuScreen}
+                component={ExploreMenuScreen}
             />
             <Stack.Screen
                 name={Strings?.CreateProfileScreen}

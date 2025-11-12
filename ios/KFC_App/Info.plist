@@ -85,6 +85,22 @@
 		<string>ZalandoSansSemiExpanded-VariableFont_wght.ttf</string>
 		<string>friz-quadrata-bold-italic-os-5870341205e0f.ttf</string>
 		<string>friz-quadrata-regular-os-5870333951e7c.ttf</string>
+		<string>HelveticaNeueBold.otf</string>
+		<string>HelveticaNeueBoldItalic.otf</string>
+		<string>HelveticaNeueLight.otf</string>
+		<string>HelveticaNeueLightItalic.otf</string>
+		<string>HelveticaNeueMedium.otf</string>
+		<string>HelveticaNeueMediumItalic.otf</string>
+		<string>HelveticaNeueThin.otf</string>
+		<string>HelveticaNeueThinItalic.otf</string>
+		<string>HelveticaNeueUltraLight.otf</string>
+		<string>HelveticaNeueUltraLightItalic.otf</string>
+		<string>HelveticaNeueBlack.otf</string>
+		<string>HelveticaNeueBlackItalic.otf</string>
+		<string>HelveticaNeueHeavy.otf</string>
+		<string>HelveticaNeueHeavyItalic.otf</string>
+		<string>HelveticaNeueRoman.otf</string>
+		<string>HelveticaNeueItalic.ttf</string>
 	</array>
 </dict>
 </plist>

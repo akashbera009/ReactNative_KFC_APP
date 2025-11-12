@@ -3,6 +3,8 @@ import { useLanguage } from '../context/LanguageContex'
 const en = {
   // screens
   HomeScreen: 'HomeScreen',
+  ChangeLocationBottomSheetScreen: 'ChangeLocationBottomSheetScreen',
+  PopUpScreens: 'PopUpScreens',
   LoginScreen: 'LoginScreen',
   LoginScreen2: 'LoginScreen2',
   LoginPageCountryBottomSheetScreen: 'LoginPageCountryBottomSheetScreen',
@@ -10,6 +12,7 @@ const en = {
   CreateProfileScreen: "CreateProfileScreen",
   FontsScreen: 'FontsScreen',
   SplashScreen: 'SplashScreen',
+  ExploreMenuScreen:'ExploreMenuScreen',
   HelpScreen: 'HelpScreen',
   Main: 'Main',
   Help: 'Help',
@@ -31,7 +34,7 @@ const en = {
   kuwait: 'Kuwait',
   india: 'India',
   login: 'LOGIN',
-  termsCondition: 'TERMS & CONDITIONS',
+  termsCondition: 'Terms & Conditons',
   skipLogin: 'SKIP LOGIN',
   change: 'CHANGE',
 
@@ -70,13 +73,56 @@ const en = {
   name: 'Name',
   email: 'Email',
   save: 'save',
-  fieldIsMandatory: 'This field is mandatory.'
+  fieldIsMandatory: 'This field is mandatory.',
+
+  // home screen 
+  deliveryTo: 'Deliver to',
+  exploreMore: 'Explore more',
+  viewAll: 'view all',
+  deals: 'deals',
+  forOne: 'for\none',
+  sideDeserts: 'side\ndeserts',
+  forSharing: 'for\nsharing',
+  beverages: 'beverages',
+  CurrentOrder: 'Current Order',
+  trackOrder: 'Track Order',
+  orderIdText: 'Order ID',
+  bestSeller: 'best sellers',
+  favourites: 'favourites',
+  orderFromList: 'Order from your favourite list of items',
+  orderNow: 'order now',
+  order: 'order',
+
+  // location botom sheet 
+  consfirmLocation: 'Confirm Location',
+  consfirmLocationDescription: 'Your delivery location has been identified\nPlease confirm to proceed ⛳',
+  confirm: 'confirm',
+  // sidebar 
+  orderHistory: 'Order History',
+  dealsAndOffer: 'Deals & Offers',
+  greatMenu: 'Great Menu',
+  combo: 'Combo',
+  language: 'Language',
+  languageToggle: 'اللغة',
+  country: 'Country',
+  callSupport: 'call support',
+  faq: 'faq',
+  nutritionInfo: 'Nutrition Information',
+  pleaseSelectlanguage : 'Please Select language',
+  ChangeTheme: 'Change Theme',
+
+  // explore screen 
+  exploreMenu : 'Explore Menu',
+  AddToCart: 'Add To Cart',
+  customize : 'customize',
 
 } as const
 
 const ar = {
   // screens
   HomeScreen: 'HomeScreen',
+  ChangeLocationBottomSheetScreen: 'ChangeLocationBottomSheetScreen',
+  PopUpScreens: 'PopUpScreens',
   LoginScreen: 'LoginScreen',
   LoginScreen2: 'LoginScreen2',
   LoginPageCountryBottomSheetScreen: 'LoginPageCountryBottomSheetScreen',
@@ -84,6 +130,7 @@ const ar = {
   CreateProfileScreen: 'CreateProfileScreen',
   FontsScreen: 'FontsScreen',
   SplashScreen: 'SplashScreen',
+  ExploreMenuScreen:'ExploreMenuScreen',
   HelpScreen: 'HelpScreen',
   Main: 'Main',
   Help: 'Help',
@@ -139,16 +186,58 @@ const ar = {
   verifyText: 'تحقق',
 
   // create profile 
-  createProfileHeader: 'Create Profile',
-  enterYourDetails: 'Please enter your details',
-  name: 'Name',
-  email: 'Email',
-  save: 'save',
-  fieldIsMandatory: 'This field is mandatory.'
+  createProfileHeader: 'إنشاء الملف الشخصي',
+  enterYourDetails: 'يرجى إدخال بياناتك',
+  name: 'الاسم',
+  email: 'البريد الإلكتروني',
+  save: 'حفظ',
+  fieldIsMandatory: 'هذا الحقل إلزامي.',
+
+  // home screen 
+  deliveryTo: 'التوصيل إلى',
+  exploreMore: 'استكشاف المزيد',
+  viewAll: 'عرض الكل',
+  deals: 'عروض',
+  forOne: 'لشخص واحد',
+  sideDeserts: 'حلويات جانبية',
+  forSharing: 'للمشاركة',
+  beverages: 'مشروبات',
+  CurrentOrder: 'الطلب الحالي',
+  trackOrder: 'تتبع الطلب',
+  orderIdText: 'رقم الطلب',
+  bestSeller: 'الأكثر مبيعًا',
+  favourites: 'المفضلة',
+  orderFromList: 'اطلب من قائمتك المفضلة من العناصر',
+  orderNow: 'اطلب الآن',
+  order: 'order',
+
+  // location bottom sheet 
+  consfirmLocation: 'تأكيد الموقع',
+  consfirmLocationDescription: 'تم تحديد موقع التوصيل الخاص بك\nيرجى التأكيد للمتابعة ⛳',
+  confirm: 'تأكيد',
+
+  // sidebar 
+  orderHistory: 'سجل الطلبات',
+  dealsAndOffer: 'العروض والخصومات',
+  greatMenu: 'قائمة رائعة',
+  combo: 'وجبات كومبو',
+  language: 'اللغة',
+  languageToggle: 'language',
+  country: 'البلد',
+  callSupport: 'الاتصال بالدعم',
+  faq: 'الأسئلة الشائعة',
+  nutritionInfo: 'المعلومات الغذائية',
+  pleaseSelectlanguage : 'Please Select language',
+  ChangeTheme: 'Change Theme',
+
+  // explore screen 
+  exploreMenu : 'Explore Menu',
+  AddToCart: 'Add To Cart',
+  customize : 'customize',
+
 
 } as const
 
-// Hook-based selector
 export const useStrings = () => {
   const { language } = useLanguage();
   return language === 'ar' ? ar : en;

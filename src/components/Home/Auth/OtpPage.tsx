@@ -54,7 +54,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   const handleVerify = () => {
     // if(goodToLogin) 
     // comment
-    navigation.navigate(Strings?.CreateProfileScreen, {
+    navigation.push(Strings?.CreateProfileScreen, {
       phoneNo: phoneNo1
     })
   }
@@ -175,6 +175,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignItems: 'flex-end',
       justifyContent: 'flex-end',
       backgroundColor: Colors?.bodyColor,
+      shadowColor: Colors?.blueShadows,
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
     },
     innerNavigationContainer: {
       width: '100%',

@@ -41,5 +41,30 @@ const Images = {
 
     Home_Page_Main_Image: require(fixedPath+ 'HomeScreen/Home_Page_Main_Image.png'), 
     Menu: require(fixedPath+ 'HomeScreen/Menu.png'), 
+    Location: require(fixedPath+ 'HomeScreen/Location.png'), 
+    Chicken_Nugedts: require(fixedPath+ 'HomeScreen/Chicken_Nugedts.png'), 
+    Pepsi_Double_Can: require(fixedPath+ 'HomeScreen/Pepsi_Double_Can.png'), 
+    French_Fries_Coke: require(fixedPath+ 'HomeScreen/French_Fries_Coke.png'), 
+    Chicken_Bucket: require(fixedPath+ 'HomeScreen/Chicken_Bucket.png'), 
+    Chicken_Roll: require(fixedPath+ 'HomeScreen/Chicken_Roll.png'), 
+
+    Favourite_Combo_Pack: require(fixedPath+ 'HomeScreen/Favourite_Combo_Pack.png'), 
+    Burger: require(fixedPath+ 'HomeScreen/Burger.png'), 
+    Mao_Location: require(fixedPath+ 'HomeScreen/Mao_Location.png'), 
+    Cloud: require(fixedPath+ 'HomeScreen/Cloud.png'), 
+    Cloud2: require(fixedPath+ 'HomeScreen/Cloud2.png'), 
+    
+    Track_Order: require(fixedPath+ 'Sidebar/Track_Order.png'), 
+    Great_Menu: require(fixedPath+ 'Sidebar/Great_Menu.png'), 
+    Combo_Menu: require(fixedPath+ 'Sidebar/Combo_Menu.png'), 
+    Fill_Call: require(fixedPath+ 'Sidebar/Fill_Call.png'), 
+    Down_Arrow_Thick: require(fixedPath+ 'Sidebar/Down_Arrow_Thick.png'), 
+    Theme_Icon: require(fixedPath+ 'Sidebar/Theme_Icon.png'), 
+
+    Search_Icon: require(fixedPath+ 'MenuScreen/Search_Icon.png'), 
+    Thin_Back_Icon: require(fixedPath+ 'MenuScreen/Thin_Back_Icon.png'), 
+    Foood_Menu_Icon: require(fixedPath+ 'MenuScreen/Foood_Menu_Icon.png'), 
+    Favourite_Icon_Empty: require(fixedPath+ 'MenuScreen/Favourite_Icon_Empty.png'), 
+    Favourite_Icon: require(fixedPath+ 'MenuScreen/Favourite_Icon.png'), 
 }
-export default Images
+export default Images   
