@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Animated, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -18,25 +18,32 @@ export default function LanguagePopUp() {
     const Styles = createDynamicStyles(Colors, Fonts)
     const inset = useSafeAreaInsets();
     const { language, setLanguage } = useLanguage()
+    const[tempLang , settempLang] = useState(language)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const handleSelectionLanguage =(lang: string )=>{
+        settempLang(lang)
+    } 
+    const handleSetLanguage =()=>{
+        setLanguage(tempLang);
+        navigation.pop()
+    }
     return (
         <View style={Styles.backDrop}>
             <TouchableWithoutFeedback onPress={() => navigation.pop()} accessible={false}>
                 <View style={[Styles.Wrapper, { marginTop: inset.top }]}>
                     <TouchableWithoutFeedback>
-
                         <View style={Styles.PopUpContainer}>
                             <Text style={Styles.selectionLanguageHeader}>{Strings?.pleaseSelectlanguage} </Text>
                             <View style={[Styles.LanguageChangeContainer,]}>
                                 < TouchableOpacity
                                     activeOpacity={.7}
-                                    onPress={() => setLanguage('en')}
+                                    onPress={() => handleSelectionLanguage('en') }
                                     style={[Styles.languageContainer]}>
                                     <Text style={Styles.changeText}>{Strings?.english}</Text>
                                     <View
                                         style={[Styles.checkBox]}
                                     >
-                                        {language == 'en' && (
+                                        {tempLang == 'en' && (
                                             <View style={Styles.TickMarkImageContainer}>
                                                 <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
                                             </View>
@@ -44,13 +51,13 @@ export default function LanguagePopUp() {
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={() => setLanguage('ar')}
+                                    onPress={() => handleSelectionLanguage('ar') }
                                     style={[Styles.languageContainer,]}>
                                     <Text style={Styles.changeText}>{Strings?.arabic}</Text>
                                     <View
                                         style={[Styles.checkBox]}
                                     >
-                                        {language == 'ar' && (
+                                        {tempLang == 'ar' && (
                                             <View style={Styles.TickMarkImageContainer}>
                                                 <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
                                             </View>
@@ -62,7 +69,7 @@ export default function LanguagePopUp() {
                             <TouchableOpacity
                                 activeOpacity={.5}
                                 style={[Styles.loginButton, {}]}
-                                onPress={() => navigation.pop()}>
+                                onPress={handleSetLanguage}>
                                 <Text style={[Styles.LoginButtonText]}>{Strings?.done}</Text>
                             </TouchableOpacity>
                         </View>

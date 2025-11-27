@@ -1,17 +1,24 @@
-import { StyleSheet, View, FlatList } from 'react-native'
-import React, {useState} from 'react'
+import { StyleSheet, View, FlatList, Platform } from 'react-native'
+import React from 'react'
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // component imports 
 import MenuCard from './MenuCard'
-// data imports 
-import { menuData } from '../../data/MenuData'
 //util files 
 import { useThemeColors } from '../../utils/Colors'
-export default function ExploreMenu({isActive,  categoryList}: {isActive: number,  categoryList: string[]}) {
-    const Colors = useThemeColors() 
+import { useMenu } from '../../context/MenuContext'
+import { useCart } from '../../context/CartContext'
+export default function ExploreMenu({ activeCategory, categoryList }: { activeCategory: string, categoryList: string[] }) {
+    const Colors = useThemeColors()
     const Styles = createDynamicStyles(Colors)
-    const prepareMenuList = menuData.filter((item)=> item.categories.includes(categoryList[isActive]))
-    // const [menuDataSetter , setMenuDataSetter] = useState(menuData)
-    
+    const { menuItem } = useMenu()
+    const { CartItem } = useCart();
+    const insets = useSafeAreaInsets();
+    let prepareMenuList = [];
+    if (activeCategory === 'Favourites') {
+        prepareMenuList = menuItem.filter((item) => item.isFavorite)
+    } else {
+        prepareMenuList = menuItem.filter((item) => item.categories.includes(activeCategory))
+    }
     return (
         <View style={Styles.ScrollContainer}>
             <FlatList
@@ -23,6 +30,11 @@ export default function ExploreMenu({isActive,  categoryList}: {isActive: number
                 }
                 keyExtractor={item => item?.name}
             />
+            {CartItem?.length != 0 ?
+                <View style={[Styles.bottomBlank, Platform.OS == 'ios' ? { height: insets.bottom + 100 } : { height: insets.bottom + 60 }]} />
+                :
+                <View style={[Styles.bottomBlank, Platform.OS == 'ios' ? { height: insets.bottom } : { height: insets.bottom - 10 }]} />
+            }
         </View>
     )
 }
@@ -35,7 +47,11 @@ const createDynamicStyles = (Colors: ColorType) => {
             position: 'relative',
             zIndex: 1,
             marginTop: 4,
-            height: '85%'
+            height: '90%',
+            paddingBottom: 40,
+        },
+        bottomBlank: {
+            height: 40
         },
         cardContainer: {
             width: '100%',

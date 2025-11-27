@@ -1,1 +1,1 @@
-export const localVideoPath = require('../asstes/Videos/KFC_Intro_Video.mp4')
+export const localVideoPath = require('../asstes/Videos/kfc_intro_video.mp4')

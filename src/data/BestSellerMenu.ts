@@ -1,5 +1,5 @@
 import Images from "../utils/LocalImages";
-export const BestSellerMenu: MenuItem[] = [
+export const BestSellerMenu: BestSellerMenuType[] = [
   {
     id: '1',
     title: 'Super Mega Deal',

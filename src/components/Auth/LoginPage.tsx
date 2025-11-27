@@ -5,15 +5,15 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useLanguage } from '../../../context/LanguageContex'
+import { useLanguage } from '../../context/LanguageContex'
 import LinearGradient from 'react-native-linear-gradient';
 
 // util file 
-import { useStrings } from '../../../utils/Strings'
-import { useThemeColors } from '../../../utils/Colors'
-import Fonts from '../../../utils/Fonts'
-import Images from '../../../utils/LocalImages'
-import { useCountry } from '../../../context/CountryContext';
+import { useStrings } from '../../utils/Strings'
+import { useThemeColors } from '../../utils/Colors'
+import Fonts from '../../utils/Fonts'
+import Images from '../../utils/LocalImages'
+import { useCountry } from '../../context/CountryContext';
 
 export default function LoginPage() {
   const Colors = useThemeColors()

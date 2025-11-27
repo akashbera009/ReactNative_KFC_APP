@@ -5,12 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // util import 
-import { useThemeColors } from '../../../utils/Colors';
-import { useStrings } from '../../../utils/Strings';
-import Fonts from '../../../utils/Fonts';
-import Images from '../../../utils/LocalImages';
-import { useCountry } from '../../../context/CountryContext';
-import { useLanguage } from '../../../context/LanguageContex';
+import { useThemeColors } from '../../utils/Colors';
+import { useStrings } from '../../utils/Strings';
+import Fonts from '../../utils/Fonts';
+import Images from '../../utils/LocalImages';
+import { useCountry } from '../../context/CountryContext';
+import { useLanguage } from '../../context/LanguageContex';
 
 export default function LoginPage2() {
     const Colors = useThemeColors();

@@ -51,11 +51,20 @@ const SideBar = () => {
                 activeOpacity={.7}
                 onPress={() => {
                   setIsDarkMode(!isDarkMode)
-                  // setIsSettingsMenuOpen(false)
+                  setIsSettingsMenuOpen(false)
                 }}>
                 <Image source={Images?.Theme_Icon} style={Styles.ThemeIcon} />
                 <Text style={Styles.countryEntriesText}>{Strings?.ChangeTheme}</Text>
-                {/* <View style={Styles.CustomBottomBorder} /> */}
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={Styles.SettingsMenuEntries}
+                activeOpacity={.7}
+                onPress={() => {
+                  navigation.navigate(Strings?.SplashScreen)
+                  setIsSettingsMenuOpen(false)
+                }}>
+                <Image source={Images?.Logout_Icon} style={Styles.ThemeIcon} />
+                <Text style={Styles.countryEntriesText}>{Strings?.logout}</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -202,9 +211,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       borderColor: Colors?.fadeBorder,
       backgroundColor: Colors?.bodyColor,
       position: 'absolute',
-      zIndex: 5 ,
-      right: 30,
-      top: 50,
+      zIndex: 5,
+      right: 35,
+      top: 55,
       borderRadius: 5,
       shadowColor: Colors?.blueShadows,
       shadowOffset: { width: 0, height: 2 },
@@ -212,18 +221,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       shadowRadius: 3.84,
       elevation: 5,
     },
-    SettingsMenuEntries:{
+    SettingsMenuEntries: {
       display: 'flex',
       flexDirection: 'row',
       marginHorizontal: 10,
       alignItems: 'center',
-      marginVertical: 10 , 
+      marginVertical: 10,
     },
     ThemeIcon: {
       height: 25,
       width: 25,
       tintColor: Colors?.textBlack,
-      margin: 5 
+      margin: 5
     },
     LanguageCountryContainer: {
       height: 100,
@@ -318,6 +327,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontWeight: 600,
       fontSize: 16,
       color: Colors?.textBlack,
+      marginLeft: 4
     },
     CustomBottomBorder: {
       width: '100%',

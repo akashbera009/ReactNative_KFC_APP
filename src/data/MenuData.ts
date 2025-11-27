@@ -17,7 +17,8 @@ export const menuData: menuDataType[] = [
         tag: "Previously Ordered",
         isFavorite: false,
         customizable: true,
-        categories: ["Deals", "Slides & Deserts", "For Sharing"]
+        categories: ["Deals", "Slides & Deserts", "For Sharing", "Shrimp"],
+         
     },
     {
         id: 2,
@@ -35,7 +36,8 @@ export const menuData: menuDataType[] = [
         image:Images?.Chicken_Nugedts,
         isFavorite: false,
         customizable: true,
-        categories: ["Deals" , "For One"]
+        categories: ["Deals" , "For One"],
+         
     },
     {
         id: 3,
@@ -51,7 +53,8 @@ export const menuData: menuDataType[] = [
         image:Images?.KFC_Combo_Pack,
         isFavorite: false,
         customizable: true,
-        categories: ["Deals", "For Sharing"]
+        categories: ["Deals", "For Sharing"],
+         
     },
     {
         id: 4,
@@ -70,7 +73,9 @@ export const menuData: menuDataType[] = [
         image:Images?.Chicken_Roll,
         isFavorite: false,
         customizable: true,
-        categories: ["Deals"]
+        categories: ["Deals"],
+         
+
     },
     {
         id: 5,
@@ -88,7 +93,8 @@ export const menuData: menuDataType[] = [
         image:Images?.Favourite_Combo_Pack,
         isFavorite: false,
         customizable: true,
-        categories: ["Deals", "Slides & Deserts" , "For One"]
+        categories: ["Deals", "Slides & Deserts" , "For One", "SandWich"],
+         
     },
     {
         id: 6,
@@ -105,7 +111,8 @@ export const menuData: menuDataType[] = [
         image:Images?.Pepsi_Double_Can,
         isFavorite: false,
         customizable: true,
-        categories: ["Deals", "Slides & Deserts"]
+        categories: ["Deals", "Slides & Deserts","Shrimp",],
+         
     },
 ];
 

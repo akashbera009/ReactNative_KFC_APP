@@ -5,6 +5,10 @@ const DeliveryDetails: DeliveryDetailsType  = {
     date: '22 Oct 2019',
     orderItem : "2 Twister BBQ Box , 1 Twister BBQ Box",
     beverages: 'Pepsi - Medium ',
-    personName: 'Akash Bera'
+    personName: 'Akash Bera',
+    mobileNumber: '75860 68924',
+    charges: 40 , 
+    vatCharge: 5 , 
+    discountRate: 4 , 
 }
 export default DeliveryDetails ; 

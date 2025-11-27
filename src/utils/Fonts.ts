@@ -3,8 +3,10 @@ const Fonts = {
     firstPageCUrsuve: 'Playball-Regular',
     headerRegular: 'Rubik-VariableFont_wght ',
     headerItalic: 'Rubik-Italic-VariableFont_wght',
-    subHeader: 'ZalandoSansSemiExpanded-VariableFont_wght',
-    kfcLogoTextFont: 'RobotoSlab-Regular',
+    subHeader:  Platform.OS === 'ios' ? 'ZalandoSansSemiExpanded-VariableFont_wght' : 'ZalandoSansSemiExpandedVariableFont_wght',
+    kfcLogoTextFont: Platform.OS === 'ios' ? 'RobotoSlab-Regular': 'RobotoSlabRegular',
+    // exp :  Platform.OS === 'ios' ? 'RobotoSlab-ExtraBold': 'RobotoSlabExtraBold',
+    exp :  Platform.OS === 'ios' ? 'RobotoSlab-ExtraBold': 'RobotoSlabExtraBold' ,
 
     bodyBoldFot: 'TestNational2Condensed-Black', // ok
     font1: 'TestNational2Condensed-BlackItalic',// ok

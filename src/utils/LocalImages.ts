@@ -53,6 +53,7 @@ const Images = {
     Mao_Location: require(fixedPath+ 'HomeScreen/Mao_Location.png'), 
     Cloud: require(fixedPath+ 'HomeScreen/Cloud.png'), 
     Cloud2: require(fixedPath+ 'HomeScreen/Cloud2.png'), 
+    laurel_leaves_Left: require(fixedPath+ 'HomeScreen/laurel_leaves_Left.png'), 
     
     Track_Order: require(fixedPath+ 'Sidebar/Track_Order.png'), 
     Great_Menu: require(fixedPath+ 'Sidebar/Great_Menu.png'), 
@@ -60,11 +61,24 @@ const Images = {
     Fill_Call: require(fixedPath+ 'Sidebar/Fill_Call.png'), 
     Down_Arrow_Thick: require(fixedPath+ 'Sidebar/Down_Arrow_Thick.png'), 
     Theme_Icon: require(fixedPath+ 'Sidebar/Theme_Icon.png'), 
+    Logout_Icon: require(fixedPath+ 'Sidebar/Logout_Icon.png'), 
 
     Search_Icon: require(fixedPath+ 'MenuScreen/Search_Icon.png'), 
     Thin_Back_Icon: require(fixedPath+ 'MenuScreen/Thin_Back_Icon.png'), 
     Foood_Menu_Icon: require(fixedPath+ 'MenuScreen/Foood_Menu_Icon.png'), 
     Favourite_Icon_Empty: require(fixedPath+ 'MenuScreen/Favourite_Icon_Empty.png'), 
     Favourite_Icon: require(fixedPath+ 'MenuScreen/Favourite_Icon.png'), 
+    Cross_Icon: require(fixedPath+ 'MenuScreen/Cross_Icon.png'), 
+    Delete_Icon: require(fixedPath+ 'MenuScreen/Delete_Icon.png'), 
+    AddButton: require(fixedPath+ 'MenuScreen/AddButton.png'), 
+    Minus: require(fixedPath+ 'MenuScreen/Minus.png'), 
+    CoffeeCup: require(fixedPath+ 'MenuScreen/CoffeeCup.png'), 
+    SpilledWater: require(fixedPath+ 'MenuScreen/SpilledWater.png'), 
+    Bow_Tie: require(fixedPath+ 'MenuScreen/Bow_Tie.png'), 
+
+    DeliveryBike: require(fixedPath+ 'CheckOutScreen/DeliveryBike.png'), 
+    COD_Cash: require(fixedPath+ 'CheckOutScreen/COD_Cash.png'), 
+    CreditCard: require(fixedPath+ 'CheckOutScreen/CreditCard.png'), 
+    Visa_Text: require(fixedPath+ 'CheckOutScreen/Visa_Text.png'), 
 }
 export default Images   

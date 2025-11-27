@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-
 // external imports 
 import { RadialGradient } from 'react-native-gradients';
 // custom component imports 
@@ -18,6 +17,8 @@ import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import DeliveryDetails from '../../data/DeliveryDetails';
 import VideoPlayerComponent from './VideoPlayer';
+import { useMenu } from '../../context/MenuContext';
+
 
 // player imports 
 export default function HomePage() {
@@ -27,7 +28,7 @@ export default function HomePage() {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const drawerNavigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
- 
+  const {menuItem} = useMenu()
   const colorList: { offset: string, color: string, opacity: string }[] = [
     { offset: '0%', color: Colors?.orangeColorText, opacity: '1' },
     { offset: '40%', color: Colors?.orangeColorText, opacity: '1' },
@@ -66,6 +67,7 @@ export default function HomePage() {
             </View>
             <TouchableOpacity
               onPress={() => navigation.navigate(Strings?.ChangeLocationBottomSheetScreen)}
+              // onPress={() => navigation.navigate(Strings?.MapsScreen)}
               style={Styles.RightSideButton}>
               <Text style={Styles.changeText}>{Strings?.change} </Text>
             </TouchableOpacity>
@@ -76,35 +78,46 @@ export default function HomePage() {
             <View style={Styles.headerExplore}>
               <Text style={Styles.ExploreHeader}>{Strings?.exploreMore.toUpperCase()} </Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate('ExploreMenuScreen')}
+                onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
               >
                 <Text style={Styles.ExploreHeaderViewAll}>{Strings?.viewAll.toUpperCase()} </Text>
               </TouchableOpacity>
             </View>
             <View style={Styles.ExploreCardsContainer}>
-              <View style={Styles.FirstCard}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                style={Styles.FirstCard}>
                 <Text style={[Styles.ExploreCardText, Styles.FirstCardtext]}>{Strings?.deals.toUpperCase()} </Text>
                 <Image source={Images?.Chicken_Bucket} style={Styles.FirstCardImage} />
-              </View>
+              </TouchableOpacity>
               <View style={Styles.SecondCardGroup}>
-                <View style={Styles.SecondCardTop}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                  style={Styles.SecondCardTop}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings?.forOne.toUpperCase()} </Text>
                   <Image source={Images?.Chicken_Nugedts} style={[Styles.SecondCardImage, Styles.RotateImage]} />
-                </View>
-                <View style={Styles.SecondCardDown}>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                  style={Styles.SecondCardDown}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings?.sideDeserts.toUpperCase()} </Text>
                   <Image source={Images?.French_Fries_Coke} style={Styles.SecondCardImage} />
-                </View>
+                </TouchableOpacity>
               </View>
-              <View style={Styles.ThirdCardGroup}>
-                <View style={Styles.ThirdCardTop}>
+              <View
+                style={Styles.ThirdCardGroup}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                  style={Styles.ThirdCardTop}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings?.forSharing.toUpperCase()} </Text>
                   <Image source={Images?.Chicken_Roll} style={[Styles.ThirdCardImage, Styles.ThirdCardTopExtra]} />
-                </View>
-                <View style={Styles.ThirdCardDown}>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                  style={Styles.ThirdCardDown}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings?.beverages.toUpperCase()} </Text>
                   <Image source={Images?.Pepsi_Double_Can} style={Styles.ThirdCardImage} />
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -129,7 +142,64 @@ export default function HomePage() {
             </View>
             <Image source={Images?.Favourite_Combo_Pack} style={Styles.Favourite_Combo_Pack} />
           </View>
-<VideoPlayerComponent/>
+          <View style={Styles.ParentWhatsNewContainer}>
+            <View style={Styles.headerExplore}>
+              <Text style={Styles.WhatsNewHeader}>{Strings?.WhatsNew.toUpperCase()} </Text>
+              <Text style={Styles.ExploreHeaderViewAll}>{Strings?.viewAll.toUpperCase()} </Text>
+            </View>
+            <ScrollView style={Styles.CardsContainer} horizontal showsHorizontalScrollIndicator={false}>
+              {menuItem.map((item, idx) => (
+                <View key={idx} style={Styles.Cards}>
+                  <View style={Styles.TopContainer}>
+                    <Image source={item?.image} style={Styles.cardImage} />
+                    <View style={Styles.RightContainer}>
+                      <View style={Styles.TextContainer}>
+                        <Text style={Styles.title} numberOfLines={2}>{item?.name} </Text>
+                      </View>
+                      <TouchableOpacity
+                        style={Styles.OrderButton}
+                        onPress={() => { }}
+                      >
+                        <Text style={Styles.OrderText}>{Strings?.order.toUpperCase()} </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+          <View style={Styles.BottomView}>
+
+            <View style={Styles.laurel_Container}>
+              <View style={Styles.container}>
+                <View style={Styles.LeftlinesContainer}>
+                  <View style={Styles.line1} />
+                  <View style={Styles.line2} />
+                  <View style={Styles.line1} />
+                </View>
+                <Image
+                  source={Images?.laurel_leaves_Left}
+                  style={[Styles.laurel, Styles.leftLaurel]}
+                  resizeMode="contain"
+                />
+                <Text style={Styles.centerText}>KFC</Text>
+                <Image
+                  source={Images?.laurel_leaves_Left}
+                  style={[Styles.laurel, Styles.rightLaurel]}
+                  resizeMode="contain"
+                />
+                <View style={Styles.linesContainer}>
+                  <View style={Styles.line1} />
+                  <View style={Styles.line2} />
+                  <View style={Styles.line1} />
+                </View>
+              </View>
+              <Text style={Styles.bottomKFCDescription}>{Strings?.bottomKFCDescription.toUpperCase()} </Text>
+            </View>
+
+            <VideoPlayerComponent />
+          </View>
         </View>
       </ScrollView >
     </View>
@@ -189,7 +259,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     AddressContainer: {
       height: 60,
-      width: '90%',
+      width: '93%',
       marginTop: 20,
       alignSelf: 'center',
       backgroundColor: Colors?.bodyColor,
@@ -202,7 +272,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: 22,
       width: 22,
       margin: 10,
-      marginLeft: 20,
+      marginLeft: 15,
       tintColor: Colors?.textBlack,
     },
     DeliveryTextContainer: {
@@ -226,7 +296,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       color: Colors?.textBlack,
     },
     DeliveryAddress: {
-      width: 210,
+      width: 230,
       overflow: 'hidden',
       marginRight: 15,
       fontWeight: 600,
@@ -236,6 +306,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       borderWidth: 1,
       borderColor: Colors?.timerText,
       borderRadius: 4,
+      position: 'absolute',
+      right: 15
     },
     changeText: {
       fontFamily: Fonts?.subHeader,
@@ -251,7 +323,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       backgroundColor: Colors?.bodyLigheterColor,
     },
     ExploreContainer: {
-      width: '90%',
+      width: '93%',
       alignSelf: 'center',
       marginTop: 15
     },
@@ -311,7 +383,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       bottom: 5,
     },
     SecondCardGroup: {
-
       shadowColor: Colors?.blueShadows,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: .1,
@@ -385,7 +456,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontFamily: Fonts?.font9,
       color: Colors?.textFadeBlack2,
       fontSize: 19,
-      fontWeight: 700,
+      fontWeight: 600,
       textAlign: 'right',
       margin: 5,
     },
@@ -425,7 +496,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     FavouriteContainer: {
       backgroundColor: Colors?.KFC_red,
-      width: '90%',
+      width: '93%',
       height: 140,
       alignSelf: 'center',
       borderRadius: 4,
@@ -498,6 +569,166 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       position: 'absolute',
       right: 0,
       top: 0,
+    },
+    ParentWhatsNewContainer: {
+      width: '93%',
+      alignSelf: 'center',
+    },
+
+    WhatsNewHeader: {
+      color: Colors?.textBlack,
+      fontFamily: Fonts?.subHeader,
+      fontWeight: 700,
+      fontSize: 14
+    },
+
+    CardsContainer: {
+      marginBottom: 5
+    },
+    Cards: {
+      height: 120,
+      width: 250,
+      backgroundColor: Colors?.bodyColor,
+      marginRight: 10,
+      marginVertical: 10,
+      shadowColor: Colors?.blueShadows,
+      shadowOffset: { width: 2, height: 2 },
+      shadowOpacity: .3,
+      borderRadius: 2,
+      shadowRadius: 5,
+      elevation: 5,
+    },
+    TopContainer: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center',
+    },
+    cardImage: {
+      height: 80,
+      width: 80,
+      marginLeft: 20,
+      shadowColor: Colors?.constantBlack,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+    RightContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '60%',
+      height: '80%',
+    },
+    TextContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      height: '60%',
+    },
+    title: {
+      margin: 10,
+      marginLeft: 10,
+      fontSize: 14,
+      fontWeight: 600,
+      marginHorizontal: 4,
+      color: Colors?.textBlack,
+      width: '80%',
+      overflow: 'hidden'
+    },
+
+    OrderButton: {
+      position: 'absolute',
+      left: 0,
+      bottom: 10,
+      borderWidth: 2,
+      borderColor: Colors?.fadeBorder,
+      borderRadius: 3,
+      marginLeft: 10,
+      marginRight: 'auto'
+    },
+    OrderText: {
+      color: Colors?.KFC_red,
+      fontFamily: Fonts?.subHeader,
+      fontSize: 11,
+      marginHorizontal: 15,
+      marginVertical: 5,
+      fontWeight: 800
+    },
+    BottomView: {
+      backgroundColor: Colors?.bodyColor
+    },
+    laurel_Container: {
+      marginVertical: 10,
+      marginBottom: 20,
+    },
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 10,
+    },
+
+    laurel: {
+      width: 40,
+      height: 80,
+      tintColor: Colors?.textBlack
+    },
+    rightLaurel: {
+      position: 'relative',
+      right: 18,
+    },
+    leftLaurel: {
+      transform: [{ scaleX: -1 }],
+      position: 'relative',
+      left: 18,
+    },
+
+    centerText: {
+      fontSize: 28,
+      fontFamily: Fonts?.exp,
+      marginHorizontal: 8,
+      color: Colors?.textBlack
+    },
+
+    linesContainer: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      marginHorizontal: 6,
+      position: 'relative',
+      right: 15,
+    },
+    LeftlinesContainer: {
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end',
+      marginHorizontal: 6,
+      position: 'relative',
+      left: 15,
+    },
+
+    line1: {
+      width: 15,
+      height: 1.2,
+      backgroundColor: Colors?.textBlack,
+      marginVertical: 3,
+    },
+    line2: {
+      width: 25,
+      height: 1.5,
+      backgroundColor: Colors?.textBlack,
+      marginVertical: 2,
+    },
+    bottomKFCDescription: {
+      fontFamily: Fonts?.subHeader,
+      fontSize: 11,
+      color: Colors?.textBlack,
+      fontWeight: 700,
+      alignSelf: 'center',
+      position: 'relative',
+      bottom: 10,
     }
   })
   return Styles

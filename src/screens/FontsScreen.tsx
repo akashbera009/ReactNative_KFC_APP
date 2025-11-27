@@ -21,6 +21,11 @@ const FontsScreen = () => {
             </Text>
             <View style={Styles.divider} />
             <Text
+                style={{ fontSize: 20, fontFamily: Fonts.exp  }}>
+                KFC (exp )
+            </Text>
+            <View style={Styles.divider} />
+            <Text
                 style={{ fontSize: 20, fontFamily: Fonts.firstPageCUrsuve }}>
                 It's finger likin' good
             </Text>
@@ -75,7 +80,7 @@ const FontsScreen = () => {
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font9 }}>
+                style={{ fontSize: 20, fontFamily: Fonts.font9, fontWeight: 700 }}>
                 Finger Licling (font9)
             </Text>
             <Text
@@ -84,8 +89,8 @@ const FontsScreen = () => {
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font10 }}>
-                fiinger licking (font10)
+                style={{ fontSize: 20, fontFamily: Fonts.font10 , fontWeight: 600 }}>
+                FOR SHARING (font10)
             </Text>
             <View style={Styles.divider} />
             <Text

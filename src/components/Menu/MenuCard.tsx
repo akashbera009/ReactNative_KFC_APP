@@ -10,7 +10,10 @@ import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
+import { useCart } from '../../context/CartContext';
+import { useMenu } from '../../context/MenuContext';
 export default function MenuCard({
+    id,
     name,
     description,
     price,
@@ -19,6 +22,7 @@ export default function MenuCard({
     image,
     isFavorite,
     customizable,
+    categories,
 }: menuDataType) {
     const Colors = useThemeColors();
     const country = useCountry()
@@ -26,6 +30,69 @@ export default function MenuCard({
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors, Fonts);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const { menuItem, setMenuItem } = useMenu();
+    const { CartItem, setCartItem } = useCart();
+    const itemInCart = CartItem.find((item) => item.name === name);
+    const quantity = itemInCart ? itemInCart?.quantity : 0;
+    const handleCartAdding = () => {
+        const newItem: CartItemType = {
+            id: id,
+            name: name,
+            description: description,
+            price: price,
+            oldPrice: oldPrice,
+            tag: tag,
+            image: image,
+            isFavorite: isFavorite,
+            customizable: customizable,
+            categories: categories,
+            quantity: quantity + 1,
+        }
+        if (CartItem.find((item) => item.name === newItem.name)) return;
+        setCartItem((prev: CartItemType[]) => [...prev, newItem]);
+    }
+    const handleIncreaseQunatity = (name: string) => {
+        if (quantity < 10) {
+            setCartItem((prev: CartItemType[]) =>
+                prev.map(item =>
+                    item?.name == name
+                        ? { ...item, quantity: item?.quantity + 1 }
+                        : item
+                )
+            )
+        } else return;
+
+    }
+    const handleDecreaseQuantity = () => {
+        if (quantity >= 1) {
+            setCartItem((prev: CartItemType[]) =>
+                prev.map((item, idx) =>
+                    item?.name == name
+                        ? { ...item, quantity: item?.quantity - 1 }
+                        : item
+                )
+            )
+        } else return;
+    }
+    const handleRemoveItem = () => {
+        if (quantity == 1) {
+            setCartItem((prev: CartItemType[]) =>
+                prev.filter(item =>
+                    item?.name != name
+                )
+            )
+        } else return;
+    }
+    const handleToggleFavourite = (id: number) => {
+        setMenuItem((prev: menuDataType[]) =>
+            prev.map(item =>
+                item.id === id
+                    ? { ...item, isFavorite: !item.isFavorite }
+                    : item
+            )
+        );
+    }
+    let formattedQuantity = quantity <= 9 ? `0${quantity}` : quantity;
     return (
         <View style={Styles.CardContainer}>
             <View style={Styles.UpperContainer}>
@@ -57,11 +124,16 @@ export default function MenuCard({
                         </TouchableOpacity>
                     )}
                 </View>
-                {isFavorite ? (
-                    <Image source={Images?.Favourite_Icon} style={Styles.Favourite_Icon} />
-                ) : (
-                    <Image source={Images?.Favourite_Icon_Empty} style={Styles.Favourite_Icon} />
-                )}
+                <TouchableOpacity
+                    style={Styles.favIconContainer}
+                    onPress={() => { handleToggleFavourite(id) }}
+                >
+                    {isFavorite ? (
+                        <Image source={Images?.Favourite_Icon} style={Styles.Favourite_Icon} />
+                    ) : (
+                        <Image source={Images?.Favourite_Icon_Empty} style={Styles.Favourite_Icon} />
+                    )}
+                </TouchableOpacity>
             </View>
             <View style={Styles.LowerContainer}>
                 <View style={Styles.LowerLeftPriceContainer}>
@@ -73,11 +145,39 @@ export default function MenuCard({
                         <View style={Styles.CrossBorder} />
                     </View>
                 </View>
-                <TouchableOpacity
-                    style={Styles.AddToCartButton}
-                >
-                    <Text style={Styles.AddToCartButtonText}>{Strings?.AddToCart.toUpperCase()} </Text>
-                </TouchableOpacity>
+                {quantity === 0 ? (
+                    <TouchableOpacity
+                        onPress={() => handleCartAdding()}
+                        style={Styles.AddToCartButton}
+                    >
+                        <Text style={Styles.AddToCartButtonText}>{Strings?.AddToCart.toUpperCase()} </Text>
+                    </TouchableOpacity>
+                ) : (
+                    <View style={Styles.AddedCartButtonContainer}>
+                        {(quantity > 1) ?
+                            <TouchableOpacity
+                                style={Styles.deleteButtonContainer}
+                                onPress={() => { handleDecreaseQuantity() }}
+                            >
+                                <Image source={Images?.Minus} style={Styles.deleteIcon} />
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity
+                                style={Styles.deleteButtonContainer}
+                                onPress={() => { handleRemoveItem() }}
+                            >
+                                <Image source={Images?.Delete_Icon} style={Styles.deleteIcon} />
+                            </TouchableOpacity>
+                        }
+                        <Text style={Styles.counter}>{formattedQuantity} </Text>
+                        <TouchableOpacity
+                            style={quantity < 10 ? Styles.AddCounterButton : Styles.AddCounterButtonFade}
+                            onPress={() => handleIncreaseQunatity(name)}
+                        >
+                            <Image source={Images?.AddButton} style={Styles.AddButtonImage} />
+                        </TouchableOpacity>
+                    </View>
+                )}
             </View>
         </View>
     );
@@ -170,7 +270,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginVertical: 4
         },
         dot: {
-            margin: 5, 
+            margin: 5,
             height: 4,
             width: 4,
             borderRadius: 20,
@@ -246,7 +346,58 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderBottomWidth: 2,
             position: 'absolute',
             top: 8,
-            left: 0
+            left: 0,
+        },
+        AddedCartButtonContainer: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginHorizontal: 20,
+            marginVertical: 15,
+        },
+        deleteButtonContainer: {
+            borderWidth: 1,
+            borderColor: Colors?.fadeBorder,
+            borderRadius: 4,
+            padding: 4
+        },
+        deleteIcon: {
+            height: 20,
+            width: 20,
+            tintColor: Colors?.textBlack
+        },
+        counter: {
+            marginHorizontal: 8,
+            fontFamily: Fonts?.subHeader,
+            fontWeight: 700,
+            fontSize: 16,
+            color: Colors?.textBlack
+        },
+        AddCounterButton: {
+            height: 30,
+            width: 30,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 4,
+            backgroundColor: Colors?.KFC_red,
+        },
+        AddCounterButtonFade: {
+            height: 30,
+            width: 30,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 4,
+            backgroundColor: Colors?.KFC_red_Fade,
+        },
+        AddButtonImage: {
+            height: 15,
+            width: 15,
+            tintColor: Colors?.constantWhite,
         },
         AddToCartButton: {
             backgroundColor: Colors?.KFC_red,
@@ -266,11 +417,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         Favourite_Icon: {
             height: 20,
             width: 20,
+            tintColor: Colors?.KFC_red
+        },
+        favIconContainer: {
             position: 'absolute',
             right: 15,
             top: 20,
-            tintColor: Colors?.KFC_red
-        },
+        }
     });
     return Styles;
 };

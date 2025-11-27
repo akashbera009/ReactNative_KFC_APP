@@ -1,17 +1,19 @@
 import { View, StyleSheet, Image, Text, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // custom components 
 import ExploreMenu from './ExploreMenu'
-// data imports 
-import { menuData } from '../../data/MenuData';
+import BottomCart from './BottomCart';
 //util files 
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages'
 import { useStrings } from '../../utils/Strings'
 import { useThemeColors } from '../../utils/Colors'
+import { useCart } from '../../context/CartContext';
+import { useMenu } from '../../context/MenuContext';
+
 
 const Index = () => {
     const Colors = useThemeColors()
@@ -19,8 +21,22 @@ const Index = () => {
     const inset = useSafeAreaInsets()
     const Styles = createDynamicStyles(Colors, Fonts)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const category = [...new Set(menuData.map((item) => item.categories).flat(1))].sort()
-    const [isActive, setIsActive] = useState<number>(0)
+    const { CartItem } = useCart();
+    const { menuItem } = useMenu();
+    const category: string[] = [...(menuItem.map((item) => item.categories).flat(1))].sort()
+    const iSFavouriteMenuArray = menuItem.filter(item => item?.isFavorite == true);
+    const categorySet: string[] = [...new Set<string>([...category])];
+    const [activeCategory, setActiveCategory] = useState<string>(categorySet[0]);
+    const frequencyMap: Map<string, number> = new Map();
+    if (iSFavouriteMenuArray.length > 0) {
+        categorySet.splice(1, 0,'Favourites')
+        frequencyMap.set('Favourites', iSFavouriteMenuArray.length)
+    }
+    for (const element of category) {
+        frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
+    }
+    const frequencyArray: CategoryFrequency[] = Array.from(frequencyMap, ([category, count]) => ({ category, count }));
+
     return (
         <View style={Styles.ParentContaienr}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -32,27 +48,53 @@ const Index = () => {
                     </TouchableOpacity>
                     <Text style={Styles.headerText}>{Strings?.exploreMenu} </Text>
                 </View>
-                <Image source={Images?.Search_Icon} style={Styles.SearchIcon} />
+                <TouchableOpacity
+                    onPress={() => navigation.navigate(Strings?.SearchScreen)}
+                >
+                    <Image source={Images?.Search_Icon} style={Styles.SearchIcon} />
+                </TouchableOpacity>
             </View>
             <View style={Styles.CategorySelector}>
-                <View style={Styles.menuIconCOntainer}>
+                <TouchableOpacity
+                    style={Styles.menuIconContainer}
+                    onPress={() => {
+                        navigation.navigate(Strings?.MenuCategorizeScreen, {
+                            activeCategory: activeCategory,
+                            setActiveCategory: setActiveCategory,
+                            frequencyArray: frequencyArray
+                        })
+                    }}
+                >
                     <Image source={Images?.Foood_Menu_Icon} style={Styles.menuIcon} />
-                </View>
+                </TouchableOpacity>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    {category.map((item, idx) => (
+                    {categorySet.map((category) => (
                         <TouchableOpacity
-                            activeOpacity={.8}
-                            key={idx}
-                            style={[Styles?.categoryContainer, isActive === idx && Styles.ActiveBorder]}
-                            onPress={() => setIsActive(idx)}
+                            key={category}
+                            style={[
+                                Styles.categoryContainer,
+                                activeCategory === category && Styles.ActiveBorder
+                            ]}
+                            onPress={() => setActiveCategory(category)}
                         >
-                            <Text style={[Styles?.categoryContainerText, isActive == idx && Styles.ActiveText]}>{item} </Text>
+                            <Text
+                                style={[
+                                    Styles.categoryContainerText,
+                                    activeCategory === category && Styles.ActiveText
+                                ]}
+                            >
+                                {category}
+                            </Text>
                         </TouchableOpacity>
                     ))}
-
                 </ScrollView>
             </View>
-            <ExploreMenu isActive = {isActive} categoryList = {category}/>
+            <ExploreMenu activeCategory={activeCategory} categoryList={categorySet} />
+            {CartItem?.length > 0 && (
+                <View style={[Styles.BottomCartContainer, { bottom: inset.bottom - 10 }]}>
+                    <BottomCart ButtonType={Strings?.viewCart} navLink={Strings?.CartScreen} totalAmount={0} />
+                </View>
+            )}
         </View>
     )
 }
@@ -61,6 +103,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         ParentContaienr: {
             backgroundColor: Colors?.bodyColor,
+            height: '100%'
         },
         NavWrapper: {
             width: '100%',
@@ -106,7 +149,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderBottomWidth: 1,
             borderColor: Colors?.fadeWhiteText,
         },
-        menuIconCOntainer: {
+        menuIconContainer: {
             height: '100%',
             width: 65,
             backgroundColor: Colors?.KFC_red,
@@ -141,6 +184,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 700,
             color: Colors?.textBlack,
         },
+        BottomCartContainer: {
+            width: '100%',
+            height: 70,
+            backgroundColor: Colors?.bodyColor,
+            position: 'absolute',
+            left: 0,
+            zIndex: 2,
+        }
     })
     return Styles
 }

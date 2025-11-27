@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // data import 
 import DeliveryDetails from '../../data/DeliveryDetails'
@@ -8,16 +10,18 @@ import Fonts from '../../utils/Fonts'
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 
+
 export default function CurrentOrder() {
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts);
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={Styles.ParentDeliveryContainer} >
       <Text style={Styles.Header}>{Strings?.CurrentOrder.toUpperCase()} </Text>
       <View style={Styles.WrapperContainer} >
         <View style={Styles.LeftTextContainer}>
-          <View style={Styles.LeftTopCOntainer}>
+          <View style={Styles.LeftTopContainer}>
             <Text style={Styles.orderIdText}>{Strings?.orderIdText}: </Text>
             <Text style={Styles.orderId}>{DeliveryDetails?.orderId}</Text>
             <View style={Styles.VerticalBorder} />
@@ -28,7 +32,7 @@ export default function CurrentOrder() {
         </View>
         <TouchableOpacity
           style={Styles.trackButton}
-          onPress={() => { }}
+          onPress={() => navigation.push(Strings?.MapsScreen)}
         >
           <Text style={Styles.TrackOrderText}>{Strings?.trackOrder} </Text>
         </TouchableOpacity>
@@ -39,7 +43,7 @@ export default function CurrentOrder() {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
   const Styles = StyleSheet.create({
     ParentDeliveryContainer: {
-      width: '90%',
+      width: '93%',
       alignSelf: 'center',
     },
     WrapperContainer: {
@@ -67,7 +71,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginTop: 10 , 
       justifyContent:'space-around'
     },
-    LeftTopCOntainer: {
+    LeftTopContainer: {
       display: 'flex',
       flexDirection: 'row',
     },

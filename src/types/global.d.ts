@@ -1,57 +1,34 @@
-type RootStackParamList = {
-  HomeScreen: undefined
-  ChangeLocationBottomSheetScreen: undefined,
-  PopUpScreens: undefined
-  LoginScreen: undefined
-  LoginScreen2: undefined
-  OTPScreen: { phoneNo: string }
-  CreateProfileScreen: { phoneNo: string }
-  ExploreMenuScreen:undefined 
-  FontsScreen: undefined
-  HelpScreen: undefined
-  SplashScreen: undefined
-  LoginPageCountryBottomSheetScreen: undefined
-}
 
-type RootDrawerParamList = {
-  Main: undefined;
-}
-type OtpScreenPropType = NativeStackScreenProps<RootStackParamList, 'OTPScreen'>
-type CreateProfilePageProps = NativeStackScreenProps<RootStackParamList, 'CreateProfileScreen'>
-
-type ColorContextType = {
-  isDarkMode: boolean,
-  setIsDarkMode: (mode: boolean) => void;
+type RemoveCartItemProps = {
+    imageLink: ImageSourcePropType;
+    // onConfirmDelete: ()=>void
+    idx: number
 };
-type LanguageContextType = {
-  language: string;
-  setLanguage: (lang: string) => void;
-};
-type CountryContextType = {
-  countrySelected: countryType;
-  setCountrySelected: (con: countryType) => void;
+type BottomCartProps = {
+  ButtonType: string;
+  navLink: string,
+  totalAmount: number
 };
 
-type FontType = {
-  [key: string]: string;
-}
-type ColorType = {
-  [key: string]: string
-}
-
-type countryType = {
-  name: string,
-  flag: Image,
-  code: string,
-  mobileCode: string,
-  mobileNoLength: number,
-  mobileNoFraction: number,
-  currencyCode: string
-}
 type DeliveryDetailsType = {
-  [key: string]: string
-}
-type MenuItem = {
+  address: string;
+  type: string;
+  orderId: string;
+  date: string;
+  orderItem: string;
+  beverages: string;
+  personName: string;
+  mobileNumber: string ; 
+  charges: number;
+  vatCharge: number; 
+  discountRate: number
+};
+
+type CategoryFrequency = {
+  category: string;
+  count: number;
+};
+type BestSellerMenuType = {
   id: string,
   title: string,
   description: string,
@@ -70,5 +47,18 @@ type menuDataType = {
   image: Image,
   isFavorite: boolean,
   customizable: boolean,
-  categories: string[]
+  categories: string[],
+}
+type CartItemType = {
+  id: number , 
+  name: string,
+  description: string[],
+  price: number,
+  oldPrice: number,
+  tag: string,
+  image: Image,
+  isFavorite: boolean,
+  customizable: boolean,
+  categories: string[],
+  quantity : number, 
 }

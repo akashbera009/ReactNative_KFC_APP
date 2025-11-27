@@ -9,8 +9,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColors } from '../../utils/Colors';
 import Fonts from '../../utils/Fonts'
 import { useStrings } from '../../utils/Strings';
-// import { CountryInfo } from '../../data/CountryInfo';
-// import { useCountry } from '../../context/CountryContext';
 import Images from '../../utils/LocalImages';
 import DeliveryDetails from '../../data/DeliveryDetails';
 export default function ChangeLocationBottomSheet() {
@@ -21,7 +19,6 @@ export default function ChangeLocationBottomSheet() {
     const Styles = createDynamicStyles(Colors, Fonts)
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    // const { countrySelected, setCountrySelected } = useCountry();
     const slideUp = () => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -83,7 +80,7 @@ export default function ChangeLocationBottomSheet() {
                             <View style={[Styles.DoneButtonContainer, { bottom: inset.bottom }]}>
                                 <TouchableOpacity
                                     style={[Styles.Button, Styles.ChangeButton]}
-                                    onPress={() => navigation.pop()}>
+                                    onPress={() => navigation.navigate(Strings?.MapsScreen)}>
                                     <Text style={[Styles.DoneButtonText, Styles.ChangeButtonText]}>{Strings?.change.toLocaleUpperCase()}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity

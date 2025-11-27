@@ -51,7 +51,7 @@ export default function BestSeller() {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         ParentBestSellerContainer: {
-            width: '90%',
+            width: '93%',
             alignSelf: 'center',
             marginVertical: 10
         },
@@ -152,7 +152,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         price: {
             fontWeight: 800,
-            fontSize: 13 
+            fontSize: 13 ,
+
+      color: Colors?.textBlack
         },
         OrderButton: {
             borderWidth: 2,

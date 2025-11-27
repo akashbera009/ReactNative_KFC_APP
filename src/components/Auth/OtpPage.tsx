@@ -6,11 +6,11 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // util  imports 
-import { useThemeColors } from '../../../utils/Colors'
-import { useStrings } from '../../../utils/Strings'
-import Fonts from '../../../utils/Fonts'
-import Images from '../../../utils/LocalImages'
-import { useCountry } from '../../../context/CountryContext';
+import { useThemeColors } from '../../utils/Colors'
+import { useStrings } from '../../utils/Strings'
+import Fonts from '../../utils/Fonts'
+import Images from '../../utils/LocalImages'
+import { useCountry } from '../../context/CountryContext';
 
 
 export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {

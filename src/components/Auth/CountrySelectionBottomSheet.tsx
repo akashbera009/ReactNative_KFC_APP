@@ -6,11 +6,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // util imports 
-import { useThemeColors } from '../../../utils/Colors';
-import Fonts from '../../../utils/Fonts'
-import { useStrings } from '../../../utils/Strings';
-import { CountryInfo } from '../../../data/CountryInfo';
-import { useCountry } from '../../../context/CountryContext';
+import { useThemeColors } from '../../utils/Colors';
+import Fonts from '../../utils/Fonts'
+import { useStrings } from '../../utils/Strings';
+import { CountryInfo } from '../../data/CountryInfo';
+import { useCountry } from '../../context/CountryContext';
 
 
 export default function CountrySelectionBottomSheet() {
