@@ -28,9 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       in: window,
       launchOptions: launchOptions
     )
-
+ printAllFonts()
     return true
   }
+   func printAllFonts() {
+    for family in UIFont.familyNames.sorted() {
+        print("👨‍🎨 Font family: \(family)")
+        let names = UIFont.fontNames(forFamilyName: family)
+        for name in names {
+            print("    → \(name)")
+        }
+    }
+}
 }
 
 class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {

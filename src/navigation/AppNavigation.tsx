@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 // util files 
-import {useStrings} from '../utils/Strings';
+import { useStrings } from '../utils/Strings';
 // screens 
 import SideBarScreen from '../screens/SideBarScreen';
 import SplashScreen from '../screens/SplashScreen';
@@ -18,15 +18,25 @@ import LoginScreen2 from '../screens/LoginScreen2';
 import OTPScreen from '../screens/OTPScreen';
 import LoginPageCountryBottomSheetScreen from '../screens/LoginPageCountryBottomSheetScreen';
 import CreateProfileScreen from '../screens/CreateProfileScreen';
+import ChangeLocationBottomSheetScreen from '../screens/ChangeLocationBottomSheetScreen';
+import PopUpScreens from '../screens/PopUpScreens';
+import ExploreMenuScreen from '../screens/ExploreMenuScreen';
+import MenuCategorizeScreen from '../screens/MenuCategorizeScreen';
+import CartScreen from '../screens/CartScreen';
+import SearchScreen from '../screens/SearchScreen';
+import RemoveCartItemBottomSheetScreen from '../screens/RemoveCartItemBottomSheetScreen';
+import OfferAppliedScreen from '../screens/OfferAppliedScreen';
+import MapsScreen from '../screens/MapsScreen';
+import CheckOutScreen from '../screens/CheckOutScreen';
+import OrderHistoryScreens from '../screens/OrderHistoryScreens';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
 
-
 function StackNavigator() {
     const Strings = useStrings()
     return (
-        <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName={Strings?.HomeScreen} screenOptions={{ headerShown: false }}>
             <Stack.Screen
                 name={Strings?.SplashScreen}
                 component={SplashScreen}
@@ -34,6 +44,27 @@ function StackNavigator() {
             <Stack.Screen
                 name={Strings?.HomeScreen}
                 component={HomeScreen}
+            />
+            <Stack.Screen
+                name={Strings?.ChangeLocationBottomSheetScreen}
+                component={ChangeLocationBottomSheetScreen}
+                options={{
+                    presentation: 'transparentModal'
+                }}
+            />
+            <Stack.Screen
+                name={Strings?.MapsScreen}
+                component={MapsScreen}
+                options={{
+                    presentation: 'fullScreenModal'
+                }}
+            />
+            <Stack.Screen
+                name={Strings?.PopUpScreens}
+                component={PopUpScreens}
+                options={{
+                    presentation: 'transparentModal'
+                }}
             />
             <Stack.Screen
                 name={Strings?.LoginScreen}
@@ -55,18 +86,58 @@ function StackNavigator() {
                 component={OTPScreen}
             />
             <Stack.Screen
+                name={Strings?.ExploreMenuScreen}
+                component={ExploreMenuScreen}
+            />
+            <Stack.Screen
+                name={Strings?.MenuCategorizeScreen}
+                component={MenuCategorizeScreen}
+                options={{
+                    presentation: 'transparentModal'
+                }}
+            />
+            <Stack.Screen
+                name={Strings?.CartScreen}
+                component={CartScreen}
+            />
+            <Stack.Screen
+                name={Strings?.RemoveCartItemBottomSheetScreen}
+                component={RemoveCartItemBottomSheetScreen}
+                options={{
+                    presentation: 'transparentModal'
+                }}
+            />
+            <Stack.Screen
+                name={Strings?.SearchScreen}
+                component={SearchScreen}
+            />
+            <Stack.Screen
+                name={Strings?.OfferAppliedScreen}
+                component={OfferAppliedScreen}
+                options={{
+                    presentation: 'transparentModal'
+                }}
+            />
+            <Stack.Screen
+                name={Strings?.CheckOutScreen}
+                component={CheckOutScreen}
+            />
+            <Stack.Screen
+                name={Strings?.OrderHistoryScreens}
+                component={OrderHistoryScreens}
+            />
+            <Stack.Screen
                 name={Strings?.CreateProfileScreen}
                 component={CreateProfileScreen}
             />
             <Stack.Screen
-               name={Strings?.FontsScreen}
+                name={Strings?.FontsScreen}
                 component={FontsScreen}
             />
             <Stack.Screen
                 name={Strings?.HelpScreen}
                 component={HelpScreen}
             />
-
         </Stack.Navigator>
     )
 }

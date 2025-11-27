@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
 // util imports
 import Fonts from '../../utils/Fonts'
 import { useCountry } from '../../context/CountryContext';
@@ -66,7 +65,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const handleSave = () => {
         // if (name != '' && handleCheckGmail())
         // comment
-            navigation.navigate(Strings?.HomeScreen)
+        navigation.navigate(Strings?.HomeScreen)
     }
 
     const handleShowWarningEmail = () => {
@@ -210,6 +209,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'flex-end',
             justifyContent: 'flex-end',
             backgroundColor: Colors?.bodyColor,
+            shadowColor: Colors?.blueShadows,
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
         },
         innerNavigationContainer: {
             width: '100%',

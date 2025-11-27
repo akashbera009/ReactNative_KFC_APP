@@ -1,5 +1,5 @@
 import React from 'react'
-import CountrySelectionBottomSheet from '../components/Home/Auth/CountrySelectionBottomSheet'
+import CountrySelectionBottomSheet from '../components/Auth/CountrySelectionBottomSheet'
 
 const LoginPageCountryBottomSheetScreen = () => {
     return (
