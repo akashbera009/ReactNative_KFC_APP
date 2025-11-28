@@ -3,7 +3,7 @@ import { useTheme } from "../context/ThemeContext";
 const LightTheme = {
   bodyColor: '#ffffff',
   bodyShadeColor: '#ecf9fdff',
-  bodyLigheterColor: '#eef5f8ff',
+  bodyLigheterColor: '#f1f6f9ff',
   textBlack: '#000000',
   textFadeBlack: '#484747ad',
   textFadeBlack2: '#0a0a0aad',
@@ -31,6 +31,7 @@ const LightTheme = {
   ButtonBlueColor: '#298dffff',
   ButtonTextBlueColor: '#047cdfff',
   orangeColorText: '#f99007ff',
+  greenOk: '#2fba1dff',
   greenShade: 'rgba(5, 220, 195, 1)'
 };
 
@@ -65,6 +66,7 @@ const DarkTheme = {
   ButtonBlueColor: '#298dffff',
   ButtonTextBlueColor: '#66adffff',
   orangeColorText: '#ff9913',
+  greenOk: '#2fba1dff',
   greenShade: 'rgba(5, 220, 195, 1)'
 };
 

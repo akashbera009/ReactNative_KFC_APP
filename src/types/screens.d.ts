@@ -3,3 +3,5 @@ type CreateProfilePageProps = NativeStackScreenProps<RootStackParamList, 'Create
 type MenuCategorizationScreenProps = NativeStackScreenProps<RootStackParamList, 'MenuCategorizeScreen'>
 type RemoveCartItemBottomSheetScreenProps = NativeStackScreenProps<RootStackParamList, 'RemoveCartItemBottomSheetScreen'>
 type CheckOutScreenProps = NativeStackScreenProps<RootStackParamList, 'CheckOutScreen'>
+type OrderDetailsScreen = NativeStackScreenProps<RootStackParamList, 'OrderDetailsScreen'>
+type ExploreMenuScreenProps = NativeStackScreenProps<RootStackParamList, 'ExploreMenuScreenProps'>

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Animated, PermissionsAndroid, Platform, TouchableWithoutFeedback } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MapView, { Marker } from 'react-native-maps';
-import Geolocation from 'react-native-geolocation-service';
 // data imports 
 import { stores } from '../../data/StoresData';
 import { useNavigation } from '@react-navigation/native';
@@ -74,36 +73,7 @@ export default function Maps() {
         navigation.pop();
     };
 
-    useEffect(() => {
-        requestLocation();
-    }, []);
-    const requestLocation = async () => {
-        if (Platform.OS === 'android') {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-            );
 
-            if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-                console.log('Location permission denied');
-                return;
-            }
-        }
-
-        Geolocation.getCurrentPosition(
-            (pos) => {
-                setLocation({
-                    latitude: pos.coords.latitude,
-                    longitude: pos.coords.longitude,
-                    latitudeDelta: 0.01,
-                    longitudeDelta: 0.01,
-                });
-            },
-            (error) => {
-                console.log(error);
-            },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-        );
-    };
     return (
         <View style={Styles.OuterContianer}>
             <TouchableWithoutFeedback
@@ -287,7 +257,7 @@ export default function Maps() {
                     <Animated.View style={[Styles.popupBox, { opacity: opacity }]}>
                         <Text style={Styles.popupTitle}>Confirm Location</Text>
                         <Text style={Styles.popupMessage}>
-                            Are you sure you want to save this location?
+                           {Strings?.saveLocationConfirmation}
                         </Text>
 
                         <View style={Styles.popupButtons}>
@@ -295,7 +265,7 @@ export default function Maps() {
                                 style={[Styles.popupButton, Styles.cancelButton]}
                                 onPress={() => setShowPopup(false)}
                             >
-                                <Text style={Styles.cancelText}>Cancel</Text>
+                                <Text style={Styles.cancelText}>{Strings?.cancel}</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
@@ -305,17 +275,15 @@ export default function Maps() {
                                     saveLocationInfo();
                                 }}
                             >
-                                <Text style={Styles.saveText}>Save</Text>
+                                <Text style={Styles.saveText}>{Strings?.save}</Text>
                             </TouchableOpacity>
                         </View>
                     </Animated.View>
                 </Animated.View>
             )}
-
         </View>
     );
 }
-
 
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({

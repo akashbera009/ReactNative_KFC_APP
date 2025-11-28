@@ -1,19 +1,19 @@
 import { Platform } from "react-native"
 const Fonts = {
     firstPageCUrsuve: 'Playball-Regular',
-    headerRegular: 'Rubik-VariableFont_wght ',
+    headerRegular: Platform.OS === 'ios' ? 'Rubik-VariableFont_wght':'RubikVariableFont_wght.ttf' ,
     headerItalic: 'Rubik-Italic-VariableFont_wght',
     subHeader:  Platform.OS === 'ios' ? 'ZalandoSansSemiExpanded-VariableFont_wght' : 'ZalandoSansSemiExpandedVariableFont_wght',
     kfcLogoTextFont: Platform.OS === 'ios' ? 'RobotoSlab-Regular': 'RobotoSlabRegular',
     // exp :  Platform.OS === 'ios' ? 'RobotoSlab-ExtraBold': 'RobotoSlabExtraBold',
     exp :  Platform.OS === 'ios' ? 'RobotoSlab-ExtraBold': 'RobotoSlabExtraBold' ,
 
-    bodyBoldFot: 'TestNational2Condensed-Black', // ok
+    bodyBoldFot:Platform.OS === 'ios' ? 'TestNational2Condensed-Black': 'TestNational2CondensedBlack', // ok
     font1: 'TestNational2Condensed-BlackItalic',// ok
     font2: 'TestNational2Condensed-Bold', // ok
     font3: 'TestNational2Condensed-BoldItalic',// ok
     font4: 'TestNational2Condensed-Extrabold', // ok
-    font5: 'TestNational2Condensed-BlkItalic',// ok (not in the file )
+    // font5: 'TestNational2Condensed-BlkItalic',// ok (not in the file )
     font6: 'TestNational2Condensed-Extralight',// ok
     font7: 'TestNational2Condensed-ExtralightItalic',
     font8: 'TestNational2Condensed-Light',// ok

@@ -74,8 +74,6 @@ export const menuData: menuDataType[] = [
         isFavorite: false,
         customizable: true,
         categories: ["Deals"],
-         
-
     },
     {
         id: 5,

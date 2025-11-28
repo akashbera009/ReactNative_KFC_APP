@@ -9,13 +9,16 @@ import DeliveryDetails from '../../data/DeliveryDetails'
 import Fonts from '../../utils/Fonts'
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
-
+import { OrderHistoryData } from '../../data/OrderHistorydata';
 
 export default function CurrentOrder() {
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const currentOrder: OrderHistory = OrderHistoryData.filter((item)=> item?.status == 'Being Prepared')[0]
+  const ItemNames = currentOrder.Items.map((item)=> item?.name).join(',')
+
   return (
     <View style={Styles.ParentDeliveryContainer} >
       <Text style={Styles.Header}>{Strings?.CurrentOrder.toUpperCase()} </Text>
@@ -23,16 +26,18 @@ export default function CurrentOrder() {
         <View style={Styles.LeftTextContainer}>
           <View style={Styles.LeftTopContainer}>
             <Text style={Styles.orderIdText}>{Strings?.orderIdText}: </Text>
-            <Text style={Styles.orderId}>{DeliveryDetails?.orderId}</Text>
+            <Text style={Styles.orderId}>{currentOrder?.orderId}</Text>
             <View style={Styles.VerticalBorder} />
-            <Text style={Styles.date}>{DeliveryDetails?.date}</Text>
+            <Text style={Styles.date}>{currentOrder?.date}</Text>
           </View>
-          <Text style={Styles.orderItem} numberOfLines={1}>{DeliveryDetails?.orderItem}</Text>
+          <Text style={Styles.orderItem} numberOfLines={1}>{ItemNames}</Text>
           <Text style={Styles.beverages}>{DeliveryDetails?.beverages}</Text>
         </View>
         <TouchableOpacity
           style={Styles.trackButton}
-          onPress={() => navigation.push(Strings?.MapsScreen)}
+          onPress={() => navigation.push(Strings?.OrderDetailsScreen,{
+            order: currentOrder
+          })}
         >
           <Text style={Styles.TrackOrderText}>{Strings?.trackOrder} </Text>
         </TouchableOpacity>

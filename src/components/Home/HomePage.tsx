@@ -67,7 +67,6 @@ export default function HomePage() {
             </View>
             <TouchableOpacity
               onPress={() => navigation.navigate(Strings?.ChangeLocationBottomSheetScreen)}
-              // onPress={() => navigation.navigate(Strings?.MapsScreen)}
               style={Styles.RightSideButton}>
               <Text style={Styles.changeText}>{Strings?.change} </Text>
             </TouchableOpacity>
@@ -78,27 +77,35 @@ export default function HomePage() {
             <View style={Styles.headerExplore}>
               <Text style={Styles.ExploreHeader}>{Strings?.exploreMore.toUpperCase()} </Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
+                  categoryType: 'Deals'
+                })}
               >
                 <Text style={Styles.ExploreHeaderViewAll}>{Strings?.viewAll.toUpperCase()} </Text>
               </TouchableOpacity>
             </View>
             <View style={Styles.ExploreCardsContainer}>
               <TouchableOpacity
-                onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
+                  categoryType: 'Deals'
+                })}
                 style={Styles.FirstCard}>
                 <Text style={[Styles.ExploreCardText, Styles.FirstCardtext]}>{Strings?.deals.toUpperCase()} </Text>
                 <Image source={Images?.Chicken_Bucket} style={Styles.FirstCardImage} />
               </TouchableOpacity>
               <View style={Styles.SecondCardGroup}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen,{
+                    categoryType: 'For One'
+                  })}
                   style={Styles.SecondCardTop}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings?.forOne.toUpperCase()} </Text>
                   <Image source={Images?.Chicken_Nugedts} style={[Styles.SecondCardImage, Styles.RotateImage]} />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen,{
+                    categoryType: 'Slides & Deserts'
+                  })}
                   style={Styles.SecondCardDown}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings?.sideDeserts.toUpperCase()} </Text>
                   <Image source={Images?.French_Fries_Coke} style={Styles.SecondCardImage} />
@@ -107,13 +114,17 @@ export default function HomePage() {
               <View
                 style={Styles.ThirdCardGroup}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen,{
+                    categoryType: 'For Sharing'
+                  })}
                   style={Styles.ThirdCardTop}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings?.forSharing.toUpperCase()} </Text>
                   <Image source={Images?.Chicken_Roll} style={[Styles.ThirdCardImage, Styles.ThirdCardTopExtra]} />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen)}
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
+                    categoryType: 'SandWich'
+                  })}
                   style={Styles.ThirdCardDown}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings?.beverages.toUpperCase()} </Text>
                   <Image source={Images?.Pepsi_Double_Can} style={Styles.ThirdCardImage} />

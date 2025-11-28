@@ -1,8 +1,7 @@
 
 type RemoveCartItemProps = {
-    imageLink: ImageSourcePropType;
-    // onConfirmDelete: ()=>void
-    idx: number
+  imageLink: ImageSourcePropType;
+  idx: number
 };
 type BottomCartProps = {
   ButtonType: string;
@@ -18,10 +17,11 @@ type DeliveryDetailsType = {
   orderItem: string;
   beverages: string;
   personName: string;
-  mobileNumber: string ; 
+  mobileNumber: string;
   charges: number;
-  vatCharge: number; 
-  discountRate: number
+  vatCharge: number;
+  discountRate: number;
+  restaurantName : string; 
 };
 
 type CategoryFrequency = {
@@ -50,7 +50,7 @@ type menuDataType = {
   categories: string[],
 }
 type CartItemType = {
-  id: number , 
+  id: number,
   name: string,
   description: string[],
   price: number,
@@ -60,5 +60,16 @@ type CartItemType = {
   isFavorite: boolean,
   customizable: boolean,
   categories: string[],
-  quantity : number, 
+  quantity: number,
+}
+type OrderHistory = {
+  Items: CartItemType[],
+  date: string,
+  orderId: string,
+  status: string,
+}
+
+type DealsAndOffersDataType = {
+  title: string,
+  desc: string
 }

@@ -41,7 +41,7 @@ export default function CheckOut({ totalAmount }: { totalAmount: number }) {
         paymentMethodOpen == true && scrollToPosition()
     }
     const openPaymentModal = () => {
-        navigation.navigate(Strings?.CartScreen)
+        navigation.navigate(Strings?.OrderStatusScreen)
     }
     useEffect(() => {
         if (paymentMethodOpen) {
@@ -171,7 +171,7 @@ export default function CheckOut({ totalAmount }: { totalAmount: number }) {
                                     </View>
                                     <View style={Styles.PriceEntries}>
                                         <Text style={Styles.PriceEntriesLeft}>{Strings?.discount} </Text>
-                                        <Text style={Styles.PriceEntriesRight}>{DiscountPrice} {countrySelected?.currencyCode} </Text>
+                                        <Text style={[Styles.PriceEntriesRight, Styles?.discountPrice]}>- {DiscountPrice} {countrySelected?.currencyCode} </Text>
                                     </View>
                                     <View style={Styles.PriceEntries}>
                                         <Text style={Styles.PriceEntriesLeft}>{Strings?.vat.toUpperCase()} @ {DeliveryDetails?.vatCharge}% </Text>
@@ -594,6 +594,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors?.textFadeBlack2,
             fontWeight: 500,
             marginLeft: 'auto'
+        },
+        discountPrice :{
+                color: Colors?.greenOk
         },
         PaymentMethodsContainer: {
             marginTop: 10,

@@ -10,6 +10,8 @@ const en = {
   LoginScreen2: 'LoginScreen2',
   LoginPageCountryBottomSheetScreen: 'LoginPageCountryBottomSheetScreen',
   OTPScreen: 'OTPScreen',
+  FAQPageScreen: 'FAQPageScreen',
+  DealsAndOfferScreen: 'DealsAndOfferScreen',
   CreateProfileScreen: 'CreateProfileScreen',
   FontsScreen: 'FontsScreen',
   SplashScreen: 'SplashScreen',
@@ -19,7 +21,9 @@ const en = {
   RemoveCartItemBottomSheetScreen: 'RemoveCartItemBottomSheetScreen',
   SearchScreen: 'SearchScreen',
   CheckOutScreen: 'CheckOutScreen',
+  OrderStatusScreen: 'OrderStatusScreen',
   OrderHistoryScreens: 'OrderHistoryScreens',
+  OrderDetailsScreen: 'OrderDetailsScreen',
   OfferAppliedScreen: "OfferAppliedScreen",
   HelpScreen: 'HelpScreen',
   Main: 'Main',
@@ -81,14 +85,14 @@ const en = {
   enterYourDetails: 'Please enter your details',
   name: 'Name',
   email: 'Email',
-  save: 'save',
+  save: 'Save',
   fieldIsMandatory: 'This field is mandatory.',
 
   // home screen 
   deliveryTo: 'Deliver to',
   exploreMore: 'Explore more',
   viewAll: 'view all',
-  deals: 'deals',
+  deals: 'eals',
   forOne: 'for\none',
   sideDeserts: 'side\ndeserts',
   forSharing: 'for\nsharing',
@@ -137,7 +141,7 @@ const en = {
   opps: 'opps!',
   noResFound: "No result found for your search! ",
   exploreKFCMenu: 'explore KFC Menu',
-  cancel: 'cancel',
+  cancel: 'Cancel',
   yesConfirm: 'yes,Confirm',
   confirmAskingText: 'Are you sure you want to remove this product from your cart 🧐',
   edit: 'edit',
@@ -165,6 +169,7 @@ const en = {
   hotel: 'Hotel',
   other: 'Other',
   confirmLocation: 'Confirm Location',
+  saveLocationConfirmation: 'Are you sure you want to save this location?',
 
   checkOut: 'Checkout',
   wantOrder: 'I want my order:',
@@ -180,6 +185,80 @@ const en = {
   creditDebitcards: 'Credit/Debit Cards',
   visaCheckOut: 'Visa Check Out',
 
+  currentOrders: 'Current Orders',
+  previousOrders: 'Previous Orders',
+  orderId: 'Order ID',
+  NoOrdersYet: 'No Orders Yet!',
+  makeAOrder: 'Make a Order now',
+  OrderDetail: 'Order Detail',
+  qty: 'Qty',
+  orderStatus:'Order Status',
+  KFC_restaurant: 'KFC Restaurant',
+
+  // FAQ 
+  faqHeader: 'FAQ',
+  generalQuestions: 'General Questions',
+  orderingQuestions: 'Ordering & Delivery',
+  paymentsQuestions: 'Payments & Refunds',
+  accountQuestions: 'Account & Profile',
+  faqs: "FAQ's",
+  onlineOrdering: 'Online Ordering',
+  restaurants: 'Restaurants',
+  employment: 'Employment',
+
+  // top 7 items
+  resetPassword: 'How do I reset my password?',
+  restaurantReceive: 'How do I know if the restaurant received my order?',
+  paymentOptions: 'What payment options are available?',
+  saveCreditCard: 'Is it safe to save my credit card?',
+  changeAccountInfo: 'How can I change my account information?',
+  deliveryChargesHigher: 'Why are delivery charges higher sometimes?',
+  deliveryServiceCharge: 'What is the delivery service charge?',
+  resetPasswordA: 'You can reset your password from the login screen by selecting “Forgot Password” and following the instructions.',
+  restaurantReceiveA: 'Once your order is placed, the restaurant receives it instantly. You will also see real-time updates in your order status.',
+  paymentOptionsA: 'We accept multiple payment options including credit/debit cards, wallet payments, and cash on delivery depending on availability.',
+  saveCreditCardA: 'Yes, saving your card is secure. Your payment details are encrypted and never shared with third parties.',
+  changeAccountInfoA: 'You can change your personal details from the Profile or Account Settings section in the app.',
+  deliveryChargesHigherA: 'Delivery charges may vary based on distance, peak hours, or high-demand situations.',
+  deliveryServiceChargeA: 'This charge helps cover operational costs such as delivery support, app maintenance, and service improvements.',
+
+
+  // FAQ – Full Q&A List
+  faqQ1: 'What is KFC Rewards?',
+  faqA1: 'KFC Rewards is a loyalty program where you earn points every time you order.',
+
+  faqQ2: 'How can I track my order?',
+  faqA2: 'You can track your order in real-time from the "Current Order" section.',
+
+  faqQ3: 'What payment methods do you accept?',
+  faqA3: 'We support Cash on Delivery, Credit/Debit Cards and online payments.',
+
+  faqQ4: 'How do I update my profile details?',
+  faqA4: 'You can update your profile from the “Account” section in the sidebar.',
+
+  faqQ5: 'Can I change my order after placing it?',
+  faqA5: 'Order changes depend on restaurant preparation stage. Contact support quickly.',
+
+  faqQ6: 'What should I do if my order is late?',
+  faqA6: 'You can check status in “Current Orders” or contact customer support.',
+
+  faqQ7: 'Will I get a refund for cancelled orders?',
+  faqA7: 'Refunds depend on payment method, usually processed within 3–5 days.',
+
+  faqQ8: 'Can I delete my account?',
+  faqA8: 'Yes, you can request account deletion from the profile settings.',
+
+  faqQ9: 'How can I apply for a job?',
+  faqA9: 'You can apply directly through our careers section or job portal.',
+
+  faqQ10: 'Where can I check my interview status?',
+  faqA10: 'You can track your interview status in the application dashboard.',
+
+  faqQ11: 'Do you offer part-time positions?',
+  faqA11: 'Yes, part-time positions are available depending on current openings.',
+
+  allOffers: 'All Offers',
+  apply: 'Apply'
 
 } as const
 
@@ -193,6 +272,8 @@ const ar = {
   LoginScreen2: 'LoginScreen2',
   LoginPageCountryBottomSheetScreen: 'LoginPageCountryBottomSheetScreen',
   OTPScreen: 'OTPScreen',
+  FAQPageScreen: 'FAQPageScreen',
+  DealsAndOfferScreen: 'DealsAndOfferScreen',
   CreateProfileScreen: 'CreateProfileScreen',
   FontsScreen: 'FontsScreen',
   SplashScreen: 'SplashScreen',
@@ -202,7 +283,9 @@ const ar = {
   RemoveCartItemBottomSheetScreen: 'RemoveCartItemBottomSheetScreen',
   SearchScreen: 'SearchScreen',
   CheckOutScreen: 'CheckOutScreen',
+  OrderStatusScreen: 'OrderStatusScreen',
   OrderHistoryScreens: 'OrderHistoryScreens',
+  OrderDetailsScreen: 'OrderDetailsScreen',
   OfferAppliedScreen: "OfferAppliedScreen",
   HelpScreen: 'HelpScreen',
   Main: 'Main',
@@ -350,6 +433,7 @@ const ar = {
   hotel: 'فندق',
   other: 'أخرى',
   confirmLocation: 'تأكيد الموقع',
+  saveLocationConfirmation: 'Are you sure you want to save this location?',
 
   checkOut: 'الدفع',
   wantOrder: 'أريد طلبي:',
@@ -365,6 +449,79 @@ const ar = {
   creditDebitcards: 'بطاقات الائتمان/الخصم',
   visaCheckOut: 'الدفع عبر فيزا',
 
+  currentOrders: 'Current Orders',
+  previousOrders: 'Previous Orders',
+  orderId: 'Order ID',
+  NoOrdersYet: 'No Orders Yet!',
+  makeAOrder: 'Make a Order',
+  OrderDetail: 'Order Detail',
+  qty: 'Qty',
+  orderStatus:'Order Status',
+  KFC_restaurant: 'KFC Restaurant',
+
+  // FAQ
+  faqHeader: 'الأسئلة الشائعة',
+  generalQuestions: 'الأسئلة العامة',
+  orderingQuestions: 'الطلبات والتوصيل',
+  paymentsQuestions: 'الدفع والاسترداد',
+  accountQuestions: 'الحساب والملف الشخصي',
+  faqs: "الأسئلة الشائعة",
+  onlineOrdering: 'الطلب عبر الإنترنت',
+  restaurants: 'المطاعم',
+  employment: 'التوظيف',
+
+  resetPassword: 'كيف يمكنني إعادة تعيين كلمة المرور؟',
+  restaurantReceive: 'كيف أعرف أن المطعم استلم طلبي؟',
+  paymentOptions: 'ما هي خيارات الدفع المتاحة؟',
+  saveCreditCard: 'هل من الآمن حفظ بطاقة الائتمان؟',
+  changeAccountInfo: 'كيف يمكنني تغيير معلومات حسابي؟',
+  deliveryChargesHigher: 'لماذا تكون رسوم التوصيل أعلى أحيانًا؟',
+  deliveryServiceCharge: 'ما هي رسوم خدمة التوصيل؟',
+  resetPasswordA: 'يمكنك إعادة تعيين كلمة المرور من شاشة تسجيل الدخول عن طريق اختيار "هل نسيت كلمة المرور؟" واتباع التعليمات.',
+  restaurantReceiveA: 'بمجرد إتمام طلبك، يستلمه المطعم مباشرة. كما ستتمكن من رؤية التحديثات لحالة طلبك في الوقت الفعلي.',
+  paymentOptionsA: 'نقبل عدة طرق دفع، بما في ذلك البطاقات الائتمانية/الخصم، المحافظ الإلكترونية، والدفع عند التسليم حسب التوفر.',
+  saveCreditCardA: 'نعم، حفظ بطاقتك آمن. يتم تشفير بيانات الدفع الخاصة بك ولن تتم مشاركتها مع أي طرف آخر.',
+  changeAccountInfoA: 'يمكنك تعديل معلوماتك الشخصية من قسم الملف الشخصي أو إعدادات الحساب داخل التطبيق.',
+  deliveryChargesHigherA: 'قد تختلف رسوم التوصيل حسب المسافة، أو ساعات الذروة، أو فترات الطلب المرتفع.',
+  deliveryServiceChargeA: 'تُستخدم هذه الرسوم لتغطية التكاليف التشغيلية مثل دعم التوصيل، صيانة التطبيق، وتحسين الخدمات.',
+
+
+  // FAQ – Full Q&A List
+  faqQ1: 'ما هو برنامج مكافآت كنتاكي؟',
+  faqA1: 'هو برنامج ولاء تحصل فيه على نقاط في كل مرة تطلب فيها.',
+
+  faqQ2: 'كيف يمكنني تتبع طلبي؟',
+  faqA2: 'يمكنك تتبع طلبك من قسم "الطلب الحالي".',
+
+  faqQ3: 'ما طرق الدفع المتاحة؟',
+  faqA3: 'ندعم الدفع عند الاستلام وبطاقات الائتمان والدفع الإلكتروني.',
+
+  faqQ4: 'كيف أقوم بتحديث بيانات ملفي الشخصي؟',
+  faqA4: 'يمكنك تحديث معلوماتك من قسم "الحساب" في القائمة الجانبية.',
+
+  faqQ5: 'هل يمكنني تعديل الطلب بعد إرساله؟',
+  faqA5: 'يعتمد ذلك على مرحلة تجهيز الطلب، من الأفضل التواصل مع الدعم.',
+
+  faqQ6: 'ماذا أفعل إذا تأخر طلبي؟',
+  faqA6: 'تحقق من قسم "الطلبات الحالية" أو تواصل مع الدعم.',
+
+  faqQ7: 'هل سأحصل على استرداد في حال إلغاء الطلب؟',
+  faqA7: 'تعتمد سياسة الاسترداد على طريقة الدفع، وتتم عادة خلال 3–5 أيام.',
+
+  faqQ8: 'هل يمكنني حذف حسابي؟',
+  faqA8: 'نعم، يمكنك طلب حذف الحساب من إعدادات الملف الشخصي.',
+
+  faqQ9: 'How can I apply for a job?',
+  faqA9: 'You can apply directly through our careers section or job portal.',
+
+  faqQ10: 'Where can I check my interview status?',
+  faqA10: 'You can track your interview status in the application dashboard.',
+
+  faqQ11: 'Do you offer part-time positions?',
+  faqA11: 'Yes, part-time positions are available depending on current openings.',
+
+  allOffers: 'All Offers',
+  apply: 'Apply'
 } as const
 
 export const useStrings = () => {

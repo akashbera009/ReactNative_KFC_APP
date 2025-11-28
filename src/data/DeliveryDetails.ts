@@ -10,5 +10,6 @@ const DeliveryDetails: DeliveryDetailsType  = {
     charges: 40 , 
     vatCharge: 5 , 
     discountRate: 4 , 
+    restaurantName : "Shop no. 1, Al Diyafah Bldg, Hana Center - Al Mankhool Rd - Dubai - United Arab Emirates"
 }
 export default DeliveryDetails ; 

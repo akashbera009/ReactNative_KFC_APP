@@ -115,14 +115,18 @@ const SideBar = () => {
             <Image source={Images?.Track_Order} style={[Styles.SideImageIcon, Styles.TrackOrderIcon]} />
             <Text style={Styles.singleEntryText}>{Strings?.trackOrder} </Text>
           </View>
-          <View style={Styles.SingleEntry}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(Strings?.OrderHistoryScreens)}
+            style={Styles.SingleEntry}>
             <Image source={Images?.menu} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings?.orderHistory} </Text>
-          </View>
-          <View style={Styles.SingleEntry}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(Strings?.DealsAndOfferScreen)}
+            style={Styles.SingleEntry}>
             <Image source={Images?.discount} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings?.dealsAndOffer} </Text>
-          </View>
+          </TouchableOpacity>
           <View style={Styles.SingleEntry}>
             <Image source={Images?.Great_Menu} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings?.greatMenu} </Text>
@@ -133,11 +137,13 @@ const SideBar = () => {
           </View>
         </View>
 
-
-
         <View style={[Styles.LowerCallSupportContainer, { bottom: inset.bottom + 10 }]}>
           <View style={Styles.LowerFAQSection}>
-            <Text style={Styles.BottomViewText}>{Strings?.faq.toUpperCase()} </Text>
+            <TouchableOpacity
+              onPress={() => { navigation.navigate(Strings?.FAQPageScreen) }}
+            >
+              <Text style={Styles.BottomViewText}>{Strings?.faq.toUpperCase()} </Text>
+            </TouchableOpacity>
             <Text style={Styles.BottomViewText}>{Strings?.termsCondition} </Text>
             <Text style={Styles.BottomViewText}>{Strings?.nutritionInfo} </Text>
           </View>

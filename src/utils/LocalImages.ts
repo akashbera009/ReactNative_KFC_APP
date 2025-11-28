@@ -80,5 +80,10 @@ const Images = {
     COD_Cash: require(fixedPath+ 'CheckOutScreen/COD_Cash.png'), 
     CreditCard: require(fixedPath+ 'CheckOutScreen/CreditCard.png'), 
     Visa_Text: require(fixedPath+ 'CheckOutScreen/Visa_Text.png'), 
+    HomeIcon: require(fixedPath+ 'CheckOutScreen/HomeIcon.png'), 
+
+    EmptyBox: require(fixedPath+ 'CartScreens/EmptyBox.png'), 
+
+    DownloadIcon: require(fixedPath+ 'OrderScreen/DownloadIcon.png'), 
 }
 export default Images   

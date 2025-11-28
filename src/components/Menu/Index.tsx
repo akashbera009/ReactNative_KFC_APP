@@ -15,7 +15,7 @@ import { useCart } from '../../context/CartContext';
 import { useMenu } from '../../context/MenuContext';
 
 
-const Index = () => {
+const Index = ({categoryType}:{categoryType:string} ) => {
     const Colors = useThemeColors()
     const Strings = useStrings()
     const inset = useSafeAreaInsets()
@@ -26,7 +26,9 @@ const Index = () => {
     const category: string[] = [...(menuItem.map((item) => item.categories).flat(1))].sort()
     const iSFavouriteMenuArray = menuItem.filter(item => item?.isFavorite == true);
     const categorySet: string[] = [...new Set<string>([...category])];
-    const [activeCategory, setActiveCategory] = useState<string>(categorySet[0]);
+    console.log(categorySet , categoryType);
+    
+    const [activeCategory, setActiveCategory] = useState<string>(categoryType);
     const frequencyMap: Map<string, number> = new Map();
     if (iSFavouriteMenuArray.length > 0) {
         categorySet.splice(1, 0,'Favourites')

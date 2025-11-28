@@ -29,6 +29,10 @@ import OfferAppliedScreen from '../screens/OfferAppliedScreen';
 import MapsScreen from '../screens/MapsScreen';
 import CheckOutScreen from '../screens/CheckOutScreen';
 import OrderHistoryScreens from '../screens/OrderHistoryScreens';
+import OrderDetailsScreen from '../screens/OrderDetailsScreen';
+import FAQPageScreen from '../screens/FAQPageScreen';
+import DealsAndOfferScreen from '../screens/DealsAndOfferScreen';
+import OrderStatusScreen from '../screens/OrderStatusScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -86,6 +90,14 @@ function StackNavigator() {
                 component={OTPScreen}
             />
             <Stack.Screen
+                name={Strings?.FAQPageScreen}
+                component={FAQPageScreen}
+            />
+            <Stack.Screen
+                name={Strings?.DealsAndOfferScreen}
+                component={DealsAndOfferScreen}
+            />
+            <Stack.Screen
                 name={Strings?.ExploreMenuScreen}
                 component={ExploreMenuScreen}
             />
@@ -123,8 +135,16 @@ function StackNavigator() {
                 component={CheckOutScreen}
             />
             <Stack.Screen
+                name={Strings?.OrderStatusScreen}
+                component={OrderStatusScreen}
+            />
+            <Stack.Screen
                 name={Strings?.OrderHistoryScreens}
                 component={OrderHistoryScreens}
+            />
+            <Stack.Screen
+                name={Strings?.OrderDetailsScreen}
+                component={OrderDetailsScreen}
             />
             <Stack.Screen
                 name={Strings?.CreateProfileScreen}
