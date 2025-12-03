@@ -6,7 +6,8 @@ type RemoveCartItemProps = {
 type BottomCartProps = {
   ButtonType: string;
   navLink: string,
-  totalAmount: number
+  totalAmount: number,
+  discount: number
 };
 
 type DeliveryDetailsType = {
@@ -21,7 +22,9 @@ type DeliveryDetailsType = {
   charges: number;
   vatCharge: number;
   discountRate: number;
-  restaurantName : string; 
+  restaurantName: string;
+  supportMail: string;
+  supprotMobile: string
 };
 
 type CategoryFrequency = {
@@ -71,5 +74,20 @@ type OrderHistory = {
 
 type DealsAndOffersDataType = {
   title: string,
-  desc: string
+  desc: string,
+  discount: number,
+  discountPercentage: number,
+  offerCode: string
+}
+type OrderStatusPageProps = {
+  currentOrder: CartItemType[],
+  orderId: string,
+  OrderDate: string,
+  OrderTime: string,
+  paymentMode: string,
+  vatAmount: number,
+  GrandTotal: number,
+  SubTotal: number,
+  deliveriCharge: number,
+  orderStatus: number
 }

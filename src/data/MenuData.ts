@@ -27,7 +27,6 @@ export const menuData: menuDataType[] = [
             "Mighty Zinger",
             "1 Twister - Org",
             "Fries - Regular",
-            "Pepsi - Regular"
         ],
         price: 24.00,
         oldPrice: 24.70,

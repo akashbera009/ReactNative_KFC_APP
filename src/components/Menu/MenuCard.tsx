@@ -105,7 +105,19 @@ export default function MenuCard({
 
                 <Image source={image} style={Styles.LeftfoodImage} />
                 <View style={Styles.RightContainer}>
-                    <Text style={Styles.FoodName}>{name}</Text>
+                    <View style={Styles.nameAndFavButton}>
+                        <Text style={Styles.FoodName}>{name}</Text>
+                        <TouchableOpacity
+                            style={Styles.favIconContainer}
+                            onPress={() => { handleToggleFavourite(id) }}
+                        >
+                            {isFavorite ? (
+                                <Image source={Images?.Favourite_Icon} style={Styles.Favourite_Icon} />
+                            ) : (
+                                <Image source={Images?.Favourite_Icon_Empty} style={Styles.Favourite_Icon} />
+                            )}
+                        </TouchableOpacity>
+                    </View>
                     <View style={Styles.DescriptionContainer}>
                         {description.map((item, idx) => (
                             <View key={idx} style={Styles.DotAndDescription}>
@@ -117,23 +129,13 @@ export default function MenuCard({
                     {customizable && (
                         <TouchableOpacity
                             style={Styles.CustomizeContainer}
-                            onPress={() => { }}
+                            onPress={() => navigation.navigate(Strings?.FoodCustomizationScreen)}
                         >
                             <Text style={Styles.customizeText}>{Strings?.customize.toUpperCase()} </Text>
                             <Image source={Images?.back_arrow} style={Styles.backArrow} />
                         </TouchableOpacity>
                     )}
                 </View>
-                <TouchableOpacity
-                    style={Styles.favIconContainer}
-                    onPress={() => { handleToggleFavourite(id) }}
-                >
-                    {isFavorite ? (
-                        <Image source={Images?.Favourite_Icon} style={Styles.Favourite_Icon} />
-                    ) : (
-                        <Image source={Images?.Favourite_Icon_Empty} style={Styles.Favourite_Icon} />
-                    )}
-                </TouchableOpacity>
             </View>
             <View style={Styles.LowerContainer}>
                 <View style={Styles.LowerLeftPriceContainer}>
@@ -186,7 +188,6 @@ export default function MenuCard({
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         CardContainer: {
-            height: 210,
             width: '100%',
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
@@ -245,9 +246,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         RightContainer: {
             width: '60%',
-            height: '90%',
             paddingTop: 5,
             marginLeft: 10,
+        },
+        nameAndFavButton: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
         },
         FoodName: {
             fontSize: 15,
@@ -284,9 +290,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginRight: 5,
         },
         CustomizeContainer: {
-            position: 'absolute',
-            bottom: -8,
-            left: -2,
+            position: 'relative',
+            top: 10,
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
@@ -305,10 +310,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             transform: [{ rotate: '180deg' }],
             tintColor: Colors?.ButtonBlueColor,
         },
-        LowerContainer: {
-            position: 'absolute',
-            left: 0,
-            bottom: 0,
+        LowerContainer: { 
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -413,16 +415,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontFamily: Fonts?.headerRegular,
             fontWeight: 700
         },
-
         Favourite_Icon: {
             height: 20,
             width: 20,
             tintColor: Colors?.KFC_red
         },
-        favIconContainer: {
-            position: 'absolute',
-            right: 15,
-            top: 20,
+        favIconContainer: { 
+            marginRight: 15 
         }
     });
     return Styles;

@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Platform } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Platform, Animated  } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -19,8 +19,6 @@ import DeliveryDetails from '../../data/DeliveryDetails';
 import VideoPlayerComponent from './VideoPlayer';
 import { useMenu } from '../../context/MenuContext';
 
-
-// player imports 
 export default function HomePage() {
   const Colors = useThemeColors()
   const Strings = useStrings()
@@ -28,12 +26,33 @@ export default function HomePage() {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const drawerNavigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
-  const {menuItem} = useMenu()
+  const { menuItem } = useMenu()
   const colorList: { offset: string, color: string, opacity: string }[] = [
     { offset: '0%', color: Colors?.orangeColorText, opacity: '1' },
     { offset: '40%', color: Colors?.orangeColorText, opacity: '1' },
     { offset: '100%', color: Colors?.KFC_red, opacity: '1' },
   ]
+  // fade animation 
+  const fadeAnimation = useRef(new Animated.Value(0)).current
+  const FadeIn =()=>{
+    fadeAnimation.setValue(0);
+    Animated.timing( fadeAnimation , {
+      toValue : 1 , 
+      duration: 600,
+      useNativeDriver: true
+    }).start()
+  }
+  const [imageIndex, setImageIndex] = useState(0);
+  const imageSet = [Images?.Home_Page_Main_Image, Images?.Chicken_Nugedts, Images?.Chicken_Roll, Images?.Pepsi_Double_Can]
+  useEffect(() => {
+    const interval = setTimeout(() => {
+      setImageIndex(prev => prev < 3 ? prev + 1 : 0)
+    }, 2500);
+    FadeIn()
+    return () => {
+      clearTimeout(interval)
+    }
+  }, [imageIndex])
   return (
     <View style={Styles.ParentContaine}>
       <View style={Styles.menuButtonContainer}>
@@ -55,7 +74,24 @@ export default function HomePage() {
           >
             <Text style={[Styles.HeaderKFC, { marginTop: inset.top - 15 }]}> {Strings?.KFC}</Text>
           </TouchableOpacity>
-          <Image source={Images?.Home_Page_Main_Image} style={Styles.HomePageMainImage} />
+          {/* <View style={Styles.ImageLabel}>
+            <View style={Styles.label}>
+              <Text style={Styles.off}>100 </Text>
+              <View style={Styles.labelTriangle}/>
+            </View>
+            <View style={[Styles.label,Styles.leftLabel]}>
+              <View style={[Styles.labelTriangle , Styles.triangleLeft]}/>
+              <Text style={Styles.off}>100 </Text>
+            </View>
+            <Image source={Images?.Home_Page_Main_Image} style={Styles.HomePageMainImage} />
+            </View> */}
+          <Animated.Image source={imageSet[imageIndex]} style={[Styles.HomePageMainImage , {opacity: fadeAnimation}]} />
+          <View style={Styles.IndexContainer}>
+            {imageSet.map((_, idx) => (
+              <View key={idx}
+                style={[Styles.Index , idx == imageIndex && Styles.fillIndex]}/>
+            ))}
+          </View>
           <View style={Styles.AddressContainer}>
             <Image source={Images.Location} style={Styles.locationIcon} />
             <View style={Styles.DeliveryTextContainer}>
@@ -95,7 +131,7 @@ export default function HomePage() {
               </TouchableOpacity>
               <View style={Styles.SecondCardGroup}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen,{
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
                     categoryType: 'For One'
                   })}
                   style={Styles.SecondCardTop}>
@@ -103,7 +139,7 @@ export default function HomePage() {
                   <Image source={Images?.Chicken_Nugedts} style={[Styles.SecondCardImage, Styles.RotateImage]} />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen,{
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
                     categoryType: 'Slides & Deserts'
                   })}
                   style={Styles.SecondCardDown}>
@@ -114,7 +150,7 @@ export default function HomePage() {
               <View
                 style={Styles.ThirdCardGroup}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen,{
+                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
                     categoryType: 'For Sharing'
                   })}
                   style={Styles.ThirdCardTop}>
@@ -263,10 +299,78 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       color: Colors?.constantWhite,
       fontFamily: Fonts?.kfcLogoTextFont,
     },
+    ImageLabel: {
+
+    },
+    label: {
+      height: 90,
+      width: 200,
+      backgroundColor: Colors?.constantWhite,
+      position: 'absolute',
+      right: -80,
+      top: 20,
+      transform: [{ rotate: '-10deg' }],
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      flexDirection: 'row',
+      paddingRight: 30,
+    },
+    leftLabel: {
+      left: -80,
+      top: 70,
+      justifyContent: 'flex-start',
+      transform: [{ rotate: '-10deg' }],
+    },
+    off: {
+      color: Colors?.constantBlack,
+      fontSize: 20,
+    },
+    labelTriangle: {
+      position: 'absolute',
+      right: 0,
+      width: 30,
+      height: 100,
+      borderTopWidth: 50,
+      borderRightWidth: 30,
+      borderBottomWidth: 50,
+      borderLeftColor: 'transparent',
+      borderTopColor: 'transparent',
+      borderBottomColor: 'transparent',
+      borderRightColor: Colors?.KFC_red,
+    },
+    triangleLeft: {
+      position: 'relative',
+      borderTopWidth: 50,
+      borderLeftWidth: 30,
+      borderBottomWidth: 50,
+      borderRightColor: 'transparent',
+      borderTopColor: 'transparent',
+      borderBottomColor: 'transparent',
+      borderLeftColor: Colors?.KFC_red,
+    },
     HomePageMainImage: {
-      height: 230,
-      width: 230,
+      height: 220,
+      width: 220,
       alignSelf: 'center'
+    },
+    IndexContainer: {
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+flexDirection: 'row',
+gap: 8 , 
+marginTop: 5 , 
+    },
+    Index: {
+      height: 8, 
+      width: 8 ,
+      borderWidth: 1 , 
+      borderColor: Colors?.constantWhite,
+      borderRadius : 10 , 
+    },
+    fillIndex:{
+      backgroundColor: Colors?.constantWhite,
     },
     AddressContainer: {
       height: 60,

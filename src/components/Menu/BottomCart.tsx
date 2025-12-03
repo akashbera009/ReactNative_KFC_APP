@@ -12,7 +12,7 @@ import { useCountry } from '../../context/CountryContext';
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 
-export default function BottomCart({ ButtonType, navLink, totalAmount }: BottomCartProps) {
+export default function BottomCart({ ButtonType, navLink, totalAmount , discount }: BottomCartProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const Styles = createDynamicStyles(Colors, Fonts);
@@ -23,13 +23,14 @@ export default function BottomCart({ ButtonType, navLink, totalAmount }: BottomC
     let discountPrice = CartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
     discountPrice -= Number(totalPrice);
 
+let formattedCounterText =  CartItem?.length < 10 ? `0${CartItem?.length}` : CartItem?.length
     return (
         <View style={Styles.ViewCartWrapper}>
             <View style={Styles.DetailsContainer}>
                 <View style={Styles.ImageContainer}>
                     <Image source={Images?.Chicken_Bucket} style={Styles.CartImage} />
                     <View style={Styles.ImageWrapper}>
-                        <Text style={Styles.CounterText}>{CartItem?.length} </Text>
+                        <Text style={Styles.CounterText}>{formattedCounterText} </Text>
                     </View>
                 </View>
                 <View style={Styles.PriceDetails}>
@@ -45,12 +46,15 @@ export default function BottomCart({ ButtonType, navLink, totalAmount }: BottomC
                 style={Styles.ViewCart}
                 onPress={() => {
                     if (navLink === 'CartScreen') {
-                        navigation.navigate(Strings?.CartScreen);
+                        navigation.navigate(Strings?.CartScreen , {
+                            discount: 0 , 
+                            discountPercentage: 0 ,
+                            offerCode: '' 
+                        });
                     } else {
                         navigation.navigate(Strings?.CheckOutScreen, {
                             totalAmount: totalAmount,
-                            // items: cartItems,
-                            // address: selectedAddress,
+                            discount : discount  
                         });
                     }
                 }}
@@ -100,7 +104,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         CounterText: {
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: 700,
             color: Colors?.constantWhite,
         },
@@ -117,13 +121,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             display: 'flex',
             justifyContent: 'center',
             alignSelf: 'center',
-            // backgroundColor: '#ffdcdcff',
         },
         totalPrice: {
             fontSize: 16,
             fontWeight: 700,
             marginBottom: 4,
-            fontFamily: Fonts?.subHeader
+            fontFamily: Fonts?.subHeader,
+            color: Colors?.textBlack
         },
         discountPrice: {
             color: Colors?.textFadeBlack,

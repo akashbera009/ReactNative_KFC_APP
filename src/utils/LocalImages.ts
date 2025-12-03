@@ -81,8 +81,12 @@ const Images = {
     CreditCard: require(fixedPath+ 'CheckOutScreen/CreditCard.png'), 
     Visa_Text: require(fixedPath+ 'CheckOutScreen/Visa_Text.png'), 
     HomeIcon: require(fixedPath+ 'CheckOutScreen/HomeIcon.png'), 
+    GreenPhoneCall: require(fixedPath+ 'CheckOutScreen/GreenPhoneCall.png'), 
+    RoundLoader: require(fixedPath+ 'CheckOutScreen/RoundLoader.png'), 
 
     EmptyBox: require(fixedPath+ 'CartScreens/EmptyBox.png'), 
+    Edit_Icon: require(fixedPath+ 'CartScreens/Edit_Icon.png'), 
+    Info_Button: require(fixedPath+ 'CartScreens/Info_Button.png'), 
 
     DownloadIcon: require(fixedPath+ 'OrderScreen/DownloadIcon.png'), 
 }

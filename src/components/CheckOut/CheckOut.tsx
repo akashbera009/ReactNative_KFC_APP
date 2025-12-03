@@ -12,7 +12,7 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 import { useCart } from '../../context/CartContext';
-export default function CheckOut({ totalAmount }: { totalAmount: number }) {
+export default function CheckOut({ totalAmount, discount }: { totalAmount: number, discount: number }) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
@@ -30,7 +30,7 @@ export default function CheckOut({ totalAmount }: { totalAmount: number }) {
     // amount calculations  
     const vatAmount: number = Number((totalAmount * 5 / 100).toFixed(2))
     const beforeTax: number = totalAmount - DeliveryDetails?.charges - vatAmount
-    const DiscountPrice: number = Number((totalAmount * DeliveryDetails?.discountRate / 100).toFixed(2))
+    const DiscountPrice: number = discount;
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandTotal: number = AfterDiscount + DeliveryDetails?.charges
     const openPaymentOptions = () => {
@@ -41,7 +41,27 @@ export default function CheckOut({ totalAmount }: { totalAmount: number }) {
         paymentMethodOpen == true && scrollToPosition()
     }
     const openPaymentModal = () => {
-        navigation.navigate(Strings?.OrderStatusScreen)
+        // on payment success , navigate to orderstatus page
+        let TempOrderDate = new Date().toDateString().split(' ').slice(1)
+        const OrderDate = TempOrderDate.join(' ')
+        const OrderTime = new Date().toTimeString().split(' ')[0]
+        onPaymentSuccess("ORD-123", OrderDate, OrderTime)
+    }
+
+    const orderStatus = Math.floor(Math.random() * 2) + 1;
+    const onPaymentSuccess = (orderId: string, OrderDate: string, OrderTime: string) => {
+        navigation.navigate(Strings?.OrderStatusScreen, {
+            currentOrder: CartItem,
+            orderId: orderId,
+            OrderDate: OrderDate,
+            OrderTime: OrderTime,
+            paymentMode: paymentMethodSelected,
+            vatAmount: vatAmount,
+            GrandTotal: GrandTotal,
+            SubTotal: beforeTax,
+            deliveriCharge: DeliveryDetails?.charges,
+            orderStatus: orderStatus
+        })
     }
     useEffect(() => {
         if (paymentMethodOpen) {
@@ -113,7 +133,7 @@ export default function CheckOut({ totalAmount }: { totalAmount: number }) {
                         </TouchableOpacity>
                     </View>
 
-                    <Text style={Styles.sectionLabel}>{Strings?.deliveryAddress}</Text>
+                    <Text style={Styles.sectionLabel}>{Strings?.deliveryAddress.toUpperCase()}</Text>
                     <View style={Styles.card}>
                         <View style={Styles.addressHeader}>
                             <View style={Styles.homeTag}>
@@ -169,10 +189,12 @@ export default function CheckOut({ totalAmount }: { totalAmount: number }) {
                                         <Text style={Styles.PriceEntriesLeft}>{Strings?.SubTotal} </Text>
                                         <Text style={Styles.PriceEntriesRight}>{AfterDiscount} {countrySelected?.currencyCode} </Text>
                                     </View>
-                                    <View style={Styles.PriceEntries}>
-                                        <Text style={Styles.PriceEntriesLeft}>{Strings?.discount} </Text>
-                                        <Text style={[Styles.PriceEntriesRight, Styles?.discountPrice]}>- {DiscountPrice} {countrySelected?.currencyCode} </Text>
-                                    </View>
+                                    {DiscountPrice != 0 && (
+                                        <View style={Styles.PriceEntries}>
+                                            <Text style={Styles.PriceEntriesLeft}>{Strings?.discount} </Text>
+                                            <Text style={[Styles.PriceEntriesRight, Styles?.discountPrice]}>- {DiscountPrice} {countrySelected?.currencyCode} </Text>
+                                        </View>
+                                    )}
                                     <View style={Styles.PriceEntries}>
                                         <Text style={Styles.PriceEntriesLeft}>{Strings?.vat.toUpperCase()} @ {DeliveryDetails?.vatCharge}% </Text>
                                         <Text style={Styles.PriceEntriesRight}>{vatAmount} {countrySelected?.currencyCode} </Text>
@@ -188,7 +210,7 @@ export default function CheckOut({ totalAmount }: { totalAmount: number }) {
                     <Text style={Styles.sectionLabel}>{Strings?.paymentMethods.toUpperCase()}</Text>
                     <View style={Styles.PaymentMethodsContainer}>
                         <TouchableOpacity
-                            onPress={() => setPaymentMethodSelected('cod')}
+                            onPress={() => setPaymentMethodSelected('Cash On Delivery')}
                             activeOpacity={.5}
                             style={Styles.PaymentMethodsEntries}>
                             <View style={Styles.PaymentTextLeft}>
@@ -196,28 +218,28 @@ export default function CheckOut({ totalAmount }: { totalAmount: number }) {
                                 <Text style={Styles.paymentText}>{Strings?.cashOnDelivery} </Text>
                             </View>
                             <View style={Styles.radioRow}>
-                                <View style={[Styles.radioOuter, paymentMethodSelected === 'cod' && Styles.radioActiveOuter]}>
-                                    {paymentMethodSelected === 'cod' && <View style={Styles.radioInner} />}
+                                <View style={[Styles.radioOuter, paymentMethodSelected === 'Cash On Delivery' && Styles.radioActiveOuter]}>
+                                    {paymentMethodSelected === 'Cash On Delivery' && <View style={Styles.radioInner} />}
                                 </View>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
                             activeOpacity={.5}
-                            onPress={() => setPaymentMethodSelected('creditCard')}
+                            onPress={() => setPaymentMethodSelected('Credit Card')}
                             style={Styles.PaymentMethodsEntries}>
                             <View style={Styles.PaymentTextLeft}>
                                 <Image source={Images?.CreditCard} style={Styles.paymentImage} />
                                 <Text style={Styles.paymentText}>{Strings?.creditDebitcards} </Text>
                             </View>
                             <View style={Styles.radioRow}>
-                                <View style={[Styles.radioOuter, paymentMethodSelected === 'creditCard' && Styles.radioActiveOuter]}>
-                                    {paymentMethodSelected === 'creditCard' && <View style={Styles.radioInner} />}
+                                <View style={[Styles.radioOuter, paymentMethodSelected === 'Credit Card' && Styles.radioActiveOuter]}>
+                                    {paymentMethodSelected === 'Credit Card' && <View style={Styles.radioInner} />}
                                 </View>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
                             activeOpacity={.5}
-                            onPress={() => setPaymentMethodSelected('visa')}
+                            onPress={() => setPaymentMethodSelected('Visa Checkout')}
                             style={Styles.PaymentMethodsEntries}>
                             <View style={Styles.PaymentTextLeft}>
                                 <View style={Styles.paymentImageVisaContainer}>
@@ -226,8 +248,8 @@ export default function CheckOut({ totalAmount }: { totalAmount: number }) {
                                 <Text style={Styles.paymentText}>{Strings?.visaCheckOut} </Text>
                             </View>
                             <View style={Styles.radioRow} >
-                                <View style={[Styles.radioOuter, paymentMethodSelected === 'visa' && Styles.radioActiveOuter]}>
-                                    {paymentMethodSelected === 'visa' && <View style={Styles.radioInner} />}
+                                <View style={[Styles.radioOuter, paymentMethodSelected === 'Visa Checkout' && Styles.radioActiveOuter]}>
+                                    {paymentMethodSelected === 'Visa Checkout' && <View style={Styles.radioInner} />}
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -240,8 +262,7 @@ export default function CheckOut({ totalAmount }: { totalAmount: number }) {
                     onPress={() => paymentMethodSelected
                         ? openPaymentModal()
                         : openPaymentOptions()
-                    }
-                >
+                    }>
                     <Text style={Styles.bottomButtonText}>{paymentMethodSelected ? Strings?.makePayment.toUpperCase() : Strings?.paymentMode.toUpperCase()}</Text>
                 </TouchableOpacity>
             </View>
@@ -595,8 +616,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 500,
             marginLeft: 'auto'
         },
-        discountPrice :{
-                color: Colors?.greenOk
+        discountPrice: {
+            color: Colors?.greenOk
         },
         PaymentMethodsContainer: {
             marginTop: 10,

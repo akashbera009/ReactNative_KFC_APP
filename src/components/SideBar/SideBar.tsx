@@ -3,6 +3,8 @@ import { TouchableOpacity, StyleSheet, View, Text, Image, TouchableWithoutFeedba
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+// data imports 
+import { OrderHistoryData } from '../../data/OrderHistorydata';
 //util files 
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages';
@@ -13,7 +15,6 @@ import DeliveryDetails from '../../data/DeliveryDetails';
 import { useLanguage } from '../../context/LanguageContex';
 import { useCountry } from '../../context/CountryContext';
 import { CountryInfo } from '../../data/CountryInfo';
-
 const SideBar = () => {
   const Colors = useThemeColors()
   const Strings = useStrings()
@@ -25,6 +26,7 @@ const SideBar = () => {
   const [countryMenuOpen, setCountryMenuOpen] = useState<boolean>(false)
   const { isDarkMode, setIsDarkMode } = useTheme()
   const [isSettingsMenunOpen, setIsSettingsMenuOpen] = useState<boolean>(false)
+    const currentOrder: OrderHistory = OrderHistoryData.filter((item)=> item?.status == 'Being Prepared')[0]
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -111,10 +113,14 @@ const SideBar = () => {
           </View>
         </View>
         <View style={Styles.MenuListContainer}>
-          <View style={Styles.SingleEntry}>
+          <TouchableOpacity
+          onPress={()=> navigation.navigate(Strings?.OrderDetailsScreen , {
+            order: currentOrder
+          })}
+           style={Styles.SingleEntry}>
             <Image source={Images?.Track_Order} style={[Styles.SideImageIcon, Styles.TrackOrderIcon]} />
             <Text style={Styles.singleEntryText}>{Strings?.trackOrder} </Text>
-          </View>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate(Strings?.OrderHistoryScreens)}
             style={Styles.SingleEntry}>
@@ -144,7 +150,11 @@ const SideBar = () => {
             >
               <Text style={Styles.BottomViewText}>{Strings?.faq.toUpperCase()} </Text>
             </TouchableOpacity>
-            <Text style={Styles.BottomViewText}>{Strings?.termsCondition} </Text>
+            <TouchableOpacity
+              onPress={() => { navigation.navigate(Strings?.FontsScreen) }}
+            >
+              <Text style={Styles.BottomViewText}>{Strings?.termsCondition} </Text>
+            </TouchableOpacity>
             <Text style={Styles.BottomViewText}>{Strings?.nutritionInfo} </Text>
           </View>
           <View style={Styles.LowerCallWrappper}>

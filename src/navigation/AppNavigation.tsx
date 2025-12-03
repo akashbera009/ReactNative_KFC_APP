@@ -33,6 +33,7 @@ import OrderDetailsScreen from '../screens/OrderDetailsScreen';
 import FAQPageScreen from '../screens/FAQPageScreen';
 import DealsAndOfferScreen from '../screens/DealsAndOfferScreen';
 import OrderStatusScreen from '../screens/OrderStatusScreen';
+import FoodCustomizationScreen from '../screens/FoodCustomizationScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -107,6 +108,10 @@ function StackNavigator() {
                 options={{
                     presentation: 'transparentModal'
                 }}
+            />
+            <Stack.Screen
+                name={Strings?.FoodCustomizationScreen}
+                component={FoodCustomizationScreen}
             />
             <Stack.Screen
                 name={Strings?.CartScreen}

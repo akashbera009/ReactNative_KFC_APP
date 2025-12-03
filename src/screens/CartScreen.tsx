@@ -1,9 +1,10 @@
 import React from 'react'
 import CartPage from '../components/Menu/CartPage'
 
-const CartScreen = () => {
+const CartScreen = ({ route }: CartScreenScreenProps) => {
+  const { discount, discountPercentage, offerCode } = route.params
   return (
-  <CartPage/>
+    <CartPage discount={discount} discountPercentage={discountPercentage} offerCode={offerCode} />
   )
 }
 

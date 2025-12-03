@@ -26,8 +26,6 @@ const Index = ({categoryType}:{categoryType:string} ) => {
     const category: string[] = [...(menuItem.map((item) => item.categories).flat(1))].sort()
     const iSFavouriteMenuArray = menuItem.filter(item => item?.isFavorite == true);
     const categorySet: string[] = [...new Set<string>([...category])];
-    console.log(categorySet , categoryType);
-    
     const [activeCategory, setActiveCategory] = useState<string>(categoryType);
     const frequencyMap: Map<string, number> = new Map();
     if (iSFavouriteMenuArray.length > 0) {
@@ -94,7 +92,7 @@ const Index = ({categoryType}:{categoryType:string} ) => {
             <ExploreMenu activeCategory={activeCategory} categoryList={categorySet} />
             {CartItem?.length > 0 && (
                 <View style={[Styles.BottomCartContainer, { bottom: inset.bottom - 10 }]}>
-                    <BottomCart ButtonType={Strings?.viewCart} navLink={Strings?.CartScreen} totalAmount={0} />
+                    <BottomCart ButtonType={Strings?.viewCart} navLink={Strings?.CartScreen} totalAmount={0} discount={0} />
                 </View>
             )}
         </View>

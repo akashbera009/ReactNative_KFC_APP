@@ -10,12 +10,27 @@ import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
+import { useCart } from '../../context/CartContext';
 export default function DealsAndOffer() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors, Fonts);
+    const {CartItem} = useCart()
+    const handleApplyOffer = (discount: number, discountPercentage: number , offerCode: string) => {
+        navigation.navigate(Strings?.OfferAppliedScreen)
+        if(CartItem.length  !== 0 ){
+            setTimeout(() => {
+                navigation.pop(1)
+                navigation.replace(Strings?.CartScreen, {
+                    discount: discount,
+                    discountPercentage: discountPercentage,
+                    offerCode: offerCode
+                })
+            }, 2000);
+        }
+    }
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -26,7 +41,7 @@ export default function DealsAndOffer() {
                     <Text style={Styles.headerText}>{Strings?.dealsAndOffer}</Text>
                 </View>
             </View>
-              <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <Text style={Styles.sectionTitle}>{Strings?.allOffers}</Text>
                 {DealsAndOffersData.map((item, index) => (
                     <View key={index} style={Styles.offerCard}>
@@ -34,12 +49,12 @@ export default function DealsAndOffer() {
                             <Text style={Styles.offerTitle}>{item.title}</Text>
                             <Text style={Styles.offerDesc}>{item.desc}</Text>
                         </View>
-
                         <View style={Styles.downBlock}>
                             <TouchableOpacity>
                                 <Text style={Styles.tncText}>{Strings?.termsCondition}</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => handleApplyOffer(item?.discount, item?.discountPercentage , item?.offerCode)}>
                                 <Text style={Styles.applyText}>{Strings?.apply.toUpperCase()}</Text>
                             </TouchableOpacity>
                         </View>
@@ -79,12 +94,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: '700',
             color: Colors?.textBlack,
         },
-  sectionTitle: {
+        sectionTitle: {
             fontSize: 16,
             fontFamily: Fonts?.subHeader,
             fontWeight: '700',
             color: Colors?.textBlack,
-            marginTop: 10, 
+            marginTop: 10,
             marginLeft: 20,
         },
 
@@ -96,15 +111,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             paddingHorizontal: 15,
             borderRadius: 10,
             marginVertical: 8,
-            shadowColor:Colors?.blueShadows , 
+            shadowColor: Colors?.blueShadows,
             shadowOpacity: 0.06,
             shadowOffset: { width: 0, height: 3 },
             shadowRadius: 4,
             elevation: 2,
         },
-        HeaderContainer:{
-             width: '80%',
-             marginLeft: 5 , 
+        HeaderContainer: {
+            width: '80%',
+            marginLeft: 5,
         },
         offerTitle: {
             fontSize: 17,
@@ -117,7 +132,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: 15,
             fontFamily: Fonts?.font17,
             color: Colors?.timerFadeText,
-            marginTop: 10 , 
+            marginTop: 10,
             lineHeight: 22,
         },
 
@@ -126,11 +141,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             marginTop: 30,
-            marginLeft: 5 
+            marginLeft: 5
         },
         tncText: {
             fontSize: 13,
-            letterSpacing: 1, 
+            letterSpacing: 1,
             fontFamily: Fonts?.font17,
             color: Colors?.ButtonTextBlueColor,
         },

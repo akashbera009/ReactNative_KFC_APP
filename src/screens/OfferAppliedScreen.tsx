@@ -3,7 +3,7 @@ import CouponAppliedPopUp from '../components/PopUp/CouponAppliedPopUp'
 
 const OfferAppliedScreen = () => {
   return (
-   <CouponAppliedPopUp/>
+   <CouponAppliedPopUp  />
   )
 }
 

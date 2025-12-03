@@ -54,7 +54,7 @@ export default function Maps() {
                 useNativeDriver: true
             }).start();
         } else {
-            opacity.setValue(0); 
+            opacity.setValue(0);
         }
     }, [showPopup]);
 
@@ -73,7 +73,13 @@ export default function Maps() {
         navigation.pop();
     };
 
-
+    const handlChangeAddress = () => {
+        setAddress({
+            address: '',
+            buildingName: '',
+            flatNo: ''
+        })
+    }
     return (
         <View style={Styles.OuterContianer}>
             <TouchableWithoutFeedback
@@ -179,6 +185,7 @@ export default function Maps() {
                             />
                             <TouchableOpacity
                                 style={Styles.ChangeButton}
+                                onPress={handlChangeAddress}
                             >
                                 <Text style={Styles.ChangeButtonText}>{Strings?.change.toUpperCase()} </Text>
                             </TouchableOpacity>
@@ -257,7 +264,7 @@ export default function Maps() {
                     <Animated.View style={[Styles.popupBox, { opacity: opacity }]}>
                         <Text style={Styles.popupTitle}>Confirm Location</Text>
                         <Text style={Styles.popupMessage}>
-                           {Strings?.saveLocationConfirmation}
+                            {Strings?.saveLocationConfirmation}
                         </Text>
 
                         <View style={Styles.popupButtons}>

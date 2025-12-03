@@ -50,7 +50,7 @@ export default function CouponAppliedPopUp() {
             navigation.pop();
         }, 400);
     };
-
+     setTimeout(() => { navigation.pop()}, 1500);
     useEffect(() => {
         slideUp();
     }, []);

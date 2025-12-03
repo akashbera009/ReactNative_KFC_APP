@@ -5,3 +5,6 @@ type RemoveCartItemBottomSheetScreenProps = NativeStackScreenProps<RootStackPara
 type CheckOutScreenProps = NativeStackScreenProps<RootStackParamList, 'CheckOutScreen'>
 type OrderDetailsScreen = NativeStackScreenProps<RootStackParamList, 'OrderDetailsScreen'>
 type ExploreMenuScreenProps = NativeStackScreenProps<RootStackParamList, 'ExploreMenuScreenProps'>
+type OrderStatusScreenProps = NativeStackScreenProps<RootStackParamList, 'OrderStatusScreenProps'>
+type OfferAppliedScreenProps = NativeStackScreenProps<RootStackParamList, 'OfferAppliedScreen'>
+type CartScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'CartScreen'>

@@ -10,6 +10,8 @@ const DeliveryDetails: DeliveryDetailsType  = {
     charges: 40 , 
     vatCharge: 5 , 
     discountRate: 4 , 
-    restaurantName : "Shop no. 1, Al Diyafah Bldg, Hana Center - Al Mankhool Rd - Dubai - United Arab Emirates"
+    restaurantName : "Shop no. 1, Al Diyafah Bldg, Hana Center - Al Mankhool Rd - Dubai - United Arab Emirates",
+    supportMail: 'support@americana-food.com',
+    supprotMobile : '600522252'
 }
 export default DeliveryDetails ; 

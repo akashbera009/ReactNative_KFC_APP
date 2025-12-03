@@ -9,15 +9,16 @@ type RootStackParamList = {
   FAQPageScreen: undefined
   DealsAndOfferScreen: undefined
   CreateProfileScreen: { phoneNo: string }
-  ExploreMenuScreen: {categoryType : string}
+  ExploreMenuScreen: { categoryType: string }
   MenuCategorizeScreen: { activeCategory: string, setActiveCategory: (ele: string) => void, frequencyArray: CategoryFrequency[] }
-  CartScreen: undefined
+  FoodCustomizationScreen : undefined
+  CartScreen: { discount: number, discountPercentage: number , offerCode: string}
   RemoveCartItemBottomSheetScreen: RemoveCartItemProps
   SearchScreen: undefined
-  CheckOutScreen: {totalAmount: number}
-  OrderStatusScreen: undefined
+  CheckOutScreen: { totalAmount: number , discount: number }
+  OrderStatusScreen: OrderStatusPageProps
   OrderHistoryScreens: undefined
-  OrderDetailsScreen: {order: OrderHistory }
+  OrderDetailsScreen: { order: OrderHistory }
   FontsScreen: undefined
   OfferAppliedScreen: undefined
   HelpScreen: undefined
