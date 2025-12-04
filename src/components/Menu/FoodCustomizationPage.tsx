@@ -30,6 +30,9 @@ export default function FoodCustomizationPage() {
                     </View>
                 </View>
             </View>
+            <View style={Styles.ScrollContainer}>
+                
+            </View>
         </View>
     );
 }
@@ -80,6 +83,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: 20,
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
+        },
+        ScrollContainer:{
+            height: '88%',
+            backgroundColor:Colors?.bodyLigheterColor,
         },
     });
     return Styles;

@@ -9,15 +9,16 @@ import DeliveryDetails from '../../data/DeliveryDetails'
 import Fonts from '../../utils/Fonts'
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
-import { OrderHistoryData } from '../../data/OrderHistorydata';
+import { useOrderQueue } from '../../context/OrderQueueContext';
 
-export default function CurrentOrder() {
+export default function orderQueueItem() {
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const currentOrder: OrderHistory = OrderHistoryData.filter((item)=> item?.status == 'Being Prepared')[0]
-  const ItemNames = currentOrder.Items.map((item)=> item?.name).join(',')
+  const { orderQueueItem } = useOrderQueue()
+  const currentOrder = orderQueueItem.filter((item) => item?.status == 'Being Prepared')[0]
+  const ItemNames = currentOrder?.Items.map((item) => item?.name).join(',')
 
   return (
     <View style={Styles.ParentDeliveryContainer} >
@@ -35,7 +36,7 @@ export default function CurrentOrder() {
         </View>
         <TouchableOpacity
           style={Styles.trackButton}
-          onPress={() => navigation.push(Strings?.OrderDetailsScreen,{
+          onPress={() => navigation.push(Strings?.OrderDetailsScreen, {
             order: currentOrder
           })}
         >
@@ -60,7 +61,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 2, 
+      borderRadius: 2,
       shadowColor: Colors?.blueShadows,
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: .25,
@@ -71,10 +72,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       display: 'flex',
       flexDirection: 'column',
       marginLeft: 15,
-      width:'60%' ,
+      width: '60%',
       height: '65%',
-      marginTop: 10 , 
-      justifyContent:'space-around'
+      marginTop: 10,
+      justifyContent: 'space-around'
     },
     LeftTopContainer: {
       display: 'flex',
@@ -84,7 +85,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       color: Colors?.textFadeBlack2,
       fontFamily: Fonts?.subHeader,
       fontWeight: 600,
-      fontSize: 13, 
+      fontSize: 13,
     },
     Header: {
       color: Colors?.textBlack,
@@ -115,7 +116,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     orderItem: {
       fontSize: 12,
-      color: Colors?.timerFadeText, 
+      color: Colors?.timerFadeText,
       fontWeight: 600,
     },
     beverages: {
@@ -135,7 +136,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       paddingHorizontal: 8,
       paddingVertical: 6,
       fontWeight: 700,
-      fontSize: 13 , 
+      fontSize: 13,
       fontFamily: Fonts?.subHeader
     }
   })

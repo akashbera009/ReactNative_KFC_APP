@@ -11,9 +11,10 @@ import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { useCountry } from '../../context/CountryContext';
+import { useOrderQueue } from '../../context/OrderQueueContext';
 
 export default function OrderStatus({
-    currentOrder,
+    // currentOrders,
     orderId,
     OrderDate,
     OrderTime,
@@ -32,6 +33,8 @@ export default function OrderStatus({
     const { countrySelected } = useCountry()
     const [openAmountDetails, setOpenAmountDetails] = useState<boolean>(false)
     const [pending, setPending] = useState(true)
+    const { orderQueueItem } = useOrderQueue()
+    const currentOrder = orderQueueItem.filter(item => item?.status == 'Being Prepared')[0]
     useEffect(() => {
         const timeOut = setTimeout(() => {
             setPending(false)
@@ -68,25 +71,25 @@ export default function OrderStatus({
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={Styles.OrderBox}>
                         <View style={Styles.Row}>
-                            <Image source={currentOrder[0]?.image} style={Styles.BucketImg} />
+                            <Image source={currentOrder.Items[0]?.image} style={Styles.BucketImg} />
                             {orderStatus == 1 ? (
                                 <>
                                     {pending ? (
                                         <View>
                                             <View style={Styles.orderNotConfrimedAndRotator}>
-                                            <Text style={Styles.OrderConfirmed}>{Strings?.pendingConfirmation}</Text>
-                                            <Animated.Image
-                                                style={[Styles.RoundLoader, {
-                                                    transform: [{
-                                                        rotate: rotate.interpolate({
-                                                            inputRange: [0, 1],
-                                                            outputRange: ['0deg', '360deg'],
-                                                        })
-                                                    }]
-                                                }]}
-                                                source={Images?.RoundLoader}
+                                                <Text style={Styles.OrderConfirmed}>{Strings?.pendingConfirmation}</Text>
+                                                <Animated.Image
+                                                    style={[Styles.RoundLoader, {
+                                                        transform: [{
+                                                            rotate: rotate.interpolate({
+                                                                inputRange: [0, 1],
+                                                                outputRange: ['0deg', '360deg'],
+                                                            })
+                                                        }]
+                                                    }]}
+                                                    source={Images?.RoundLoader}
                                                 />
-                                                </View>
+                                            </View>
                                             <Text style={[Styles.WaitingText,]}>{Strings?.waitingOrder}</Text>
                                         </View>
                                     ) : (
@@ -118,10 +121,12 @@ export default function OrderStatus({
                                 </TouchableOpacity>
                             ) : (
                                 <TouchableOpacity
-                                    // onPress={()=> 
-                                    //     navigation.navigate(Strings?.OrderDetailsScreen , {
-                                    //     order :
-                                    // })}
+                                    onPress={() =>
+                                        navigation.navigate(Strings?.TrackOrderScreen, {
+                                            currentOrder: currentOrder,
+                                            orderId: orderId,
+                                            GrandTotal: GrandTotal
+                                        })}
                                     style={Styles.TrackBox}>
                                     <View style={Styles.TrackLeft}>
                                         <Image source={Images.Track_Order} style={Styles.TrackIcon} />
@@ -150,7 +155,7 @@ export default function OrderStatus({
                                     </View>
                                     <View style={Styles.customBorder} />
                                     <Text style={[Styles.items]}>{Strings?.items}</Text>
-                                    {currentOrder.map((item, idx) => (
+                                    {currentOrder.Items.map((item, idx) => (
                                         <View key={idx} style={Styles.ItemRow}>
                                             <View style={Styles.ItemRowQty}>
                                                 <Text style={Styles.ItemName}>{item?.name}</Text>
@@ -285,7 +290,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             width: 60,
             marginRight: 15
         },
-        orderNotConfrimedAndRotator:{
+        orderNotConfrimedAndRotator: {
             display: 'flex',
             alignItems: 'center',
             flexDirection: 'row',
@@ -299,7 +304,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         RoundLoader: {
             height: 15,
             width: 15,
-            marginHorizontal: 10 , 
+            marginHorizontal: 10,
             tintColor: Colors?.textFadeBlack
         },
         OrderNumber: {
@@ -683,12 +688,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             marginTop: 10,
             color: Colors.timerFadeText,
             lineHeight: 20,
-            fontSize: 13 , 
+            fontSize: 13,
             fontWeight: 500,
             maxWidth: '75%'
         },
         CallIcon: {
-            height: 38 , 
+            height: 38,
             width: 38,
             tintColor: Colors?.greenOk
         },

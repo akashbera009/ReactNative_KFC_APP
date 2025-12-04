@@ -4,6 +4,7 @@ import { LanguageProvider } from './LanguageContex';
 import { CountryProvider } from './CountryContext';
 import { CartProvider } from './CartContext';
 import { MenuProvider } from './MenuContext';
+import { OrderQueueProvider } from './OrderQueueContext';
 
 export const AppProvider = ({ children }: { children: ReactNode }) => (
   <ThemeProvider>
@@ -11,7 +12,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => (
       <CountryProvider>
         <MenuProvider>
           <CartProvider>
-            {children}
+            <OrderQueueProvider>
+              {children}
+            </OrderQueueProvider>
           </CartProvider>
         </MenuProvider>
       </CountryProvider>

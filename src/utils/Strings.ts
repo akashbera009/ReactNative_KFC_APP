@@ -22,7 +22,9 @@ const en = {
   RemoveCartItemBottomSheetScreen: 'RemoveCartItemBottomSheetScreen',
   SearchScreen: 'SearchScreen',
   CheckOutScreen: 'CheckOutScreen',
+  PaymentModalScreen: "PaymentModalScreen",
   OrderStatusScreen: 'OrderStatusScreen',
+  TrackOrderScreen: 'TrackOrderScreen',
   OrderHistoryScreens: 'OrderHistoryScreens',
   OrderDetailsScreen: 'OrderDetailsScreen',
   OfferAppliedScreen: "OfferAppliedScreen",
@@ -100,12 +102,15 @@ const en = {
   beverages: 'beverages',
   CurrentOrder: 'Current Order',
   trackOrder: 'Track Order',
+  refresh: 'Refresh',
   orderIdText: 'Order ID',
   bestSeller: 'best sellers',
   favourites: 'favourites',
   orderFromList: 'Order from your favourite list of items',
   orderNow: 'order now',
   order: 'order',
+  onTheAbove: 'On The Above',
+  cashback: 'cashback',
 
   // location botom sheet 
   consfirmLocation: 'Confirm Location',
@@ -189,6 +194,12 @@ const en = {
   cashOnDelivery: 'Cash On Delivery',
   creditDebitcards: 'Credit/Debit Cards',
   visaCheckOut: 'Visa Check Out',
+makePreferredMode: 'makePreferredMode',
+payByCash: 'payByCash',
+addCreditDebitCard: 'addCreditDebitCard',
+otherPaymentMethod: '.otherPaymentMethod',
+savedCards :'savedCards',
+otherPaymentOptions: 'otherPaymentOptions',
 
   currentOrders: 'Current Orders',
   previousOrders: 'Previous Orders',
@@ -214,6 +225,15 @@ const en = {
   writeToUs: 'Write to us',
   writeMessage: 'For any queries, email us quoting your mobile number',
 
+  // track order 
+  details: 'Details',
+  cod: 'cod',
+  next : 'next',
+  onTheWay: 'On The Way',
+  beingPrepared : 'Being Prepared',
+  foodPrepared : 'The food is being prepared',
+  orderNo:'order No',
+  currentStatus: 'Current Status',
 
   // FAQ 
   faqHeader: 'FAQ',
@@ -304,7 +324,9 @@ const ar = {
   RemoveCartItemBottomSheetScreen: 'RemoveCartItemBottomSheetScreen',
   SearchScreen: 'SearchScreen',
   CheckOutScreen: 'CheckOutScreen',
+  PaymentModalScreen: 'PaymentModalScreen',
   OrderStatusScreen: 'OrderStatusScreen',
+  TrackOrderScreen: 'TrackOrderScreen',
   OrderHistoryScreens: 'OrderHistoryScreens',
   OrderDetailsScreen: 'OrderDetailsScreen',
   OfferAppliedScreen: "OfferAppliedScreen",
@@ -383,12 +405,15 @@ const ar = {
   beverages: 'مشروبات',
   CurrentOrder: 'الطلب الحالي',
   trackOrder: 'تتبع الطلب',
+    refresh: 'Refresh',
   orderIdText: 'رقم الطلب',
   bestSeller: 'الأكثر مبيعًا',
   favourites: 'المفضلة',
   orderFromList: 'اطلب من قائمتك المفضلة من العناصر',
   orderNow: 'اطلب الآن',
   order: 'order',
+  cashback: 'cashback',
+   onTheAbove: 'On The Above',
 
   // location bottom sheet 
   consfirmLocation: 'تأكيد الموقع',
@@ -473,6 +498,12 @@ const ar = {
   cashOnDelivery: 'الدفع عند الاستلام',
   creditDebitcards: 'بطاقات الائتمان/الخصم',
   visaCheckOut: 'الدفع عبر فيزا',
+  makePreferredMode: 'makePreferredMode',
+payByCash: 'payByCash',
+addCreditDebitCard: 'addCreditDebitCard',
+otherPaymentMethod: '.otherPaymentMethod',
+savedCards :'savedCards',
+otherPaymentOptions: 'otherPaymentOptions',
 
   currentOrders: 'Current Orders',
   previousOrders: 'Previous Orders',
@@ -498,7 +529,15 @@ const ar = {
   writeToUs: 'Write to us',
   writeMessage: 'For any queries, email us quoting your mobile number',
 
-
+  // track order 
+  details: 'Details',
+  cod: 'cod',
+  next : 'next',
+  onTheWay: 'On The Way',
+  beingPrepared : 'Being Prepared',
+  foodPrepared : 'The food is being prepared',
+  orderNo:'orderNo',
+  currentStatus: 'Current Status',
   // FAQ
   faqHeader: 'الأسئلة الشائعة',
   generalQuestions: 'الأسئلة العامة',

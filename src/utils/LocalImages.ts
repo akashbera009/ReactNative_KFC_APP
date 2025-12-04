@@ -47,6 +47,9 @@ const Images = {
     French_Fries_Coke: require(fixedPath+ 'HomeScreen/French_Fries_Coke.png'), 
     Chicken_Bucket: require(fixedPath+ 'HomeScreen/Chicken_Bucket.png'), 
     Chicken_Roll: require(fixedPath+ 'HomeScreen/Chicken_Roll.png'), 
+    BurgerPNG: require(fixedPath+ 'HomeScreen/BurgerPNG.png'), 
+    ChickenNuget: require(fixedPath+ 'HomeScreen/ChickenNuget.png'), 
+    ChickenBox: require(fixedPath+ 'HomeScreen/ChickenBox.png'), 
 
     Favourite_Combo_Pack: require(fixedPath+ 'HomeScreen/Favourite_Combo_Pack.png'), 
     Burger: require(fixedPath+ 'HomeScreen/Burger.png'), 
@@ -61,7 +64,7 @@ const Images = {
     Fill_Call: require(fixedPath+ 'Sidebar/Fill_Call.png'), 
     Down_Arrow_Thick: require(fixedPath+ 'Sidebar/Down_Arrow_Thick.png'), 
     Theme_Icon: require(fixedPath+ 'Sidebar/Theme_Icon.png'), 
-    Logout_Icon: require(fixedPath+ 'Sidebar/Logout_Icon.png'), 
+    Logout_Icon: require(fixedPath+ 'Sidebar/Logout_Icon.png'),
 
     Search_Icon: require(fixedPath+ 'MenuScreen/Search_Icon.png'), 
     Thin_Back_Icon: require(fixedPath+ 'MenuScreen/Thin_Back_Icon.png'), 
@@ -83,11 +86,17 @@ const Images = {
     HomeIcon: require(fixedPath+ 'CheckOutScreen/HomeIcon.png'), 
     GreenPhoneCall: require(fixedPath+ 'CheckOutScreen/GreenPhoneCall.png'), 
     RoundLoader: require(fixedPath+ 'CheckOutScreen/RoundLoader.png'), 
+    CredtiCardStack: require(fixedPath+ 'CheckOutScreen/CredtiCardStack.png'), 
+    ApplePay: require(fixedPath+ 'CheckOutScreen/ApplePay.png'), 
+    ClickToPay: require(fixedPath+ 'CheckOutScreen/ClickToPay.png'), 
+    CashIcon: require(fixedPath+ 'CheckOutScreen/CashIcon.png'), 
 
     EmptyBox: require(fixedPath+ 'CartScreens/EmptyBox.png'), 
     Edit_Icon: require(fixedPath+ 'CartScreens/Edit_Icon.png'), 
     Info_Button: require(fixedPath+ 'CartScreens/Info_Button.png'), 
 
     DownloadIcon: require(fixedPath+ 'OrderScreen/DownloadIcon.png'), 
+    OvenIcon: require(fixedPath+ 'OrderScreen/OvenIcon.png'), 
+    PopCornCup: require(fixedPath+ 'OrderScreen/PopCornCup.png'), 
 }
 export default Images   

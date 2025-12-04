@@ -8,3 +8,4 @@ type ExploreMenuScreenProps = NativeStackScreenProps<RootStackParamList, 'Explor
 type OrderStatusScreenProps = NativeStackScreenProps<RootStackParamList, 'OrderStatusScreenProps'>
 type OfferAppliedScreenProps = NativeStackScreenProps<RootStackParamList, 'OfferAppliedScreen'>
 type CartScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'CartScreen'>
+type TrackOrderScreenProps = NativeStackScreenProps<RootStackParamList, 'TrackOrder'>

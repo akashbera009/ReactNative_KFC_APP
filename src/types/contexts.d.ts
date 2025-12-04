@@ -27,3 +27,7 @@ type countryType = {
   mobileNoFraction: number,
   currencyCode: string
 }
+type OrderQueueContextType ={
+ orderQueueItem : OrderHistory[]
+ setOrderQueueItem : React.Dispatch<SetStateAction<OrderHistory[]>>
+}

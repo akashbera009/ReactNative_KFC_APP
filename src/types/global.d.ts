@@ -22,6 +22,8 @@ type DeliveryDetailsType = {
   charges: number;
   vatCharge: number;
   discountRate: number;
+  homePagediscountRate: number,
+  homePagediscountPrice: number,
   restaurantName: string;
   supportMail: string;
   supprotMobile: string
@@ -80,7 +82,7 @@ type DealsAndOffersDataType = {
   offerCode: string
 }
 type OrderStatusPageProps = {
-  currentOrder: CartItemType[],
+  currentOrders: CartItemType[],
   orderId: string,
   OrderDate: string,
   OrderTime: string,

@@ -33,7 +33,6 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is needed to show your position on the map.</string>
-	<!-- <string/> -->
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -102,6 +101,7 @@
 		<string>HelveticaNeueHeavyItalic.otf</string>
 		<string>HelveticaNeueRoman.otf</string>
 		<string>HelveticaNeueItalic.ttf</string>
+		<string>Jersey20-Regular.ttf</string>
 	</array>
 </dict>
 </plist>

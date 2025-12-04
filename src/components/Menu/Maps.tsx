@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Animated, PermissionsAndroid, Platform, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Animated, TouchableWithoutFeedback } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MapView, { Marker } from 'react-native-maps';
 // data imports 
@@ -26,7 +26,6 @@ export default function Maps() {
     const toggleOpen = () => {
         setOpen(!open);
     };
-
     const [deliveryType, setDeliveryType] = useState<string>(Strings?.delivery)
     const [addressBox, setAddress] = useState({
         address: '',

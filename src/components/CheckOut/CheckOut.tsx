@@ -12,6 +12,7 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 import { useCart } from '../../context/CartContext';
+import { useOrderQueue } from '../../context/OrderQueueContext';
 export default function CheckOut({ totalAmount, discount }: { totalAmount: number, discount: number }) {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -33,6 +34,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     const DiscountPrice: number = discount;
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandTotal: number = AfterDiscount + DeliveryDetails?.charges
+    const { orderQueueItem, setOrderQueueItem } = useOrderQueue();
     const openPaymentOptions = () => {
         // setPaymentMethodOpen(true);
     }
@@ -41,17 +43,24 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
         paymentMethodOpen == true && scrollToPosition()
     }
     const openPaymentModal = () => {
-        // on payment success , navigate to orderstatus page
         let TempOrderDate = new Date().toDateString().split(' ').slice(1)
         const OrderDate = TempOrderDate.join(' ')
         const OrderTime = new Date().toTimeString().split(' ')[0]
-        onPaymentSuccess("ORD-123", OrderDate, OrderTime)
+        const orderId = `ORD-${Math.floor(Math.random() * 1000) + 1}`
+        navigation.navigate(Strings?.PaymentModalScreen)
+        // onPaymentSuccess(orderId, OrderDate, OrderTime)
     }
-
     const orderStatus = Math.floor(Math.random() * 2) + 1;
     const onPaymentSuccess = (orderId: string, OrderDate: string, OrderTime: string) => {
+        const newOrder = {
+            Items: CartItem,
+            date: `${OrderDate}`,
+            orderId: orderId,
+            status: 'Being Prepared'
+        };
+        setOrderQueueItem((prev: OrderHistory[]) => [newOrder, ...prev]);
         navigation.navigate(Strings?.OrderStatusScreen, {
-            currentOrder: CartItem,
+            currentOrders: CartItem,
             orderId: orderId,
             OrderDate: OrderDate,
             OrderTime: OrderTime,

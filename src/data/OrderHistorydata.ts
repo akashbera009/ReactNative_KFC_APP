@@ -83,7 +83,7 @@ export const OrderHistoryData: OrderHistory[] = [
         price: 149,
         oldPrice: 199,
         tag: "Combo",
-        image: Images?.burger_and_coke,
+        image: Images?.Chicken_Nugedts,
         isFavorite: false,
         customizable: true,
         categories: ["Burger", "FastFood"],

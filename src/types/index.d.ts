@@ -11,12 +11,14 @@ type RootStackParamList = {
   CreateProfileScreen: { phoneNo: string }
   ExploreMenuScreen: { categoryType: string }
   MenuCategorizeScreen: { activeCategory: string, setActiveCategory: (ele: string) => void, frequencyArray: CategoryFrequency[] }
-  FoodCustomizationScreen : undefined
-  CartScreen: { discount: number, discountPercentage: number , offerCode: string}
+  FoodCustomizationScreen: undefined
+  CartScreen: { discount: number, discountPercentage: number, offerCode: string }
   RemoveCartItemBottomSheetScreen: RemoveCartItemProps
   SearchScreen: undefined
-  CheckOutScreen: { totalAmount: number , discount: number }
+  CheckOutScreen: { totalAmount: number, discount: number }
+  PaymentModalScreen: undefined
   OrderStatusScreen: OrderStatusPageProps
+  TrackOrderScreen: { currentOrder: OrderHistory, orderId: String, GrandTotal: number }
   OrderHistoryScreens: undefined
   OrderDetailsScreen: { order: OrderHistory }
   FontsScreen: undefined

@@ -11,6 +11,7 @@ import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
+import { useOrderQueue } from '../../context/OrderQueueContext';
 
 export default function OrderDetails({ order }: { order: OrderHistory }) {
     const Colors = useThemeColors();
@@ -22,10 +23,12 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
     // amount calculations  
     const totalAmount: number = order?.Items.reduce((acc: number, i: any) => acc + (i?.quantity * i?.price), 0);
     const vatAmount: number = Number((totalAmount * 5 / 100).toFixed(2))
-    const beforeTax: number = totalAmount - DeliveryDetails?.charges - vatAmount
+    const beforeTax: number = totalAmount - vatAmount
     const DiscountPrice: number = Number((totalAmount * DeliveryDetails?.discountRate / 100).toFixed(2))
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandAmount: number = AfterDiscount + DeliveryDetails?.charges
+    const { orderQueueItem } = useOrderQueue()
+    const currentOrder: OrderHistory = orderQueueItem.filter((item) => item?.status == 'Being Prepared')[0]
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -49,17 +52,25 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                                 </View>
                                 <Text style={Styles.date}>{order?.date} </Text>
                             </View>
-                            <TouchableOpacity
-                                style={Styles.trackButton}
-                                onPress={() => navigation.push(Strings?.MapsScreen)}
-                            >
-                                <Text style={Styles.TrackOrderText}>{Strings?.trackOrder} </Text>
-                            </TouchableOpacity>
+                            {order?.status == 'Being Prepared' ? (
+                                <TouchableOpacity
+                                    style={Styles.trackButton}
+                                    onPress={() => navigation.push(Strings?.TrackOrderScreen, {
+                                        currentOrder: currentOrder,
+                                        orderId:currentOrder?.orderId,
+                                        GrandTotal:  GrandAmount
+                                    })}
+                                >
+                                    <Text style={Styles.TrackOrderText}>{Strings?.trackOrder} </Text>
+                                </TouchableOpacity>
+                            ) : (
+                                <View style={Styles.Blank}/>
+                            )}
                         </View>
                         <View style={[Styles.PricingTotalContainer]}>
                             <View style={Styles.PriceEntries}>
                                 <Text style={Styles.PriceEntriesLeft}>{Strings?.SubTotal} </Text>
-                                <Text style={Styles.PriceEntriesRight}>{beforeTax} {countrySelected?.currencyCode} </Text>
+                                <Text style={Styles.PriceEntriesRight}>{beforeTax.toFixed(2)} {countrySelected?.currencyCode} </Text>
                             </View>
                             <View style={Styles.PriceEntries}>
                                 <Text style={Styles.PriceEntriesLeft}>{Strings?.vat.toUpperCase()} @ {DeliveryDetails?.vatCharge}% </Text>
@@ -71,7 +82,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                             </View>
                             <View style={Styles.PriceEntries}>
                                 <Text style={[Styles.PriceEntriesLeft, Styles.GrandText]}>{Strings?.grandTotal} </Text>
-                                <Text style={[Styles.PriceEntriesRight, Styles.GrandText]}>{GrandAmount} {countrySelected?.currencyCode} </Text>
+                                <Text style={[Styles.PriceEntriesRight, Styles.GrandText]}>{ GrandAmount.toFixed(2)} {countrySelected?.currencyCode} </Text>
                             </View>
                         </View>
                     </View>
@@ -117,7 +128,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                             </View>
                         </View>
                     ))}
-                    <View style={{height: inset.bottom}}/>
+                    <View style={{ height: inset.bottom }} />
                 </ScrollView>
             </View>
         </View>
@@ -248,6 +259,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderRadius: 4,
             marginRight: 15,
             fontSize: 12
+        },
+        Blank: {
+            marginHorizontal: 'auto'
         },
         TrackOrderText: {
             color: Colors?.constantWhite,
@@ -444,7 +458,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: 18,
             fontWeight: 700,
             color: Colors?.textBlack,
-        }, 
+        },
     });
     return Styles;
 };

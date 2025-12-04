@@ -1,5 +1,6 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Platform, Animated  } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Platform, Animated } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
+import Svg, { Polygon } from 'react-native-svg';
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -18,7 +19,7 @@ import { useStrings } from '../../utils/Strings';
 import DeliveryDetails from '../../data/DeliveryDetails';
 import VideoPlayerComponent from './VideoPlayer';
 import { useMenu } from '../../context/MenuContext';
-
+import { useCountry } from '../../context/CountryContext';
 export default function HomePage() {
   const Colors = useThemeColors()
   const Strings = useStrings()
@@ -27,6 +28,7 @@ export default function HomePage() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const drawerNavigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
   const { menuItem } = useMenu()
+  const { countrySelected } = useCountry()
   const colorList: { offset: string, color: string, opacity: string }[] = [
     { offset: '0%', color: Colors?.orangeColorText, opacity: '1' },
     { offset: '40%', color: Colors?.orangeColorText, opacity: '1' },
@@ -34,19 +36,19 @@ export default function HomePage() {
   ]
   // fade animation 
   const fadeAnimation = useRef(new Animated.Value(0)).current
-  const FadeIn =()=>{
+  const FadeIn = () => {
     fadeAnimation.setValue(0);
-    Animated.timing( fadeAnimation , {
-      toValue : 1 , 
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
       duration: 600,
       useNativeDriver: true
     }).start()
   }
   const [imageIndex, setImageIndex] = useState(0);
-  const imageSet = [Images?.Home_Page_Main_Image, Images?.Chicken_Nugedts, Images?.Chicken_Roll, Images?.Pepsi_Double_Can]
+  const imageSet = [Images?.Home_Page_Main_Image, Images?.ChickenBox, Images?.ChickenNuget, Images?.BurgerPNG]
   useEffect(() => {
     const interval = setTimeout(() => {
-      setImageIndex(prev => prev < 3 ? prev + 1 : 0)
+      setImageIndex(prev => prev < 3 ? prev+1 : 0)
     }, 2500);
     FadeIn()
     return () => {
@@ -74,22 +76,50 @@ export default function HomePage() {
           >
             <Text style={[Styles.HeaderKFC, { marginTop: inset.top - 15 }]}> {Strings?.KFC}</Text>
           </TouchableOpacity>
-          {/* <View style={Styles.ImageLabel}>
-            <View style={Styles.label}>
-              <Text style={Styles.off}>100 </Text>
-              <View style={Styles.labelTriangle}/>
+
+          <Animated.View style={[Styles.AnimatedSlideShowContainer, { opacity: fadeAnimation }]}>
+            <View style={Styles.SVGContainerLeft}>
+              <Svg width={200} height={200}>
+                <Polygon
+                  points="99,30 100,50 100,55 0,72 11,49 0,24"
+                  fill="white"
+                  transform="scale(2, 2)"
+                />
+                <View style={Styles.SvgTextContainer1}>
+                  <Text style={Styles.svgcashbackTextTop1}>{DeliveryDetails?.homePagediscountRate}% </Text>
+                  <View style={Styles.svgcashbackTextTop2Container}>
+                    <Text style={Styles.svgcashbackTextTop2}>{Strings?.cashback.toUpperCase()} </Text>
+                  </View>
+                </View>
+              </Svg>
             </View>
-            <View style={[Styles.label,Styles.leftLabel]}>
-              <View style={[Styles.labelTriangle , Styles.triangleLeft]}/>
-              <Text style={Styles.off}>100 </Text>
+            <Image source={imageSet[imageIndex]} style={[Styles.HomePageMainImage]} />
+            <View style={Styles.SVGContainerRight}>
+              <Svg width={200} height={200}>
+                <Polygon
+                  points="100,25 90,45 100,70 0,65 0,45 0,33"
+                  fill="white"
+                  transform="scale(2, 2)"
+                />
+                <View style={Styles.SvgOrderContainer3}>
+                  <View style={Styles.SvgOrderContainer3Upper}>
+                    <Text style={Styles.svgcashbackTextTop3} numberOfLines={2}>{Strings?.onTheAbove.toUpperCase()} </Text>
+                    <View style={Styles.svgcashbackTextTop4Container}>
+                      <Text style={Styles.svgcashbackTextTop4}>{DeliveryDetails?.homePagediscountPrice} </Text>
+                    </View>
+                  </View>
+                  <View style={Styles.SvgOrderContainer3Lower}>
+                    <Text style={Styles.svgcashbackTextTop5}>{Strings?.order.toUpperCase()} </Text>
+                    <Text style={Styles.svgcashbackTextTop6}>{countrySelected?.currencyCode.toUpperCase()} </Text>
+                  </View>
+                </View>
+              </Svg>
             </View>
-            <Image source={Images?.Home_Page_Main_Image} style={Styles.HomePageMainImage} />
-            </View> */}
-          <Animated.Image source={imageSet[imageIndex]} style={[Styles.HomePageMainImage , {opacity: fadeAnimation}]} />
+          </Animated.View>
           <View style={Styles.IndexContainer}>
             {imageSet.map((_, idx) => (
               <View key={idx}
-                style={[Styles.Index , idx == imageIndex && Styles.fillIndex]}/>
+                style={[Styles.Index, idx == imageIndex && Styles.fillIndex]} />
             ))}
           </View>
           <View style={Styles.AddressContainer}>
@@ -297,79 +327,126 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontSize: 50,
       fontWeight: 900,
       color: Colors?.constantWhite,
-      fontFamily: Fonts?.kfcLogoTextFont,
+      fontFamily: Fonts?.exp,
     },
-    ImageLabel: {
+    AnimatedSlideShowContainer: {
 
     },
-    label: {
-      height: 90,
-      width: 200,
-      backgroundColor: Colors?.constantWhite,
-      position: 'absolute',
-      right: -80,
-      top: 20,
+    svgcashbackTextTop1: {
+      fontSize: 60,
+      fontWeight: 600,
+      position: 'relative',
+      left: 2,
+      top: -25,
+      fontFamily: Fonts?.expHead,
+    },
+    svgcashbackTextTop2Container: {
       transform: [{ rotate: '-10deg' }],
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      flexDirection: 'row',
-      paddingRight: 30,
+      position: 'relative',
+      left: -8,
+      top: -30,
     },
-    leftLabel: {
-      left: -80,
-      top: 70,
-      justifyContent: 'flex-start',
-      transform: [{ rotate: '-10deg' }],
+    svgcashbackTextTop2: {
+      fontSize: 18,
+      fontWeight: 600,
+      fontFamily: Fonts?.expHead,
     },
-    off: {
-      color: Colors?.constantBlack,
-      fontSize: 20,
-    },
-    labelTriangle: {
+    SvgOrderContainer3: {
       position: 'absolute',
       right: 0,
-      width: 30,
-      height: 100,
-      borderTopWidth: 50,
-      borderRightWidth: 30,
-      borderBottomWidth: 50,
-      borderLeftColor: 'transparent',
-      borderTopColor: 'transparent',
-      borderBottomColor: 'transparent',
-      borderRightColor: Colors?.KFC_red,
+      top: 80,
     },
-    triangleLeft: {
+    svgcashbackTextTop3: {
+      fontSize: 16,
+      fontWeight: 700,
+      fontFamily: Fonts?.expHead,
+      width: 80
+    },
+    SvgOrderContainer3Upper: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'row',
       position: 'relative',
-      borderTopWidth: 50,
-      borderLeftWidth: 30,
-      borderBottomWidth: 50,
-      borderRightColor: 'transparent',
-      borderTopColor: 'transparent',
-      borderBottomColor: 'transparent',
-      borderLeftColor: Colors?.KFC_red,
+      top: -20,
+      right: 10,
+      width: 100,
+      transform: [{ rotate: '-5deg' }]
+    },
+    SvgOrderContainer3Lower: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      position: 'relative',
+      top: -20,
+      right: 5,
+    },
+    svgcashbackTextTop4Container: {
+      transform: [{ rotate: '5deg' }]
+    },
+    svgcashbackTextTop4: {
+      fontSize: 45,
+      fontWeight: 700,
+      fontFamily: Fonts?.expHead,
+      position: 'relative',
+      left: -40
+    },
+    svgcashbackTextTop5: {
+      fontSize: 25,
+      fontWeight: 700,
+      fontFamily: Fonts?.expHead
+    },
+    svgcashbackTextTop6: {
+      fontSize: 18,
+      fontWeight: 700,
+      fontFamily: Fonts?.expHead
+    },
+    SVGContainerLeft: {
+      transform: [{ rotate: '-12deg' }],
+      position: 'absolute',
+      bottom: -30,
+      left: -78,
+    },
+    SVGContainerRight: {
+      transform: [{ rotate: '-10deg' }],
+      position: 'absolute',
+      zIndex: 2,
+      right: -80,
+      top: -30,
+    },
+    SvgTextContainer1: {
+      position: 'absolute',
+      top: 80,
+      left: 20
+    },
+    SvgTextContainer2: {
+      position: 'absolute',
+      top: 60,
+      right: 20
     },
     HomePageMainImage: {
       height: 220,
       width: 220,
-      alignSelf: 'center'
+      alignSelf: 'center',
+      position: 'relative',
+      zIndex: 5
     },
     IndexContainer: {
-display: 'flex',
-alignItems: 'center',
-justifyContent: 'center',
-flexDirection: 'row',
-gap: 8 , 
-marginTop: 5 , 
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      gap: 8,
+      marginTop: 5,
     },
     Index: {
-      height: 8, 
-      width: 8 ,
-      borderWidth: 1 , 
+      height: 8,
+      width: 8,
+      borderWidth: 1,
       borderColor: Colors?.constantWhite,
-      borderRadius : 10 , 
+      borderRadius: 10,
     },
-    fillIndex:{
+    fillIndex: {
       backgroundColor: Colors?.constantWhite,
     },
     AddressContainer: {

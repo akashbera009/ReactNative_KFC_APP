@@ -50,6 +50,14 @@
       "sha1": "906ed4cfe0d2cea212f64354be1e5453d6fb7883"
     },
     {
+      "path": "src/asstes/Fonts/Jersey20-Regular.ttf",
+      "sha1": "adeeccc66ec72c4bc8da166b5a1a4de8c2862a83"
+    },
+    {
+      "path": "src/asstes/Fonts/Jersey_20/OFL.txt",
+      "sha1": "49097180f437f392a7d1fd111653e48ae3d5ce8e"
+    },
+    {
       "path": "src/asstes/Fonts/Playball-Regular.ttf",
       "sha1": "0a3aa7581907061912b301cf5c9fe50051b4e73c"
     },

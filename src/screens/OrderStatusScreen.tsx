@@ -2,7 +2,7 @@ import React from 'react'
 import OrderStatus from '../components/Orders/OrderStatus'
 
 const OrderStatusScreen = ({ route }: OrderStatusScreenProps) => {
-    const { currentOrder,
+    const { currentOrders,
         paymentMode,
         orderId,
         OrderDate,
@@ -14,7 +14,7 @@ const OrderStatusScreen = ({ route }: OrderStatusScreenProps) => {
         orderStatus }: OrderStatusScreenProps = route.params;
     return (
         <OrderStatus
-            currentOrder={currentOrder}
+            currentOrders={currentOrders}
             orderId={orderId}
             OrderDate={OrderDate}
             OrderTime={OrderTime}

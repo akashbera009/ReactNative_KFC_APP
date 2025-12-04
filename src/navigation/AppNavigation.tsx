@@ -34,6 +34,8 @@ import FAQPageScreen from '../screens/FAQPageScreen';
 import DealsAndOfferScreen from '../screens/DealsAndOfferScreen';
 import OrderStatusScreen from '../screens/OrderStatusScreen';
 import FoodCustomizationScreen from '../screens/FoodCustomizationScreen';
+import TrackOrderScreen from '../screens/TrackOrderScreen';
+import PaymentModalScreen from '../screens/PaymentModalScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -140,8 +142,19 @@ function StackNavigator() {
                 component={CheckOutScreen}
             />
             <Stack.Screen
+                name={Strings?.PaymentModalScreen}
+                component={PaymentModalScreen}
+                options={{
+                    presentation: 'transparentModal'
+                }}
+            />
+            <Stack.Screen
                 name={Strings?.OrderStatusScreen}
                 component={OrderStatusScreen}
+            />
+            <Stack.Screen
+                name={Strings?.TrackOrderScreen}
+                component={TrackOrderScreen}
             />
             <Stack.Screen
                 name={Strings?.OrderHistoryScreens}

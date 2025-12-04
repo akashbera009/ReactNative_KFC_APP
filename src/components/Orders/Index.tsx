@@ -3,8 +3,6 @@ import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-// data imports 
-import { OrderHistoryData } from '../../data/OrderHistorydata';
 // custom component imports 
 import OrderCards from './OrderCards';
 // utils
@@ -12,6 +10,7 @@ import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
+import { useOrderQueue } from '../../context/OrderQueueContext';
 
 export default function Index() {
   const Colors = useThemeColors();
@@ -20,8 +19,9 @@ export default function Index() {
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const currentOrders = OrderHistoryData.filter(item => item.status != "Delivered" && item.status != "Cancelled");
-  const previousOrders = OrderHistoryData.filter(item => item.status === "Delivered" || item.status === "Cancelled");
+  const { orderQueueItem} = useOrderQueue()
+  const currentOrders = orderQueueItem.filter(item => item.status != "Delivered" && item.status != "Cancelled");
+  const previousOrders = orderQueueItem.filter(item => item.status === "Delivered" || item.status === "Cancelled");
 
   return (
     <View style={Styles?.Parent}>

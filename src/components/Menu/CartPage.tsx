@@ -60,12 +60,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
         if (success)
             navigation.navigate(Strings?.OfferAppliedScreen)
     }
-
     let totalAmount = CartItem.reduce((acc, item) => acc + item.price * item?.quantity, 0)
-    console.log('actual amount ', totalAmount);
-
-    console.log('disct , ', discount, 'discRte ', discountPercentage);
-
     let discountAmount = isOfferApplied
         ? (discount > 0
             ? (discount)
@@ -75,8 +70,6 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
         ) :
         0;
     discountAmount = Number(discountAmount.toFixed(2))
-    console.log('now disc amount ', discountAmount);
-
     totalAmount = totalAmount - Math.abs(Number(discountAmount))
     let beforeTax = (totalAmount - totalAmount * 5 / 100).toFixed(2)
     const vatAmount = (totalAmount * 5 / 100).toFixed(2);

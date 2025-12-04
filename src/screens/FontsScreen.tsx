@@ -17,154 +17,154 @@ const FontsScreen = () => {
 
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.headerRegular }}>
-                Login to unlock (header Regular)
+                Login to unlock 10 , 100 (header Regular)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.exp  }}>
-                KFC (exp )
+                KFC   10 , 100  (exp )
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.firstPageCUrsuve }}>
-                It's finger likin' good
+                It's finger likin' good  10 , 100 
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.subHeader }}>
-                CUSTOMIZED (subHeader)
+                CUSTOMIZED  10 , 100  (subHeader)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.bodyBoldFot }}>
-                Twister BBQ Box (bodyBoldFot)
+                Twister BBQ Box  10 , 100 (bodyBoldFot)
             </Text>
             <Text
                 style={{ fontSize: 20, }}>
-                Twister BBQ Box (no font) 
+                Twister BBQ Box  10 , 100 (no font) 
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font1 }}>
-                Twister BBQ Box (font1)
+                Twister BBQ Box  10 , 100 (font1)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font2 }}>
-                Twister BBQ Box (font2)
+                Twister BBQ Box  10 , 100 (font2)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font3 }}>
-                Twister BBQ Box (font3)
+                Twister BBQ Box  10 , 100 (font3)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font4 }}>
-                Twister BBQ Box (font4)
+                Twister BBQ Box  10 , 100 (font4)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font5 }}>
-                KFC (font5)
+                style={{ fontSize: 20, fontFamily: Fonts.expHead }}>
+                KFC  10 , 100 (expHead)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font6 }}>
-                Twister BBQ Box (font6)
+                Twister BBQ Box  10 , 100 (font6)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font7 }}>
-                Twister BBQ Box (font7)
+                Twister BBQ Box  10 , 100 (font7)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font9, fontWeight: 700 }}>
-                Finger Licling (font9)
+                Finger Licling  10 , 100 (font9)
             </Text>
             <Text
                 style={{ fontSize: 20,}}>
-                Finger Licling (no font)
+                Finger Licling  10 , 100 (no font)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font10 , fontWeight: 600 }}>
-                FOR SHARING (font10)
+                FOR SHARING  10 , 100 (font10)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font11 }}>
-                Twister BBQ Box (font11)
+                Twister BBQ Box  10 , 100 (font11)
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font8 }}>
-                Twister BBQ Box (font8)
+                Twister BBQ Box  10 , 100 (font8)
             </Text>
             <View style={Styles.divider} />
 
             <Text
                 style={{ fontSize: 20,}}>
-                Twister BBQ Box (no fonts)
+                Twister BBQ Box  10 , 100 (no fonts)
             </Text>
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font12 }}>
-                Twister BBQ Box (font12)
+                Twister BBQ Box  10 , 100 (font12)
             </Text>
             <View style={Styles.divider} />
 
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font13 }}>
-                Twister BBQ Box (font13)
+                Twister BBQ Box  10 , 100 (font13)
             </Text>
             <View style={Styles.divider} />
 
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font14 }}>
-                Twister BBQ Box (font14)
+                Twister BBQ Box  10 , 100 (font14)
             </Text>
             <View style={Styles.divider} />
 
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font15 }}>
-                Twister BBQ Box (font15)
+                Twister BBQ Box  10 , 100 (font15)
             </Text>
             <View style={Styles.divider} />
 
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font16 }}>
-                Twister BBQ Box (font16)
+                Twister BBQ Box  10 , 100 (font16)
             </Text>
             <View style={Styles.divider} />
 
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font17 }}>
-                Twister BBQ Box (font17)
+                Twister BBQ Box  10 , 100 (font17)
             </Text>
             <View style={Styles.divider} />
 
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font18 }}>
-                Twister BBQ Box (font18)
+                Twister BBQ Box  10 , 100 (font18)
             </Text>
             <View style={Styles.divider} />
 
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font19 }}>
-                Twister BBQ Box (font19)
+                Twister BBQ Box  10 , 100 (font19)
             </Text>
             <View style={Styles.divider} />
 
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font20 }}>
-                Twister BBQ Box (font20)
+                Twister BBQ Box  10 , 100 (font20)
             </Text>
             <View style={Styles.divider} />
 
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.font21 }}>
-                Twister BBQ Box (font21)
+                Twister BBQ Box  10 , 100 (font21)
             </Text>
             <View style={Styles.divider} />
 

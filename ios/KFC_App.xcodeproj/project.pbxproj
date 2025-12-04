@@ -48,10 +48,12 @@
 		9EAF6261E08442C28C6067F9 /* TestNational2Condensed-ExtraboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37C9DAD140C6488F9781F4DB /* TestNational2Condensed-ExtraboldItalic.otf */; };
 		A2CB62930FBD456BAD7EA0B8 /* RobotoSlab-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EE43E0B0414415EBAA776EC /* RobotoSlab-Black.ttf */; };
 		A6AC3CF83BFC4CB298889202 /* HelveticaNeueBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE2C514FA0044789AED7F1F9 /* HelveticaNeueBold.otf */; };
+		AD076C5CB01E49EFA66FD934 /* Jersey20-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 417CC3C050714216AAD87DC8 /* Jersey20-Regular.ttf */; };
 		B2E1CAF2BC454C4682C425CB /* HelveticaNeueItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70E69A48074849E284D71AEF /* HelveticaNeueItalic.ttf */; };
 		B680AA2DE858A6A51A5027FE /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		B6F35446829649768DC7CEEF /* RobotoSlab-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0718B6DF1F04CBAB03227E7 /* RobotoSlab-ExtraLight.ttf */; };
 		B7D52DF7623249CDA58CFFE7 /* RobotoSlab-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F4FD39DEEAD4901B363659F /* RobotoSlab-Medium.ttf */; };
+		C016E708DAE14DA599C498CC /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B51EB2CBF5E48B2A5489EC8 /* OFL.txt */; };
 		C2B3523920024773A7BE4492 /* HelveticaNeueBlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6F84FF7E349D487B9C1387C7 /* HelveticaNeueBlackItalic.otf */; };
 		C2B8A1328D914D35B2F06049 /* Friz Quadrata Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B80328371B234DBDA6B0E0A0 /* Friz Quadrata Bold.otf */; };
 		C5C785E414024FDDB6D06FAC /* TestNational2Condensed-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 625D09292B1D47BF80352C45 /* TestNational2Condensed-Bold.otf */; };
@@ -82,6 +84,7 @@
 		3B4392A12AC88292D35C810B /* Pods-KFC_App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KFC_App.debug.xcconfig"; path = "Target Support Files/Pods-KFC_App/Pods-KFC_App.debug.xcconfig"; sourceTree = "<group>"; };
 		3DD154059EBA46CEAF02A2B7 /* HelveticaNeueLight.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueLight.otf; path = ../src/asstes/Fonts/HelveticaNeueLight.otf; sourceTree = "<group>"; };
 		3E6C66F154B9475E96794041 /* HelveticaNeueMediumItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueMediumItalic.otf; path = ../src/asstes/Fonts/HelveticaNeueMediumItalic.otf; sourceTree = "<group>"; };
+		417CC3C050714216AAD87DC8 /* Jersey20-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Jersey20-Regular.ttf"; path = "../src/asstes/Fonts/Jersey20-Regular.ttf"; sourceTree = "<group>"; };
 		4263FEAFBDAF48F08AB95A59 /* TestNational2Condensed-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "TestNational2Condensed-Regular.otf"; path = "../src/asstes/Fonts/TestNational2Condensed-Regular.otf"; sourceTree = "<group>"; };
 		42EB61D20C5D419DB112009C /* HelveticaNeueBlack.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueBlack.otf; path = "../src/asstes/Fonts/helvetica-neue-5/HelveticaNeueBlack.otf"; sourceTree = "<group>"; };
 		462C869E31644DC89180AF3F /* HelveticaNeueLightItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueLightItalic.otf; path = ../src/asstes/Fonts/HelveticaNeueLightItalic.otf; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = KFC_App/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8393C808C4284636BCD7C829 /* HelveticaNeueBoldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueBoldItalic.otf; path = ../src/asstes/Fonts/HelveticaNeueBoldItalic.otf; sourceTree = "<group>"; };
 		8BE92C0F2CA2427C968867DE /* friz-quadrata-bold-italic-os-5870341205e0f.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "friz-quadrata-bold-italic-os-5870341205e0f.ttf"; path = "../src/asstes/Fonts/friz-quadrata-bold-italic-os-5870341205e0f.ttf"; sourceTree = "<group>"; };
+		9B51EB2CBF5E48B2A5489EC8 /* OFL.txt */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = OFL.txt; path = ../src/asstes/Fonts/Jersey_20/OFL.txt; sourceTree = "<group>"; };
 		9EE43E0B0414415EBAA776EC /* RobotoSlab-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Black.ttf"; path = "../src/asstes/Fonts/RobotoSlab-Black.ttf"; sourceTree = "<group>"; };
 		9FA0EE84478345C78AECC74B /* Playball-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Playball-Regular.ttf"; path = "../src/asstes/Fonts/Playball-Regular.ttf"; sourceTree = "<group>"; };
 		A5FDFBB766804AA6943FE73F /* HelveticaNeueThinItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueThinItalic.otf; path = ../src/asstes/Fonts/HelveticaNeueThinItalic.otf; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 				646EA36E550A4057A04ADD16 /* HelveticaNeueHeavyItalic.otf */,
 				CE898CAD27A342B794B6780E /* HelveticaNeueRoman.otf */,
 				70E69A48074849E284D71AEF /* HelveticaNeueItalic.ttf */,
+				417CC3C050714216AAD87DC8 /* Jersey20-Regular.ttf */,
+				9B51EB2CBF5E48B2A5489EC8 /* OFL.txt */,
 			);
 			name = Resources;
 			path = "";
@@ -370,6 +376,8 @@
 				EAB7653BA96043C09AA20FD0 /* HelveticaNeueHeavyItalic.otf in Resources */,
 				31478616106C4577A07458C0 /* HelveticaNeueRoman.otf in Resources */,
 				B2E1CAF2BC454C4682C425CB /* HelveticaNeueItalic.ttf in Resources */,
+				AD076C5CB01E49EFA66FD934 /* Jersey20-Regular.ttf in Resources */,
+				C016E708DAE14DA599C498CC /* OFL.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
