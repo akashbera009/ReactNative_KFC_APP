@@ -1,5 +1,5 @@
-import { View, StyleSheet, Image, Text, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useMemo, useState } from 'react'
+import { View, StyleSheet, Image, Text, TouchableOpacity, ScrollView, Animated } from 'react-native'
+import React, { useRef, useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -14,8 +14,7 @@ import { useThemeColors } from '../../utils/Colors'
 import { useCart } from '../../context/CartContext';
 import { useMenu } from '../../context/MenuContext';
 
-
-const Index = ({categoryType}:{categoryType:string} ) => {
+const Index = ({ categoryType }: { categoryType: string }) => {
     const Colors = useThemeColors()
     const Strings = useStrings()
     const inset = useSafeAreaInsets()
@@ -29,13 +28,27 @@ const Index = ({categoryType}:{categoryType:string} ) => {
     const [activeCategory, setActiveCategory] = useState<string>(categoryType);
     const frequencyMap: Map<string, number> = new Map();
     if (iSFavouriteMenuArray.length > 0) {
-        categorySet.splice(1, 0,'Favourites')
+        categorySet.splice(1, 0, 'Favourites')
         frequencyMap.set('Favourites', iSFavouriteMenuArray.length)
     }
     for (const element of category) {
         frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
     }
     const frequencyArray: CategoryFrequency[] = Array.from(frequencyMap, ([category, count]) => ({ category, count }));
+    // animation
+    const slideIn = useRef(new Animated.Value(0)).current;
+    const handleSlideIn = () => {
+        Animated.timing(slideIn, {
+            toValue: 1,
+            duration: 200,
+            useNativeDriver: true
+        }).start()
+    }
+    useEffect(() => {
+        if (CartItem.length > 0) {
+            handleSlideIn();
+        }
+    }, [CartItem.length])
 
     return (
         <View style={Styles.ParentContaienr}>
@@ -91,9 +104,22 @@ const Index = ({categoryType}:{categoryType:string} ) => {
             </View>
             <ExploreMenu activeCategory={activeCategory} categoryList={categorySet} />
             {CartItem?.length > 0 && (
-                <View style={[Styles.BottomCartContainer, { bottom: inset.bottom - 10 }]}>
+                <Animated.View style={[Styles.BottomCartContainer, { bottom: inset.bottom - 10 }, {
+                    opacity: slideIn.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, 1]
+                    }),
+                    transform: [
+                        {
+                            translateY: slideIn.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [80, 0]
+                            })
+                        }
+                    ]
+                }]}>
                     <BottomCart ButtonType={Strings?.viewCart} navLink={Strings?.CartScreen} totalAmount={0} discount={0} />
-                </View>
+                </Animated.View>
             )}
         </View>
     )
@@ -191,6 +217,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             position: 'absolute',
             left: 0,
             zIndex: 2,
+            shadowColor: Colors?.blueShadows,
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.25,
+            shadowRadius: 5,
+            elevation: 5,
         }
     })
     return Styles

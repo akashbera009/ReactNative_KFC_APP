@@ -22,6 +22,7 @@ export const OrderHistoryData: OrderHistory[] = [
         customizable: true,
         categories: ["Pizza", "Italian"],
         quantity: 1,
+
       },
       {
         id: 2,
@@ -69,6 +70,8 @@ export const OrderHistoryData: OrderHistory[] = [
         quantity: 1,
       },
     ],
+    paymentMode: '',
+    paymentId: ''
   },
 
   {
@@ -103,6 +106,8 @@ export const OrderHistoryData: OrderHistory[] = [
         quantity: 1,
       },
     ],
+    paymentMode: '',
+    paymentId: ''
   },
 
   {
@@ -122,7 +127,7 @@ export const OrderHistoryData: OrderHistory[] = [
         price: 229,
         oldPrice: 260,
         tag: "New",
-        image:Images?.KFC_Combo_Pack,
+        image: Images?.KFC_Combo_Pack,
         isFavorite: true,
         customizable: true,
         categories: ["Wraps"],
@@ -140,7 +145,7 @@ export const OrderHistoryData: OrderHistory[] = [
         price: 99,
         oldPrice: 150,
         tag: "Recommended",
-        image:Images?.Chicken_Nugedts,
+        image: Images?.Chicken_Nugedts,
         isFavorite: false,
         customizable: false,
         categories: ["Beverage"],
@@ -150,21 +155,23 @@ export const OrderHistoryData: OrderHistory[] = [
         id: 12,
         name: "Garlic Breadsticks",
         description: [
-            "1 Chicken Pc - Org",
-            "1 Twister - Org",
-            "Paper Jack Cheese Tomato",
-            "Fries - Regular"
+          "1 Chicken Pc - Org",
+          "1 Twister - Org",
+          "Paper Jack Cheese Tomato",
+          "Fries - Regular"
         ],
         price: 149,
         oldPrice: 199,
         tag: "Popular",
-       image:Images?.French_Fries_Coke,
+        image: Images?.French_Fries_Coke,
         isFavorite: false,
         customizable: false,
         categories: ["Snacks", "Sides"],
         quantity: 1,
       },
     ],
+    paymentMode: '',
+    paymentId: ''
   },
 
   {
@@ -212,6 +219,8 @@ export const OrderHistoryData: OrderHistory[] = [
         quantity: 1,
       },
     ],
+    paymentMode: '',
+    paymentId: ''
   },
 
   {
@@ -272,6 +281,8 @@ export const OrderHistoryData: OrderHistory[] = [
         quantity: 1,
       },
     ],
+    paymentMode: '',
+    paymentId: ''
   },
 
   {
@@ -306,6 +317,8 @@ export const OrderHistoryData: OrderHistory[] = [
         quantity: 1,
       },
     ],
+    paymentMode: '',
+    paymentId: ''
   },
 
   {
@@ -353,8 +366,7 @@ export const OrderHistoryData: OrderHistory[] = [
         quantity: 1,
       },
     ],
+    paymentMode: '',
+    paymentId: ''
   },
 ];
-
-
-// export const OrderHistoryData : OrderHistory[] =[]

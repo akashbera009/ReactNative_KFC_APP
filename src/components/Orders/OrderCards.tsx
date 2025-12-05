@@ -33,7 +33,7 @@ export default function OrderCards({ order }: { order: OrderHistory }) {
             <Text style={Styles.itemDesc}>{itemNames}</Text>
             <View style={Styles.priceRow}>
                 <Text style={Styles.priceText}>{totalPrice.toFixed(2)} {countrySelected?.currencyCode}</Text>
-                <Text style={[Styles.statusText, (order?.status === 'Delivered') ? Styles.Delivered : Styles.Cencelled]}>
+                <Text style={[Styles.statusText, (order?.status === Strings?.deliveredString) ? Styles.Delivered : Styles.Cencelled]}>
                     {order?.status}
                 </Text>
             </View>

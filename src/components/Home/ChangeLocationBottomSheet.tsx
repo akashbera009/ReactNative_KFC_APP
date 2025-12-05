@@ -10,7 +10,7 @@ import { useThemeColors } from '../../utils/Colors';
 import Fonts from '../../utils/Fonts'
 import { useStrings } from '../../utils/Strings';
 import Images from '../../utils/LocalImages';
-import DeliveryDetails from '../../data/DeliveryDetails';
+import{DeliveryDetails}from '../../data/DeliveryDetails';
 export default function ChangeLocationBottomSheet() {
     const slide = useRef(new Animated.Value(500)).current;
     const fade = useRef(new Animated.Value(0)).current;

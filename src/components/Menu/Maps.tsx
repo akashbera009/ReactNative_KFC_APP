@@ -13,7 +13,7 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 // datat imports 
-import DeliveryDetails from '../../data/DeliveryDetails';
+import{DeliveryDetails}from '../../data/DeliveryDetails';
 import { CountryInfo } from '../../data/CountryInfo';
 export default function Maps() {
     const Colors = useThemeColors();

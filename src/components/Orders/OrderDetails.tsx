@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // data imports 
-import DeliveryDetails from '../../data/DeliveryDetails';
+import{DeliveryDetails}from '../../data/DeliveryDetails';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -28,7 +28,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandAmount: number = AfterDiscount + DeliveryDetails?.charges
     const { orderQueueItem } = useOrderQueue()
-    const currentOrder: OrderHistory = orderQueueItem.filter((item) => item?.status == 'Being Prepared')[0]
+    const currentOrder: OrderHistory = orderQueueItem.filter((item) => item?.status ==  Strings?.beingPreparedString)[0]
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -52,7 +52,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                                 </View>
                                 <Text style={Styles.date}>{order?.date} </Text>
                             </View>
-                            {order?.status == 'Being Prepared' ? (
+                            {order?.status ==  Strings?.beingPreparedString ? (
                                 <TouchableOpacity
                                     style={Styles.trackButton}
                                     onPress={() => navigation.push(Strings?.TrackOrderScreen, {

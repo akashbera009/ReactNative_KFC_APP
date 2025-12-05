@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // data imports 
-import DeliveryDetails from '../../data/DeliveryDetails';
+import { DeliveryDetails } from '../../data/DeliveryDetails';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -14,7 +14,6 @@ import { useCountry } from '../../context/CountryContext';
 import { useOrderQueue } from '../../context/OrderQueueContext';
 
 export default function OrderStatus({
-    // currentOrders,
     orderId,
     OrderDate,
     OrderTime,
@@ -34,7 +33,7 @@ export default function OrderStatus({
     const [openAmountDetails, setOpenAmountDetails] = useState<boolean>(false)
     const [pending, setPending] = useState(true)
     const { orderQueueItem } = useOrderQueue()
-    const currentOrder = orderQueueItem.filter(item => item?.status == 'Being Prepared')[0]
+    const currentOrder = orderQueueItem.filter(item => item?.status ==  Strings?.beingPreparedString)[0]
     useEffect(() => {
         const timeOut = setTimeout(() => {
             setPending(false)
@@ -60,7 +59,12 @@ export default function OrderStatus({
             <View style={Styles.NavWrapper}>
                 <View style={Styles.BackIconAndHeaderText}>
                     <TouchableOpacity
-                        onPress={() => navigation.pop()}
+                        onPress={() => {
+                            orderStatus ?
+                                navigation.navigate(Strings?.HomeScreen)
+                                :
+                                navigation.pop(2)
+                        }}
                     >
                         <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
@@ -72,7 +76,7 @@ export default function OrderStatus({
                     <View style={Styles.OrderBox}>
                         <View style={Styles.Row}>
                             <Image source={currentOrder.Items[0]?.image} style={Styles.BucketImg} />
-                            {orderStatus == 1 ? (
+                            {orderStatus ? (
                                 <>
                                     {pending ? (
                                         <View>
@@ -107,7 +111,7 @@ export default function OrderStatus({
                             <Text style={Styles.DateText}>{OrderTime}</Text>
                         </View>
                     </View>
-                    {orderStatus == 1 && (
+                    {orderStatus && (
                         <>
                             {pending ? (
                                 <TouchableOpacity
@@ -139,7 +143,7 @@ export default function OrderStatus({
                     )}
 
                     <View style={Styles.SummaryBox}>
-                        {orderStatus == 1 ? (
+                        {orderStatus ? (
                             <>
                                 <View style={Styles.SummaryHeaderRow}>
                                     <Text style={Styles.SummaryHeader}>{Strings?.orderSummary}</Text>
@@ -211,7 +215,7 @@ export default function OrderStatus({
                         )}
                     </View>
                     <View style={Styles.RestaurantBox}>
-                        {orderStatus == 1 ? (
+                        {orderStatus ? (
                             <>
                                 <Text style={Styles.RestaurantTitle}>{Strings?.KFC_restaurant}</Text>
                                 <View style={Styles.addressAndCall}>

@@ -35,7 +35,7 @@ export default function SearchPage() {
                     <TextInput value={searchTerm}
                         style={Styles.SearchBar}
                         onChangeText={setSearchTerm}
-                        placeholder='search'
+                        placeholder={Strings?.search}
                         cursorColor={Colors?.KFC_red}
                         selectionColor={Colors?.KFC_red}
                     />

@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Animated, Easing, type EasingFunction } from 'react-native';
+import React, { useRef, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -12,7 +12,7 @@ import { useCountry } from '../../context/CountryContext';
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 
-export default function BottomCart({ ButtonType, navLink, totalAmount , discount }: BottomCartProps) {
+export default function BottomCart({ ButtonType, navLink, totalAmount, discount }: BottomCartProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const Styles = createDynamicStyles(Colors, Fonts);
@@ -22,10 +22,30 @@ export default function BottomCart({ ButtonType, navLink, totalAmount , discount
     let totalPrice = CartItem.reduce((acc, item) => acc + item?.price * item?.quantity, 0).toFixed(2);
     let discountPrice = CartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
     discountPrice -= Number(totalPrice);
+    let formattedCounterText = CartItem?.length < 10 ? `0${CartItem?.length}` : CartItem?.length;
+    // aimation 
+    const slideIn = useRef(new Animated.Value(0)).current;
+    const handleSlideIn = (easing: EasingFunction) => {
+        Animated.timing(slideIn, {
+            toValue: 1,
+            duration: 500,
+            easing,
+            useNativeDriver: true
+        }).start()
+    }
+    useEffect(() => {
+        handleSlideIn(Easing.in(Easing.bounce))
+    }, [slideIn])
 
-let formattedCounterText =  CartItem?.length < 10 ? `0${CartItem?.length}` : CartItem?.length
     return (
-        <View style={Styles.ViewCartWrapper}>
+        <Animated.View style={[Styles.ViewCartWrapper, {
+            transform: [{
+                translateY: slideIn.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [100, 0]
+                })
+            }]
+        }]}>
             <View style={Styles.DetailsContainer}>
                 <View style={Styles.ImageContainer}>
                     <Image source={Images?.Chicken_Bucket} style={Styles.CartImage} />
@@ -36,7 +56,7 @@ let formattedCounterText =  CartItem?.length < 10 ? `0${CartItem?.length}` : Car
                 <View style={Styles.PriceDetails}>
                     <Text style={Styles.totalPrice}>{totalPrice}</Text>
                     <View style={Styles.DisctointContainer}>
-                        <Text style={Styles.discountPrice}>{discountPrice?.toFixed(2)}</Text>
+                        <Text style={Styles.discountPrice}>{Math.abs(discountPrice)?.toFixed(2)}</Text>
                         <Text style={Styles.countrycode}>{countrySelected?.currencyCode} </Text>
                         <Text style={Styles.savedtext}>{Strings?.youSaved} </Text>
                     </View>
@@ -45,23 +65,23 @@ let formattedCounterText =  CartItem?.length < 10 ? `0${CartItem?.length}` : Car
             <TouchableOpacity
                 style={Styles.ViewCart}
                 onPress={() => {
-                    if (navLink === 'CartScreen') {
-                        navigation.navigate(Strings?.CartScreen , {
-                            discount: 0 , 
-                            discountPercentage: 0 ,
-                            offerCode: '' 
+                    if (navLink === Strings?.CartScreen) {
+                        navigation.navigate(Strings?.CartScreen, {
+                            discount: 0,
+                            discountPercentage: 0,
+                            offerCode: ''
                         });
                     } else {
                         navigation.navigate(Strings?.CheckOutScreen, {
                             totalAmount: totalAmount,
-                            discount : discount  
+                            discount: discount
                         });
                     }
                 }}
             >
                 <Text style={Styles.ViewCartText}>{ButtonType?.toUpperCase()} </Text>
             </TouchableOpacity>
-        </View >
+        </Animated.View >
     );
 }
 

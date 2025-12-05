@@ -19,6 +19,7 @@ type DeliveryDetailsType = {
   beverages: string;
   personName: string;
   mobileNumber: string;
+  email: string , 
   charges: number;
   vatCharge: number;
   discountRate: number;
@@ -72,8 +73,9 @@ type OrderHistory = {
   date: string,
   orderId: string,
   status: string,
+  paymentMode : string , 
+  paymentId : string |undefined
 }
-
 type DealsAndOffersDataType = {
   title: string,
   desc: string,
@@ -83,7 +85,7 @@ type DealsAndOffersDataType = {
 }
 type OrderStatusPageProps = {
   currentOrders: CartItemType[],
-  orderId: string,
+  orderId: string|undefined,
   OrderDate: string,
   OrderTime: string,
   paymentMode: string,
@@ -91,5 +93,5 @@ type OrderStatusPageProps = {
   GrandTotal: number,
   SubTotal: number,
   deliveriCharge: number,
-  orderStatus: number
+  orderStatus: boolean
 }

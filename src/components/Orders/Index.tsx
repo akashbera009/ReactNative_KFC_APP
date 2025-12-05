@@ -19,9 +19,9 @@ export default function Index() {
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const { orderQueueItem} = useOrderQueue()
-  const currentOrders = orderQueueItem.filter(item => item.status != "Delivered" && item.status != "Cancelled");
-  const previousOrders = orderQueueItem.filter(item => item.status === "Delivered" || item.status === "Cancelled");
+  const { orderQueueItem } = useOrderQueue()
+  const currentOrders = orderQueueItem.filter(item => item.status != Strings?.deliveredString && item.status != Strings?.cancelledString);
+  const previousOrders = orderQueueItem.filter(item => item.status === Strings?.deliveredString || item.status ===Strings?.cancelledString);
 
   return (
     <View style={Styles?.Parent}>
@@ -67,9 +67,11 @@ export default function Index() {
                 <Text style={Styles.makeAorder}>{Strings?.makeAOrder} </Text>
                 <TouchableOpacity
                   style={Styles.ExploreMenuButton}
-                  onPress={() => { navigation.replace(Strings?.ExploreMenuScreen, {
-                    categoryType : ''
-                  }) }}
+                  onPress={() => {
+                    navigation.replace(Strings?.ExploreMenuScreen, {
+                      categoryType: ''
+                    })
+                  }}
                 >
                   <Text style={Styles.ExploreMenu}>{Strings?.exploreMenu.toUpperCase()} </Text>
                 </TouchableOpacity>

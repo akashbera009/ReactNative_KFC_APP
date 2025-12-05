@@ -60,9 +60,8 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
     { latitude: location.latitude, longitude: location.longitude }
   );
 const handleRefresh=()=>{
-
+  
 }
-
   return (
     <View style={Styles?.Parent}>
       <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>

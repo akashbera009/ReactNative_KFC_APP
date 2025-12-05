@@ -13,7 +13,7 @@ import { useThemeColors } from '../../utils/Colors';
 import { useCart } from '../../context/CartContext';
 import { useCountry } from '../../context/CountryContext';
 // data imports 
-import DeliveryDetails from '../../data/DeliveryDetails';
+import{DeliveryDetails}from '../../data/DeliveryDetails';
 
 export default function CartPage({ discount, discountPercentage, offerCode }: CartScreenScreenProps) {
     const Colors = useThemeColors();
@@ -579,6 +579,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             position: 'absolute',
             left: 0,
             zIndex: 2,
+            shadowColor: Colors?.blueShadows,
+            shadowOffset: { width: 0, height:0 },
+            shadowOpacity: 0.25,
+            shadowRadius: 5,
+            elevation: 5,
         },
         BottomCOntainerWrapper: {
         },

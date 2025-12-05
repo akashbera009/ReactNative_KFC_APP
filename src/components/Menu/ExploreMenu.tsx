@@ -20,7 +20,7 @@ export default function ExploreMenu({ activeCategory, categoryList }: { activeCa
         prepareMenuList = menuItem.filter((item) => item.categories.includes(activeCategory))
     }
     return (
-        <View style={Styles.ScrollContainer}>
+        <View style={[Styles.ScrollContainer, CartItem.length > 0 && Styles.LessPadding]}>
             <FlatList
                 data={prepareMenuList}
                 renderItem={({ item }) =>
@@ -49,6 +49,9 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginTop: 4,
             height: '90%',
             paddingBottom: 40,
+        },
+        LessPadding: {
+            paddingBottom: 10,
         },
         bottomBlank: {
             height: 40

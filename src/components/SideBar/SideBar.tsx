@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, StyleSheet, View, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, Image, TouchableWithoutFeedback, Linking, Alert, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,7 +11,7 @@ import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useTheme } from '../../context/ThemeContext';
 import { useStrings } from '../../utils/Strings';
-import DeliveryDetails from '../../data/DeliveryDetails';
+import { DeliveryDetails } from '../../data/DeliveryDetails';
 import { useLanguage } from '../../context/LanguageContex';
 import { useCountry } from '../../context/CountryContext';
 import { CountryInfo } from '../../data/CountryInfo';
@@ -26,7 +26,31 @@ const SideBar = () => {
   const [countryMenuOpen, setCountryMenuOpen] = useState<boolean>(false)
   const { isDarkMode, setIsDarkMode } = useTheme()
   const [isSettingsMenunOpen, setIsSettingsMenuOpen] = useState<boolean>(false)
-    const currentOrder: OrderHistory = OrderHistoryData.filter((item)=> item?.status == 'Being Prepared')[0]
+  const currentOrder: OrderHistory = OrderHistoryData.filter((item) => item?.status == Strings?.beingPreparedString)[0];
+
+  // customer support linking 
+  const handleOpenDialer = () => {
+    const phone = DeliveryDetails?.supprotMobile;
+    let phoneNumber = phone;
+    const url = `tel:${phoneNumber}`;
+    if (Platform.OS === 'ios') {
+      phoneNumber = `telprompt:${phone}`;
+    } else if (Platform.OS === 'android') {
+      phoneNumber = `tel:${phone}`;
+    } else {
+      Alert.alert('Calling is not supported on this platform');
+      return;
+    }
+    Linking.canOpenURL(phoneNumber)
+      .then((supported) => {
+        if (!supported) {
+          Alert.alert('Phone dialer not available on this device.');
+        } else {
+          return Linking.openURL(phoneNumber);
+        }
+      })
+      .catch((err) => console.error(err));
+  }
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -114,10 +138,10 @@ const SideBar = () => {
         </View>
         <View style={Styles.MenuListContainer}>
           <TouchableOpacity
-          onPress={()=> navigation.navigate(Strings?.OrderDetailsScreen , {
-            order: currentOrder
-          })}
-           style={Styles.SingleEntry}>
+            onPress={() => navigation.navigate(Strings?.OrderDetailsScreen, {
+              order: currentOrder
+            })}
+            style={Styles.SingleEntry}>
             <Image source={Images?.Track_Order} style={[Styles.SideImageIcon, Styles.TrackOrderIcon]} />
             <Text style={Styles.singleEntryText}>{Strings?.trackOrder} </Text>
           </TouchableOpacity>
@@ -157,12 +181,14 @@ const SideBar = () => {
             </TouchableOpacity>
             <Text style={Styles.BottomViewText}>{Strings?.nutritionInfo} </Text>
           </View>
-          <View style={Styles.LowerCallWrappper}>
+          <TouchableOpacity
+            onPress={handleOpenDialer}
+            style={Styles.LowerCallWrappper}>
             <View style={Styles.CallImageContainer}>
               <Image source={Images?.Fill_Call} style={Styles.CallImageContainerImage} />
             </View>
             <Text style={Styles.CallSupport}>{Strings?.callSupport.toUpperCase()} </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableWithoutFeedback>

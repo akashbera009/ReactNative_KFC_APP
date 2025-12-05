@@ -103,7 +103,6 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
                     </View>
                 </View>
             </Animated.View>
-
         </Animated.View >
     )
 }

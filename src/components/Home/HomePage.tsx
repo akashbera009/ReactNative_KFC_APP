@@ -16,7 +16,7 @@ import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
-import DeliveryDetails from '../../data/DeliveryDetails';
+import{DeliveryDetails}from '../../data/DeliveryDetails';
 import VideoPlayerComponent from './VideoPlayer';
 import { useMenu } from '../../context/MenuContext';
 import { useCountry } from '../../context/CountryContext';
@@ -144,7 +144,7 @@ export default function HomePage() {
               <Text style={Styles.ExploreHeader}>{Strings?.exploreMore.toUpperCase()} </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                  categoryType: 'Deals'
+                  categoryType:Strings?.dealsString
                 })}
               >
                 <Text style={Styles.ExploreHeaderViewAll}>{Strings?.viewAll.toUpperCase()} </Text>
@@ -153,7 +153,7 @@ export default function HomePage() {
             <View style={Styles.ExploreCardsContainer}>
               <TouchableOpacity
                 onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                  categoryType: 'Deals'
+                  categoryType:Strings?.dealsString
                 })}
                 style={Styles.FirstCard}>
                 <Text style={[Styles.ExploreCardText, Styles.FirstCardtext]}>{Strings?.deals.toUpperCase()} </Text>
@@ -162,7 +162,7 @@ export default function HomePage() {
               <View style={Styles.SecondCardGroup}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                    categoryType: 'For One'
+                    categoryType: Strings?.fonOneString
                   })}
                   style={Styles.SecondCardTop}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings?.forOne.toUpperCase()} </Text>
@@ -170,7 +170,7 @@ export default function HomePage() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                    categoryType: 'Slides & Deserts'
+                    categoryType:Strings?.slideDesertString
                   })}
                   style={Styles.SecondCardDown}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings?.sideDeserts.toUpperCase()} </Text>
@@ -181,7 +181,7 @@ export default function HomePage() {
                 style={Styles.ThirdCardGroup}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                    categoryType: 'For Sharing'
+                    categoryType: Strings?.forSharingString
                   })}
                   style={Styles.ThirdCardTop}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings?.forSharing.toUpperCase()} </Text>
@@ -189,7 +189,7 @@ export default function HomePage() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                    categoryType: 'SandWich'
+                    categoryType: Strings.sandwichString
                   })}
                   style={Styles.ThirdCardDown}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings?.beverages.toUpperCase()} </Text>
@@ -358,7 +358,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     svgcashbackTextTop3: {
       fontSize: 16,
-      fontWeight: 700,
+      fontWeight: 600,
       fontFamily: Fonts?.expHead,
       width: 80
     },
@@ -386,19 +386,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     svgcashbackTextTop4: {
       fontSize: 45,
-      fontWeight: 700,
+      fontWeight: 600,
       fontFamily: Fonts?.expHead,
       position: 'relative',
       left: -40
     },
     svgcashbackTextTop5: {
       fontSize: 25,
-      fontWeight: 700,
+      fontWeight: 600,
       fontFamily: Fonts?.expHead
     },
     svgcashbackTextTop6: {
       fontSize: 18,
-      fontWeight: 700,
+      fontWeight: 600,
       fontFamily: Fonts?.expHead
     },
     SVGContainerLeft: {

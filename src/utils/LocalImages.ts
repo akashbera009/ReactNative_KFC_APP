@@ -90,6 +90,7 @@ const Images = {
     ApplePay: require(fixedPath+ 'CheckOutScreen/ApplePay.png'), 
     ClickToPay: require(fixedPath+ 'CheckOutScreen/ClickToPay.png'), 
     CashIcon: require(fixedPath+ 'CheckOutScreen/CashIcon.png'), 
+    VisaPNG: require(fixedPath+ 'CheckOutScreen/VisaPNG.png'), 
 
     EmptyBox: require(fixedPath+ 'CartScreens/EmptyBox.png'), 
     Edit_Icon: require(fixedPath+ 'CartScreens/Edit_Icon.png'), 

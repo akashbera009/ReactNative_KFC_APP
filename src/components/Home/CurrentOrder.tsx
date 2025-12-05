@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // data import 
-import DeliveryDetails from '../../data/DeliveryDetails'
+import { DeliveryDetails } from '../../data/DeliveryDetails'
 // util imports 
 import Fonts from '../../utils/Fonts'
 import { useThemeColors } from '../../utils/Colors';
@@ -17,7 +17,7 @@ export default function orderQueueItem() {
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { orderQueueItem } = useOrderQueue()
-  const currentOrder = orderQueueItem.filter((item) => item?.status == 'Being Prepared')[0]
+  const currentOrder = orderQueueItem.filter((item) => item?.status == Strings?.beingPreparedString)[0]
   const ItemNames = currentOrder?.Items.map((item) => item?.name).join(',')
 
   return (

@@ -1,4 +1,3 @@
-// import RazorpayCheckout from 'react-native-razorpay'
 import {
     StyleSheet,
     Text,
@@ -14,49 +13,41 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
+import { useRazorpayPayment } from '../../utils/RazorpayPayments';
 // utils
 import Fonts from '../../utils/Fonts';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import Images from '../../utils/LocalImages';
+import { savedCards, otherPaymentOption } from '../../data/DeliveryDetails';
 
-export default function PaymentOptionsBottomSheet() {
+export default function PaymentOptionsBottomSheet({ amount, orderId, onSuccess }: PaymentModalScreenProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const navigation =
-        useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors, Fonts);
-
     const slide = useRef(new Animated.Value(500)).current;
     const fade = useRef(new Animated.Value(0)).current;
-
     const [selectedCard, setSelectedCard] = useState<number | null>(0);
     const [selectedMethod, setSelectedMethod] = useState<string>('');
     const [preferred, setPreferred] = useState<boolean>(false);
-
-    const savedCards = [
-        {
-            bank: 'Emirates Investment Bank',
-            last: '9675',
-            type: 'Credit Card',
-            color: '#8ED5FF'
-        },
-        {
-            bank: 'Emirates Investment Bank',
-            last: '4411',
-            type: 'Credit Card',
-            color: '#C9A6FF'
-        },
-        {
-            bank: 'Mashreq Bank',
-            last: '5521',
-            type: 'Credit Card',
-            color: '#FFA1A1'
+    const [paymentRes, setPaymentRes] = useState({})
+    const [openModal, setOpenModal] = useState(false)
+    const { handlePayment } = useRazorpayPayment();
+    const initiatePayment = async () => {
+        const result = await handlePayment(amount);
+        setPaymentRes(result);
+        openResponseModal(result.success, result.payment_id)
+    };
+    const openResponseModal = (success: boolean, payment_id: string | undefined) => {
+        setOpenModal(true);
+        if (success) {
+            onSuccess?.(payment_id, true);
+        } else {
+            onSuccess?.(payment_id, false);
         }
-    ];
-
+    }
     const slideUp = () => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -105,12 +96,14 @@ export default function PaymentOptionsBottomSheet() {
                 style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}
             >
                 <View style={Styles.InnerContainer}>
-                    {/* ⛔ You will add the 3 red bars here */}
-                    <View style={{ height: 34 }} />
+                    <View style={Styles.ThreeColumnStyle}>
+                        <View style={[Styles.singleCOlumnStyle,]} />
+                        <View style={[Styles.singleCOlumnStyle,]} />
+                        <View style={[Styles.singleCOlumnStyle,]} />
+                    </View>
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <Text style={Styles.title}>{Strings?.otherPaymentOptions}</Text>
-                        {/* SAVED CARDS SECTION */}
-                        <Text style={Styles.savedCardsLabel}>3 {Strings?.savedCards}</Text>
+                        <Text style={Styles.savedCardsLabel}>{savedCards.length} {Strings?.savedCards.toUpperCase()}</Text>
                         <ScrollView
                             horizontal
                             showsHorizontalScrollIndicator={false}
@@ -121,36 +114,36 @@ export default function PaymentOptionsBottomSheet() {
                                     key={index}
                                     style={[
                                         Styles.cardBox,
-                                        { backgroundColor: card.color },
+                                        { backgroundColor: card?.color },
                                         selectedCard === index && Styles.cardSelected
                                     ]}
                                     onPress={() => setSelectedCard(index)}
                                 >
-                                    <Text style={Styles.bankName}>{card.bank}</Text>
-                                    <Text style={Styles.cardNumber}>
-                                        **** **** **** {card.last}
-                                    </Text>
-                                    <View style={Styles.cardFooter}>
-                                        <Text style={Styles.cardType}>{card.type}</Text>
-                                        <View style={Styles.radioOuter}>
+                                    <Image source={Images?.VisaPNG} style={Styles.VisaPNGFade} />
+                                    <View style={Styles.HeaderAndButton}>
+                                        <View style={Styles.Headers}>
+                                            <Text style={Styles.bankName}>{card?.bank}</Text>
+                                            <Text style={Styles.cardNumber}>
+                                                **** **** **** {card.last}
+                                            </Text>
+                                        </View>
+                                        <View style={Styles.radioBlackOuter}>
                                             {selectedCard === index && (
-                                                <View style={Styles.radioInner} />
+                                                <View style={Styles.radioBlackInner} />
                                             )}
                                         </View>
+                                    </View>
+                                    <View style={Styles.cardFooter}>
+                                        <Text style={Styles.cardType}>{card.type}</Text>
+                                        <Image source={Images?.VisaPNG} style={Styles.VisaPNG} />
                                     </View>
                                 </TouchableOpacity>
                             ))}
                         </ScrollView>
-                        {/* OTHER PAYMENT METHODS */}
                         <Text style={Styles.otherMethodLabel}>
-                            {Strings?.otherPaymentMethod}
+                            {Strings?.otherPaymentMethod.toUpperCase()}
                         </Text>
-                        {[
-                            { icon: Images.CredtiCardStack, label: Strings?.addCreditDebitCard, offer: '15% Off on Master Card' },
-                            { icon: Images.ApplePay, label: 'Samsung Pay', offer: '15% Off on Samsung Pay' },
-                            { icon: Images.ClickToPay, label: 'Click to pay' },
-                            { icon: Images.CashIcon, label: Strings?.payByCash }
-                        ].map((item, idx) => (
+                        {otherPaymentOption.map((item, idx) => (
                             <TouchableOpacity
                                 key={idx}
                                 style={Styles.methodRow}
@@ -184,47 +177,23 @@ export default function PaymentOptionsBottomSheet() {
                             activeOpacity={0.7}
                         >
                             <View style={[Styles.checkboxOuter, preferred && Styles.checkboxSelected]}>
-                                {preferred && <View style={Styles.checkboxInner} />}
+                                {preferred && <Image source={Images?.Tick_Mark} style={Styles.tickMark} />}
                             </View>
                             <Text style={Styles.preferredText}>
                                 {Strings?.makePreferredMode}
                             </Text>
                         </TouchableOpacity>
-                        {/* Bottom Buttons */}
-                        <View style={[Styles.buttonsRow, { marginBottom: inset.bottom + 10 }]}>
-                            <TouchableOpacity style={Styles.cancelBtn} onPress={closeModal}>
-                                <Text style={Styles.cancelText}>{Strings?.cancel.toUpperCase()}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={Styles.payBtn}>
-                                <Text style={Styles.payText}>{Strings?.makePayment.toUpperCase()}</Text>
-                            </TouchableOpacity>
-                            {/* <TouchableOpacity onPress={() => {
-                                var options = {
-                                    description: 'Credits towards consultation',
-                                    image: 'https://i.imgur.com/3g7nmJC.jpg',
-                                    currency: '<currency>',
-                                    key: '<YOUR_KEY_ID>',
-                                    amount: '5000',
-                                    name: 'Acme Corp',
-                                    order_id: 'order_DslnoIgkIDL8Zt',
-                                    prefill: {
-                                        email: '<email>',
-                                        contact: '<phone>',
-                                        name: '<name>'
-                                    },
-                                    theme: { color: '#53a20e' }
-                                }
-                                RazorpayCheckout.open(options).then((data: any) => {
-                                    // handle success
-                                    Alert.alert(`Success: ${data.razorpay_payment_id}`);
-                                }).catch((error: any) => {
-                                    Alert.alert(`Error: ${error.code} | ${error.description}`);
-                                });
-                            }}>
-
-                            </TouchableOpacity> */}
-                        </View>
                     </ScrollView>
+                    <View style={[Styles.buttonsRow, { marginBottom: inset.bottom + 10 }]}>
+                        <TouchableOpacity style={Styles.cancelBtn} onPress={closeModal}>
+                            <Text style={Styles.cancelText}>{Strings?.cancel.toUpperCase()}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={Styles.payBtn}
+                            onPress={initiatePayment}>
+                            <Text style={Styles.payText}>{Strings?.makePayment.toUpperCase()}</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </Animated.View>
         </Animated.View>
@@ -233,7 +202,7 @@ export default function PaymentOptionsBottomSheet() {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     return StyleSheet.create({
         backDrop: {
-            backgroundColor: Colors.SemiTransparent,
+            backgroundColor: Colors?.SemiTransparent,
             width: '100%',
             height: '100%',
             justifyContent: 'flex-end'
@@ -243,69 +212,112 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: '78%'
         },
         InnerContainer: {
-            backgroundColor: Colors.bodyColor,
+            backgroundColor: Colors?.bodyColor,
             borderTopLeftRadius: 28,
             borderTopRightRadius: 28,
             paddingHorizontal: 20,
-            paddingTop: 10,
             height: '100%'
+        },
+        ThreeColumnStyle: {
+            alignSelf: 'center',
+            width: '34%',
+            height: 30,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+        },
+        singleCOlumnStyle: {
+            height: 25,
+            width: 24,
+            backgroundColor: Colors?.KFC_red,
         },
         title: {
             fontSize: 20,
             fontFamily: Fonts.font17,
-            fontWeight: '700',
+            fontWeight: 700,
             textAlign: 'center',
             marginBottom: 25,
-            color: Colors.textBlack
+            marginTop: 10 ,
+            color: Colors?.textBlack
         },
         savedCardsLabel: {
             fontSize: 13,
-            color: Colors.fadeWhiteText2,
-            marginBottom: 10,
-            fontFamily: Fonts.regular
+            color: Colors?.textFadeBlack,
+            marginBottom: 15,
+            fontFamily: Fonts.font17,
+            fontWeight: 700,
         },
         cardsScroll: {
             paddingBottom: 20
         },
         cardBox: {
-            width: 220,
-            height: 130,
-            borderRadius: 14,
+            width: 260,
+            height: 120,
+            borderRadius: 2,
             padding: 15,
             marginRight: 12,
             justifyContent: 'space-between',
             borderWidth: 1,
-            borderColor: 'transparent'
+            borderColor: Colors?.ButtonTextBlueColor,
+            borderStyle: 'dotted'
+        },
+        VisaPNGFade: {
+            tintColor: Colors?.HyperFadeWhiteText,
+            height: 60,
+            width: 200,
+            position: 'absolute',
+            right: 5,
+            top: 30
+        },
+        HeaderAndButton: {
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'space-between',
+        },
+        Headers: {
+
         },
         cardSelected: {
-            borderColor: Colors.KFC_red,
-            borderWidth: 2
+            borderColor: Colors?.ButtonTextBlueColor,
+            borderWidth: 2,
         },
         bankName: {
-            color: Colors.constantWhite,
+            color: Colors?.constantWhite,
             fontSize: 14,
-            fontWeight: '600'
+            fontWeight: 600
         },
         cardNumber: {
-            color: Colors.constantWhite,
-            fontSize: 16,
-            fontWeight: '700'
+            color: Colors?.constantWhite,
+            fontSize: 14,
+            fontWeight: 700,
+            marginTop: 10,
+            fontFamily: Fonts?.font17,
+            letterSpacing: 1.25
         },
         cardFooter: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            alignItems: 'center'
+        },
+        VisaPNG: {
+            height: 12,
+            width: 40,
+            tintColor: Colors?.constantWhite,
         },
         cardType: {
-            color: Colors.constantWhite,
-            fontSize: 12,
-            fontWeight: '500'
+            color: Colors?.constantWhite,
+            fontSize: 10,
+            fontWeight: 600,
+            backgroundColor: Colors?.HyperTransparent2,
+            padding: 8,
         },
         otherMethodLabel: {
             marginTop: 10,
             marginBottom: 10,
             fontSize: 13,
-            color: Colors.fadeWhiteText2
+            color: Colors?.textFadeBlack,
+            fontFamily: Fonts?.font17,
+            fontWeight: 700
         },
         methodRow: {
             flexDirection: 'row',
@@ -318,37 +330,55 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center'
         },
         methodIcon: {
-            height: 32,
-            width: 32,
-            marginRight: 10
+            height: 40,
+            width: 40,
+            marginRight: 20
         },
         methodText: {
-            fontSize: 15,
-            color: Colors.textBlack,
-            fontWeight: '600'
+            fontSize: 17,
+            color: Colors?.textBlack,
+            fontFamily: Fonts?.font17,
+            fontWeight: 500,
+            letterSpacing: .5,
         },
         methodOffer: {
             fontSize: 12,
-            color: '#FF8A00',
+            color: Colors?.orangeColorText,
             marginTop: 2
         },
         tc: {
-            color: Colors.fadeWhiteText2,
+            color: Colors?.ButtonTextBlueColor,
             fontSize: 10
+        },
+        radioBlackOuter: {
+            margin: 2,
+            height: 20,
+            width: 20,
+            borderRadius: 20,
+            borderWidth: 2,
+            borderColor: Colors?.textFadeBlack2,
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+        radioBlackInner: {
+            height: 10,
+            width: 10,
+            backgroundColor: Colors?.textFadeBlack2,
+            borderRadius: 10
         },
         radioOuter: {
             height: 20,
             width: 20,
             borderRadius: 20,
             borderWidth: 2,
-            borderColor: Colors.fadeWhiteText2,
+            borderColor: Colors?.fadeWhiteText2,
             justifyContent: 'center',
             alignItems: 'center'
         },
         radioInner: {
             height: 10,
             width: 10,
-            backgroundColor: Colors.KFC_red,
+            backgroundColor: Colors?.KFC_red,
             borderRadius: 10
         },
         checkboxRow: {
@@ -357,26 +387,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: 15
         },
         checkboxOuter: {
-            height: 20,
-            width: 20,
+            height: 15,
+            width: 15,
             borderWidth: 2,
-            borderColor: Colors.fadeWhiteText2,
+            borderRadius: 1,
+            borderColor: Colors?.fadeWhiteText2,
             justifyContent: 'center',
             alignItems: 'center',
             marginRight: 10
         },
         checkboxSelected: {
-            borderColor: Colors.KFC_red
+            borderColor: Colors?.KFC_red,
+            backgroundColor: Colors?.KFC_red,
         },
-        checkboxInner: {
-            height: 12,
-            width: 12,
-            backgroundColor: Colors.KFC_red
+        tickMark: {
+            height: 10,
+            width: 10,
+            tintColor: Colors?.constantWhite
         },
         preferredText: {
-            color: Colors.textBlack,
-            fontSize: 13,
-            fontWeight: '500'
+            color: Colors?.textFadeBlack2,
+            fontSize: 12,
+            fontWeight: 600
         },
         buttonsRow: {
             flexDirection: 'row',
@@ -385,26 +417,26 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         cancelBtn: {
             borderWidth: 1,
-            borderColor: Colors.fadeWhiteText2,
+            borderColor: Colors?.fadeWhiteText2,
             width: '45%',
             paddingVertical: 14,
             borderRadius: 6
         },
         cancelText: {
-            color: Colors.textBlack,
+            color: Colors?.textBlack,
             textAlign: 'center',
-            fontWeight: '700'
+            fontWeight: 700
         },
         payBtn: {
             width: '45%',
-            backgroundColor: Colors.KFC_red,
+            backgroundColor: Colors?.KFC_red,
             paddingVertical: 14,
             borderRadius: 6
         },
         payText: {
-            color: Colors.constantWhite,
+            color: Colors?.constantWhite,
             textAlign: 'center',
-            fontWeight: '700'
+            fontWeight: 700
         }
     });
 };

@@ -103,5 +103,10 @@
 		<string>HelveticaNeueItalic.ttf</string>
 		<string>Jersey20-Regular.ttf</string>
 	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+    	<string>tel</string>
+    	<string>telprompt</string>
+</array>
 </dict>
 </plist>
