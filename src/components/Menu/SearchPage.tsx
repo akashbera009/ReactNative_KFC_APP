@@ -68,7 +68,7 @@ export default function SearchPage() {
                     <FlatList
                         data={searchResult}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({ item }) => <MenuCard {...item} />}
+                        renderItem={({ item }) => <MenuCard foodItem={item} />}
                         contentContainerStyle={[Styles.ScrollViewContainer, { paddingBottom: inset.bottom + 20 }]}
                         keyboardShouldPersistTaps="handled"
                         showsVerticalScrollIndicator={false}

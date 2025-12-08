@@ -11,7 +11,7 @@ type RootStackParamList = {
   CreateProfileScreen: { phoneNo: string }
   ExploreMenuScreen: { categoryType: string }
   MenuCategorizeScreen: { activeCategory: string, setActiveCategory: (ele: string) => void, frequencyArray: CategoryFrequency[] }
-  FoodCustomizationScreen: undefined
+  FoodCustomizationScreen: { foodItem : menuDataType }
   CartScreen: { discount: number, discountPercentage: number, offerCode: string }
   RemoveCartItemBottomSheetScreen: RemoveCartItemProps
   SearchScreen: undefined

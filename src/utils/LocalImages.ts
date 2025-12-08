@@ -39,6 +39,7 @@ const Images = {
     Green_Tick: require(fixedPath+ 'Green_Tick.png'), 
     Orange_Warning: require(fixedPath+ 'Orange_Warning.png'), 
 
+    KfcTextLogo: require(fixedPath+ 'HomeScreen/KfcTextLogo.png'), 
     Home_Page_Main_Image: require(fixedPath+ 'HomeScreen/Home_Page_Main_Image.png'), 
     Menu: require(fixedPath+ 'HomeScreen/Menu.png'), 
     Location: require(fixedPath+ 'HomeScreen/Location.png'), 

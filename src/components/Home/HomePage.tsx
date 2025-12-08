@@ -74,7 +74,7 @@ export default function HomePage() {
           <TouchableOpacity
             onPress={() => navigation.navigate(Strings?.SplashScreen)}
           >
-            <Text style={[Styles.HeaderKFC, { marginTop: inset.top - 15 }]}> {Strings?.KFC}</Text>
+            <Image source={Images?.KfcTextLogo} style={[Styles.HeaderKFC,{ marginTop: inset.top }]} />
           </TouchableOpacity>
 
           <Animated.View style={[Styles.AnimatedSlideShowContainer, { opacity: fadeAnimation }]}>
@@ -260,7 +260,7 @@ export default function HomePage() {
                   style={[Styles.laurel, Styles.leftLaurel]}
                   resizeMode="contain"
                 />
-                <Text style={Styles.centerText}>KFC</Text>
+                <Text style={Styles.centerText}>{Strings?.KFC}</Text>
                 <Image
                   source={Images?.laurel_leaves_Left}
                   style={[Styles.laurel, Styles.rightLaurel]}
@@ -323,11 +323,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     AndroidHeight: {
       marginTop: 30
     },
-    HeaderKFC: {
-      fontSize: 50,
-      fontWeight: 900,
-      color: Colors?.constantWhite,
-      fontFamily: Fonts?.exp,
+    HeaderKFC: { 
+      height: 30 , 
+      width : 100 ,
+      tintColor: Colors?.constantWhite
     },
     AnimatedSlideShowContainer: {
 

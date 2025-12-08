@@ -7,7 +7,7 @@ import MenuCard from './MenuCard'
 import { useThemeColors } from '../../utils/Colors'
 import { useMenu } from '../../context/MenuContext'
 import { useCart } from '../../context/CartContext'
-export default function ExploreMenu({ activeCategory, categoryList }: { activeCategory: string, categoryList: string[] }) {
+export default function ExploreMenu({ activeCategory}: { activeCategory: string }) {
     const Colors = useThemeColors()
     const Styles = createDynamicStyles(Colors)
     const { menuItem } = useMenu()
@@ -23,9 +23,9 @@ export default function ExploreMenu({ activeCategory, categoryList }: { activeCa
         <View style={[Styles.ScrollContainer, CartItem.length > 0 && Styles.LessPadding]}>
             <FlatList
                 data={prepareMenuList}
-                renderItem={({ item }) =>
+                renderItem={(item ) =>
                     <View style={Styles.cardContainer}>
-                        <MenuCard {...item} />
+                        <MenuCard foodItem = {item.item} />
                     </View>
                 }
                 keyExtractor={item => item?.name}

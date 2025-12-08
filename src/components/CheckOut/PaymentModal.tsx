@@ -7,7 +7,6 @@ import {
     Image,
     TouchableWithoutFeedback,
     ScrollView,
-    Alert
 } from 'react-native';
 import React, { useRef, useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

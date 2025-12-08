@@ -10,3 +10,4 @@ type OfferAppliedScreenProps = NativeStackScreenProps<RootStackParamList, 'Offer
 type CartScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'CartScreen'>
 type TrackOrderScreenProps = NativeStackScreenProps<RootStackParamList, 'TrackOrder'>
 type PaymentModalScreenProps = NativeStackScreenProps<RootStackParamList, 'PaymentModalScreen'>
+type FoodCustomizationScreenProps = NativeStackScreenProps<RootStackParamList, 'FoodCustomizationScreen'>

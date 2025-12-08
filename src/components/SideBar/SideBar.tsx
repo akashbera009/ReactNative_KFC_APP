@@ -34,11 +34,10 @@ const SideBar = () => {
     let phoneNumber = phone;
     const url = `tel:${phoneNumber}`;
     if (Platform.OS === 'ios') {
-      phoneNumber = `telprompt:${phone}`;
-    } else if (Platform.OS === 'android') {
       phoneNumber = `tel:${phone}`;
+    } else if (Platform.OS === 'android') {
+      phoneNumber = `telprompt:${phone}`;
     } else {
-      Alert.alert('Calling is not supported on this platform');
       return;
     }
     Linking.canOpenURL(phoneNumber)
@@ -157,14 +156,21 @@ const SideBar = () => {
             <Image source={Images?.discount} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings?.dealsAndOffer} </Text>
           </TouchableOpacity>
-          <View style={Styles.SingleEntry}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
+              categoryType: Strings?.dealsString
+            })}
+            style={Styles.SingleEntry}>
             <Image source={Images?.Great_Menu} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings?.greatMenu} </Text>
-          </View>
-          <View style={Styles.SingleEntry}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
+              categoryType: Strings?.dealsString
+            })} style={Styles.SingleEntry}>
             <Image source={Images?.Combo_Menu} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings?.combo} </Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
         <View style={[Styles.LowerCallSupportContainer, { bottom: inset.bottom + 10 }]}>

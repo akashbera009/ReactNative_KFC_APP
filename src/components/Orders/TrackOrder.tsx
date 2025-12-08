@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, RefreshControl } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MapView, { Marker, Polyline } from 'react-native-maps';
-
 // data imports
 import { stores } from '../../data/StoresData';
 // util imports 
@@ -59,9 +58,14 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
     { latitude: stores[0].latitude, longitude: stores[0].longitude },
     { latitude: location.latitude, longitude: location.longitude }
   );
-const handleRefresh=()=>{
-  
-}
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
+
   return (
     <View style={Styles?.Parent}>
       <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -74,7 +78,7 @@ const handleRefresh=()=>{
           <Text style={Styles.headerText}>{Strings?.trackOrder} </Text>
         </View>
         <TouchableOpacity
-        onPress={handleRefresh}
+          onPress={onRefresh}
           style={Styles.editButton}
         >
           <Text style={Styles.editbuttonFadeText}>{Strings?.refresh.toUpperCase()} </Text>
@@ -82,22 +86,25 @@ const handleRefresh=()=>{
       </View>
       <View style={Styles.ScrollWrapper}>
         <ScrollView
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
           <View style={Styles.MapContainer}>
             <MapView
               style={Styles.map}
               initialRegion={initialRegion}>
-              <Marker coordinate={location} title='You are here' />
+              <Marker coordinate={location} title={Strings?.youreHere} />
               <Marker
                 coordinate={{
                   latitude: stores[0].latitude,
                   longitude: stores[0].longitude
                 }}
               >
-                <View style={{ alignItems: "center" }}>
+                <View style={Styles.kfcImageContainer}>
                   <Image
                     source={Images.KFC_logo_image}
-                    style={{ width: 40, height: 40, resizeMode: "contain" }}
+                    style={Styles.kfcImage}
                   />
                 </View>
               </Marker>
@@ -108,7 +115,6 @@ const handleRefresh=()=>{
                 lineCap="round"
                 lineJoin="round"
               />
-
             </MapView>
           </View>
           <View style={Styles.OrderCard}>
@@ -216,6 +222,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     map: {
       height: 350,
+    },
+    kfcImageContainer: {
+      alignItems: "center"
+    },
+    kfcImage: {
+      width: 40,
+      height: 40,
+      resizeMode: "contain"
     },
     image: {
       height: 20,

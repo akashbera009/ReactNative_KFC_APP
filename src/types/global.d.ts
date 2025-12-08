@@ -19,7 +19,7 @@ type DeliveryDetailsType = {
   beverages: string;
   personName: string;
   mobileNumber: string;
-  email: string , 
+  email: string,
   charges: number;
   vatCharge: number;
   discountRate: number;
@@ -42,6 +42,24 @@ type BestSellerMenuType = {
   image: Image,
   category: 'deals' | 'forOne' | 'forSharing' | 'sidesDeserts' | 'beverages' | 'bestSeller',
 }
+type MenuOptionChoice = {
+  id: string;
+  name: string;
+  image?: Image;
+  price?: number;
+  default?: boolean;
+};
+
+type MenuOptionGroup = {
+  id: string;
+  title: string;
+  type: "single" | "multiple" | "quantity";
+  required?: boolean;
+  min?: number;
+  max?: number;
+  choices: MenuOptionChoice[];
+};
+
 type menuDataType = {
   id: number,
   name: string,
@@ -53,6 +71,7 @@ type menuDataType = {
   image: Image,
   isFavorite: boolean,
   customizable: boolean,
+  customization?: MenuOptionGroup[];
   categories: string[],
 }
 type CartItemType = {
@@ -73,8 +92,8 @@ type OrderHistory = {
   date: string,
   orderId: string,
   status: string,
-  paymentMode : string , 
-  paymentId : string |undefined
+  paymentMode: string,
+  paymentId: string | undefined
 }
 type DealsAndOffersDataType = {
   title: string,
@@ -85,7 +104,7 @@ type DealsAndOffersDataType = {
 }
 type OrderStatusPageProps = {
   currentOrders: CartItemType[],
-  orderId: string|undefined,
+  orderId: string | undefined,
   OrderDate: string,
   OrderTime: string,
   paymentMode: string,
@@ -94,4 +113,7 @@ type OrderStatusPageProps = {
   SubTotal: number,
   deliveriCharge: number,
   orderStatus: boolean
+}
+type FoodCustomizationProps = {
+  foodHeaderName: string
 }

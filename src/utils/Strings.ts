@@ -312,8 +312,9 @@ const en = {
   faqA11: 'Yes, part-time positions are available depending on current openings.',
 
   allOffers: 'All Offers',
-  apply: 'Apply'
-
+  apply: 'Apply',
+  reset: 'Reset',
+  youreHere : 'You are here',
 } as const
 
 const ar = {
@@ -635,7 +636,9 @@ const ar = {
   faqA11: 'نعم، تتوفر وظائف بدوام جزئي حسب الشواغر الحالية.',
 
   allOffers: 'جميع العروض',
-  apply: 'تطبيق'
+  apply: 'تطبيق',
+    reset: 'Reset',
+    youreHere : 'You are here'
 } as const
 
 export const useStrings = () => {

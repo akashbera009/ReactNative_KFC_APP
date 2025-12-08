@@ -102,7 +102,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                     ))}
                 </ScrollView>
             </View>
-            <ExploreMenu activeCategory={activeCategory} categoryList={categorySet} />
+            <ExploreMenu activeCategory={activeCategory} />
             {CartItem?.length > 0 && (
                 <Animated.View style={[Styles.BottomCartContainer, { bottom: inset.bottom - 10 }, {
                     opacity: slideIn.interpolate({

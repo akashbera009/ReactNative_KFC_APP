@@ -3,7 +3,6 @@ import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -12,18 +11,7 @@ import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 import { useCart } from '../../context/CartContext';
 import { useMenu } from '../../context/MenuContext';
-export default function MenuCard({
-    id,
-    name,
-    description,
-    price,
-    oldPrice,
-    tag,
-    image,
-    isFavorite,
-    customizable,
-    categories,
-}: menuDataType) {
+export default function MenuCard({foodItem}: {foodItem: menuDataType}) {
     const Colors = useThemeColors();
     const country = useCountry()
     const Strings = useStrings();
@@ -32,20 +20,20 @@ export default function MenuCard({
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { menuItem, setMenuItem } = useMenu();
     const { CartItem, setCartItem } = useCart();
-    const itemInCart = CartItem.find((item) => item.name === name);
+    const itemInCart = CartItem.find((item) => item.name === foodItem?.name);
     const quantity = itemInCart ? itemInCart?.quantity : 0;
     const handleCartAdding = () => {
         const newItem: CartItemType = {
-            id: id,
-            name: name,
-            description: description,
-            price: price,
-            oldPrice: oldPrice,
-            tag: tag,
-            image: image,
-            isFavorite: isFavorite,
-            customizable: customizable,
-            categories: categories,
+            id: foodItem?.id,
+            name: foodItem?.name,
+            description: foodItem?.description,
+            price: foodItem?.price,
+            oldPrice: foodItem?.oldPrice,
+            tag: foodItem?.tag,
+            image: foodItem?.image,
+            isFavorite: foodItem?.isFavorite,
+            customizable: foodItem?.customizable,
+            categories: foodItem?.categories,
             quantity: quantity + 1,
         }
         if (CartItem.find((item) => item.name === newItem.name)) return;
@@ -67,7 +55,7 @@ export default function MenuCard({
         if (quantity >= 1) {
             setCartItem((prev: CartItemType[]) =>
                 prev.map((item, idx) =>
-                    item?.name == name
+                    item?.name == foodItem?.name
                         ? { ...item, quantity: item?.quantity - 1 }
                         : item
                 )
@@ -78,7 +66,7 @@ export default function MenuCard({
         if (quantity == 1) {
             setCartItem((prev: CartItemType[]) =>
                 prev.filter(item =>
-                    item?.name != name
+                    item?.name != foodItem?.name
                 )
             )
         } else return;
@@ -96,22 +84,22 @@ export default function MenuCard({
     return (
         <View style={Styles.CardContainer}>
             <View style={Styles.UpperContainer}>
-                {tag && (
+                {foodItem?.tag && (
                     <View style={Styles.Tags}>
-                        <Text style={Styles.TagText}>{tag} </Text>
+                        <Text style={Styles.TagText}>{foodItem?.tag} </Text>
                         <View style={Styles.ribbonTriangle} />
                     </View>
                 )}
 
-                <Image source={image} style={Styles.LeftfoodImage} />
+                <Image source={foodItem?.image} style={Styles.LeftfoodImage} />
                 <View style={Styles.RightContainer}>
                     <View style={Styles.nameAndFavButton}>
-                        <Text style={Styles.FoodName}>{name}</Text>
+                        <Text style={Styles.FoodName}>{foodItem?.name}</Text>
                         <TouchableOpacity
                             style={Styles.favIconContainer}
-                            onPress={() => { handleToggleFavourite(id) }}
+                            onPress={() => { handleToggleFavourite(foodItem?.id) }}
                         >
-                            {isFavorite ? (
+                            {foodItem?.isFavorite ? (
                                 <Image source={Images?.Favourite_Icon} style={Styles.Favourite_Icon} />
                             ) : (
                                 <Image source={Images?.Favourite_Icon_Empty} style={Styles.Favourite_Icon} />
@@ -119,17 +107,19 @@ export default function MenuCard({
                         </TouchableOpacity>
                     </View>
                     <View style={Styles.DescriptionContainer}>
-                        {description.map((item, idx) => (
+                        {foodItem?.description.map((item, idx) => (
                             <View key={idx} style={Styles.DotAndDescription}>
                                 <View style={Styles.dot} />
                                 <Text style={Styles.DescriptioText}>{item}</Text>
                             </View>
                         ))}
                     </View>
-                    {customizable && (
+                    {foodItem?.customizable && (
                         <TouchableOpacity
                             style={Styles.CustomizeContainer}
-                            onPress={() => navigation.navigate(Strings?.FoodCustomizationScreen)}
+                            onPress={() => navigation.navigate(Strings?.FoodCustomizationScreen,{
+                               foodItem : foodItem
+                            })}
                         >
                             <Text style={Styles.customizeText}>{Strings?.customize.toUpperCase()} </Text>
                             <Image source={Images?.back_arrow} style={Styles.backArrow} />
@@ -139,10 +129,10 @@ export default function MenuCard({
             </View>
             <View style={Styles.LowerContainer}>
                 <View style={Styles.LowerLeftPriceContainer}>
-                    <Text style={Styles.Price}>{price.toFixed(2)}</Text>
+                    <Text style={Styles.Price}>{foodItem?.price.toFixed(2)}</Text>
                     <Text style={Styles.Price}>{country?.countrySelected.currencyCode}</Text>
                     <View style={Styles.OldPriceContainer}>
-                        <Text style={Styles.OldPrice}>{oldPrice.toFixed(2)}</Text>
+                        <Text style={Styles.OldPrice}>{foodItem?.oldPrice.toFixed(2)}</Text>
                         <Text style={Styles.OldPrice}>{country?.countrySelected.currencyCode}</Text>
                         <View style={Styles.CrossBorder} />
                     </View>
@@ -174,7 +164,7 @@ export default function MenuCard({
                         <Text style={Styles.counter}>{formattedQuantity} </Text>
                         <TouchableOpacity
                             style={quantity < 10 ? Styles.AddCounterButton : Styles.AddCounterButtonFade}
-                            onPress={() => handleIncreaseQunatity(name)}
+                            onPress={() => handleIncreaseQunatity(foodItem?.name)}
                         >
                             <Image source={Images?.AddButton} style={Styles.AddButtonImage} />
                         </TouchableOpacity>
