@@ -27,7 +27,8 @@ type DeliveryDetailsType = {
   homePagediscountPrice: number,
   restaurantName: string;
   supportMail: string;
-  supprotMobile: string
+  supprotMobile: string;
+  demoPDFurl: string
 };
 
 type CategoryFrequency = {

@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Share } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // data imports 
-import{DeliveryDetails}from '../../data/DeliveryDetails';
+import { DeliveryDetails } from '../../data/DeliveryDetails';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -28,7 +28,27 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandAmount: number = AfterDiscount + DeliveryDetails?.charges
     const { orderQueueItem } = useOrderQueue()
-    const currentOrder: OrderHistory = orderQueueItem.filter((item) => item?.status ==  Strings?.beingPreparedString)[0]
+    const currentOrder: OrderHistory = orderQueueItem.filter((item) => item?.status == Strings?.beingPreparedString)[0];
+    const handleShareInvoice = async () => {
+        const pdfUrl = DeliveryDetails?.demoPDFurl
+        try {
+            const result = await Share.share({
+                message:
+                    `${Strings?.takeInvoicePlease}: ${pdfUrl}`,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    console.log("Shared using:", result.activityType);
+                } else {
+                    console.log('no info');
+                }
+            } else if (result.action === Share.dismissedAction) {
+                console.log('dismissed');
+            }
+        } catch (error: any) {
+            console.log(error.message)
+        }
+    }
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -52,19 +72,19 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                                 </View>
                                 <Text style={Styles.date}>{order?.date} </Text>
                             </View>
-                            {order?.status ==  Strings?.beingPreparedString ? (
+                            {order?.status == Strings?.beingPreparedString ? (
                                 <TouchableOpacity
                                     style={Styles.trackButton}
                                     onPress={() => navigation.push(Strings?.TrackOrderScreen, {
                                         currentOrder: currentOrder,
-                                        orderId:currentOrder?.orderId,
-                                        GrandTotal:  GrandAmount
+                                        orderId: currentOrder?.orderId,
+                                        GrandTotal: GrandAmount
                                     })}
                                 >
                                     <Text style={Styles.TrackOrderText}>{Strings?.trackOrder} </Text>
                                 </TouchableOpacity>
                             ) : (
-                                <View style={Styles.Blank}/>
+                                <View style={Styles.Blank} />
                             )}
                         </View>
                         <View style={[Styles.PricingTotalContainer]}>
@@ -82,10 +102,16 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                             </View>
                             <View style={Styles.PriceEntries}>
                                 <Text style={[Styles.PriceEntriesLeft, Styles.GrandText]}>{Strings?.grandTotal} </Text>
-                                <Text style={[Styles.PriceEntriesRight, Styles.GrandText]}>{ GrandAmount.toFixed(2)} {countrySelected?.currencyCode} </Text>
+                                <Text style={[Styles.PriceEntriesRight, Styles.GrandText]}>{GrandAmount.toFixed(2)} {countrySelected?.currencyCode} </Text>
                             </View>
                         </View>
                     </View>
+                    <TouchableOpacity
+                        onPress={handleShareInvoice}
+                        style={Styles.downloadContainer}>
+                        <Text style={Styles.ShareText}>{Strings?.shareInvoive} </Text>
+                        <Image source={Images?.ShareIcon} style={Styles.ShareIcon} />
+                    </TouchableOpacity>
                     <View style={Styles.DeliveryAddressContainer}>
                         <View style={Styles.DeliveryUpperContainer}>
                             <Image source={Images?.HomeIcon} style={Styles.HomeIcon} />
@@ -270,6 +296,35 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 700,
             fontSize: 12,
             fontFamily: Fonts?.font17
+        },
+        downloadContainer: {
+            width: "95%",
+            alignSelf: 'center',
+            shadowColor: Colors?.blueShadows,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+            backgroundColor: Colors?.bodyColor,
+            marginVertical: 15,
+            borderRadius: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+        },
+        ShareIcon: {
+            marginVertical: 20,
+            marginHorizontal: 20,
+            height: 20,
+            width: 20,
+            tintColor: Colors?.textBlack
+        },
+        ShareText: {
+            marginHorizontal: 10,
+            color: Colors?.textFadeBlack2,
+            fontSize: 16,
+            fontFamily: Fonts?.font17,
         },
         DeliveryAddressContainer: {
             width: "95%",

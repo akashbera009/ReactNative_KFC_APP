@@ -129,7 +129,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         ParentContaienr: {
             backgroundColor: Colors?.bodyColor,
-            height: '100%'
+            flex: 1 
         },
         NavWrapper: {
             width: '100%',

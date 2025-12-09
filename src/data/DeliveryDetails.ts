@@ -17,7 +17,8 @@ const DeliveryDetails: DeliveryDetailsType = {
     homePagediscountPrice: 100,
     restaurantName: "Shop no. 1, Al Diyafah Bldg, Hana Center - Al Mankhool Rd - Dubai - United Arab Emirates",
     supportMail: 'support@americana-food.com',
-    supprotMobile: '600522252'
+    supprotMobile: '600522252',
+    demoPDFurl :  'https://morth.nic.in/sites/default/files/dd12-13_0.pdf'
 }
 const savedCards = [
     {

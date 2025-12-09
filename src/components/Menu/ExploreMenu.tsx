@@ -7,6 +7,8 @@ import MenuCard from './MenuCard'
 import { useThemeColors } from '../../utils/Colors'
 import { useMenu } from '../../context/MenuContext'
 import { useCart } from '../../context/CartContext'
+import { vh, vw, normalize } from '../../utils/Dimensions'
+
 export default function ExploreMenu({ activeCategory}: { activeCategory: string }) {
     const Colors = useThemeColors()
     const Styles = createDynamicStyles(Colors)
@@ -20,7 +22,7 @@ export default function ExploreMenu({ activeCategory}: { activeCategory: string 
         prepareMenuList = menuItem.filter((item) => item.categories.includes(activeCategory))
     }
     return (
-        <View style={[Styles.ScrollContainer, CartItem.length > 0 && Styles.LessPadding]}>
+        <View style={[Styles.ScrollContainer]}>
             <FlatList
                 data={prepareMenuList}
                 renderItem={(item ) =>
@@ -31,9 +33,9 @@ export default function ExploreMenu({ activeCategory}: { activeCategory: string 
                 keyExtractor={item => item?.name}
             />
             {CartItem?.length != 0 ?
-                <View style={[Styles.bottomBlank, Platform.OS == 'ios' ? { height: insets.bottom + 100 } : { height: insets.bottom + 60 }]} />
+                <View style={[Styles.bottomBlank, Platform.OS == 'ios' ? { height: insets.bottom + 60 } : { height: insets.bottom + 70 }]} />
                 :
-                <View style={[Styles.bottomBlank, Platform.OS == 'ios' ? { height: insets.bottom } : { height: insets.bottom - 10 }]} />
+                <View style={[Styles.bottomBlank, Platform.OS == 'ios' ? { height: insets.bottom - 30} : { height: insets.bottom  }]} />
             }
         </View>
     )
@@ -47,14 +49,10 @@ const createDynamicStyles = (Colors: ColorType) => {
             position: 'relative',
             zIndex: 1,
             marginTop: 4,
-            height: '90%',
-            paddingBottom: 40,
-        },
-        LessPadding: {
-            paddingBottom: 10,
+            flex: 1 ,
         },
         bottomBlank: {
-            height: 40
+            height: vh(40)
         },
         cardContainer: {
             width: '100%',

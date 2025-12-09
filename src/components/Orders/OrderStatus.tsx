@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Animated, Easing } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Animated, Easing, Share } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -33,7 +33,7 @@ export default function OrderStatus({
     const [openAmountDetails, setOpenAmountDetails] = useState<boolean>(false)
     const [pending, setPending] = useState(true)
     const { orderQueueItem } = useOrderQueue()
-    const currentOrder = orderQueueItem.filter(item => item?.status ==  Strings?.beingPreparedString)[0]
+    const currentOrder = orderQueueItem.filter(item => item?.status == Strings?.beingPreparedString)[0]
     useEffect(() => {
         const timeOut = setTimeout(() => {
             setPending(false)
@@ -53,7 +53,26 @@ export default function OrderStatus({
             })
         ).start()
     }, [])
-
+    const handleShareInvoice = async () => {
+        const pdfUrl = DeliveryDetails?.demoPDFurl
+        try {
+            const result = await Share.share({
+                message:
+                    `${Strings?.takeInvoicePlease}: ${pdfUrl}`,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    console.log("Shared using:", result.activityType);
+                } else {
+                    console.log('no info');
+                }
+            } else if (result.action === Share.dismissedAction) {
+                console.log('dismissed');
+            }
+        } catch (error: any) {
+            console.log(error.message)
+        }
+    }
     return (
         <View style={[Styles.Parent, { paddingTop: inset.top }]}>
             <View style={Styles.NavWrapper}>
@@ -147,7 +166,11 @@ export default function OrderStatus({
                             <>
                                 <View style={Styles.SummaryHeaderRow}>
                                     <Text style={Styles.SummaryHeader}>{Strings?.orderSummary}</Text>
-                                    <Image source={Images.DownloadIcon} style={Styles.DownloadIcon} />
+                                    <TouchableOpacity
+                                        onPress={handleShareInvoice}
+                                    >
+                                        <Image source={Images.DownloadIcon} style={Styles.DownloadIcon} />
+                                    </TouchableOpacity>
                                 </View>
                                 <View style={Styles.SumaryBottomBox}>
                                     <Text style={Styles.DeliveryAddressheader}>{Strings?.deliveryAddress}</Text>

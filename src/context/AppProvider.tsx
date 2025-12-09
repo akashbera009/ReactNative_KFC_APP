@@ -10,12 +10,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => (
   <ThemeProvider>
     <LanguageProvider>
       <CountryProvider>
-        <MenuProvider>
-          <CartProvider>
-            <OrderQueueProvider>
+        <MenuProvider>  {/* ls */}
+          <OrderQueueProvider>
+            <CartProvider>
               {children}
-            </OrderQueueProvider>
-          </CartProvider>
+            </CartProvider>
+          </OrderQueueProvider>
         </MenuProvider>
       </CountryProvider>
     </LanguageProvider>

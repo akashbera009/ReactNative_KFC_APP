@@ -6,8 +6,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // util imports 
 import { useThemeColors } from '../../../utils/Colors';
-import Fonts from '../../../utils/Fonts'
 import { useStrings } from '../../../utils/Strings';
+import Fonts from '../../../utils/Fonts'
 import Images from '../../../utils/LocalImages';
 export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, frequencyArray }: MenuCategorizationScreenProps) {
     const slide = useRef(new Animated.Value(800)).current;

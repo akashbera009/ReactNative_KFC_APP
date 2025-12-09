@@ -354,6 +354,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       position: 'absolute',
       right: 0,
       top: 30,
+      zIndex: 1000 , 
       borderRadius: 5,
       shadowColor: Colors?.blueShadows,
       shadowOffset: { width: 0, height: 2 },

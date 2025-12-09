@@ -100,5 +100,6 @@ const Images = {
     DownloadIcon: require(fixedPath+ 'OrderScreen/DownloadIcon.png'), 
     OvenIcon: require(fixedPath+ 'OrderScreen/OvenIcon.png'), 
     PopCornCup: require(fixedPath+ 'OrderScreen/PopCornCup.png'), 
+    ShareIcon: require(fixedPath+ 'OrderScreen/ShareIcon.png'), 
 }
 export default Images   

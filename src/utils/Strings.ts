@@ -38,12 +38,12 @@ const en = {
   forSharingString: 'For Sharing',
   sandwichString: 'SandWich',
   cashOnDeliveryString: 'Cash On Delivery',
-  onlineString : 'Online',
+  onlineString: 'Online',
   creditCardString: 'Credit Card',
   visaString: 'Visa Checkout',
   beingPreparedString: 'Being Prepared',
-  deliveredString : 'Delivered',
-  cancelledString : "Cancelled",
+  deliveredString: 'Delivered',
+  cancelledString: "Cancelled",
   // landing
   lickingGood: "It's finger lickin' good",
 
@@ -114,6 +114,7 @@ const en = {
   beverages: 'beverages',
   CurrentOrder: 'Current Order',
   trackOrder: 'Track Order',
+  shareInvoive: 'Share Invoice',
   refresh: 'Refresh',
   orderIdText: 'Order ID',
   bestSeller: 'best sellers',
@@ -314,7 +315,8 @@ const en = {
   allOffers: 'All Offers',
   apply: 'Apply',
   reset: 'Reset',
-  youreHere : 'You are here',
+  youreHere: 'You are here',
+  takeInvoicePlease: 'Take this invoice please '
 } as const
 
 const ar = {
@@ -355,12 +357,12 @@ const ar = {
   forSharingString: 'For Sharing',
   sandwichString: 'SandWich',
   cashOnDeliveryString: 'Cash On Delivery',
-   onlineString : 'Online',
+  onlineString: 'Online',
   creditCardString: 'Credit Card',
   visaString: 'Visa Checkout',
   beingPreparedString: 'Being Prepared',
-  deliveredString : 'Delivered',
-  cancelledString : "Cancelled",
+  deliveredString: 'Delivered',
+  cancelledString: "Cancelled",
   // landing
   lickingGood: 'إنه لذيذ للغاية',
 
@@ -429,6 +431,7 @@ const ar = {
   beverages: 'مشروبات',
   CurrentOrder: 'الطلب الحالي',
   trackOrder: 'تتبع الطلب',
+  shareInvoive: 'Share Invoice',
   refresh: 'تحديث',
   orderIdText: 'رقم الطلب',
   bestSeller: 'الأكثر مبيعًا',
@@ -523,7 +526,7 @@ const ar = {
   cashOnDelivery: 'الدفع عند الاستلام',
   creditDebitcards: 'بطاقات الائتمان/الخصم',
   visaCheckOut: 'الدفع عبر فيزا',
- makePreferredMode: 'Make this as my preferred mode!!',
+  makePreferredMode: 'Make this as my preferred mode!!',
   payByCash: 'الدفع نقداً',
   addCreditDebitCard: 'إضافة بطاقة ائتمان/خصم',
   otherPaymentMethod: 'طرق دفع أخرى',
@@ -637,8 +640,9 @@ const ar = {
 
   allOffers: 'جميع العروض',
   apply: 'تطبيق',
-    reset: 'Reset',
-    youreHere : 'You are here'
+  reset: 'Reset',
+  youreHere: 'You are here',
+  takeInvoicePlease: 'Take this invoice please '
 } as const
 
 export const useStrings = () => {
