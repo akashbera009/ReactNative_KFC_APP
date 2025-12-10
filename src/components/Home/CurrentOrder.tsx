@@ -9,15 +9,17 @@ import { DeliveryDetails } from '../../data/DeliveryDetails'
 import Fonts from '../../utils/Fonts'
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
-import { useOrderQueue } from '../../context/OrderQueueContext';
+// redux 
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 export default function orderQueueItem() {
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { orderQueueItem } = useOrderQueue()
-  const currentOrder = orderQueueItem.filter((item) => item?.status == Strings?.beingPreparedString)[0]
+  const orderQueueItem = useSelector((state: RootState) => state.orders);
+  const currentOrder = orderQueueItem?.orders?.filter((item) => item?.status == Strings?.beingPreparedString)[0]
   const ItemNames = currentOrder?.Items.map((item) => item?.name).join(',')
 
   return (

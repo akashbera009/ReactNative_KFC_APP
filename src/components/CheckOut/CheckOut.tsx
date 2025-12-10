@@ -12,7 +12,12 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 import { useCart } from '../../context/CartContext';
+// redux 
+// import { useDispatch, useSelector } from 'react-redux';
+// import { fetchOrders } from '../../features/orderSlice';
+// import { AppDispatch, RootState } from '../../store/store';
 import { useOrderQueue } from '../../context/OrderQueueContext';
+
 export default function CheckOut({ totalAmount, discount }: { totalAmount: number, discount: number }) {
     const Colors = useThemeColors();
     const Strings = useStrings();

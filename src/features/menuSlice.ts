@@ -1,0 +1,32 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from 'axios';
+const BACKEND_SERVER = 'http://localhost:3000'
+
+const initialState = {
+    menuData: [{}],
+    loading: 'ideal'
+}
+// async menu data fetchstor
+export const fetchMenu = createAsyncThunk('menu/fetchMenu', async () => {
+    const res = await axios.get(`${BACKEND_SERVER}/menu`);
+    return res.data
+})
+
+const menuSlice = createSlice({
+    name: 'menuData',
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(fetchMenu.pending, (state) => {
+            state.loading = 'Pending'
+        })
+            .addCase(fetchMenu.fulfilled, (state, action) => {
+                state.loading = 'Success'
+                state.menuData = (action.payload);
+            })
+            .addCase(fetchMenu.rejected, (state) => {
+                state.loading = 'Error'
+            })
+    }
+})
+export default menuSlice.reducer;

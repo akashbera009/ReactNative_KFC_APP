@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -10,7 +10,10 @@ import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
-import { useOrderQueue } from '../../context/OrderQueueContext';
+// redux 
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOrders } from '../../features/orderSlice';
+import { AppDispatch, RootState } from '../../store/store';
 
 export default function Index() {
   const Colors = useThemeColors();
@@ -18,11 +21,15 @@ export default function Index() {
   const inset = useSafeAreaInsets();
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-  const { orderQueueItem } = useOrderQueue()
-  const currentOrders = orderQueueItem.filter(item => item.status != Strings?.deliveredString && item.status != Strings?.cancelledString);
-  const previousOrders = orderQueueItem.filter(item => item.status === Strings?.deliveredString || item.status ===Strings?.cancelledString);
-
+  
+  const dispatch = useDispatch<AppDispatch>()
+  useEffect(() => {
+    dispatch(fetchOrders())
+  }, [dispatch])
+  
+  const ordersArray = useSelector((state: RootState) => state.orders);
+  const previousOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status === Strings?.deliveredString || item?.status === Strings?.cancelledString)
+  const currentOrders : OrderHistory[] = ordersArray?.orders?.filter(item => item?.status !== Strings?.deliveredString && item?.status !== Strings?.cancelledString)
   return (
     <View style={Styles?.Parent}>
       <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>

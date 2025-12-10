@@ -1,0 +1,572 @@
+[
+  {
+    "uid": "menu-1",
+    "id": 1,
+    "name": "Twister BBQ Box",
+    "description": [
+      "1 Chicken Pc - Org",
+      "1 Twister - Org",
+      "Paper Jack Cheese Tomato",
+      "Fries - Regular"
+    ],
+    "price": 22.3,
+    "oldPrice": 24.7,
+    "image": "French_Fries_Coke",
+    "currency": "AED",
+    "tag": "Previously Ordered",
+    "isFavorite": false,
+    "customizable": true,
+    "categories": [
+      "Deals",
+      "Slides & Deserts",
+      "For Sharing",
+      "Shrimp"
+    ],
+    "customization": [
+      {
+        "uid": "cust-1-box-size",
+        "id": "box_size",
+        "title": "Choose your Box Size",
+        "type": "single",
+        "required": true,
+        "choices": [
+          {
+            "uid": "choice-1-medium",
+            "id": "medium",
+            "name": "Medium Box",
+            "default": true
+          },
+          {
+            "uid": "choice-1-large",
+            "id": "large",
+            "name": "Large Box",
+            "price": 4.0
+          }
+        ]
+      },
+      {
+        "uid": "cust-2-chicken-flavour",
+        "id": "chicken_flavour",
+        "title": "Chicken Flavour",
+        "type": "single",
+        "required": true,
+        "choices": [
+          {
+            "uid": "choice-2-original",
+            "id": "original",
+            "name": "Chicken Pc Original"
+          },
+          {
+            "uid": "choice-2-spicy",
+            "id": "spicy",
+            "name": "Chicken Pc Spicy",
+            "default": true
+          },
+          {
+            "uid": "choice-2-mix",
+            "id": "mix",
+            "name": "Chicken Pc Mix"
+          }
+        ]
+      },
+      {
+        "uid": "cust-3-twister-flavour",
+        "id": "twister_flavour",
+        "title": "Twister Flavour",
+        "type": "single",
+        "choices": [
+          {
+            "uid": "choice-3-tw-org",
+            "id": "twister_org",
+            "name": "Twister Original"
+          },
+          {
+            "uid": "choice-3-tw-spicy",
+            "id": "twister_spicy",
+            "name": "Twister Spicy"
+          },
+          {
+            "uid": "choice-3-bbq-org",
+            "id": "bbq_org",
+            "name": "Twister BBQ Original",
+            "default": true
+          },
+          {
+            "uid": "choice-3-bbq-spicy",
+            "id": "bbq_spicy",
+            "name": "Twister BBQ Spicy"
+          }
+        ]
+      },
+      {
+        "uid": "cust-4-condiments",
+        "id": "condiments",
+        "title": "Customize your Condiments",
+        "type": "multiple",
+        "min": 0,
+        "max": 5,
+        "choices": [
+          {
+            "uid": "choice-4-lettuce",
+            "id": "lettuce",
+            "name": "Lettuce"
+          },
+          {
+            "uid": "choice-4-american-reg",
+            "id": "american_cheese_regular",
+            "name": "American Cheese (Regular)",
+            "price": 2,
+            "default": true
+          },
+          {
+            "uid": "choice-4-american-extra",
+            "id": "american_cheese_extra",
+            "name": "American Cheese (Extra)",
+            "price": 4
+          },
+          {
+            "uid": "choice-4-pepper-jack",
+            "id": "pepper_jack",
+            "name": "Pepper Jack Cheese",
+            "price": 2
+          },
+          {
+            "uid": "choice-4-tomato",
+            "id": "tomato",
+            "name": "Tomato",
+            "price": 2
+          }
+        ]
+      },
+      {
+        "uid": "cust-5-sides",
+        "id": "sides",
+        "title": "Select one of your Favorite Sides",
+        "type": "single",
+        "required": true,
+        "choices": [
+          {
+            "uid": "choice-5-med-fries",
+            "id": "medium_fries",
+            "name": "Medium Fries",
+            "default": true
+          },
+          {
+            "uid": "choice-5-spicy-fries",
+            "id": "spicy_medium_fries",
+            "name": "Spicy Medium Fries",
+            "price": 1
+          },
+          {
+            "uid": "choice-5-coleslaw",
+            "id": "coleslaw",
+            "name": "Coleslaw Salad Small"
+          },
+          {
+            "uid": "choice-5-loaded",
+            "id": "loaded_fries",
+            "name": "Loaded Fries",
+            "price": 1
+          }
+        ]
+      },
+      {
+        "uid": "cust-6-beverage",
+        "id": "beverage",
+        "title": "Select Your Favorite Beverage",
+        "type": "single",
+        "required": true,
+        "choices": [
+          {
+            "uid": "choice-6-pepsi",
+            "id": "pepsi",
+            "name": "Pepsi (Medium)",
+            "default": true
+          },
+          {
+            "uid": "choice-6-mirinda",
+            "id": "mirinda",
+            "name": "Mirinda (Medium)"
+          },
+          {
+            "uid": "choice-6-mntdew",
+            "id": "mntdew",
+            "name": "Mountain Dew (Medium)"
+          },
+          {
+            "uid": "choice-6-diet-pepsi",
+            "id": "diet_pepsi",
+            "name": "Diet Pepsi (Medium)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "menu-2",
+    "id": 2,
+    "name": "Mighty Twist",
+    "description": [
+      "Mighty Zinger",
+      "1 Twister - Org",
+      "Fries - Regular"
+    ],
+    "price": 24.0,
+    "oldPrice": 24.7,
+    "currency": "AED",
+    "tag": "",
+    "image": "Chicken_Nugedts",
+    "isFavorite": false,
+    "customizable": true,
+    "categories": [
+      "Deals",
+      "For One"
+    ],
+    "customization": [
+      {
+        "uid": "cust-2-heat",
+        "id": "heat_level",
+        "title": "Heat Level",
+        "type": "single",
+        "choices": [
+          {
+            "uid": "choice-2-h1",
+            "id": "mild",
+            "name": "Mild"
+          },
+          {
+            "uid": "choice-2-h2",
+            "id": "medium",
+            "name": "Medium",
+            "default": true
+          },
+          {
+            "uid": "choice-2-h3",
+            "id": "hot",
+            "name": "Hot"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "menu-3",
+    "id": 3,
+    "name": "Super Mega Deal",
+    "description": [
+      "12 Chicken pcs",
+      "Family fries"
+    ],
+    "price": 24.0,
+    "oldPrice": 24.7,
+    "currency": "AED",
+    "tag": "",
+    "image": "KFC_Combo_Pack",
+    "isFavorite": false,
+    "customizable": true,
+    "categories": [
+      "Deals",
+      "For Sharing"
+    ],
+    "customization": [
+      {
+        "uid": "cust-3-bucket",
+        "id": "bucket_type",
+        "title": "Bucket Type",
+        "type": "single",
+        "choices": [
+          {
+            "uid": "choice-3-b1",
+            "id": "original",
+            "name": "Original Recipe",
+            "default": true
+          },
+          {
+            "uid": "choice-3-b2",
+            "id": "spicy",
+            "name": "Spicy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "menu-4",
+    "id": 4,
+    "name": "Dinner Meal",
+    "description": [
+      "3 Chicken Pc - Orgl",
+      "Fries - Regular",
+      "Coleslaw",
+      "Bun",
+      "Pepsi - Regular"
+    ],
+    "price": 24.0,
+    "oldPrice": 24.7,
+    "currency": "AED",
+    "tag": "",
+    "image": "Chicken_Roll",
+    "isFavorite": false,
+    "customizable": true,
+    "categories": [
+      "Deals"
+    ],
+    "customization": [
+      {
+        "uid": "cust-4-drink",
+        "id": "meal_drink",
+        "title": "Choose Drink",
+        "type": "single",
+        "choices": [
+          {
+            "uid": "choice-4-d1",
+            "id": "pepsi",
+            "name": "Pepsi",
+            "default": true
+          },
+          {
+            "uid": "choice-4-d2",
+            "id": "7up",
+            "name": "7UP"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "menu-5",
+    "id": 5,
+    "name": "Mighty Zinger Box",
+    "description": [
+      "Mighty Zinger Sandwich",
+      "1 Chicken pc",
+      "1 Pepsi - Regular",
+      "Fries - Regular"
+    ],
+    "price": 30.4,
+    "oldPrice": 24.7,
+    "currency": "AED",
+    "tag": "",
+    "image": "Favourite_Combo_Pack",
+    "isFavorite": false,
+    "customizable": true,
+    "categories": [
+      "Deals",
+      "Slides & Deserts",
+      "For One",
+      "SandWich"
+    ],
+    "customization": [
+      {
+        "uid": "cust-5-buns",
+        "id": "bun_type",
+        "title": "Choose Your Bun",
+        "type": "single",
+        "choices": [
+          {
+            "uid": "choice-5-b1",
+            "id": "plain",
+            "name": "Plain Bun",
+            "default": true
+          },
+          {
+            "uid": "choice-5-b2",
+            "id": "sesame",
+            "name": "Sesame Bun"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "menu-6",
+    "id": 6,
+    "name": "Mighty Zinger",
+    "description": [
+      "2 Chicken breast fillets with KFC’s Spicy Zinger Recipe",
+      "1 Fries - Regular",
+      "1 Pepsi - Regular"
+    ],
+    "price": 19.54,
+    "oldPrice": 24.7,
+    "currency": "AED",
+    "tag": "",
+    "image": "Pepsi_Double_Can",
+    "isFavorite": false,
+    "customizable": true,
+    "categories": [
+      "Deals",
+      "Slides & Deserts",
+      "Shrimp"
+    ],
+    "customization": [
+      {
+        "uid": "cust-6-cheese",
+        "id": "cheese_level",
+        "title": "Cheese Level",
+        "type": "single",
+        "choices": [
+          {
+            "uid": "choice-61",
+            "id": "no_cheese",
+            "name": "No Cheese"
+          },
+          {
+            "uid": "choice-62",
+            "id": "regular_cheese",
+            "name": "Regular Cheese",
+            "default": true
+          },
+          {
+            "uid": "choice-63",
+            "id": "extra_cheese",
+            "name": "Extra Cheese",
+            "price": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "menu-7",
+    "id": 10,
+    "name": "Super Bucket 15 Pieces",
+    "description": [
+      "2 Chicken breast fillets with KFC’s Spicy Zinger Recipe",
+      "1 Fries - Regular",
+      "1 Pepsi - Regular"
+    ],
+    "price": 44.6,
+    "oldPrice": 54.7,
+    "currency": "AED",
+    "tag": "",
+    "image": "Chicken_Bucket",
+    "isFavorite": false,
+    "customizable": true,
+    "categories": [
+      "Deals",
+      "Slides & Deserts",
+      "Shrimp"
+    ],
+    "customization": [
+      {
+        "uid": "cust-10-pieces",
+        "id": "pieces",
+        "title": "Total Pieces : 15 Pieces",
+        "type": "quantity",
+        "min": 15,
+        "max": 15,
+        "choices": [
+          {
+            "uid": "choice-10-tw-org",
+            "id": "twister_original",
+            "name": "Twister Original"
+          },
+          {
+            "uid": "choice-10-tw-spicy",
+            "id": "twister_spicy",
+            "name": "Twister Spicy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "menu-8",
+    "id": 11,
+    "name": "Crispy Duo Combo",
+    "description": [
+      "2 Crispy Chicken Fillets",
+      "1 Regular Fries",
+      "1 Bun",
+      "1 Pepsi - Medium"
+    ],
+    "price": 27.9,
+    "oldPrice": 31.0,
+    "currency": "AED",
+    "tag": "Best Seller",
+    "image": "Crispy_Chicken_Combo",
+    "isFavorite": false,
+    "customizable": true,
+    "categories": [
+      "Deals",
+      "For One",
+      "Chicken Meals"
+    ],
+    "customization": [
+      {
+        "uid": "cust-11-chicken-type",
+        "id": "chicken_type",
+        "title": "Choose Chicken Type",
+        "type": "single",
+        "required": true,
+        "choices": [
+          {
+            "uid": "choice-11-c1",
+            "id": "crispy",
+            "name": "Crispy",
+            "default": true
+          },
+          {
+            "uid": "choice-11-c2",
+            "id": "spicy_crispy",
+            "name": "Spicy Crispy"
+          }
+        ]
+      },
+      {
+        "uid": "cust-11-drink",
+        "id": "drink",
+        "title": "Choose Your Drink",
+        "type": "single",
+        "required": true,
+        "choices": [
+          {
+            "uid": "choice-11-d1",
+            "id": "pepsi",
+            "name": "Pepsi"
+          },
+          {
+            "uid": "choice-11-d2",
+            "id": "7up",
+            "name": "7UP",
+            "default": true
+          },
+          {
+            "uid": "choice-11-d3",
+            "id": "mirinda",
+            "name": "Mirinda"
+          }
+        ]
+      },
+      {
+        "uid": "cust-11-addons",
+        "id": "addons",
+        "title": "Add Extra Items",
+        "type": "multiple",
+        "min": 0,
+        "max": 3,
+        "choices": [
+          {
+            "uid": "choice-11-a1",
+            "id": "extra_fries",
+            "name": "Extra Fries",
+            "price": 3
+          },
+          {
+            "uid": "choice-11-a2",
+            "id": "cheese_slice",
+            "name": "Cheese Slice",
+            "price": 2
+          },
+          {
+            "uid": "choice-11-a3",
+            "id": "garlic_sauce",
+            "name": "Garlic Sauce",
+            "price": 1
+          }
+        ]
+      }
+    ]
+  }
+]

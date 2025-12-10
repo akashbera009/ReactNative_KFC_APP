@@ -11,15 +11,17 @@ import { RadialGradient } from 'react-native-gradients';
 // custom component imports 
 import CurrentOrder from './CurrentOrder';
 import BestSeller from './BestSeller';
+
 // util imports
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
-import{DeliveryDetails}from '../../data/DeliveryDetails';
+import { DeliveryDetails } from '../../data/DeliveryDetails';
 import VideoPlayerComponent from './VideoPlayer';
 import { useMenu } from '../../context/MenuContext';
 import { useCountry } from '../../context/CountryContext';
+
 export default function HomePage() {
   const Colors = useThemeColors()
   const Strings = useStrings()
@@ -28,6 +30,7 @@ export default function HomePage() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const drawerNavigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
   const { menuItem } = useMenu()
+
   const { countrySelected } = useCountry()
   const colorList: { offset: string, color: string, opacity: string }[] = [
     { offset: '0%', color: Colors?.orangeColorText, opacity: '1' },
@@ -48,7 +51,7 @@ export default function HomePage() {
   const imageSet = [Images?.Home_Page_Main_Image, Images?.ChickenBox, Images?.ChickenNuget, Images?.BurgerPNG]
   useEffect(() => {
     const interval = setTimeout(() => {
-      setImageIndex(prev => prev < 3 ? prev+1 : 0)
+      setImageIndex(prev => prev < 3 ? prev + 1 : 0)
     }, 2500);
     FadeIn()
     return () => {
@@ -74,7 +77,7 @@ export default function HomePage() {
           <TouchableOpacity
             onPress={() => navigation.navigate(Strings?.SplashScreen)}
           >
-            <Image source={Images?.KfcTextLogo} style={[Styles.HeaderKFC,{ marginTop: inset.top }]} />
+            <Image source={Images?.KfcTextLogo} style={[Styles.HeaderKFC, { marginTop: inset.top }]} />
           </TouchableOpacity>
 
           <Animated.View style={[Styles.AnimatedSlideShowContainer, { opacity: fadeAnimation }]}>
@@ -144,7 +147,7 @@ export default function HomePage() {
               <Text style={Styles.ExploreHeader}>{Strings?.exploreMore.toUpperCase()} </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                  categoryType:Strings?.dealsString
+                  categoryType: Strings?.dealsString
                 })}
               >
                 <Text style={Styles.ExploreHeaderViewAll}>{Strings?.viewAll.toUpperCase()} </Text>
@@ -153,7 +156,7 @@ export default function HomePage() {
             <View style={Styles.ExploreCardsContainer}>
               <TouchableOpacity
                 onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                  categoryType:Strings?.dealsString
+                  categoryType: Strings?.dealsString
                 })}
                 style={Styles.FirstCard}>
                 <Text style={[Styles.ExploreCardText, Styles.FirstCardtext]}>{Strings?.deals.toUpperCase()} </Text>
@@ -170,7 +173,7 @@ export default function HomePage() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                    categoryType:Strings?.slideDesertString
+                    categoryType: Strings?.slideDesertString
                   })}
                   style={Styles.SecondCardDown}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings?.sideDeserts.toUpperCase()} </Text>
@@ -323,9 +326,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     AndroidHeight: {
       marginTop: 30
     },
-    HeaderKFC: { 
-      height: 30 , 
-      width : 100 ,
+    HeaderKFC: {
+      height: 30,
+      width: 100,
       tintColor: Colors?.constantWhite
     },
     AnimatedSlideShowContainer: {

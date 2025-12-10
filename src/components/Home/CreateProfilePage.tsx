@@ -94,8 +94,6 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         else
             setShowTopName(false)
     }
-
-
     return (
         <View style={Styles.parentBackground}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>

@@ -11,7 +11,9 @@ import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
-import { useOrderQueue } from '../../context/OrderQueueContext';
+// redux 
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 export default function OrderDetails({ order }: { order: OrderHistory }) {
     const Colors = useThemeColors();
@@ -27,8 +29,8 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
     const DiscountPrice: number = Number((totalAmount * DeliveryDetails?.discountRate / 100).toFixed(2))
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandAmount: number = AfterDiscount + DeliveryDetails?.charges
-    const { orderQueueItem } = useOrderQueue()
-    const currentOrder: OrderHistory = orderQueueItem.filter((item) => item?.status == Strings?.beingPreparedString)[0];
+    const orderQueueItem = useSelector((state: RootState) => state.orders);
+    const currentOrder: OrderHistory = orderQueueItem?.orders?.filter((item) => item?.status == Strings?.beingPreparedString)[0];
     const handleShareInvoice = async () => {
         const pdfUrl = DeliveryDetails?.demoPDFurl
         try {
