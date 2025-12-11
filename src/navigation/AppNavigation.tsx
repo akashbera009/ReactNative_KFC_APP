@@ -36,6 +36,7 @@ import OrderStatusScreen from '../screens/OrderStatusScreen';
 import FoodCustomizationScreen from '../screens/FoodCustomizationScreen';
 import TrackOrderScreen from '../screens/TrackOrderScreen';
 import PaymentModalScreen from '../screens/PaymentModalScreen';
+import CommonPopUpScreen from '../screens/CommonPopUpScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -167,6 +168,13 @@ function StackNavigator() {
             <Stack.Screen
                 name={Strings?.CreateProfileScreen}
                 component={CreateProfileScreen}
+            />
+            <Stack.Screen
+                name={Strings?.CommonPopUpScreen}
+                component={CommonPopUpScreen}
+                options={{
+                    presentation: 'transparentModal'
+                }}
             />
             <Stack.Screen
                 name={Strings?.FontsScreen}

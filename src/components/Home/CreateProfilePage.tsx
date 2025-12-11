@@ -5,12 +5,18 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // image picker
 import ImagePicker from 'react-native-image-crop-picker';
+// redux 
+import { useSelector } from "react-redux";
+import { addUserDetails, fetctUserDeatails, selectUserByMobile, updateUser } from '../../features/userSlice';
+import { RootState, useAppDispatch } from '../../store/store';
+
 // util imports
 import Fonts from '../../utils/Fonts'
 import { useCountry } from '../../context/CountryContext';
 import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
+import { uploadToImgBB } from '../../utils/uploadToImgBB';
 
 export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const Colors = useThemeColors()
@@ -19,6 +25,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
+    const rawPhone = phoneNo
     let formattedText
     if (countrySelected?.code == 'uae')
         formattedText = phoneNo.replace(/(\d{3})(?=\d)/g, '$1 ');
@@ -27,9 +34,18 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     else
         formattedText = phoneNo.replace(/(\d{4})(?=\d)/g, '$1 ');
     phoneNo = formattedText
-
-    const [email, setEmail] = useState<string>('')
-    const [name, setName] = useState<string>('')
+    // data fetch
+    const dispatch = useAppDispatch();
+    const existingUser = useSelector((state: RootState) =>
+        selectUserByMobile(state, rawPhone)
+    );
+    useEffect(() => {
+        dispatch(fetctUserDeatails())
+    }, [])
+    const userdata = useSelector((state: RootState) => state.users)
+    const currentUser = userdata?.userData.find((item) => item?.mobileNo == rawPhone)
+    const [email, setEmail] = useState<string | undefined>(currentUser?.email)
+    const [name, setName] = useState<string | undefined>(currentUser?.name)
     const [isTouchedEmail, setIsTouchedEmail] = useState<boolean>(false)
     const [isTouchedName, setIsTouchedName] = useState<boolean>(false)
     const [showWarningEmail, setShowWarningEmail] = useState<boolean>(false)
@@ -37,7 +53,8 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const [showTopEmail, setShowTopgEmail] = useState<boolean>(false)
     const [showTopName, setShowTopName] = useState<boolean>(false)
     const [goodToLogin, setGoodToLogin] = useState(false)
-    const [selectedImage, setSelectedImage] = useState<string>('')
+    const [selectedImage, setSelectedImage] = useState<string | undefined>(currentUser?.avatar)
+    const [successModal, setSuccessModal] = useState(true)
     useEffect(() => {
         checkGoodToLogin();
         handleShowWarningEmail();
@@ -46,7 +63,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         showTopNamePlaceHolder();
     }, [email, name])
     const handleCheckGmail = () => {
-        return (email.endsWith('.com') && email.includes('@'))
+        return (email?.endsWith('.com') && email?.includes('@'))
     }
     const checkGoodToLogin = () => {
         if (name != '' && handleCheckGmail())
@@ -62,10 +79,37 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         setName(text)
         setIsTouchedName(true)
     }
+
     const handleSave = () => {
-        // if (name != '' && handleCheckGmail())
-        // comment
-        navigation.navigate(Strings?.HomeScreen)
+        if (!goodToLogin) return;
+        if (existingUser) {
+            dispatch(updateUser({
+                id: existingUser.id,
+                data: {
+                    name,
+                    email,
+                    avatar: selectedImage || existingUser.avatar
+                }
+            }));
+        } else {
+            dispatch(addUserDetails({
+                name,
+                email,
+                mobileNo: rawPhone,
+                avatar: selectedImage || undefined,
+                orderCount: 0,
+                address: []
+            }));
+        }
+        navigation.pop()
+        navigation.navigate(Strings?.CommonPopUpScreen, {
+            header: Strings?.UserDeatailUpdatedHeader,
+            message: Strings?.UserDeatailUpdatedMessage
+        })
+        setTimeout(() => {
+            navigation.pop()
+            navigation.navigate(Strings.HomeScreen);
+        }, 200000000);
     }
     const handleShowWarningEmail = () => {
         if (isTouchedEmail && email == '' || isTouchedEmail && !handleCheckGmail()) {
@@ -93,52 +137,22 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         else
             setShowTopName(false)
     }
-    const uploadToImgBB = async ({ path, mime, filename }:{ path: string, mime: string, filename: string | undefined }) => {
-        const apiKey: string = 'd06eae4d7c1aa532c95c7d19fed969f6'
-        let data = new FormData();
-        data.append("image", {
-            uri: path,
-            type: mime,
-            name: filename || "photo.jpg",
-        });
-        try {
-            const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-                method: "POST",
-                body: data,
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            const result = await response.json();
-            if (result.success) {
-                return result.data.url;
-            } else {
-                console.log("Upload error:", result);
-                return null;
-            }
-        } catch (error) {
-            console.log("Upload failed:", error);
-            return null;
-        }
-    };
-
     const openImagePicker = () => {
         ImagePicker.openPicker({
             width: 300,
             height: 400,
+            mediaType: 'photo',
             cropping: true,
         }).then(async (image) => {
-            setSelectedImage(image?.path)
             const url = await uploadToImgBB({
                 path: image.path,
                 mime: image.mime,
                 filename: image.filename
             });
-            console.log(image);
-            console.log(url);
-
+            setSelectedImage(url)
         });
     }
+
     return (
         <View style={Styles.parentBackground}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -161,9 +175,6 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                         style={[Styles.CreateProfileRelatedContainer, Platform.OS == 'android' ? Styles.CreateProfileRelatedContainerAndroid : null]}
                     >
                         <View style={Styles.InputEntriesContainer}>
-                            {showTopName && (
-                                <Text style={Styles.placeHolderTopText}>{Strings?.name.toUpperCase() + '*'} </Text>
-                            )}
                             <TouchableOpacity
                                 onPress={openImagePicker}
                                 style={Styles.ImageContainer}>
@@ -173,6 +184,9 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                     <Image source={Images?.Camera} style={Styles.CameraImage} />
                                 )}
                             </TouchableOpacity>
+                            {showTopName && (
+                                <Text style={Styles.placeHolderTopText}>{Strings?.name.toUpperCase() + '*'} </Text>
+                            )}
                             <View style={Styles.EmailAndWarning} >
                                 <TextInput
                                     value={name}

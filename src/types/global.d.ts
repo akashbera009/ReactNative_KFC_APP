@@ -30,7 +30,26 @@ type DeliveryDetailsType = {
   supprotMobile: string;
   demoPDFurl: string
 };
-
+type savedAddress = {
+  id: string;
+  label: 'Home' | 'Work' | 'Other';
+  addressLine1: string;
+  addressLine2?: string;
+  city: string;
+  state: string;
+  pincode: string;
+  lat: number;
+  lng: number;
+}
+type userDatailsType = {
+  id: string , 
+  name: string|undefined,
+  mobileNo: string,
+  email?: string | undefined,
+  avatar?: string | undefined,
+  orderCount?: number;
+  address?: savedAddress[]
+}
 type CategoryFrequency = {
   category: string;
   count: number;
@@ -70,39 +89,26 @@ type menuDataType = {
   oldPrice: number,
   currency: string,
   tag: string,
-  image: Image| string,
+  image: Image | string,
   isFavorite: boolean,
   customizable: boolean,
   customization?: MenuOptionGroup[];
   categories: string[],
 }
 
-// type CartItemType = {
-//   id: number,
-//   name: string,
-//   description: string[],
-//   price: number,
-//   oldPrice: number,
-//   tag: string,
-//   image: Image,
-//   isFavorite: boolean,
-//   customizable: boolean,
-//   categories: string[],
-//   quantity: number,
-// }
 type CartItemType = {
-  cartUid: number;                  
-  menuItemUid: string;             
+  cartUid: number;
+  menuItemUid: string;
   name: string;
   description: string[];
-  price: number;              
+  price: number;
   oldPrice: number;
   image: string;
   categories: string[];
   quantity: number;
   selectedOptions?: {
     groupId?: string;
-    choiceId?: string[];           
+    choiceId?: string[];
   }[];
 };
 

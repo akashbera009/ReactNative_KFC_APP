@@ -13,6 +13,7 @@ const en = {
   FAQPageScreen: 'FAQPageScreen',
   DealsAndOfferScreen: 'DealsAndOfferScreen',
   CreateProfileScreen: 'CreateProfileScreen',
+  CommonPopUpScreen: 'CommonPopUpScreen',
   FontsScreen: 'FontsScreen',
   SplashScreen: 'SplashScreen',
   ExploreMenuScreen: 'ExploreMenuScreen',
@@ -164,7 +165,7 @@ const en = {
   search: 'Search',
   noResFound: "No result found for your search! ",
   cartIsEmpty: 'Your Cart is Empty',
-  addSomeItem : 'Please add some items from the menu',
+  addSomeItem: 'Please add some items from the menu',
   exploreKFCMenu: 'explore KFC Menu',
   cancel: 'Cancel',
   yesConfirm: 'yes,Confirm',
@@ -320,7 +321,9 @@ const en = {
   apply: 'Apply',
   reset: 'Reset',
   youreHere: 'You are here',
-  takeInvoicePlease: 'Take this invoice please '
+  takeInvoicePlease: 'Take this invoice please ',
+  UserDeatailUpdatedHeader: 'Successful',
+  UserDeatailUpdatedMessage: 'Your Details has been Updated!'
 } as const
 
 const ar = {
@@ -336,6 +339,7 @@ const ar = {
   FAQPageScreen: 'FAQPageScreen',
   DealsAndOfferScreen: 'DealsAndOfferScreen',
   CreateProfileScreen: 'CreateProfileScreen',
+  CommonPopUpScreen: 'CommonPopUpScreen',
   FontsScreen: 'FontsScreen',
   SplashScreen: 'SplashScreen',
   ExploreMenuScreen: 'ExploreMenuScreen',
@@ -455,7 +459,7 @@ const ar = {
   orderHistory: 'سجل الطلبات',
   dealsAndOffer: 'العروض والخصومات',
   greatMenu: 'قائمة رائعة',
-    myCart: 'My cart',
+  myCart: 'My cart',
   combo: 'وجبات كومبو',
   language: 'اللغة',
   languageToggle: 'language',
@@ -486,7 +490,7 @@ const ar = {
   search: 'بحث',
   noResFound: 'لا توجد نتائج لبحثك!',
   cartIsEmpty: 'Your Cart is Empty',
-  addSomeItem : 'Please add some items from the menu',
+  addSomeItem: 'Please add some items from the menu',
   exploreKFCMenu: 'استكشف قائمة KFC',
   cancel: 'إلغاء',
   yesConfirm: 'نعم، تأكيد',
@@ -650,7 +654,9 @@ const ar = {
   apply: 'تطبيق',
   reset: 'Reset',
   youreHere: 'You are here',
-  takeInvoicePlease: 'Take this invoice please '
+  takeInvoicePlease: 'Take this invoice please ',
+    UserDeatailUpdatedHeader: 'Successful',
+  UserDeatailUpdatedMessage: 'Your Details has been Updated!'
 } as const
 
 export const useStrings = () => {

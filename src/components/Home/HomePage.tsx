@@ -37,8 +37,7 @@ export default function HomePage() {
     dispatch(fetchMenu())
     dispatch(fetchOrders())
   }, [dispatch])
-  const menuData = useSelector((state: RootState) => state.menuData);
-
+  const menuData = useSelector((state: RootState) => state.menuData)
   const { countrySelected } = useCountry()
   const colorList: { offset: string, color: string, opacity: string }[] = [
     { offset: '0%', color: Colors?.orangeColorText, opacity: '1' },

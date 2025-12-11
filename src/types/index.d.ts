@@ -11,20 +11,21 @@ type RootStackParamList = {
   CreateProfileScreen: { phoneNo: string }
   ExploreMenuScreen: { categoryType: string }
   MenuCategorizeScreen: { activeCategory: string, setActiveCategory: (ele: string) => void, frequencyArray: CategoryFrequency[] }
-  FoodCustomizationScreen: { foodItem : menuDataType }
+  FoodCustomizationScreen: { foodItem: menuDataType }
   CartScreen: { discount: number, discountPercentage: number, offerCode: string }
   RemoveCartItemBottomSheetScreen: RemoveCartItemProps
   SearchScreen: undefined
   CheckOutScreen: { totalAmount: number, discount: number }
-  PaymentModalScreen: {amount : number, onSuccess: (payment_id: string, isSuccess: boolean)=> void  }
+  PaymentModalScreen: { amount: number, onSuccess: (payment_id: string, isSuccess: boolean) => void }
   OrderStatusScreen: OrderStatusPageProps
-  TrackOrderScreen: { currentOrder: OrderHistory | null, orderId: String|undefined, GrandTotal: number }
+  TrackOrderScreen: { currentOrder: OrderHistory | null, orderId: String | undefined, GrandTotal: number }
   OrderHistoryScreens: undefined
-  OrderDetailsScreen: { order: OrderHistory |null}
+  OrderDetailsScreen: { order: OrderHistory | null }
   FontsScreen: undefined
   OfferAppliedScreen: undefined
-  HelpScreen: undefined
   SplashScreen: undefined
+ CommonPopUpScreen: {header: string , message: string }
+  HelpScreen: undefined
   LoginPageCountryBottomSheetScreen: undefined
 }
 type RootDrawerParamList = {

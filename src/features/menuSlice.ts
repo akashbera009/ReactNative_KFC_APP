@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
-const BACKEND_SERVER = 'http://localhost:3000'
+import { Platform } from "react-native";
+const BACKEND_SERVER =
+  Platform.OS === 'android'
+    ? 'http://10.0.2.2:3000'
+    : 'http://localhost:3000';
 
 const initialState : {
   menuData: menuDataType[];

@@ -23,11 +23,11 @@ export default function BestSeller() {
                 {BestSellerMenu.map((item, idx) => (
                     <View key={idx} style={Styles.Cards}>
                         <View style={Styles.TopContainer}>
-                        <Image source={item?.image} style={Styles.cardImage} />
-                        <View style={Styles.RightContainer}>
-                            <Text style={Styles.title} numberOfLines={1}>{item?.title} </Text>
-                            <Text style={Styles.description} numberOfLines={3}>{item?.description} </Text>
-                        </View>
+                            <Image source={item?.image} style={Styles.cardImage} />
+                            <View style={Styles.RightContainer}>
+                                <Text style={Styles.title} numberOfLines={1}>{item?.title} </Text>
+                                <Text style={Styles.description} numberOfLines={3}>{item?.description} </Text>
+                            </View>
                         </View>
                         <View style={Styles.LowerContainer}>
                             <View style={Styles.PriceaContainer}>
@@ -79,17 +79,17 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         Cards: {
             height: 150,
             width: 250,
-            backgroundColor: Colors?.bodyColor, 
-            marginRight: 10 , 
+            backgroundColor: Colors?.bodyColor,
+            marginRight: 10,
             marginVertical: 10,
             shadowColor: Colors?.blueShadows,
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: .1,
             borderRadius: 2,
             shadowRadius: 5,
-            elevation: 5, 
+            elevation: 5,
         },
-        TopContainer:{
+        TopContainer: {
             height: '80%',
             display: 'flex',
             flexDirection: 'row',
@@ -100,35 +100,35 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         cardImage: {
             height: 80,
             width: 80,
-            marginLeft:20,
+            marginLeft: 20,
             shadowColor: Colors?.constantBlack,
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
             elevation: 5,
         },
-        RightContainer:{
+        RightContainer: {
             display: 'flex',
-            flexDirection: 'column', 
+            flexDirection: 'column',
             width: '63%',
-            justifyContent: 'center', 
-            position:'relative',
-            left: 10 , 
+            justifyContent: 'center',
+            position: 'relative',
+            left: 10,
         },
         title: {
             fontSize: 14,
             fontWeight: 600,
             marginHorizontal: 4,
             color: Colors?.textBlack,
-            width: '85%', 
+            width: '85%',
             overflow: 'hidden'
         },
         description: {
             width: '85%',
             height: '40%',
-            fontSize:11, 
+            fontSize: 11,
             color: Colors?.timerFadeText,
-            margin: 4 ,
+            margin: 4,
             fontWeight: 600
         },
         LowerContainer: {
@@ -141,33 +141,32 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
-            position:'absolute',
-            bottom: 0 ,
-            left: 0 ,  
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
         },
         PriceaContainer: {
             display: 'flex',
             flexDirection: 'row',
-            marginHorizontal: 20 
+            marginHorizontal: 20
         },
         price: {
             fontWeight: 800,
-            fontSize: 13 ,
-
-      color: Colors?.textBlack
+            fontSize: 13,
+            color: Colors?.textBlack
         },
         OrderButton: {
             borderWidth: 2,
             borderColor: Colors?.fadeBorder,
             borderRadius: 3,
-            marginHorizontal:15 , 
+            marginHorizontal: 15,
         },
         OrderText: {
-            color:Colors?.KFC_red,
-            fontFamily:Fonts?.subHeader,
+            color: Colors?.KFC_red,
+            fontFamily: Fonts?.subHeader,
             fontSize: 11,
-            marginHorizontal: 15, 
-            marginVertical: 5 , 
+            marginHorizontal: 15,
+            marginVertical: 5,
             fontWeight: 800
         }
 

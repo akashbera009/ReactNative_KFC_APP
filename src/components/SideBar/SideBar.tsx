@@ -32,7 +32,7 @@ const SideBar = () => {
   const handleOpenDialer = () => {
     const phone = DeliveryDetails?.supprotMobile;
     let phoneNumber = phone;
-    const url = `tel:${phoneNumber}`;
+    // const url = `tel:${phoneNumber}`;
     if (Platform.OS === 'ios') {
       phoneNumber = `tel:${phone}`;
     } else if (Platform.OS === 'android') {
@@ -75,9 +75,10 @@ const SideBar = () => {
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
                 onPress={() => {
-                  navigation.navigate(Strings?.CreateProfileScreen , {
-                      phoneNo: '0000'
+                  navigation.navigate(Strings?.CreateProfileScreen, {
+                    phoneNo: '9876543210'
                   })
+                  setIsSettingsMenuOpen(false)
                 }}>
                 <Image source={Images?.UserIcon} style={Styles.ThemeIcon} />
                 <Text style={Styles.countryEntriesText}>{Strings?.profileSettings}</Text>
