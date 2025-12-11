@@ -21,15 +21,15 @@ export default function Index() {
   const inset = useSafeAreaInsets();
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
     dispatch(fetchOrders())
   }, [dispatch])
-  
   const ordersArray = useSelector((state: RootState) => state.orders);
   const previousOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status === Strings?.deliveredString || item?.status === Strings?.cancelledString)
-  const currentOrders : OrderHistory[] = ordersArray?.orders?.filter(item => item?.status !== Strings?.deliveredString && item?.status !== Strings?.cancelledString)
+  const currentOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status !== Strings?.deliveredString && item?.status !== Strings?.cancelledString)
+  const sortedCrrentOrder = currentOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
+  const sortedPreviousOrder = previousOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
   return (
     <View style={Styles?.Parent}>
       <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -48,24 +48,24 @@ export default function Index() {
           showsVerticalScrollIndicator={false}
         >
           <View style={Styles?.CardContainer}>
-            {currentOrders.length > 0 && (
+            {sortedCrrentOrder?.length > 0 && (
               <>
                 <Text style={Styles.sectionTitle}>{Strings?.currentOrders}</Text>
-                {currentOrders.map((order, index) => (
+                {sortedCrrentOrder?.map((order, index) => (
                   <OrderCards order={order} key={index} />
                 ))}
               </>
             )}
             <View style={Styles.Divider} />
-            {previousOrders.length > 0 && (
+            {sortedPreviousOrder?.length > 0 && (
               <>
                 <Text style={Styles.sectionTitle}>{Strings?.previousOrders}</Text>
-                {previousOrders.map((order, index) => (
+                {sortedPreviousOrder?.map((order, index) => (
                   <OrderCards order={order} key={index} />
                 ))}
               </>
             )}
-            {(currentOrders.length == 0 && previousOrders.length == 0) && (
+            {(sortedCrrentOrder?.length == 0 && sortedPreviousOrder?.length == 0) && (
               <View style={Styles.EmptyCartContainer}>
                 <View style={Styles.ImageContainer}>
                   <Image source={Images?.EmptyBox} style={Styles.EmptyBox} />

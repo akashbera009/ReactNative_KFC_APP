@@ -1,10 +1,10 @@
 import React from 'react'
 import FoodCustomizationPage from '../components/Menu/FoodCustomizationPage'
 
-const FoodCustomizationScreen = ({route}: FoodCustomizationScreenProps) => {
-    const {foodItem } = route.params
+const FoodCustomizationScreen = ({ route }: FoodCustomizationScreenProps) => {
+  const { foodItem } = route.params
   return (
-  <FoodCustomizationPage foodItem ={foodItem}/>
+    <FoodCustomizationPage foodItem={foodItem} />
   )
 }
 

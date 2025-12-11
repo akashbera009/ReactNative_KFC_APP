@@ -3,20 +3,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { nanoid } from 'nanoid/non-secure';
 // data imports 
 import { DeliveryDetails } from '../../data/DeliveryDetails';
+// redux 
+import { addAsyncOrder } from '../../features/orderSlice';
+import { RootState, useAppDispatch } from '../../store/store';
+import { clearCart } from '../../features/cartSlice';
+import { useSelector } from 'react-redux';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
-import { useCart } from '../../context/CartContext';
-// redux 
-// import { useDispatch, useSelector } from 'react-redux';
-// import { fetchOrders } from '../../features/orderSlice';
-// import { AppDispatch, RootState } from '../../store/store';
-import { useOrderQueue } from '../../context/OrderQueueContext';
 
 export default function CheckOut({ totalAmount, discount }: { totalAmount: number, discount: number }) {
     const Colors = useThemeColors();
@@ -25,11 +25,12 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     const Styles = createDynamicStyles(Colors, Fonts);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
-    const { CartItem, setCartItem } = useCart()
-    const totalItem = CartItem.length
+    const cartData = useSelector((state: RootState) => state.cart)
+    const cartItem = cartData?.cartItems
+    const totalItem = cartItem.length
     const [deliveryType, setDeliveryType] = useState<'now' | 'later'>('now');
-    const cartDescription = CartItem?.reduce((acc, item, idx) => {
-        return (acc + item?.quantity + ' ' + item?.name + ((idx + 1 != CartItem.length) ? ', ' : ' '))
+    const cartDescription = cartItem?.reduce((acc, item, idx) => {
+        return (acc + item?.quantity + ' ' + item?.name + ((idx + 1 != cartItem.length) ? ', ' : ' '))
     }, '');
     const [paymentMethodOpen, setPaymentMethodOpen] = useState<boolean>(false)
     const [paymentMethodSelected, setPaymentMethodSelected] = useState<string>('')
@@ -39,12 +40,12 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     const DiscountPrice: number = discount;
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandTotal: number = AfterDiscount + DeliveryDetails?.charges
-    const { setOrderQueueItem } = useOrderQueue();
+    const dispatch = useAppDispatch()
     const openPaymentModal = () => {
         let TempOrderDate = new Date().toDateString().split(' ').slice(1)
         const OrderDate = TempOrderDate.join(' ')
         const OrderTime = new Date().toTimeString().split(' ')[0]
-        const OrderId = `ORD-${Math.floor(Math.random() * 100 + 1)}`
+        const OrderId = `ORD-${nanoid(7)}`
         if (paymentMethodSelected == Strings?.cashOnDeliveryString) {
             onPaymentSuccess('', OrderId, true, OrderDate, OrderTime, Strings?.cashOnDeliveryString)
         } else {
@@ -58,7 +59,8 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     }
     const onPaymentSuccess = (paymentId: string | undefined, orderId: string, isSuccess: boolean, OrderDate: string, OrderTime: string, paymentMode: string) => {
         const newOrder: OrderHistory = {
-            Items: CartItem,
+            id: Date.now(),
+            Items: cartItem,
             date: `${OrderDate}`,
             orderId: orderId,
             status: Strings?.beingPreparedString,
@@ -69,11 +71,11 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
         setTimeout(() => {
             navigation.pop(2);
             if (isSuccess) {
-                setOrderQueueItem((prev: OrderHistory[]) => [newOrder, ...prev]);
-                setCartItem([])
+                dispatch(addAsyncOrder(newOrder))
+                dispatch(clearCart)
             }
             navigation.navigate(Strings?.OrderStatusScreen, {
-                currentOrders: CartItem,
+                currentOrders: cartItem,
                 orderId: orderId,
                 OrderDate: OrderDate,
                 OrderTime: OrderTime,

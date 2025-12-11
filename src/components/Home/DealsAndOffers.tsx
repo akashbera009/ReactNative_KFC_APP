@@ -5,22 +5,25 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // data imports 
 import DealsAndOffersData from '../../data/DealsAndOffersData';
+//redux
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
-import { useCart } from '../../context/CartContext';
 export default function DealsAndOffer() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors, Fonts);
-    const {CartItem} = useCart()
+    const cartData  = useSelector((state: RootState)=> state.cart)
+    const cartItem = cartData.cartItems
     const handleApplyOffer = (discount: number, discountPercentage: number , offerCode: string) => {
         navigation.navigate(Strings?.OfferAppliedScreen)
-        if(CartItem.length  !== 0 ){
+        if(cartItem.length  !== 0 ){
             setTimeout(() => {
                 navigation.pop(1)
                 navigation.replace(Strings?.CartScreen, {

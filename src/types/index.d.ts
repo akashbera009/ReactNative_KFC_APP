@@ -18,9 +18,9 @@ type RootStackParamList = {
   CheckOutScreen: { totalAmount: number, discount: number }
   PaymentModalScreen: {amount : number, onSuccess: (payment_id: string, isSuccess: boolean)=> void  }
   OrderStatusScreen: OrderStatusPageProps
-  TrackOrderScreen: { currentOrder: OrderHistory, orderId: String|undefined, GrandTotal: number }
+  TrackOrderScreen: { currentOrder: OrderHistory | null, orderId: String|undefined, GrandTotal: number }
   OrderHistoryScreens: undefined
-  OrderDetailsScreen: { order: OrderHistory }
+  OrderDetailsScreen: { order: OrderHistory |null}
   FontsScreen: undefined
   OfferAppliedScreen: undefined
   HelpScreen: undefined

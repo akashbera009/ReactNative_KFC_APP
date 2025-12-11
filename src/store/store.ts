@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 // reducers
 import menuReducer from '../features/menuSlice'
 import cartReducer from '../features/cartSlice'
 import orderReducer from '../features/orderSlice'
+import favouriteReducer from '../features/favoriteSlice'
 // persist 
 import { persistReducer} from 'redux-persist'
 // storage 
@@ -10,12 +12,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 let persistConfig = {
     key: 'root',
-    storage: AsyncStorage
+    storage: AsyncStorage,
+    whitelist: [ 'cart','favourite' ,'orders' ]
 }
 let roorReducer = combineReducers({
     cart: cartReducer,
     menuData: menuReducer,
-    orders: orderReducer
+    orders: orderReducer,
+    favourite: favouriteReducer
 })
 let persistedReducer = persistReducer(persistConfig, roorReducer)
 
@@ -28,3 +32,4 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();

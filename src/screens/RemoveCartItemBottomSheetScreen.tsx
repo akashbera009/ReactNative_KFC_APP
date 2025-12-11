@@ -1,10 +1,10 @@
 import React from 'react'
 import RemoveCartItem from '../components/Menu/bottomSheets/RemoveCartItem'
 
-const RemoveCartItemBottomSheetScreen = ({route }: RemoveCartItemBottomSheetScreenProps) =>{
-    const { imageLink  , idx }:RemoveCartItemProps= route.params; 
+const RemoveCartItemBottomSheetScreen = ({ route }: RemoveCartItemBottomSheetScreenProps) => {
+    const { imageLink, uid }: RemoveCartItemProps = route.params;
     return (
-            <RemoveCartItem imageLink = {imageLink} idx ={idx} />
+        <RemoveCartItem imageLink={imageLink} uid={uid} />
     )
 }
 

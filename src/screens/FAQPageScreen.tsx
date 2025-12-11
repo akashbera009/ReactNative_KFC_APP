@@ -3,7 +3,7 @@ import FAQPage from '../components/Home/FAQPage'
 
 const FAQPageScreen = () => {
   return (
-   <FAQPage/>
+    <FAQPage />
   )
 }
 

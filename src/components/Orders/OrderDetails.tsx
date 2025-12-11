@@ -13,8 +13,7 @@ import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 // redux 
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
-
+import { selectCurrentOrder } from '../../features/getCurrentOrder';
 export default function OrderDetails({ order }: { order: OrderHistory }) {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -29,8 +28,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
     const DiscountPrice: number = Number((totalAmount * DeliveryDetails?.discountRate / 100).toFixed(2))
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandAmount: number = AfterDiscount + DeliveryDetails?.charges
-    const orderQueueItem = useSelector((state: RootState) => state.orders);
-    const currentOrder: OrderHistory = orderQueueItem?.orders?.filter((item) => item?.status == Strings?.beingPreparedString)[0];
+    const currentOrder: OrderHistory | null = useSelector(selectCurrentOrder)
     const handleShareInvoice = async () => {
         const pdfUrl = DeliveryDetails?.demoPDFurl
         try {

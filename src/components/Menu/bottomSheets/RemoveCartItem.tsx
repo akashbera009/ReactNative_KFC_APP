@@ -3,14 +3,15 @@ import React, { useRef, useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
+// redux
+import { removeFromCart } from '../../../features/cartSlice';
+import { useAppDispatch } from '../../../store/store';
 // utils
 import Fonts from '../../../utils/Fonts';
 import { useStrings } from '../../../utils/Strings';
 import { useThemeColors } from '../../../utils/Colors';
-import { useCart } from '../../../context/CartContext';
 
-export default function RemoveCartItem({ imageLink, idx }: RemoveCartItemProps) {
+export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
@@ -18,7 +19,7 @@ export default function RemoveCartItem({ imageLink, idx }: RemoveCartItemProps) 
     const Styles = createDynamicStyles(Colors, Fonts);
     const slide = useRef(new Animated.Value(500)).current;
     const fade = useRef(new Animated.Value(0)).current;
-    const { CartItem, setCartItem } = useCart()
+    const dispatch = useAppDispatch()
     const slideUp = () => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -49,11 +50,8 @@ export default function RemoveCartItem({ imageLink, idx }: RemoveCartItemProps) 
         ]).start();
     };
     const handleConfirmDelete = () => {
-        setCartItem((prev: CartItemType[]) => prev.filter(((_, index) => 
-            index != idx
-        )))
+        dispatch(removeFromCart(uid))
         navigation.pop()
-
     }
     const closeModal = () => {
         slideDown();
@@ -74,7 +72,7 @@ export default function RemoveCartItem({ imageLink, idx }: RemoveCartItemProps) 
                 < View style={Styles.OuterContainer}>
                     <View
                         style={Styles.InnerContainer}>
-                        <Image source={imageLink} style={Styles.foodImage} />
+                        <Image src={imageLink} style={Styles.foodImage} />
                         <Text style={Styles.confirmAskingText} numberOfLines={3}>{Strings?.confirmAskingText} </Text>
                         <View style={[Styles.DoneButtonContainer, { bottom: inset.bottom }]}>
                             <TouchableOpacity

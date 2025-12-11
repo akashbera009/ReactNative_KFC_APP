@@ -133,6 +133,7 @@ const en = {
   orderHistory: 'Order History',
   dealsAndOffer: 'Deals & Offers',
   greatMenu: 'Great Menu',
+  myCart: 'My cart',
   combo: 'Combo',
   language: 'Language',
   languageToggle: 'اللغة',
@@ -142,6 +143,7 @@ const en = {
   nutritionInfo: 'Nutrition Information',
   pleaseSelectlanguage: 'Please Select language',
   ChangeTheme: 'Change Theme',
+  profileSettings: 'Profile Settings',
 
   // explore screen 
   exploreMenu: 'Explore Menu',
@@ -161,6 +163,8 @@ const en = {
   opps: 'opps!',
   search: 'Search',
   noResFound: "No result found for your search! ",
+  cartIsEmpty: 'Your Cart is Empty',
+  addSomeItem : 'Please add some items from the menu',
   exploreKFCMenu: 'explore KFC Menu',
   cancel: 'Cancel',
   yesConfirm: 'yes,Confirm',
@@ -451,6 +455,7 @@ const ar = {
   orderHistory: 'سجل الطلبات',
   dealsAndOffer: 'العروض والخصومات',
   greatMenu: 'قائمة رائعة',
+    myCart: 'My cart',
   combo: 'وجبات كومبو',
   language: 'اللغة',
   languageToggle: 'language',
@@ -460,6 +465,7 @@ const ar = {
   nutritionInfo: 'المعلومات الغذائية',
   pleaseSelectlanguage: 'يرجى اختيار اللغة',
   ChangeTheme: 'تغيير المظهر',
+  profileSettings: 'Profile Settings',
 
   // explore screen 
   exploreMenu: 'استكشف القائمة',
@@ -479,6 +485,8 @@ const ar = {
   opps: 'عذرًا!',
   search: 'بحث',
   noResFound: 'لا توجد نتائج لبحثك!',
+  cartIsEmpty: 'Your Cart is Empty',
+  addSomeItem : 'Please add some items from the menu',
   exploreKFCMenu: 'استكشف قائمة KFC',
   cancel: 'إلغاء',
   yesConfirm: 'نعم، تأكيد',

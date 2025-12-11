@@ -1,33 +1,28 @@
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
-
-
 // util files 
 import Fonts from '../utils/Fonts'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
 // navigation 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
 const FontsScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     return (
         <SafeAreaView >
-
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.headerRegular }}>
                 Login to unlock 10 , 100 (header Regular)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.exp  }}>
+                style={{ fontSize: 20, fontFamily: Fonts.exp }}>
                 KFC   10 , 100  (exp )
             </Text>
             <View style={Styles.divider} />
             <Text
                 style={{ fontSize: 20, fontFamily: Fonts.firstPageCUrsuve }}>
-                It's finger likin' good  10 , 100 
+                It's finger likin' good  10 , 100
             </Text>
             <View style={Styles.divider} />
             <Text
@@ -41,7 +36,7 @@ const FontsScreen = () => {
             </Text>
             <Text
                 style={{ fontSize: 20, }}>
-                Twister BBQ Box  10 , 100 (no font) 
+                Twister BBQ Box  10 , 100 (no font)
             </Text>
             <View style={Styles.divider} />
             <Text
@@ -84,12 +79,12 @@ const FontsScreen = () => {
                 Finger Licling  10 , 100 (font9)
             </Text>
             <Text
-                style={{ fontSize: 20,}}>
+                style={{ fontSize: 20, }}>
                 Finger Licling  10 , 100 (no font)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font10 , fontWeight: 600 }}>
+                style={{ fontSize: 20, fontFamily: Fonts.font10, fontWeight: 600 }}>
                 FOR SHARING  10 , 100 (font10)
             </Text>
             <View style={Styles.divider} />
@@ -105,7 +100,7 @@ const FontsScreen = () => {
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20,}}>
+                style={{ fontSize: 20, }}>
                 Twister BBQ Box  10 , 100 (no fonts)
             </Text>
             <Text

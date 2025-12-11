@@ -3,14 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
+// redux 
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+// custom component 
+import MenuCard from './MenuCard';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
-import MenuCard from './MenuCard';
 import { useStrings } from '../../utils/Strings';
-import { useMenu } from '../../context/MenuContext';
 export default function SearchPage() {
     const Colors = useThemeColors();
     const inset = useSafeAreaInsets();
@@ -19,9 +21,10 @@ export default function SearchPage() {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [searchTerm, setSearchTerm] = useState<string>('')
     const [searchResult, setSearchResult] = useState<menuDataType[]>([])
-    const {menuItem} =useMenu()
+    const menuData = useSelector((state: RootState) => state.menuData)
+    const menuItem = menuData?.menuData
     useEffect(() => {
-        const result = menuItem.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        const result = menuItem?.filter((item) => item?.name?.toLowerCase().includes(searchTerm.toLowerCase()))
         setSearchResult(result)
     }, [searchTerm])
     return (
@@ -58,7 +61,7 @@ export default function SearchPage() {
                         <Text style={Styles.NotFoundRes}>{Strings?.noResFound} </Text>
                         <TouchableOpacity
                             style={Styles.ExploreMoreButton}
-                            onPress={() => {navigation.pop() }}
+                            onPress={() => { navigation.pop() }}
                         >
                             <Text style={Styles.ExploreMoreButtonTxt}>{Strings?.exploreKFCMenu.toUpperCase()} </Text>
                         </TouchableOpacity>
@@ -164,34 +167,34 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: 30,
             alignSelf: 'center',
             fontSize: 24,
-            fontWeight: 700 , 
-            color: Colors?.textBlack , 
+            fontWeight: 700,
+            color: Colors?.textBlack,
             fontFamily: Fonts?.subHeader
         },
         NotFoundRes: {
             alignSelf: 'center',
-            marginVertical: 10 , 
+            marginVertical: 10,
             fontSize: 18,
-            fontWeight: 600 , 
-            color: Colors?.textFadeBlack , 
+            fontWeight: 600,
+            color: Colors?.textFadeBlack,
             fontFamily: Fonts?.subHeader
         },
         ExploreMoreButton: {
             backgroundColor: Colors?.KFC_red,
             marginHorizontal: 'auto',
-            marginTop : 15 , 
-            borderRadius: 2 , 
+            marginTop: 15,
+            borderRadius: 2,
         },
         ExploreMoreButtonTxt: {
             color: Colors.constantWhite,
             fontWeight: 700,
             fontSize: 15,
-            marginHorizontal: 35, 
-            marginVertical:16 ,
+            marginHorizontal: 35,
+            marginVertical: 16,
             fontFamily: Fonts?.font17
         },
         ScrollViewContainer: {
-            
+
         }
     });
     return Styles;

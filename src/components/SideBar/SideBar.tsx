@@ -3,8 +3,9 @@ import { TouchableOpacity, StyleSheet, View, Text, Image, TouchableWithoutFeedba
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-// data imports 
-import { OrderHistoryData } from '../../data/OrderHistorydata';
+//redux
+import { useSelector } from 'react-redux';
+import { selectCurrentOrder } from '../../features/getCurrentOrder';
 //util files 
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages';
@@ -26,8 +27,7 @@ const SideBar = () => {
   const [countryMenuOpen, setCountryMenuOpen] = useState<boolean>(false)
   const { isDarkMode, setIsDarkMode } = useTheme()
   const [isSettingsMenunOpen, setIsSettingsMenuOpen] = useState<boolean>(false)
-  const currentOrder: OrderHistory = OrderHistoryData.filter((item) => item?.status == Strings?.beingPreparedString)[0];
-
+  const currentOrder: OrderHistory | null = useSelector(selectCurrentOrder)
   // customer support linking 
   const handleOpenDialer = () => {
     const phone = DeliveryDetails?.supprotMobile;
@@ -71,6 +71,17 @@ const SideBar = () => {
           </TouchableOpacity>
           {isSettingsMenunOpen && (
             <View style={Styles.SettingOptionMenu}>
+              <TouchableOpacity
+                style={Styles.SettingsMenuEntries}
+                activeOpacity={.7}
+                onPress={() => {
+                  navigation.navigate(Strings?.CreateProfileScreen , {
+                      phoneNo: '0000'
+                  })
+                }}>
+                <Image source={Images?.UserIcon} style={Styles.ThemeIcon} />
+                <Text style={Styles.countryEntriesText}>{Strings?.profileSettings}</Text>
+              </TouchableOpacity>
               <TouchableOpacity
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
@@ -165,11 +176,15 @@ const SideBar = () => {
             <Text style={Styles.singleEntryText}>{Strings?.greatMenu} </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-              categoryType: Strings?.dealsString
-            })} style={Styles.SingleEntry}>
-            <Image source={Images?.Combo_Menu} style={Styles.SideImageIcon} />
-            <Text style={Styles.singleEntryText}>{Strings?.combo} </Text>
+            onPress={() => {
+              navigation.navigate(Strings?.CartScreen, {
+                discount: 0,
+                discountPercentage: 0,
+                offerCode: ''
+              })
+            }} style={Styles.SingleEntry}>
+            <Image source={Images?.MyCart} style={Styles.SideImageIcon} />
+            <Text style={Styles.singleEntryText}>{Strings?.myCart} </Text>
           </TouchableOpacity>
         </View>
 
@@ -254,7 +269,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     SettingOptionMenu: {
       minHeight: 60,
-      width: 170,
+      width: 190,
       borderWidth: 1,
       borderColor: Colors?.fadeBorder,
       backgroundColor: Colors?.bodyColor,
@@ -354,7 +369,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       position: 'absolute',
       right: 0,
       top: 30,
-      zIndex: 1000 , 
+      zIndex: 1000,
       borderRadius: 5,
       shadowColor: Colors?.blueShadows,
       shadowOffset: { width: 0, height: 2 },

@@ -42,7 +42,7 @@ app.get('/orders', (req, res) => {
 // POST new order
 app.post('/orders', (req, res) => {
   const orders = readOrders();
-  const newOrder = { id: Date.now(), ...req.body };
+  const newOrder = { ...req.body };
   orders.push(newOrder);
   writeOrders(orders);
   res.status(201).json(newOrder);

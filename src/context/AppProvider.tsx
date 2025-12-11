@@ -2,21 +2,11 @@ import React, { ReactNode } from 'react';
 import { ThemeProvider } from './ThemeContext';
 import { LanguageProvider } from './LanguageContex';
 import { CountryProvider } from './CountryContext';
-import { CartProvider } from './CartContext';
-import { MenuProvider } from './MenuContext';
-import { OrderQueueProvider } from './OrderQueueContext';
-
 export const AppProvider = ({ children }: { children: ReactNode }) => (
   <ThemeProvider>
     <LanguageProvider>
       <CountryProvider>
-        <MenuProvider>
-          <OrderQueueProvider>
-            <CartProvider>
-              {children}
-            </CartProvider>
-          </OrderQueueProvider>
-        </MenuProvider>
+        {children}
       </CountryProvider>
     </LanguageProvider>
   </ThemeProvider>

@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, TextInput, Image, TouchableWithoutFeedback, Keyboard, TouchableOpacity, KeyboardAvoidingView, Platform, } from 'react-native'
 import React, { useState, useEffect } from 'react'
-
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// image picker
+import ImagePicker from 'react-native-image-crop-picker';
 // util imports
 import Fonts from '../../utils/Fonts'
 import { useCountry } from '../../context/CountryContext';
@@ -35,23 +36,22 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const [showWarningName, setShowWarningName] = useState<boolean>(false)
     const [showTopEmail, setShowTopgEmail] = useState<boolean>(false)
     const [showTopName, setShowTopName] = useState<boolean>(false)
-
     const [goodToLogin, setGoodToLogin] = useState(false)
+    const [selectedImage, setSelectedImage] = useState<string>('')
     useEffect(() => {
         checkGoodToLogin();
         handleShowWarningEmail();
         handleShowWarningName();
         showTopEmailPlaceHolder();
         showTopNamePlaceHolder();
-
     }, [email, name])
     const handleCheckGmail = () => {
         return (email.endsWith('.com') && email.includes('@'))
     }
     const checkGoodToLogin = () => {
-        if (name != '' && handleCheckGmail()) {
+        if (name != '' && handleCheckGmail())
             setGoodToLogin(true)
-        } else
+        else
             setGoodToLogin(false)
     }
     const handleChangeEmail = (text: string) => {
@@ -67,7 +67,6 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         // comment
         navigation.navigate(Strings?.HomeScreen)
     }
-
     const handleShowWarningEmail = () => {
         if (isTouchedEmail && email == '' || isTouchedEmail && !handleCheckGmail()) {
             setShowWarningEmail(true)
@@ -94,11 +93,56 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         else
             setShowTopName(false)
     }
+    const uploadToImgBB = async ({ path, mime, filename }:{ path: string, mime: string, filename: string | undefined }) => {
+        const apiKey: string = 'd06eae4d7c1aa532c95c7d19fed969f6'
+        let data = new FormData();
+        data.append("image", {
+            uri: path,
+            type: mime,
+            name: filename || "photo.jpg",
+        });
+        try {
+            const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+                method: "POST",
+                body: data,
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            const result = await response.json();
+            if (result.success) {
+                return result.data.url;
+            } else {
+                console.log("Upload error:", result);
+                return null;
+            }
+        } catch (error) {
+            console.log("Upload failed:", error);
+            return null;
+        }
+    };
+
+    const openImagePicker = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true,
+        }).then(async (image) => {
+            setSelectedImage(image?.path)
+            const url = await uploadToImgBB({
+                path: image.path,
+                mime: image.mime,
+                filename: image.filename
+            });
+            console.log(image);
+            console.log(url);
+
+        });
+    }
     return (
         <View style={Styles.parentBackground}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View >
-
                     <View style={[Styles.navigationContainer, {}]}>
                         <View style={[Styles.innerNavigationContainer, { marginTop: inset.top }]}>
                             <TouchableOpacity
@@ -120,6 +164,15 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                             {showTopName && (
                                 <Text style={Styles.placeHolderTopText}>{Strings?.name.toUpperCase() + '*'} </Text>
                             )}
+                            <TouchableOpacity
+                                onPress={openImagePicker}
+                                style={Styles.ImageContainer}>
+                                {selectedImage != '' ? (
+                                    <Image source={{ uri: selectedImage }} style={Styles.profileImage} />
+                                ) : (
+                                    <Image source={Images?.Camera} style={Styles.CameraImage} />
+                                )}
+                            </TouchableOpacity>
                             <View style={Styles.EmailAndWarning} >
                                 <TextInput
                                     value={name}
@@ -175,7 +228,6 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                 <View style={Styles.BlankWarning} />
                             )}
                         </View>
-
                         <View style={Styles.verifyButtonContainer}>
                             <TouchableOpacity
                                 activeOpacity={.5}
@@ -184,10 +236,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                 <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings?.save.toUpperCase()}</Text>
                             </TouchableOpacity>
                         </View>
-
-
                     </KeyboardAvoidingView>
-
                 </View>
             </TouchableWithoutFeedback>
         </View>
@@ -243,7 +292,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         CreateProfileRelatedContainer: {
             marginTop: 15,
-            height: 350,
             width: '90%',
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
@@ -367,9 +415,32 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
             justifyContent: 'space-between'
         },
+        ImageContainer: {
+            height: 80,
+            width: 80,
+            borderRadius: 100,
+            backgroundColor: Colors?.HyperTransparent,
+            objectFit: 'fill',
+            overflow: 'hidden',
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginHorizontal: 'auto'
+        },
+        profileImage: {
+            height: 80,
+            width: 80
+        },
+        CameraImage: {
+            height: 30,
+            width: 30,
+            tintColor: Colors?.timerText,
+        },
         verifyButtonContainer: {
             width: '90%',
             alignSelf: 'center',
+            marginBottom: 40,
         },
         VerifyBUtton: {
             height: 40,

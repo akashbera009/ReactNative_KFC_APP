@@ -11,7 +11,7 @@
     ],
     "price": 22.3,
     "oldPrice": 24.7,
-    "image": "French_Fries_Coke",
+    "image": "https://i.ibb.co/3mQBDRrr/French-Fries-Coke.png",
     "currency": "AED",
     "tag": "Previously Ordered",
     "isFavorite": false,
@@ -215,7 +215,7 @@
     "oldPrice": 24.7,
     "currency": "AED",
     "tag": "",
-    "image": "Chicken_Nugedts",
+    "image": "https://i.ibb.co/mCH5ZNcq/Chicken-Nuget.png",
     "isFavorite": false,
     "customizable": true,
     "categories": [
@@ -261,7 +261,7 @@
     "oldPrice": 24.7,
     "currency": "AED",
     "tag": "",
-    "image": "KFC_Combo_Pack",
+    "image": "https://i.ibb.co/V0Qx3vcX/KFC-Combo-Pack.webp",
     "isFavorite": false,
     "customizable": true,
     "categories": [
@@ -305,7 +305,7 @@
     "oldPrice": 24.7,
     "currency": "AED",
     "tag": "",
-    "image": "Chicken_Roll",
+    "image": "https://i.ibb.co/ZpWbpv9n/Chicken-Roll.png",
     "isFavorite": false,
     "customizable": true,
     "categories": [
@@ -347,7 +347,7 @@
     "oldPrice": 24.7,
     "currency": "AED",
     "tag": "",
-    "image": "Favourite_Combo_Pack",
+    "image": "https://i.ibb.co/MDB9YcMw/Favourite-Combo-Pack.webp",
     "isFavorite": false,
     "customizable": true,
     "categories": [
@@ -391,7 +391,7 @@
     "oldPrice": 24.7,
     "currency": "AED",
     "tag": "",
-    "image": "Pepsi_Double_Can",
+    "image": "https://i.ibb.co/xKTsXDwH/Pepsi-Double-Can.png",
     "isFavorite": false,
     "customizable": true,
     "categories": [
@@ -440,7 +440,7 @@
     "oldPrice": 54.7,
     "currency": "AED",
     "tag": "",
-    "image": "Chicken_Bucket",
+    "image": "https://i.ibb.co/cKqSfFMC/Chicken-Bucket.png",
     "isFavorite": false,
     "customizable": true,
     "categories": [
@@ -485,7 +485,7 @@
     "oldPrice": 31.0,
     "currency": "AED",
     "tag": "Best Seller",
-    "image": "Crispy_Chicken_Combo",
+    "image": "https://i.ibb.co/S73PQLnC/Home-Page-Main-Image.png",
     "isFavorite": false,
     "customizable": true,
     "categories": [

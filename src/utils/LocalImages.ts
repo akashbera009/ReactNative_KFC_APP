@@ -58,6 +58,7 @@ const Images = {
     Cloud: require(fixedPath+ 'HomeScreen/Cloud.png'), 
     Cloud2: require(fixedPath+ 'HomeScreen/Cloud2.png'), 
     laurel_leaves_Left: require(fixedPath+ 'HomeScreen/laurel_leaves_Left.png'), 
+    Camera: require(fixedPath+ 'HomeScreen/Camera.png'), 
     
     Track_Order: require(fixedPath+ 'Sidebar/Track_Order.png'), 
     Great_Menu: require(fixedPath+ 'Sidebar/Great_Menu.png'), 
@@ -66,6 +67,8 @@ const Images = {
     Down_Arrow_Thick: require(fixedPath+ 'Sidebar/Down_Arrow_Thick.png'), 
     Theme_Icon: require(fixedPath+ 'Sidebar/Theme_Icon.png'), 
     Logout_Icon: require(fixedPath+ 'Sidebar/Logout_Icon.png'),
+    MyCart: require(fixedPath+ 'Sidebar/MyCart.png'),
+    UserIcon: require(fixedPath+ 'Sidebar/UserIcon.png'),
 
     Search_Icon: require(fixedPath+ 'MenuScreen/Search_Icon.png'), 
     Thin_Back_Icon: require(fixedPath+ 'MenuScreen/Thin_Back_Icon.png'), 
@@ -96,6 +99,7 @@ const Images = {
     EmptyBox: require(fixedPath+ 'CartScreens/EmptyBox.png'), 
     Edit_Icon: require(fixedPath+ 'CartScreens/Edit_Icon.png'), 
     Info_Button: require(fixedPath+ 'CartScreens/Info_Button.png'), 
+    CartEmptyDustbin: require(fixedPath+ 'CartScreens/CartEmptyDustbin.png'), 
 
     DownloadIcon: require(fixedPath+ 'OrderScreen/DownloadIcon.png'), 
     OvenIcon: require(fixedPath+ 'OrderScreen/OvenIcon.png'), 

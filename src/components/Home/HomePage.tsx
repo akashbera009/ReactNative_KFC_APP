@@ -11,16 +11,19 @@ import { RadialGradient } from 'react-native-gradients';
 // custom component imports 
 import CurrentOrder from './CurrentOrder';
 import BestSeller from './BestSeller';
-
+//redux 
+import { fetchMenu } from '../../features/menuSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { fetchOrders } from '../../features/orderSlice';
 // util imports
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { DeliveryDetails } from '../../data/DeliveryDetails';
-import VideoPlayerComponent from './VideoPlayer';
-import { useMenu } from '../../context/MenuContext';
 import { useCountry } from '../../context/CountryContext';
+import VideoPlayerComponent from './VideoPlayer';
 
 export default function HomePage() {
   const Colors = useThemeColors()
@@ -29,7 +32,12 @@ export default function HomePage() {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const drawerNavigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
-  const { menuItem } = useMenu()
+  const dispatch = useDispatch<AppDispatch>()
+  useEffect(() => {
+    dispatch(fetchMenu())
+    dispatch(fetchOrders())
+  }, [dispatch])
+  const menuData = useSelector((state: RootState) => state.menuData);
 
   const { countrySelected } = useCountry()
   const colorList: { offset: string, color: string, opacity: string }[] = [
@@ -68,7 +76,7 @@ export default function HomePage() {
           <Image source={Images?.Menu} style={[Styles.menuIcon, { top: inset.top }, Platform.OS == 'android' && Styles.AndroidHeight]} />
         </TouchableOpacity>
       </View>
-      <ScrollView >
+      <ScrollView showsVerticalScrollIndicator={false} >
         <View style={Styles.BlankCover} />
         <View style={Styles.gradientBg}>
           <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} />
@@ -228,10 +236,10 @@ export default function HomePage() {
               <Text style={Styles.ExploreHeaderViewAll}>{Strings?.viewAll.toUpperCase()} </Text>
             </View>
             <ScrollView style={Styles.CardsContainer} horizontal showsHorizontalScrollIndicator={false}>
-              {menuItem.map((item, idx) => (
+              {menuData?.menuData?.map((item, idx) => (
                 <View key={idx} style={Styles.Cards}>
                   <View style={Styles.TopContainer}>
-                    <Image source={item?.image} style={Styles.cardImage} />
+                    <Image src={item?.image} style={Styles.cardImage} />
                     <View style={Styles.RightContainer}>
                       <View style={Styles.TextContainer}>
                         <Text style={Styles.title} numberOfLines={2}>{item?.name} </Text>
@@ -250,7 +258,6 @@ export default function HomePage() {
             </ScrollView>
           </View>
           <View style={Styles.BottomView}>
-
             <View style={Styles.laurel_Container}>
               <View style={Styles.container}>
                 <View style={Styles.LeftlinesContainer}>
@@ -263,7 +270,7 @@ export default function HomePage() {
                   style={[Styles.laurel, Styles.leftLaurel]}
                   resizeMode="contain"
                 />
-                <Text style={Styles.centerText}>{Strings?.KFC}</Text>
+                <Image source={Images?.KfcTextLogo} style={[Styles.HeaderKFC2]} />
                 <Image
                   source={Images?.laurel_leaves_Left}
                   style={[Styles.laurel, Styles.rightLaurel]}
@@ -277,7 +284,6 @@ export default function HomePage() {
               </View>
               <Text style={Styles.bottomKFCDescription}>{Strings?.bottomKFCDescription.toUpperCase()} </Text>
             </View>
-
             <VideoPlayerComponent />
           </View>
         </View>
@@ -330,6 +336,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: 30,
       width: 100,
       tintColor: Colors?.constantWhite
+    },
+    HeaderKFC2: {
+      height: 18,
+      width: 60,
+      tintColor: Colors?.textBlack,
+      marginHorizontal: 5
     },
     AnimatedSlideShowContainer: {
 

@@ -1,7 +1,7 @@
 
 type RemoveCartItemProps = {
-  imageLink: ImageSourcePropType;
-  idx: number
+  imageLink: string;
+  uid: string
 };
 type BottomCartProps = {
   ButtonType: string;
@@ -62,6 +62,7 @@ type MenuOptionGroup = {
 };
 
 type menuDataType = {
+  uid: string
   id: number,
   name: string,
   description: string[],
@@ -69,26 +70,44 @@ type menuDataType = {
   oldPrice: number,
   currency: string,
   tag: string,
-  image: Image,
+  image: Image| string,
   isFavorite: boolean,
   customizable: boolean,
   customization?: MenuOptionGroup[];
   categories: string[],
 }
+
+// type CartItemType = {
+//   id: number,
+//   name: string,
+//   description: string[],
+//   price: number,
+//   oldPrice: number,
+//   tag: string,
+//   image: Image,
+//   isFavorite: boolean,
+//   customizable: boolean,
+//   categories: string[],
+//   quantity: number,
+// }
 type CartItemType = {
-  id: number,
-  name: string,
-  description: string[],
-  price: number,
-  oldPrice: number,
-  tag: string,
-  image: Image,
-  isFavorite: boolean,
-  customizable: boolean,
-  categories: string[],
-  quantity: number,
-}
+  cartUid: number;                  
+  menuItemUid: string;             
+  name: string;
+  description: string[];
+  price: number;              
+  oldPrice: number;
+  image: string;
+  categories: string[];
+  quantity: number;
+  selectedOptions?: {
+    groupId?: string;
+    choiceId?: string[];           
+  }[];
+};
+
 type OrderHistory = {
+  id: number,
   Items: CartItemType[],
   date: string,
   orderId: string,

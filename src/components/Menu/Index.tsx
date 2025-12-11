@@ -6,13 +6,15 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // custom components 
 import ExploreMenu from './ExploreMenu'
 import BottomCart from './BottomCart';
+//redux 
+import { fetchMenu } from '../../features/menuSlice';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../../store/store';
 //util files 
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages'
 import { useStrings } from '../../utils/Strings'
 import { useThemeColors } from '../../utils/Colors'
-import { useCart } from '../../context/CartContext';
-import { useMenu } from '../../context/MenuContext';
 
 const Index = ({ categoryType }: { categoryType: string }) => {
     const Colors = useThemeColors()
@@ -20,16 +22,23 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const inset = useSafeAreaInsets()
     const Styles = createDynamicStyles(Colors, Fonts)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const { CartItem } = useCart();
-    const { menuItem } = useMenu();
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(fetchMenu())
+    }, [])
+    const cartData = useSelector((state: RootState)=> state.cart)
+    const cartItem  = cartData?.cartItems
+    const menuData = useSelector((state: RootState) => state.menuData)
+    const menuItem = menuData?.menuData
     const category: string[] = [...(menuItem.map((item) => item.categories).flat(1))].sort()
-    const iSFavouriteMenuArray = menuItem.filter(item => item?.isFavorite == true);
+    const iSFavouriteMenuData = useSelector((state: RootState)=> state.favourite)
+    const iSFavouriteMenuArray = iSFavouriteMenuData?.favorites
     const categorySet: string[] = [...new Set<string>([...category])];
     const [activeCategory, setActiveCategory] = useState<string>(categoryType);
     const frequencyMap: Map<string, number> = new Map();
-    if (iSFavouriteMenuArray.length > 0) {
+    if (iSFavouriteMenuArray?.length > 0) {
         categorySet.splice(1, 0, 'Favourites')
-        frequencyMap.set('Favourites', iSFavouriteMenuArray.length)
+        frequencyMap.set('Favourites', iSFavouriteMenuArray?.length)
     }
     for (const element of category) {
         frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
@@ -45,10 +54,10 @@ const Index = ({ categoryType }: { categoryType: string }) => {
         }).start()
     }
     useEffect(() => {
-        if (CartItem.length > 0) {
+        if (cartItem.length > 0) {
             handleSlideIn();
         }
-    }, [CartItem.length])
+    }, [cartItem.length])
 
     return (
         <View style={Styles.ParentContaienr}>
@@ -103,7 +112,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                 </ScrollView>
             </View>
             <ExploreMenu activeCategory={activeCategory} />
-            {CartItem?.length > 0 && (
+            {cartItem.length > 0 && (
                 <Animated.View style={[Styles.BottomCartContainer, { bottom: inset.bottom - 10 }, {
                     opacity: slideIn.interpolate({
                         inputRange: [0, 1],
@@ -129,7 +138,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         ParentContaienr: {
             backgroundColor: Colors?.bodyColor,
-            flex: 1 
+            flex: 1
         },
         NavWrapper: {
             width: '100%',

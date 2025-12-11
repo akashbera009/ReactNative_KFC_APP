@@ -2,10 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 const BACKEND_SERVER = 'http://localhost:3000'
 
-const initialState = {
-    menuData: [{}],
-    loading: 'ideal'
-}
+const initialState : {
+  menuData: menuDataType[];
+  loading: string;
+} = {
+  menuData: [],
+  loading: 'ideal'
+};
 // async menu data fetchstor
 export const fetchMenu = createAsyncThunk('menu/fetchMenu', async () => {
     const res = await axios.get(`${BACKEND_SERVER}/menu`);

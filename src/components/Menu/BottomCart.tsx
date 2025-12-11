@@ -2,13 +2,13 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, Animated, Easing, type
 import React, { useRef, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-// context 
-import { useCart } from '../../context/CartContext';
+//redux
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+// utils
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
-// utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 
@@ -18,23 +18,24 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
     const Styles = createDynamicStyles(Colors, Fonts);
     const { countrySelected } = useCountry()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const { CartItem } = useCart();
-    let totalPrice = CartItem.reduce((acc, item) => acc + item?.price * item?.quantity, 0).toFixed(2);
-    let discountPrice = CartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
+    const cartData = useSelector((state: RootState) => state.cart)
+    const cartItem = cartData.cartItems
+    let totalPrice = cartItem.reduce((acc, item) => acc + item?.price * item?.quantity, 0).toFixed(2);
+    let discountPrice = cartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
     discountPrice -= Number(totalPrice);
-    let formattedCounterText = CartItem?.length < 10 ? `0${CartItem?.length}` : CartItem?.length;
+    let formattedCounterText = cartItem?.length < 10 ? `0${cartItem?.length}` : cartItem?.length;
     // aimation 
     const slideIn = useRef(new Animated.Value(0)).current;
     const handleSlideIn = (easing: EasingFunction) => {
         Animated.timing(slideIn, {
             toValue: 1,
-            duration: 500,
+            duration: 200,
             easing,
             useNativeDriver: true
         }).start()
     }
     useEffect(() => {
-        handleSlideIn(Easing.in(Easing.bounce))
+        handleSlideIn(Easing.in(Easing.quad))
     }, [slideIn])
 
     return (

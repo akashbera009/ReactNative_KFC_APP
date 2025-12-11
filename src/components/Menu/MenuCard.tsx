@@ -1,84 +1,61 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// redux 
+import { RootState, useAppDispatch } from '../../store/store';
+import { toggleFavourite } from '../../features/favoriteSlice';
+import { useSelector } from 'react-redux';
+import { addToCart, increaseQuantity,decreaseQuantity, removeFromCart } from '../../features/cartSlice';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
-import { useCart } from '../../context/CartContext';
-import { useMenu } from '../../context/MenuContext';
-export default function MenuCard({foodItem}: {foodItem: menuDataType}) {
+export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
     const Colors = useThemeColors();
     const country = useCountry()
     const Strings = useStrings();
-    const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors, Fonts);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const { menuItem, setMenuItem } = useMenu();
-    const { CartItem, setCartItem } = useCart();
-    const itemInCart = CartItem.find((item) => item.name === foodItem?.name);
+    const cartItem = useSelector((state: RootState)=> state.cart)
+    const itemInCart = cartItem?.cartItems?.find(item => item?.menuItemUid == foodItem?.uid)
     const quantity = itemInCart ? itemInCart?.quantity : 0;
+    const dispatch = useAppDispatch()
+    const favouritelist = useSelector((state: RootState) => state.favourite)
     const handleCartAdding = () => {
-        const newItem: CartItemType = {
-            id: foodItem?.id,
+        if ( cartItem?.cartItems?.find((item) => item?.menuItemUid === foodItem?.uid )) return;
+        const newItem: CartItemType2 = {
+            cartUid: Date.now(),
+            menuItemUid:foodItem?.uid ,
             name: foodItem?.name,
-            description: foodItem?.description,
+            description: foodItem?.description ,
             price: foodItem?.price,
             oldPrice: foodItem?.oldPrice,
-            tag: foodItem?.tag,
-            image: foodItem?.image,
-            isFavorite: foodItem?.isFavorite,
-            customizable: foodItem?.customizable,
+            image:  foodItem?.image ,
             categories: foodItem?.categories,
-            quantity: quantity + 1,
+            quantity: 1 ,
         }
-        if (CartItem.find((item) => item.name === newItem.name)) return;
-        setCartItem((prev: CartItemType[]) => [...prev, newItem]);
+        dispatch(addToCart(newItem))
     }
-    const handleIncreaseQunatity = (name: string) => {
+    const handleIncreaseQunatity = (uid: string) => {
         if (quantity < 10) {
-            setCartItem((prev: CartItemType[]) =>
-                prev.map(item =>
-                    item?.name == name
-                        ? { ...item, quantity: item?.quantity + 1 }
-                        : item
-                )
-            )
+            dispatch(increaseQuantity(uid))
         } else return;
-
     }
-    const handleDecreaseQuantity = () => {
+    const handleDecreaseQuantity = (uid: string) => {
         if (quantity >= 1) {
-            setCartItem((prev: CartItemType[]) =>
-                prev.map((item, idx) =>
-                    item?.name == foodItem?.name
-                        ? { ...item, quantity: item?.quantity - 1 }
-                        : item
-                )
-            )
+            dispatch(decreaseQuantity(uid))
         } else return;
     }
-    const handleRemoveItem = () => {
-        if (quantity == 1) {
-            setCartItem((prev: CartItemType[]) =>
-                prev.filter(item =>
-                    item?.name != foodItem?.name
-                )
-            )
-        } else return;
+    const handleRemoveItem = (uid: string) => { 
+        if( quantity === 1 ){
+            dispatch(removeFromCart(uid))
+        }else return ;
     }
-    const handleToggleFavourite = (id: number) => {
-        setMenuItem((prev: menuDataType[]) =>
-            prev.map(item =>
-                item.id === id
-                    ? { ...item, isFavorite: !item.isFavorite }
-                    : item
-            )
-        );
+    const handleToggleFavourite = (uid: string) => {
+        dispatch(toggleFavourite(uid))
     }
     let formattedQuantity = quantity <= 9 ? `0${quantity}` : quantity;
     return (
@@ -91,15 +68,15 @@ export default function MenuCard({foodItem}: {foodItem: menuDataType}) {
                     </View>
                 )}
 
-                <Image source={foodItem?.image} style={Styles.LeftfoodImage} />
+                <Image src={foodItem?.image} style={Styles.LeftfoodImage} />
                 <View style={Styles.RightContainer}>
                     <View style={Styles.nameAndFavButton}>
                         <Text style={Styles.FoodName}>{foodItem?.name}</Text>
                         <TouchableOpacity
                             style={Styles.favIconContainer}
-                            onPress={() => { handleToggleFavourite(foodItem?.id) }}
+                            onPress={() => { handleToggleFavourite(foodItem?.uid) }}
                         >
-                            {foodItem?.isFavorite ? (
+                            {favouritelist?.favorites?.includes(foodItem?.uid) ? (
                                 <Image source={Images?.Favourite_Icon} style={Styles.Favourite_Icon} />
                             ) : (
                                 <Image source={Images?.Favourite_Icon_Empty} style={Styles.Favourite_Icon} />
@@ -117,8 +94,8 @@ export default function MenuCard({foodItem}: {foodItem: menuDataType}) {
                     {foodItem?.customizable && (
                         <TouchableOpacity
                             style={Styles.CustomizeContainer}
-                            onPress={() => navigation.navigate(Strings?.FoodCustomizationScreen,{
-                               foodItem : foodItem
+                            onPress={() => navigation.navigate(Strings?.FoodCustomizationScreen, {
+                                foodItem: foodItem
                             })}
                         >
                             <Text style={Styles.customizeText}>{Strings?.customize.toUpperCase()} </Text>
@@ -149,14 +126,14 @@ export default function MenuCard({foodItem}: {foodItem: menuDataType}) {
                         {(quantity > 1) ?
                             <TouchableOpacity
                                 style={Styles.deleteButtonContainer}
-                                onPress={() => { handleDecreaseQuantity() }}
+                                onPress={() => { handleDecreaseQuantity(foodItem?.uid) }}
                             >
                                 <Image source={Images?.Minus} style={Styles.deleteIcon} />
                             </TouchableOpacity>
                             :
                             <TouchableOpacity
                                 style={Styles.deleteButtonContainer}
-                                onPress={() => { handleRemoveItem() }}
+                                onPress={() => { handleRemoveItem(foodItem?.uid) }}
                             >
                                 <Image source={Images?.Delete_Icon} style={Styles.deleteIcon} />
                             </TouchableOpacity>
@@ -164,7 +141,7 @@ export default function MenuCard({foodItem}: {foodItem: menuDataType}) {
                         <Text style={Styles.counter}>{formattedQuantity} </Text>
                         <TouchableOpacity
                             style={quantity < 10 ? Styles.AddCounterButton : Styles.AddCounterButtonFade}
-                            onPress={() => handleIncreaseQunatity(foodItem?.name)}
+                            onPress={() => handleIncreaseQunatity(foodItem?.uid)}
                         >
                             <Image source={Images?.AddButton} style={Styles.AddButtonImage} />
                         </TouchableOpacity>
@@ -300,7 +277,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             transform: [{ rotate: '180deg' }],
             tintColor: Colors?.ButtonBlueColor,
         },
-        LowerContainer: { 
+        LowerContainer: {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -410,8 +387,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: 20,
             tintColor: Colors?.KFC_red
         },
-        favIconContainer: { 
-            marginRight: 15 
+        favIconContainer: {
+            marginRight: 15
         }
     });
     return Styles;

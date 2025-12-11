@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
 // data import 
 import { DeliveryDetails } from '../../data/DeliveryDetails'
 // util imports 
@@ -11,17 +10,15 @@ import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 // redux 
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { selectCurrentOrder } from '../../features/getCurrentOrder';
 
 export default function orderQueueItem() {
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const orderQueueItem = useSelector((state: RootState) => state.orders);
-  const currentOrder = orderQueueItem?.orders?.filter((item) => item?.status == Strings?.beingPreparedString)[0]
+  const currentOrder = useSelector(selectCurrentOrder)
   const ItemNames = currentOrder?.Items.map((item) => item?.name).join(',')
-
   return (
     <View style={Styles.ParentDeliveryContainer} >
       <Text style={Styles.Header}>{Strings?.CurrentOrder.toUpperCase()} </Text>
@@ -40,8 +37,7 @@ export default function orderQueueItem() {
           style={Styles.trackButton}
           onPress={() => navigation.push(Strings?.OrderDetailsScreen, {
             order: currentOrder
-          })}
-        >
+          })}>
           <Text style={Styles.TrackOrderText}>{Strings?.trackOrder} </Text>
         </TouchableOpacity>
       </View>

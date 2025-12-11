@@ -5,13 +5,14 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // data imports 
 import { DeliveryDetails } from '../../data/DeliveryDetails';
+import { selectCurrentOrder } from '../../features/getCurrentOrder';
+import { useSelector } from 'react-redux';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { useCountry } from '../../context/CountryContext';
-import { useOrderQueue } from '../../context/OrderQueueContext';
 
 export default function OrderStatus({
     orderId,
@@ -32,8 +33,7 @@ export default function OrderStatus({
     const { countrySelected } = useCountry()
     const [openAmountDetails, setOpenAmountDetails] = useState<boolean>(false)
     const [pending, setPending] = useState(true)
-    const { orderQueueItem } = useOrderQueue()
-    const currentOrder = orderQueueItem.filter(item => item?.status == Strings?.beingPreparedString)[0]
+    let currentOrder: OrderHistory | null = useSelector(selectCurrentOrder)
     useEffect(() => {
         const timeOut = setTimeout(() => {
             setPending(false)
@@ -73,6 +73,8 @@ export default function OrderStatus({
             console.log(error.message)
         }
     }
+
+    
     return (
         <View style={[Styles.Parent, { paddingTop: inset.top }]}>
             <View style={Styles.NavWrapper}>
@@ -94,7 +96,7 @@ export default function OrderStatus({
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={Styles.OrderBox}>
                         <View style={Styles.Row}>
-                            <Image source={currentOrder.Items[0]?.image} style={Styles.BucketImg} />
+                            <Image src={currentOrder?.Items[0]?.image} style={Styles.BucketImg} />
                             {orderStatus ? (
                                 <>
                                     {pending ? (
@@ -146,7 +148,7 @@ export default function OrderStatus({
                                 <TouchableOpacity
                                     onPress={() =>
                                         navigation.navigate(Strings?.TrackOrderScreen, {
-                                            currentOrder: currentOrder,
+                                            currentOrder: currentOrder ?? null,
                                             orderId: orderId,
                                             GrandTotal: GrandTotal
                                         })}
@@ -182,7 +184,7 @@ export default function OrderStatus({
                                     </View>
                                     <View style={Styles.customBorder} />
                                     <Text style={[Styles.items]}>{Strings?.items}</Text>
-                                    {currentOrder.Items.map((item, idx) => (
+                                    {currentOrder?.Items.map((item, idx) => (
                                         <View key={idx} style={Styles.ItemRow}>
                                             <View style={Styles.ItemRowQty}>
                                                 <Text style={Styles.ItemName}>{item?.name}</Text>
