@@ -7,6 +7,7 @@ import Fonts from '../../utils/Fonts'
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { useCountry } from '../../context/CountryContext';
+import { normalize, vh , vw} from '../../utils/Dimensions';
 
 export default function BestSeller() {
     const Colors = useThemeColors()
@@ -53,7 +54,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         ParentBestSellerContainer: {
             width: '93%',
             alignSelf: 'center',
-            marginVertical: 10
+            marginVertical: vh(10)
         },
         headerExplore: {
             display: 'flex',
@@ -64,30 +65,30 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors?.textBlack,
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            fontSize: 14
+            fontSize: normalize(14)
         },
         ExploreHeaderViewAll: {
             color: Colors?.textFadeBlack,
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            fontSize: 12
+            fontSize: normalize(12)
         },
         CardsContainer: {
-            height: 180,
-            marginBottom: 5
+            height: vh(180),
+            marginBottom: vh(5)
         },
         Cards: {
-            height: 150,
-            width: 250,
+            height: vh(150),
+            width: vw(250),
             backgroundColor: Colors?.bodyColor,
-            marginRight: 10,
-            marginVertical: 10,
+            marginRight: vw(10),
+            marginVertical: vh(10),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            shadowOffset: { width: 0, height: vh(2) },
             shadowOpacity: .1,
-            borderRadius: 2,
-            shadowRadius: 5,
-            elevation: 5,
+            borderRadius: normalize(2),
+            shadowRadius: normalize(5),
+            elevation: normalize(5),
         },
         TopContainer: {
             height: '80%',
@@ -98,14 +99,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         cardImage: {
-            height: 80,
-            width: 80,
-            marginLeft: 20,
+            height: vh(80),
+            width: vw(80),
+            marginLeft: vw(20),
             shadowColor: Colors?.constantBlack,
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
+            shadowOffset: { width: 0, height: vh(2) },
+            shadowOpacity: normalize(0.25),
+            shadowRadius: normalize(3.84),
+            elevation: normalize(5),
         },
         RightContainer: {
             display: 'flex',
@@ -113,12 +114,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: '63%',
             justifyContent: 'center',
             position: 'relative',
-            left: 10,
+            left: vw(10),
         },
         title: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: 600,
-            marginHorizontal: 4,
+            marginHorizontal: vw(4),
             color: Colors?.textBlack,
             width: '85%',
             overflow: 'hidden'
@@ -126,47 +127,47 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         description: {
             width: '85%',
             height: '40%',
-            fontSize: 11,
+            fontSize: normalize(11),
             color: Colors?.timerFadeText,
-            margin: 4,
+            margin: normalize(4),
             fontWeight: 600
         },
         LowerContainer: {
-            borderTopWidth: 1,
+            borderTopWidth: normalize(1),
             borderTopColor: Colors?.fadeWhiteText2,
             width: '100%',
-            height: 45,
+            height: vh(45),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
             position: 'absolute',
-            bottom: 0,
-            left: 0,
+            bottom: normalize(0),
+            left: normalize(0),
         },
         PriceaContainer: {
             display: 'flex',
             flexDirection: 'row',
-            marginHorizontal: 20
+            marginHorizontal: vw(20)
         },
         price: {
             fontWeight: 800,
-            fontSize: 13,
+            fontSize: normalize(13),
             color: Colors?.textBlack
         },
         OrderButton: {
-            borderWidth: 2,
+            borderWidth: normalize(2),
             borderColor: Colors?.fadeBorder,
-            borderRadius: 3,
-            marginHorizontal: 15,
+            borderRadius: normalize(3),
+            marginHorizontal: vw(15),
         },
         OrderText: {
             color: Colors?.KFC_red,
             fontFamily: Fonts?.subHeader,
-            fontSize: 11,
-            marginHorizontal: 15,
-            marginVertical: 5,
+            fontSize: normalize(11),
+            marginHorizontal: vw(15),
+            marginVertical: vh(5),
             fontWeight: 800
         }
 
