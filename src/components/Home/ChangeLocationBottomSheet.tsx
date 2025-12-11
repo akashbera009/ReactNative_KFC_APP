@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import { normalize , vh , vw } from '../../utils/Dimensions';
 // util imports 
 import { useThemeColors } from '../../utils/Colors';
 import Fonts from '../../utils/Fonts'
@@ -55,7 +55,6 @@ export default function ChangeLocationBottomSheet() {
             navigation.pop();
         }, 400);
     };
-
     useEffect(() => {
         slideUp();
     }, []);
@@ -65,7 +64,7 @@ export default function ChangeLocationBottomSheet() {
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
             <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
-                <View style={Styles.OuterContainer}>
+                <View >
                     <View style={Styles.InnerContainer}>
                         <View style={Styles.bottomSheeetContentContainer}>
                             <Image source={Images?.Mao_Location} style={Styles.mapImage} />
@@ -108,25 +107,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         bottomSheet: {
             width: '100%',
-            height: 450,
-        },
-        OuterContainer: {
-
-        },
+            height: vh(450),
+        }, 
         InnerContainer: {
             height: '100%',
             backgroundColor: Colors.bodyColor,
-            borderTopRightRadius: 45,
-            borderTopLeftRadius: 45,
+            borderTopRightRadius: normalize(45),
+            borderTopLeftRadius: normalize(45),
             position: 'relative',
         },
 
         closeButton: {
-            marginVertical: 8,
+            marginVertical: vh(8),
             marginHorizontal: 'auto',
-            height: 40,
-            width: 40,
-            borderRadius: '50%',
+            height: vh(40),
+            width: vw(40),
+            borderRadius:  normalize(100),
             backgroundColor: Colors.textBlack,
             display: 'flex',
             justifyContent: 'center',
@@ -136,60 +132,60 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: '100%',
         },
         mapImage: {
-            height: 100,
-            width: 100,
+            height: vh(100),
+            width: vw(100),
             alignSelf: 'center',
-            marginTop: 30,
-            marginBottom: 20
+            marginTop: normalize(30),
+            marginBottom: normalize(20)
         },
         Cloud1: {
             position: 'absolute',
             top: '8%',
             right: '20%',
-            height: 30,
-            width: 30,
+            height: vh(30),
+            width: vw(30),
             tintColor: Colors?.CloudBorder
         },
         Cloud2: {
             position: 'absolute',
             top: '15%',
             left: '20%',
-            height: 40,
-            width: 40,
+            height: vh(40),
+            width: vw(40),
             tintColor: Colors?.CloudBorder,
         },
         ConfirmHeader: {
-            fontSize: 22,
+            fontSize:normalize(22),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             alignSelf: 'center',
-            letterSpacing: 1,
+            letterSpacing: normalize(1),
         },
         countryDescription: {
             width: "90%",
             alignSelf: 'center',
             fontFamily: Fonts?.font17,
-            fontSize: 18,
+            fontSize: normalize(18),
             fontWeight: 400,
             textAlign: 'center',
             color: Colors?.blueShadows,
-            marginTop: 15
+            marginTop: vh(15)
         },
         countryDescription2: {
             width: "90%",
             alignSelf: 'center',
-            fontSize: 18,
+            fontSize: normalize(18),
             fontWeight: 400,
             textAlign: 'center',
             color: Colors?.textFadeBlack,
-            marginTop: 15
+            marginTop: vh(15)
         },
         LocationContainer: {
             width: '90%',
             alignSelf: 'center',
-            height: 50,
-            marginVertical: 30,
-            borderRadius: 2,
+            height: vh(50),
+            marginVertical: vw(30),
+            borderRadius: normalize(2),
             backgroundColor: Colors?.blueLightBG,
             display: 'flex',
             flexDirection: 'row',
@@ -198,14 +194,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             overflow: 'hidden'
         },
         locationIcon: {
-            height: 22,
-            width: 22,
-            margin: 10,
-            marginLeft: 20
+            height: vh(22),
+            width: vw(22),
+            margin: normalize(10),
+            marginLeft: vw(20)
         },
         Address: {
             width: '80%',
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts?.subHeader,
             color: Colors?.timerFadeText,
             fontWeight: 700
@@ -219,12 +215,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
-
         },
         Button: {
             backgroundColor: Colors?.KFC_red,
-            borderRadius: 4,
-            paddingVertical: 10,
+            borderRadius: normalize(4),
+            paddingVertical: vh(10),
         },
         ChangeButton: {
             backgroundColor: Colors?.bodyColor,
@@ -235,12 +230,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors?.textBlack,
         },
         DoneButtonText: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.constantWhite,
-            marginHorizontal: 50,
-            marginVertical: 5
+            marginHorizontal: vw(50),
+            marginVertical: vh(5)
         }
     })
     return Styles
