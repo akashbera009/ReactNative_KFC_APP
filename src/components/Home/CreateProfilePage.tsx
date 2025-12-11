@@ -17,6 +17,7 @@ import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { uploadToImgBB } from '../../utils/uploadToImgBB';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const Colors = useThemeColors()
@@ -109,7 +110,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         setTimeout(() => {
             navigation.pop()
             navigation.navigate(Strings.HomeScreen);
-        }, 200000000);
+        }, 20000);
     }
     const handleShowWarningEmail = () => {
         if (isTouchedEmail && email == '' || isTouchedEmail && !handleCheckGmail()) {
@@ -271,26 +272,26 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'flex-end',
             backgroundColor: Colors?.bodyColor,
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 0 },
+            shadowOffset: { width: vw(0), height: vh(0) },
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
             elevation: 5,
         },
         innerNavigationContainer: {
             width: '100%',
-            height: 60,
+            height: vh(60),
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             backgroundColor: Colors?.bodyColor,
         },
         BackBUtton: {
-            height: 20,
-            width: 20,
-            margin: 20,
+            height: vh(20),
+            width: vw(20),
+            margin: normalize(20),
         },
         navHeaderText: {
-            fontSize: 20,
+            fontSize: normalize(20),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
         },
@@ -299,31 +300,31 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         enterCreateProfileHeader: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontWeight: 600,
-            marginTop: 30,
+            marginTop: vh(30),
             fontFamily: Fonts?.subHeader,
         },
         CreateProfileRelatedContainer: {
-            marginTop: 15,
-            width: '90%',
+            marginTop: vh(15),
+            width:'90%',
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
             display: 'flex',
             flexDirection: 'column',
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 5, height: 5 },
+            shadowOffset: { width: vw(5), height: vh(5) },
             shadowOpacity: .1,
-            shadowRadius: 10,
-            elevation: 5,
+            shadowRadius: normalize(10),
+            elevation: normalize(5),
         },
         CreateProfileRelatedContainerAndroid: {
-            height: 390
+            height: vh(390)
         },
         customBorder: {
-            borderBottomWidth: 1,
+            borderBottomWidth: normalize(1),
             borderBottomColor: Colors?.fadeBorder,
-            marginTop: 2,
+            marginTop: vh(2),
         },
         OrangeBorder: {
             borderBottomColor: Colors?.orangeColorText,
@@ -331,21 +332,21 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         InputEntriesContainer: {
             display: 'flex',
             flexDirection: 'column',
-            width: '90%',
+            width:'90%',
             alignSelf: 'center',
-            marginTop: 25
+            marginTop: vh(25)
         },
         InputEntries: {
             width: '90%',
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             fontWeight: 600
         },
         WrapperPhoneNoContainer: {
-            marginVertical: 8,
+            marginVertical: vh(8),
         },
         PhoneNoContainer: {
-            marginVertical: 4,
+            marginVertical: vh(4),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
@@ -353,7 +354,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         leftMobileContainer: {
             width: '25%',
-            marginRight: 10,
+            marginRight: vw(10),
         },
         mobileCodeAndArrow: {
             display: 'flex',
@@ -361,51 +362,51 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'space-around'
         },
         mobileCode: {
-            marginBottom: 5,
-            fontSize: 16,
+            marginBottom: vh(5),
+            fontSize: normalize(16),
             fontWeight: 600,
         },
         arrowDown: {
-            height: 15,
-            width: 15,
-            marginTop: 2,
-            marginRight: 4
+            height: vh(15),
+            width: vw(15),
+            marginTop: vh(2),
+            marginRight: vw(4)
         },
         RightMobileContainer: {
             width: '70%',
-            marginLeft: 10
+            marginLeft: vw(10)
         },
         mobileNumberPlaceholder: {
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.timerFadeText,
-            fontSize: 10,
+            fontSize: normalize(10),
             marginLeft: '32%',
         },
         mobileNo: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontWeight: 600,
-            marginLeft: 5
+            marginLeft: vw(5)
         },
         placeHolderTopText: {
             fontWeight: 800,
-            fontSize: 11,
+            fontSize: normalize(11),
             fontFamily: Fonts?.subHeader,
             color: Colors?.timerFadeText,
-            marginBottom: -15
+            marginBottom: vh(-15)
         },
         EmailAndWarning: {
-            marginTop: 20,
-            marginBottom: 10,
+            marginTop: vh(20),
+            marginBottom: vh(10),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
         },
         tickMark: {
-            height: 25,
-            width: 25,
-            borderRadius: 50,
+            height: vh(25),
+            width: vw(25),
+            borderRadius: normalize(50),
         },
         tickMark_Green: {
         },
@@ -413,26 +414,26 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             transform: [{ rotate: '180deg' }]
         },
         BlankWarning: {
-            height: 22,
+            height: vh(22),
         },
         orangeMandatoryField: {
-            fontSize: 12,
+            fontSize: normalize(12),
             color: Colors?.orangeColorText,
-            marginLeft: 10,
+            marginLeft: vw(10),
             fontWeight: 500,
-            marginTop: 8
+            marginTop: vh(8)
         },
         mobileAndImage: {
-            width: '100%',
+            width:'100%',
             display: 'flex',
             flexDirection: 'row',
             alignSelf: 'center',
             justifyContent: 'space-between'
         },
         ImageContainer: {
-            height: 80,
-            width: 80,
-            borderRadius: 100,
+            height: vh(80),
+            width: vw(80),
+            borderRadius: normalize(100),
             backgroundColor: Colors?.HyperTransparent,
             objectFit: 'fill',
             overflow: 'hidden',
@@ -443,28 +444,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginHorizontal: 'auto'
         },
         profileImage: {
-            height: 80,
-            width: 80
+            height: vh(80),
+            width: vw(80)
         },
         CameraImage: {
-            height: 30,
-            width: 30,
+            height: vh(30),
+            width: vw(30),
             tintColor: Colors?.timerText,
         },
         verifyButtonContainer: {
             width: '90%',
             alignSelf: 'center',
-            marginBottom: 40,
+            marginBottom: vh(40),
         },
         VerifyBUtton: {
-            height: 40,
-            paddingVertical: 10,
-            paddingHorizontal: 30,
-            marginTop: 30,
+            height: vh(40),
+            paddingVertical: vh(10),
+            paddingHorizontal: vw(30),
+            marginTop: vh(30),
             width: 'auto',
             alignSelf: "flex-end",
             backgroundColor: Colors?.fadeVerify,
-            borderRadius: 2
+            borderRadius: normalize(2)
         },
         VerifyBUttonActive: {
             backgroundColor: Colors?.KFC_red
@@ -472,7 +473,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         VerifyBUttonText: {
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            fontSize: 16,
+            fontSize: normalize(16),
             color: Colors?.verifyText
         },
         VerifyBUttonTextActive: {
