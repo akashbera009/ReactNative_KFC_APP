@@ -14,6 +14,7 @@ import { useThemeColors } from '../../utils/Colors'
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages'
 import { useCountry } from '../../context/CountryContext';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function LoginPage() {
   const Colors = useThemeColors()
@@ -52,7 +53,6 @@ export default function LoginPage() {
             <Text style={Styles.LoginDescriptionText}> {Strings?.loginToUlock}</Text>
             <Text style={Styles.LoginDescriptionText}> {Strings?.awesomeNewFeature}</Text>
           </View>
-
           <View style={Styles.DealsAndOffersContainer}>
             <View style={Styles.DealsAndOffersInnerContainer} >
               <Image source={Images?.burger_and_coke} style={Styles.middleSectionImagesIcon} />
@@ -107,7 +107,6 @@ export default function LoginPage() {
               <Text style={[Styles.changeText, { fontFamily: Fonts?.subHeader, color: Colors?.ButtonBlueColor }]}>{Strings?.change}</Text>
             </TouchableOpacity>
           </View>
-
           <TouchableOpacity
             activeOpacity={.5}
             style={[Styles.loginButton, {}]}
@@ -148,19 +147,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginHorizontal: 'auto'
     },
     TopImageGridElement: {
-      height: 130,
+      height: vh(130),
       width: '33.33%',
-      borderWidth: .5,
+      borderWidth: normalize(.5),
       borderColor: Colors?.constantWhite
     },
     middleColorLayer: {
-      height: 260,
+      height: vh(260),
       width: '100%',
       backgroundColor: Colors?.KFC_red,
-      borderWidth: 1,
+      borderWidth: normalize(1),
       borderColor: Colors?.constantWhite
     },
-
     GradientOverlayBG: {
       position: 'absolute',
       height: '100%',
@@ -173,30 +171,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       flexDirection: 'column',
       justifyContent: "flex-end"
     },
-
     HeaderKFC: {
-      fontSize: 80,
+      fontSize: normalize(80),
       fontWeight: 900,
       color: Colors?.constantWhite,
       fontFamily: Fonts?.kfcLogoTextFont,
     },
     LoginDescriptionText: {
-      fontSize: 22,
+      fontSize: normalize(22),
       fontWeight: 700,
       color: Colors?.constantWhite,
       fontFamily: Fonts?.headerRegular
     },
     MiddleContainer: {
-      marginTop: 100,
+      marginTop: vh(100),
       marginHorizontal: 'auto',
       display: 'flex',
       alignItems: 'center'
     },
-
     DealsAndOffersContainer: {
-      height: 50,
+      height: vh(50),
       width: '90%',
-      marginVertical: 10,
+      marginVertical: vh(10),
       alignSelf: 'center',
       display: 'flex',
       flexDirection: 'row',
@@ -207,17 +203,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       display: 'flex',
       flexDirection: 'row',
     },
-
     middleSectionImagesIcon: {
-      height: 28,
-      width: 28,
+      height: vh(28),
+      width: vw(28),
       tintColor: Colors?.constantWhite
     },
     OfferDealsText: {
       fontWeight: 800,
-      marginBottom: 10,
-      marginLeft: 8,
-      fontSize: 12,
+      marginBottom: vh(10),
+      marginLeft: vw(8),
+      fontSize: normalize(12),
       marginHorizontal: 'auto',
       fontFamily: Fonts?.headerRegular,
       color: Colors?.constantWhite
@@ -225,14 +220,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     ChooseLangageText: {
       color: Colors?.fadeWhiteText,
       width: '90%',
-      marginVertical: 10,
+      marginVertical: vh(10),
       marginHorizontal: 'auto'
     },
     LanguageChangeContainer: {
       width: '90%',
-      height: 45,
+      height: vh(45),
       marginHorizontal: 'auto',
-      borderRadius: 2,
+      borderRadius: normalize(2),
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -240,8 +235,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     languageContainer: {
       width: '48%',
-      height: 45,
-      borderRadius: 2,
+      height: vh(45),
+      borderRadius: normalize(2),
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -249,36 +244,36 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       backgroundColor: Colors?.constantWhite
     },
     checkBox: {
-      height: 25,
-      width: 25,
+      height: vh(25),
+      width: vw(25),
       borderRadius: '50%',
-      borderWidth: 2,
+      borderWidth: normalize(2),
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      marginRight: 15,
+      marginRight: vw(15),
       borderColor: Colors?.fadeborder
     },
     tickMark: {
-      height: 15,
-      width: 15,
+      height: vh(15),
+      width: vw(15),
     },
     TickMarkImageContainer: {
-      borderRadius: 50,
-      padding: 6,
+      borderRadius: normalize(50),
+      padding: normalize(6),
       tintColor: Colors?.constantWhite,
       backgroundColor: Colors?.KFC_red
     },
     CountryChangeContainer: {
       width: '90%',
-      height: 50,
+      height: vh(50),
       marginHorizontal: 'auto',
-      borderRadius: 2,
+      borderRadius: normalize(2),
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginVertical: 20,
+      marginVertical: vh(20),
       backgroundColor: Colors?.constantWhite
     },
     flagAndNameContainer: {
@@ -288,9 +283,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignItems: 'center',
     },
     flagImage: {
-      height: 25,
-      width: 40,
-      marginHorizontal: 10,
+      height: vh(25),
+      width: vw(40),
+      marginHorizontal: vw(10),
       marginVertical: 'auto'
     },
     CountryName: {
@@ -298,33 +293,34 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontFamily: Fonts?.subHeader
     },
     changeText: {
-      marginRight: 10,
-      marginLeft: 15,
+      marginRight: vw(10),
+      marginLeft: vw(15),
       fontWeight: 700,
-      fontFamily: Fonts?.subHeader, color: Colors?.constantBlack
+      fontFamily: Fonts?.subHeader,
+      color: Colors?.constantBlack
     },
     loginButton: {
-      height: 50,
+      height: vh(50),
       width: '90%',
       marginHorizontal: 'auto',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: 10,
-      borderRadius: 2,
+      paddingVertical: vh(10),
+      borderRadius: normalize(2),
       backgroundColor: Colors?.KFC_red
     },
     LoginButtonText: {
-      fontSize: 16,
+      fontSize: normalize(16),
       fontWeight: 800,
       fontFamily: Fonts?.subHeader,
       color: Colors?.constantWhite
     },
     BottomTermsContainer: {
       width: '90%',
-      marginVertical: 20,
-      marginHorizontal: 'auto'
-      , display: 'flex',
+      marginVertical: vh(20),
+      marginHorizontal: 'auto',
+      display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between'
     }

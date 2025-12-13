@@ -44,7 +44,6 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                             style={Styles.foodImage}
                         />
                         <View style={Styles.DotsContainer}>
-                            {/* {foodItem?.image} */}
                             <View style={Styles.Dots} />
                         </View>
                     </View>
@@ -105,7 +104,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                             <View style={{ flexDirection: "row", alignItems: "center" }}>
                                                 <TouchableOpacity
                                                     style={{
-                                                        height: vw(28),
+                                                        height: vh(28),
                                                         width: vw(28),
                                                         borderRadius: vw(4),
                                                         backgroundColor: Colors.fadeBorder,
@@ -129,7 +128,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
 
                                                 <TouchableOpacity
                                                     style={{
-                                                        height: vw(28),
+                                                        height: vh(28),
                                                         width: vw(28),
                                                         borderRadius: vw(4),
                                                         backgroundColor: Colors.bodyColor,
@@ -163,7 +162,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                             <Image
                                                 source={choice.image}
                                                 style={{
-                                                    height: vw(45),
+                                                    height: vh(45),
                                                     width: vw(45),
                                                     borderRadius: normalize(5),
                                                     marginRight: vw(12),
@@ -199,10 +198,10 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                         {group.type === "single" ? (
                                             <View
                                                 style={{
-                                                    height: vw(20),
+                                                    height: vh(20),
                                                     width: vw(20),
                                                     borderRadius: vw(10),
-                                                    borderWidth: 2,
+                                                    borderWidth: normalize(2),
                                                     borderColor: Colors.fadeBorder,
                                                     justifyContent: "center",
                                                     alignItems: "center",
@@ -211,7 +210,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                                 {choice.default && (
                                                     <View
                                                         style={{
-                                                            height: vw(12),
+                                                            height: vh(12),
                                                             width: vw(12),
                                                             borderRadius: vw(6),
                                                             backgroundColor: Colors?.bodyColor,
@@ -222,9 +221,9 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                         ) : (
                                             <View
                                                 style={{
-                                                    height: vw(20),
+                                                    height: vh(20),
                                                     width: vw(20),
-                                                    borderWidth: 2,
+                                                    borderWidth: normalize(2),
                                                     borderColor: Colors.fadeBorder,
                                                     backgroundColor: choice.default
                                                         ? Colors.bodyColor
@@ -276,7 +275,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         BackIcon: {
             tintColor: Colors?.textBlack,
-            height: vw(18),
+            height: vh(18),
             width: vw(18),
             alignSelf: 'flex-start',
             marginHorizontal: vw(18),
@@ -305,7 +304,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         foodImage: {
             width: vw(250),
-            height: vw(200),
+            height: vh(200),
             resizeMode: "contain",
         },
         DotsContainer: {
@@ -313,30 +312,30 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: normalize(10)
         },
         Dots: {
-            width: 8, height: 8, borderRadius: 4,
+            width: vw(8),
+            height: vh(8),
+            borderRadius: normalize(4),
             backgroundColor: Colors.bodyColor,
-            marginHorizontal: 4
+            marginHorizontal: vw(4)
         },
         groupContainer: {
             flexDirection: "row",
             backgroundColor: Colors.bodyColor,
-            borderBottomWidth: 1,
+            borderBottomWidth: normalize(1),
             borderColor: Colors.fadeBorder,
         },
         groupButton: {
             paddingVertical: normalize(14),
             paddingHorizontal: vw(20),
-            // borderBottomWidth: active === idx ? 3 : 0,
             borderColor: Colors.bodyColor,
         },
         groupText: {
             fontSize: normalize(14),
-            // color: active === idx ? Colors.bodyColor : Colors.textFadeBlack,
             fontFamily: Fonts.subHeader,
         },
         resetButton: {
             marginRight: vw(20),
-            borderWidth: 1,
+            borderWidth: normalize(1),
             borderColor: Colors?.fadeBorder
         },
         resetButtonText: {
@@ -349,15 +348,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         BottomCartContainer: {
             width: '100%',
-            height: 110,
+            height: vh(110),
             backgroundColor: Colors?.bodyColor,
             position: 'absolute',
             left: 0,
             zIndex: 2,
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 0 },
+            shadowOffset: { width: 0, height: vh(0) },
             shadowOpacity: 0.25,
-            shadowRadius: 5,
+            shadowRadius: normalize(5),
             elevation: 5,
         },
     });

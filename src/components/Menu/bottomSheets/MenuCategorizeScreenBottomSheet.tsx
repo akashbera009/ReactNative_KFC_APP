@@ -9,6 +9,7 @@ import { useThemeColors } from '../../../utils/Colors';
 import { useStrings } from '../../../utils/Strings';
 import Fonts from '../../../utils/Fonts'
 import Images from '../../../utils/LocalImages';
+import { normalize, vh, vw } from '../../../utils/Dimensions';
 export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, frequencyArray }: MenuCategorizationScreenProps) {
     const slide = useRef(new Animated.Value(800)).current;
     const fade = useRef(new Animated.Value(0)).current;
@@ -62,7 +63,7 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
             <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
-                <View style={Styles.OuterContainer}>
+                <View>
                     <View style={Styles.InnerContainer}>
                         <View style={Styles.HeaderContainer}>
                             <View style={Styles.HeaderWrapper}>
@@ -117,10 +118,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         bottomSheet: {
             width: '100%',
-            height: 600
-        },
-        OuterContainer: {
-
+            height: vh(600)
         },
         InnerContainer: {
             height: '100%',
@@ -128,7 +126,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             position: 'relative',
         },
         HeaderContainer: {
-            height: 70,
+            height: vh(70),
             width: '100%',
             backgroundColor: Colors?.blueMixBG,
             display: 'flex',
@@ -144,23 +142,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         Header: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontWeight: 700,
             fontFamily: Fonts?.subHeader,
             color: Colors?.textBlack
         },
         crossIconContainer: {
-            height: 23,
-            width: 23,
+            height: vh(23),
+            width: vw(23),
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: 50,
+            borderRadius: normalize(50),
             backgroundColor: Colors?.textBlack,
         },
         crossIcon: {
-            height: 10,
-            width: 10,
+            height: vh(10),
+            width: vw(10),
             tintColor: Colors?.bodyColor
         },
         categoryContainer: {
@@ -168,13 +166,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         categoryEntries: {
             width: '90%',
-            height: 45,
+            height: vh(45),
             alignSelf: 'center',
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginVertical: 10,
+            marginVertical: vh(10),
         },
         CategoryTextContainer: {
             display: 'flex',
@@ -182,7 +180,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         CategoryText: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontWeight: 600,
             fontFamily: Fonts?.subHeader,
             color: Colors?.textBlack,
@@ -191,8 +189,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             transform: [{ rotate: '-90deg' }],
         },
         arrowRight: {
-            height: 25,
-            width: 25,
+            height: vh(25),
+            width: vw(25),
             tintColor: Colors?.textFadeBlack
         },
         customBorder: {
@@ -201,7 +199,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             left: 0,
             width: '100%',
             borderBottomColor: Colors?.blueLightBG,
-            borderBottomWidth: 1,
+            borderBottomWidth: normalize(1),
         }
     })
     return Styles

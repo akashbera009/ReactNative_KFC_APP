@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Platform, Animated } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Platform, Animated, RefreshControl } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import Svg, { Polygon } from 'react-native-svg';
 
@@ -24,8 +24,10 @@ import { useStrings } from '../../utils/Strings';
 import { DeliveryDetails } from '../../data/DeliveryDetails';
 import { useCountry } from '../../context/CountryContext';
 import VideoPlayerComponent from './VideoPlayer';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function HomePage() {
+  const [refreshing, setRefreshing] = React.useState(false);
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts);
@@ -65,6 +67,14 @@ export default function HomePage() {
       clearTimeout(interval)
     }
   }, [imageIndex])
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    dispatch(fetchMenu())
+    dispatch(fetchOrders())
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, []);
   return (
     <View style={Styles.ParentContaine}>
       <View style={Styles.menuButtonContainer}>
@@ -75,7 +85,10 @@ export default function HomePage() {
           <Image source={Images?.Menu} style={[Styles.menuIcon, { top: inset.top }, Platform.OS == 'android' && Styles.AndroidHeight]} />
         </TouchableOpacity>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} >
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        showsVerticalScrollIndicator={false} >
         <View style={Styles.BlankCover} />
         <View style={Styles.gradientBg}>
           <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} />
@@ -86,8 +99,7 @@ export default function HomePage() {
           >
             <Image source={Images?.KfcTextLogo} style={[Styles.HeaderKFC, { marginTop: inset.top }]} />
           </TouchableOpacity>
-
-          <Animated.View style={[Styles.AnimatedSlideShowContainer, { opacity: fadeAnimation }]}>
+          <Animated.View style={{ opacity: fadeAnimation }}>
             <View style={Styles.SVGContainerLeft}>
               <Svg width={200} height={200}>
                 <Polygon
@@ -235,25 +247,30 @@ export default function HomePage() {
               <Text style={Styles.ExploreHeaderViewAll}>{Strings?.viewAll.toUpperCase()} </Text>
             </View>
             <ScrollView style={Styles.CardsContainer} horizontal showsHorizontalScrollIndicator={false}>
-              {menuData?.menuData?.map((item, idx) => (
-                <View key={idx} style={Styles.Cards}>
-                  <View style={Styles.TopContainer}>
-                    <Image src={item?.image} style={Styles.cardImage} />
-                    <View style={Styles.RightContainer}>
-                      <View style={Styles.TextContainer}>
-                        <Text style={Styles.title} numberOfLines={2}>{item?.name} </Text>
+              {menuData?.loading != 'Success' ? (
+                <Text>{Strings?.loading}</Text>
+              ) : (
+                <>
+                  {menuData?.menuData?.map((item, idx) => (
+                    <View key={idx} style={Styles.Cards}>
+                      <View style={Styles.TopContainer}>
+                        <Image src={item?.image} style={Styles.cardImage} />
+                        <View style={Styles.RightContainer}>
+                          <View style={Styles.TextContainer}>
+                            <Text style={Styles.title} numberOfLines={2}>{item?.name} </Text>
+                          </View>
+                          <TouchableOpacity
+                            style={Styles.OrderButton}
+                            onPress={() => { }}
+                          >
+                            <Text style={Styles.OrderText}>{Strings?.order.toUpperCase()} </Text>
+                          </TouchableOpacity>
+                        </View>
                       </View>
-                      <TouchableOpacity
-                        style={Styles.OrderButton}
-                        onPress={() => { }}
-                      >
-                        <Text style={Styles.OrderText}>{Strings?.order.toUpperCase()} </Text>
-                      </TouchableOpacity>
                     </View>
-                  </View>
-
-                </View>
-              ))}
+                  ))}
+                </>
+              )}
             </ScrollView>
           </View>
           <View style={Styles.BottomView}>
@@ -283,7 +300,7 @@ export default function HomePage() {
               </View>
               <Text style={Styles.bottomKFCDescription}>{Strings?.bottomKFCDescription.toUpperCase()} </Text>
             </View>
-            <VideoPlayerComponent />
+            <VideoPlayerComponent uri={''} />
           </View>
         </View>
       </ScrollView >
@@ -297,16 +314,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     BlankCover: {
       width: '100%',
-      height: 440,
+      height: vh(440),
     },
     menuButtonContainer: {
       position: 'absolute',
-      left: 20,
+      left: vh(20),
       zIndex: 999
     },
     menuIcon: {
-      height: 25,
-      width: 25,
+      height: vh(25),
+      width: vw(25),
       tintColor: Colors?.constantWhite,
     },
     gradientBg: {
@@ -315,7 +332,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       top: 0,
       left: 0,
       width: '100%',
-      height: 440,
+      height: vh(440),
     },
     ImagesAndAddressContainer: {
       position: 'absolute',
@@ -329,60 +346,58 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignItems: 'center',
     },
     AndroidHeight: {
-      marginTop: 30
+      marginTop: vh(30)
     },
     HeaderKFC: {
-      height: 30,
-      width: 100,
+      height: vh(30),
+      width: vw(100),
       tintColor: Colors?.constantWhite
     },
     HeaderKFC2: {
-      height: 18,
-      width: 60,
+      height: vh(18),
+      width: vw(60),
       tintColor: Colors?.textBlack,
-      marginHorizontal: 5
+      marginHorizontal: vw(5)
     },
-    AnimatedSlideShowContainer: {
 
-    },
     svgcashbackTextTop1: {
-      fontSize: 60,
+      fontSize: normalize(60),
       fontWeight: 600,
       position: 'relative',
-      left: 2,
-      top: -25,
+      left: vw(2),
+      top: vh(-25),
       fontFamily: Fonts?.expHead,
     },
     svgcashbackTextTop2Container: {
       transform: [{ rotate: '-10deg' }],
       position: 'relative',
-      left: -8,
-      top: -30,
+      left: vw(-8),
+      top: vh(-30),
     },
     svgcashbackTextTop2: {
-      fontSize: 18,
+      fontSize: normalize(18),
       fontWeight: 600,
       fontFamily: Fonts?.expHead,
     },
     SvgOrderContainer3: {
       position: 'absolute',
       right: 0,
-      top: 80,
+      top: vh(80),
     },
     svgcashbackTextTop3: {
-      fontSize: 16,
+      fontSize: normalize(16),
       fontWeight: 600,
       fontFamily: Fonts?.expHead,
-      width: 80
+      width: vw(80)
     },
     SvgOrderContainer3Upper: {
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'row',
       position: 'relative',
-      top: -20,
-      right: 10,
-      width: 100,
+      top: vh(-20),
+      right: vw(10),
+      width: vw(100),
       transform: [{ rotate: '-5deg' }]
     },
     SvgOrderContainer3Lower: {
@@ -391,55 +406,55 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       justifyContent: 'center',
       flexDirection: 'row',
       position: 'relative',
-      top: -20,
-      right: 5,
+      top: vh(-20),
+      right: vw(5),
     },
     svgcashbackTextTop4Container: {
       transform: [{ rotate: '5deg' }]
     },
     svgcashbackTextTop4: {
-      fontSize: 45,
+      fontSize: normalize(45),
       fontWeight: 600,
       fontFamily: Fonts?.expHead,
       position: 'relative',
-      left: -40
+      left: vw(-40)
     },
     svgcashbackTextTop5: {
-      fontSize: 25,
+      fontSize: normalize(25),
       fontWeight: 600,
       fontFamily: Fonts?.expHead
     },
     svgcashbackTextTop6: {
-      fontSize: 18,
+      fontSize: normalize(18),
       fontWeight: 600,
       fontFamily: Fonts?.expHead
     },
     SVGContainerLeft: {
       transform: [{ rotate: '-12deg' }],
       position: 'absolute',
-      bottom: -30,
-      left: -78,
+      bottom: vh(-30),
+      left: vw(-78),
     },
     SVGContainerRight: {
       transform: [{ rotate: '-10deg' }],
       position: 'absolute',
       zIndex: 2,
-      right: -80,
-      top: -30,
+      right: vw(-80),
+      top: vh(-30),
     },
     SvgTextContainer1: {
       position: 'absolute',
-      top: 80,
-      left: 20
+      top: vh(80),
+      left: vw(20)
     },
     SvgTextContainer2: {
       position: 'absolute',
-      top: 60,
-      right: 20
+      top: vh(60),
+      right: vw(20)
     },
     HomePageMainImage: {
-      height: 220,
-      width: 220,
+      height: vh(220),
+      width: vw(220),
       alignSelf: 'center',
       position: 'relative',
       zIndex: 5
@@ -449,35 +464,35 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row',
-      gap: 8,
-      marginTop: 5,
+      gap: normalize(8),
+      marginTop: vh(5),
     },
     Index: {
-      height: 8,
-      width: 8,
-      borderWidth: 1,
+      height: vh(8),
+      width: vw(8),
+      borderWidth: normalize(1),
       borderColor: Colors?.constantWhite,
-      borderRadius: 10,
+      borderRadius: normalize(10),
     },
     fillIndex: {
       backgroundColor: Colors?.constantWhite,
     },
     AddressContainer: {
-      height: 60,
+      height: vh(60),
       width: '93%',
-      marginTop: 20,
+      marginTop: vh(20),
       alignSelf: 'center',
       backgroundColor: Colors?.bodyColor,
-      borderRadius: 2,
+      borderRadius: normalize(2),
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
     },
     locationIcon: {
-      height: 22,
-      width: 22,
-      margin: 10,
-      marginLeft: 15,
+      height: vh(22),
+      width: vw(22),
+      margin: normalize(10),
+      marginLeft: vw(15),
       tintColor: Colors?.textBlack,
     },
     DeliveryTextContainer: {
@@ -501,9 +516,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       color: Colors?.textBlack,
     },
     DeliveryAddress: {
-      width: 230,
+      width: vw(230),
       overflow: 'hidden',
-      marginRight: 15,
+      marginRight: vw(15),
       fontWeight: 600,
       color: Colors?.textFadeBlack,
     },
@@ -517,9 +532,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     changeText: {
       fontFamily: Fonts?.subHeader,
       fontWeight: 700,
-      fontSize: 11,
-      paddingHorizontal: 6,
-      paddingVertical: 4,
+      fontSize: normalize(11),
+      paddingHorizontal: vw(6),
+      paddingVertical: vh(4),
       color: Colors?.textBlack,
     },
     LowerScrollContainer: {
@@ -541,13 +556,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       color: Colors?.textBlack,
       fontFamily: Fonts?.subHeader,
       fontWeight: 700,
-      fontSize: 14
+      fontSize: normalize(14)
     },
     ExploreHeaderViewAll: {
       color: Colors?.textFadeBlack,
       fontFamily: Fonts?.subHeader,
       fontWeight: 700,
-      fontSize: 12
+      fontSize: normalize(12)
     },
     ExploreCardsContainer: {
       display: 'flex',
@@ -558,219 +573,219 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginTop: 10,
     },
     FirstCard: {
-      height: 260,
-      width: 110,
+      height: vh(260),
+      width: vw(110),
       backgroundColor: Colors?.bodyColor,
-      margin: 6,
+      margin: normalize(6),
       overflow: 'hidden',
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 0 },
+      shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 1,
-      shadowRadius: 5,
+      shadowRadius: normalize(5),
       elevation: 5,
     },
     FirstCardtext: {
       textAlign: 'left',
-      marginLeft: 15,
-      marginTop: 10
+      marginLeft: vw(15),
+      marginTop: vh(10)
     },
     FirstCardImage: {
-      height: 160,
-      width: 110,
+      height: vh(160),
+      width: vw(110),
       transform: [{ scaleX: -1 }],
       shadowColor: Colors?.constantBlack,
-      shadowOffset: { width: 0, height: 2 },
+      shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
-      shadowRadius: 3.84,
+      shadowRadius: normalize(3.84),
       elevation: 5,
       position: 'absolute',
       zIndex: 1,
-      bottom: 5,
+      bottom: vh(5),
     },
     SecondCardGroup: {
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 2 },
+      shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: .1,
-      shadowRadius: 5,
+      shadowRadius: normalize(5),
       elevation: 5,
     },
     SecondCardTop: {
-      height: 125,
-      width: 115,
+      height: vh(125),
+      width: vw(115),
       backgroundColor: Colors?.bodyColor,
-      margin: 6,
+      margin: normalize(6),
       position: 'relative',
       zIndex: 2,
       overflow: 'hidden',
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 0 },
+      shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 1,
-      shadowRadius: 5,
+      shadowRadius: normalize(5),
       elevation: 5,
     },
     SecondCardDown: {
-      height: 125,
-      width: 115,
+      height: vh(125),
+      width: vw(115),
       backgroundColor: Colors?.bodyColor,
-      margin: 6,
+      margin: normalize(6),
       position: 'relative',
       zIndex: 2,
       overflow: 'hidden',
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 0 },
+      shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 1,
-      shadowRadius: 5,
+      shadowRadius: normalize(5),
       elevation: 5,
     },
     ThirdCardGroup: {
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 2 },
+      shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: .1,
-      shadowRadius: 5,
+      shadowRadius: normalize(5),
       elevation: 5,
     },
     ThirdCardTop: {
-      height: 125,
-      width: 115,
+      height: vh(125),
+      width: vw(115),
       backgroundColor: Colors?.bodyColor,
-      margin: 6,
+      margin: normalize(6),
       position: 'relative',
       zIndex: 2,
       overflow: 'hidden',
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 0 },
+      shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 1,
-      shadowRadius: 5,
+      shadowRadius: normalize(5),
       elevation: 5,
     },
     ThirdCardDown: {
-      height: 125,
-      width: 115,
+      height: vh(125),
+      width: vw(115),
       backgroundColor: Colors?.bodyColor,
-      margin: 6,
+      margin: normalize(6),
       position: 'relative',
       zIndex: 2,
       overflow: 'hidden',
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 0 },
+      shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 1,
-      shadowRadius: 5,
+      shadowRadius: normalize(5),
       elevation: 5,
     },
     ExploreCardText: {
       fontFamily: Fonts?.font9,
       color: Colors?.textFadeBlack2,
-      fontSize: 19,
+      fontSize: normalize(19),
       fontWeight: 600,
       textAlign: 'right',
-      margin: 5,
+      margin: normalize(5),
     },
     SecondCardImage: {
-      height: 80,
-      width: 80,
+      height: vh(80),
+      width: vw(80),
       position: 'absolute',
       alignSelf: 'flex-end',
       zIndex: 1,
-      bottom: -10,
+      bottom: vh(-10),
       left: 0,
       shadowColor: Colors?.constantBlack,
-      shadowOffset: { width: 0, height: 2 },
+      shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
-      shadowRadius: 3.84,
+      shadowRadius: normalize(3.84),
       elevation: 5,
     },
     RotateImage: {
       transform: [{ scaleX: -1 }],
     },
     ThirdCardImage: {
-      height: 100,
-      width: 100,
+      height: vh(100),
+      width: vw(100),
       position: 'absolute',
       zIndex: 1,
-      bottom: -10,
-      left: 5,
+      bottom: vh(-10),
+      left: vw(5),
       shadowColor: Colors?.constantBlack,
-      shadowOffset: { width: 0, height: 2 },
+      shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
-      shadowRadius: 3.84,
+      shadowRadius: normalize(3.84),
       elevation: 5,
     },
     ThirdCardTopExtra: {
-      left: -10,
-      bottom: -20
+      left: vw(-10),
+      bottom: vh(-20)
     },
     FavouriteContainer: {
       backgroundColor: Colors?.KFC_red,
       width: '93%',
-      height: 140,
+      height: vh(140),
       alignSelf: 'center',
-      borderRadius: 4,
+      borderRadius: normalize(4),
       overflow: 'hidden',
-      marginBottom: 20,
+      marginBottom: vh(20),
     },
     ThreeColumnStyle: {
       marginHorizontal: "auto",
-      width: 80,
-      height: 20,
+      width: vw(80),
+      height: vh(20),
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-around',
       position: 'absolute',
-      right: 35
+      right: vw(35)
     },
     singleCOlumnStyle: {
-      height: 18,
-      width: 20,
+      height: vh(18),
+      width: vw(20),
     },
     LefttextContainer: {
-      margin: 15,
-      marginLeft: 20
+      margin: normalize(15),
+      marginLeft: vw(20)
     },
     favourites: {
       fontFamily: Fonts?.font2,
       color: Colors?.constantWhite,
-      fontSize: 28,
+      fontSize: normalize(28),
       textShadowColor: Colors?.textFadeBlack2,
-      textShadowOffset: { width: 1, height: 2 },
-      textShadowRadius: 2,
+      textShadowOffset: { width: vw(1), height: vh(2) },
+      textShadowRadius: normalize(2),
     },
     OrderFromList: {
       color: Colors?.constantWhite,
       width: '55%',
       fontFamily: Fonts?.subHeader,
-      fontSize: 14,
+      fontSize: normalize(14),
       fontWeight: 700
     },
     OrderNowButton: {
-      borderWidth: 2,
+      borderWidth: normalize(2),
       borderColor: Colors?.fadeWhiteText,
-      borderRadius: 1,
+      borderRadius: normalize(1),
       marginHorizontal: 'auto',
       marginLeft: 0,
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      padding: 5,
-      margin: 12
+      padding: normalize(5),
+      margin: normalize(12)
     },
     orderNowButtonText: {
       fontFamily: Fonts?.subHeader,
       color: Colors?.constantWhite,
-      fontSize: 10,
+      fontSize: normalize(10),
       fontWeight: 800,
     },
     BackArrow: {
-      height: 10,
-      width: 10,
+      height: vh(10),
+      width: vw(10),
       transform: [{ scaleX: -1 }],
       tintColor: Colors?.constantWhite,
-      margin: 2
+      margin: normalize(2)
     },
     Favourite_Combo_Pack: {
-      height: 160,
-      width: 150,
+      height: vh(160),
+      width: vw(150),
       alignSelf: 'flex-end',
-      marginHorizontal: 10,
+      marginHorizontal: vw(10),
       position: 'absolute',
       right: 0,
       top: 0,
@@ -779,28 +794,26 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       width: '93%',
       alignSelf: 'center',
     },
-
     WhatsNewHeader: {
       color: Colors?.textBlack,
       fontFamily: Fonts?.subHeader,
       fontWeight: 700,
-      fontSize: 14
+      fontSize: normalize(14)
     },
-
     CardsContainer: {
-      marginBottom: 5
+      marginBottom: vw(5)
     },
     Cards: {
-      height: 120,
-      width: 250,
+      height: vh(120),
+      width: vw(250),
       backgroundColor: Colors?.bodyColor,
-      marginRight: 10,
-      marginVertical: 10,
+      marginRight: vw(10),
+      marginVertical: vh(10),
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 2, height: 2 },
+      shadowOffset: { width: vw(2), height: vh(2) },
       shadowOpacity: .3,
-      borderRadius: 2,
-      shadowRadius: 5,
+      borderRadius: normalize(2),
+      shadowRadius: normalize(5),
       elevation: 5,
     },
     TopContainer: {
@@ -812,13 +825,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignSelf: 'center',
     },
     cardImage: {
-      height: 80,
-      width: 80,
+      height: vh(80),
+      width: vw(80),
       marginLeft: 20,
       shadowColor: Colors?.constantBlack,
-      shadowOffset: { width: 0, height: 2 },
+      shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
-      shadowRadius: 3.84,
+      shadowRadius: normalize(3.84),
       elevation: 5,
     },
     RightContainer: {
@@ -834,106 +847,101 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: '60%',
     },
     title: {
-      margin: 10,
-      marginLeft: 10,
-      fontSize: 14,
+      margin: normalize(10),
+      marginLeft: vw(10),
+      fontSize: normalize(14),
       fontWeight: 600,
-      marginHorizontal: 4,
+      marginHorizontal: vw(4),
       color: Colors?.textBlack,
       width: '80%',
       overflow: 'hidden'
     },
-
     OrderButton: {
       position: 'absolute',
       left: 0,
-      bottom: 10,
-      borderWidth: 2,
+      bottom: vh(10),
+      borderWidth: normalize(2),
       borderColor: Colors?.fadeBorder,
-      borderRadius: 3,
-      marginLeft: 10,
+      borderRadius: normalize(3),
+      marginLeft: vw(10),
       marginRight: 'auto'
     },
     OrderText: {
       color: Colors?.KFC_red,
       fontFamily: Fonts?.subHeader,
-      fontSize: 11,
-      marginHorizontal: 15,
-      marginVertical: 5,
+      fontSize: normalize(11),
+      marginHorizontal: vw(15),
+      marginVertical: vh(5),
       fontWeight: 800
     },
     BottomView: {
       backgroundColor: Colors?.bodyColor
     },
     laurel_Container: {
-      marginVertical: 10,
-      marginBottom: 20,
+      marginVertical: vh(10),
+      marginBottom: vh(20),
     },
     container: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: 10,
+      paddingVertical: vh(10),
     },
-
     laurel: {
-      width: 40,
-      height: 80,
+      width: vw(40),
+      height: vh(80),
       tintColor: Colors?.textBlack
     },
     rightLaurel: {
       position: 'relative',
-      right: 18,
+      right: vw(18),
     },
     leftLaurel: {
       transform: [{ scaleX: -1 }],
       position: 'relative',
-      left: 18,
+      left: vw(18),
     },
-
     centerText: {
-      fontSize: 28,
+      fontSize: normalize(28),
       fontFamily: Fonts?.exp,
-      marginHorizontal: 8,
+      marginHorizontal: vw(8),
       color: Colors?.textBlack
     },
-
     linesContainer: {
       flexDirection: 'column',
       justifyContent: 'center',
-      marginHorizontal: 6,
+      marginHorizontal: vw(6),
       position: 'relative',
-      right: 15,
+      right: vw(15),
     },
     LeftlinesContainer: {
       flexDirection: 'column',
       justifyContent: 'flex-end',
       alignItems: 'flex-end',
-      marginHorizontal: 6,
+      marginHorizontal: vw(6),
       position: 'relative',
-      left: 15,
+      left: vw(15),
     },
-
     line1: {
-      width: 15,
-      height: 1.2,
+      width: vw(15),
+      height: vh(1.2),
       backgroundColor: Colors?.textBlack,
-      marginVertical: 3,
+      marginVertical: vh(3),
     },
     line2: {
-      width: 25,
-      height: 1.5,
+      width: vw(25),
+      height: vh(1.5),
       backgroundColor: Colors?.textBlack,
-      marginVertical: 2,
+      marginVertical: vh(2),
     },
     bottomKFCDescription: {
       fontFamily: Fonts?.subHeader,
-      fontSize: 11,
+      fontSize: normalize(11),
       color: Colors?.textBlack,
       fontWeight: 700,
       alignSelf: 'center',
       position: 'relative',
-      bottom: 10,
+      bottom: vh(10),
     }
   })
   return Styles

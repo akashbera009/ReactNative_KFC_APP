@@ -11,6 +11,7 @@ import { useStrings } from '../../utils/Strings';
 // redux 
 import { useSelector } from 'react-redux';
 import { selectCurrentOrder } from '../../features/getCurrentOrder';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function orderQueueItem() {
   const Colors = useThemeColors()
@@ -47,33 +48,33 @@ export default function orderQueueItem() {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
   const Styles = StyleSheet.create({
     ParentDeliveryContainer: {
-      width: '93%',
+      marginHorizontal: vw(15),
       alignSelf: 'center',
     },
     WrapperContainer: {
       width: '100%',
-      height: 100,
+      height: vh(100),
       alignSelf: 'center',
       backgroundColor: Colors?.bodyColor,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 2,
+      borderRadius: normalize(2),
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: .25,
-      shadowRadius: 5,
-      elevation: 5,
+      shadowOffset: { width: vw(0), height: vh(4) },
+      shadowOpacity: normalize(.25),
+      shadowRadius: normalize(5),
+      elevation: normalize(5),
     },
     LeftTextContainer: {
       display: 'flex',
       flexDirection: 'column',
-      marginLeft: 15,
-      width: '60%',
-      height: '65%',
-      marginTop: 10,
-      justifyContent: 'space-around'
+      marginLeft: vw(15),
+      width : vw(240),
+      height: vh(70),
+      marginTop: vh(0),
+      justifyContent: 'space-around',
     },
     LeftTopContainer: {
       display: 'flex',
@@ -82,60 +83,62 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     orderIdText: {
       color: Colors?.textFadeBlack2,
       fontFamily: Fonts?.subHeader,
+      fontSize: normalize(13),
       fontWeight: 600,
-      fontSize: 13,
     },
     Header: {
       color: Colors?.textBlack,
       fontFamily: Fonts?.subHeader,
+      fontSize: normalize(14),
+      marginVertical: vw(10),
       fontWeight: 700,
-      fontSize: 14,
-      marginVertical: 10
     },
     orderId: {
-      fontSize: 13,
+      fontSize: normalize(13),
       color: Colors?.textBlack,
+      fontFamily: Fonts?.subHeader,
+      letterSpacing: normalize(.1),
       fontWeight: 700,
-      fontFamily: Fonts?.subHeader
     },
     date: {
-      fontSize: 13,
+      fontSize: normalize(13),
       color: Colors?.textBlack,
+      fontFamily: Fonts?.subHeader,
+      letterSpacing: normalize(.1),
       fontWeight: 600,
-      fontFamily: Fonts?.subHeader
     },
     VerticalBorder: {
       height: '80%',
-      width: 2,
+      width: vw(2),
       borderRightColor: Colors?.fadeBorder,
-      borderRightWidth: 2,
-      marginHorizontal: 4,
+      borderRightWidth: normalize(2),
+      marginHorizontal: vw(4),
       marginVertical: 'auto'
     },
     orderItem: {
-      fontSize: 12,
+      fontSize: normalize(12),
       color: Colors?.timerFadeText,
       fontWeight: 600,
     },
     beverages: {
-      fontSize: 12,
+      fontSize: normalize(12),
+      color: Colors?.timerFadeText,
       fontWeight: 600,
-      color: Colors?.timerFadeText
     },
     trackButton: {
       backgroundColor: Colors?.KFC_red,
       marginHorizontal: 'auto',
-      borderRadius: 4,
-      marginRight: 15,
-      fontSize: 12
+      borderRadius: normalize(4),
+      marginRight: vw(15),
+      fontSize: normalize(12)
     },
     TrackOrderText: {
       color: Colors?.constantWhite,
-      paddingHorizontal: 8,
-      paddingVertical: 6,
+      paddingHorizontal: vw(8),
+      paddingVertical: vh(6),
+      fontSize: normalize(13),
+      fontFamily: Fonts?.subHeader,
       fontWeight: 700,
-      fontSize: 13,
-      fontFamily: Fonts?.subHeader
     }
   })
   return Styles

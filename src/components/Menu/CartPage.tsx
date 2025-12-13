@@ -9,6 +9,7 @@ import { decreaseQuantity, increaseQuantity } from '../../features/cartSlice';
 import { useSelector } from 'react-redux';
 // custom component 
 import BottomCart from './BottomCart';
+import { CartItemNotFound } from './CartItemNotFound';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -17,6 +18,7 @@ import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 // data imports 
 import { DeliveryDetails } from '../../data/DeliveryDetails';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function CartPage({ discount, discountPercentage, offerCode }: CartScreenScreenProps) {
     const Colors = useThemeColors();
@@ -316,22 +318,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                         </View>
                     </>
                     ) : (
-                        <View style={Styles.NotFoundContainer}>
-                            <View style={Styles.imageContaienr}>
-                                <Image source={Images?.CartEmptyDustbin} style={Styles.ConfeeCupImage} />
-                                <Text style={Styles.questionMark}>? </Text>
-                            </View>
-                            <Text style={Styles.Opps}>{Strings?.cartIsEmpty} </Text>
-                            <Text style={Styles.NotFoundRes}>{Strings?.addSomeItem} </Text>
-                            <TouchableOpacity
-                                style={Styles.ExploreMoreButton}
-                                onPress={() => { navigation.navigate(Strings?.ExploreMenuScreen, {
-                                    categoryType: Strings?.dealsString
-                                }) }}
-                            >
-                                <Text style={Styles.ExploreMoreButtonTxt}>{Strings?.exploreKFCMenu.toUpperCase()} </Text>
-                            </TouchableOpacity>
-                        </View>
+                        <CartItemNotFound />
                     )}
             </>)}
         </View>
@@ -352,10 +339,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
-            paddingBottom: 15,
+            paddingBottom: vh(15),
         },
         headerText: {
-            fontSize: 20,
+            fontSize: normalize(20),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.textBlack
@@ -368,10 +355,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         BackIcon: {
             tintColor: Colors?.textBlack,
-            height: 18,
-            width: 18,
+            height: vh(18),
+            width: vw(18),
             alignSelf: 'flex-start',
-            marginHorizontal: 18,
+            marginHorizontal: vw(18),
         },
         HeaderTextContainer: {
             display: 'flex',
@@ -381,78 +368,78 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         navHeaderText: {
-            fontSize: 20,
+            fontSize: normalize(20),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.textBlack
         },
         noOfItemsText: {
             color: Colors?.textBlack,
-            fontSize: 12,
+            fontSize: normalize(12),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            marginHorizontal: 10,
-            marginVertical: 2
+            marginHorizontal: vw(10),
+            marginVertical: vh(2)
         },
         editButton: {
-            borderWidth: 1,
+            borderWidth: normalize(1),
             borderColor: Colors?.fadeBorder,
-            borderRadius: 2,
-            marginHorizontal: 10,
+            borderRadius: normalize(2),
+            marginHorizontal: vw(10),
         },
         editbuttonText: {
             fontFamily: Fonts?.subHeader,
-            fontSize: 12,
+            fontSize: normalize(12),
             fontWeight: 700,
             color: Colors?.KFC_red,
-            marginHorizontal: 15,
-            marginVertical: 5,
+            marginHorizontal: vw(15),
+            marginVertical: vh(5),
         },
         editbuttonFadeText: {
             color: Colors?.textFadeBlack,
             fontFamily: Fonts?.subHeader,
-            fontSize: 12,
+            fontSize: normalize(12),
             fontWeight: 700,
-            marginHorizontal: 15,
-            marginVertical: 5,
+            marginHorizontal: vw(15),
+            marginVertical: vh(5),
         },
         ExploreMenuContainer: {
-            height: 65,
+            height: vh(65),
             width: '95%',
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
-            marginVertical: 10,
+            marginVertical: vh(10),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            borderRadius: 2,
+            borderRadius: normalize(2),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 2, height: 2 },
+            shadowOffset: { width: vw(2), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
             elevation: 5,
         },
         CouponMenuContainer: {
-            paddingVertical: 10,
+            paddingVertical: vh(10),
             width: '95%',
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
-            marginVertical: 10,
+            marginVertical: vh(10),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            borderRadius: 2,
+            borderRadius: normalize(2),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 2, height: 2 },
+            shadowOffset: { width: vw(2), height: vh(2) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             elevation: 5,
         },
         GreenBorder: {
-            borderWidth: 1,
-            borderRadius: 4,
+            borderWidth: normalize(1),
+            borderRadius: normalize(4),
             borderColor: Colors?.greenOk,
             borderStyle: 'dashed',
             display: 'flex',
@@ -465,101 +452,101 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
-            marginTop: 5,
+            marginTop: vh(5),
         },
         LeftExploreCOntaienr: {
-            marginHorizontal: 20,
+            marginHorizontal: vw(20),
             height: '90%',
         },
         ExploreMenu: {
-            marginVertical: 5,
-            fontSize: 18,
+            marginVertical: vh(5),
+            fontSize: normalize(18),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.textBlack,
         },
         moreItemsCart: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts?.subHeader,
             fontWeight: 600,
             color: Colors?.textFadeBlack,
         },
         GotoMoreMenu: {
-            height: 16,
-            width: 16,
+            height: vh(16),
+            width: vw(16),
             tintColor: Colors?.textBlack,
-            marginHorizontal: 25,
+            marginHorizontal: vw(25),
             transform: [{ scaleX: -1 }]
         },
         LeftCouponCOntaienr: {
-            marginHorizontal: 20,
+            marginHorizontal: vw(20),
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
         TopCouponCOntaienr: {
-            marginHorizontal: 20,
+            marginHorizontal: vw(20),
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
         discountImage: {
-            height: 30,
-            width: 30,
+            height: vh(30),
+            width: vw(30),
             tintColor: Colors?.KFC_red,
         },
         applyCoupon: {
-            marginHorizontal: 15,
-            fontSize: 18,
+            marginHorizontal: vw(15),
+            fontSize: normalize(18),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.textBlack,
         },
         CouponAppliedText: {
-            marginHorizontal: 12,
-            fontSize: 18,
+            marginHorizontal: vw(12),
+            fontSize: normalize(18),
             fontFamily: Fonts?.font17,
             fontWeight: 700,
             color: Colors?.textBlack,
         },
         changeButton: {
-            marginHorizontal: 20
+            marginHorizontal: vw(20)
         },
         changeButtonText: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts?.font17,
             fontWeight: 500,
             color: Colors?.KFC_red,
         },
         AppliedOfferDetail: {
             width: '90%',
-            marginVertical: 10,
-            marginHorizontal: 10,
+            marginVertical: vh(10),
+            marginHorizontal: vw(10),
             display: 'flex',
             flexDirection: 'row',
         },
         offerAppliedGreenText: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts?.font17,
             fontWeight: 500,
             color: Colors?.greenOk,
-            letterSpacing: .5,
+            letterSpacing: normalize(.5),
         },
         offerAppliedGreenTextCurrency: {
             fontWeight: 700,
         },
         PricingTotalContainer: {
-            paddingVertical: 20,
+            paddingVertical: vh(20),
             width: '95%',
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
-            marginTop: 10,
+            marginTop: vh(10),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 2, height: 2 },
+            shadowOffset: { width: vw(2), height: vh(2) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             elevation: 5,
             display: 'flex',
             justifyContent: 'center',
@@ -567,39 +554,39 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         PriceEntries: {
             display: 'flex',
             flexDirection: 'row',
-            marginVertical: 10,
-            marginHorizontal: 15,
+            marginVertical: vh(10),
+            marginHorizontal: vw(15),
         },
         PriceEntriesLeft: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             color: Colors?.textFadeBlack,
             fontWeight: 500,
         },
         PriceEntriesRight: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             color: Colors?.textBlack,
             fontWeight: 500,
             marginLeft: 'auto'
         },
         discountAmount: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             fontWeight: 500,
             color: Colors?.greenOk,
         },
         BottomCartContainer: {
             width: '100%',
-            height: 110,
+            height: vh(110),
             backgroundColor: Colors?.bodyColor,
             position: 'absolute',
             left: 0,
             zIndex: 2,
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 0 },
+            shadowOffset: { width: vw(0), height: vh(0) },
             shadowOpacity: 0.25,
-            shadowRadius: 5,
+            shadowRadius: normalize(5),
             elevation: 5,
         },
         BottomCOntainerWrapper: {
@@ -613,8 +600,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderWidth: 1,
             borderStyle: 'dashed',
             borderColor: Colors?.greenOk,
-            marginTop: 20,
-            borderRadius: 2,
+            marginTop: vh(20),
+            borderRadius: normalize(2),
             width: '95%',
             alignSelf: 'center',
             display: 'flex',
@@ -623,7 +610,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         discountImageContainer: {
             backgroundColor: Colors?.greenOk,
-            width: 60,
+            width: vw(60),
             height: '100%',
             display: 'flex',
             alignItems: 'center',
@@ -631,8 +618,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flexDirection: 'row',
         },
         GreenTextContainer: {
-            marginLeft: 10,
-            marginRight: 5,
+            marginLeft: vw(10),
+            marginRight: vw(5),
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -640,34 +627,34 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         deleteButton: {
             marginLeft: 'auto',
-            marginRight: 10,
+            marginRight: vw(10),
         },
         deleteButtonText: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts?.font17,
             fontWeight: 500,
             color: Colors?.KFC_red,
         },
         discountImageTop: {
             tintColor: Colors?.constantWhite,
-            height: 25,
-            width: 25,
-            marginVertical: 10
+            height: vh(25),
+            width: vw(25),
+            marginVertical: vh(10)
         },
         InfoButton: {
             tintColor: Colors?.textBlack,
-            height: 16,
-            width: 16,
+            height: vh(16),
+            width: vw(16),
         },
         CardContainer: {
             width: '95%',
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
-            marginVertical: 6,
+            marginVertical: vh(6),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: .4,
-            shadowRadius: 5,
+            shadowRadius: normalize(5),
             elevation: 5,
         },
         EditingScrollView: {
@@ -678,11 +665,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: '93%',
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
-            marginVertical: 6,
+            marginVertical: vh(6),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 2, height: 2 },
+            shadowOffset: { width: vw(2), height: vh(2) },
             shadowOpacity: .4,
-            shadowRadius: 10,
+            shadowRadius: normalize(10),
             elevation: 5,
             display: 'flex',
             alignItems: 'center',
@@ -705,13 +692,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         EditingButtonWrapper: {
             backgroundColor: Colors?.bodyColor,
-            borderRadius: 2,
+            borderRadius: normalize(2),
             marginHorizontal: 'auto',
-            padding: 10,
+            padding: normalize(10),
         },
         EditingIcons: {
-            height: 18,
-            width: 18,
+            height: vh(18),
+            width: vw(18),
             tintColor: Colors?.textBlack
         },
         EditingRightMainContainer: {
@@ -719,17 +706,17 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         Tags: {
             position: 'absolute',
-            top: 5,
-            left: 5,
+            top: vh(5),
+            left: vw(5),
             backgroundColor: Colors?.activeBorder,
-            borderTopLeftRadius: 2,
-            borderTopRightRadius: 2,
+            borderTopLeftRadius: normalize(2),
+            borderTopRightRadius: normalize(2),
         },
         TagText: {
-            fontSize: 9,
-            marginLeft: 5,
-            marginRight: 14,
-            marginVertical: 3,
+            fontSize: normalize(9),
+            marginLeft: vw(5),
+            marginRight: vw(14),
+            marginVertical: vh(3),
             color: Colors?.constantWhite,
             fontWeight: 600
         },
@@ -737,11 +724,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             position: 'absolute',
             top: 0,
             right: 0,
-            width: 0,
-            height: 0,
-            borderTopWidth: 10,
-            borderBottomWidth: 10,
-            borderLeftWidth: 8,
+            width: vw(0),
+            height: vh(0),
+            borderTopWidth: normalize(10),
+            borderBottomWidth: normalize(10),
+            borderLeftWidth: normalize(8),
             borderTopColor: 'transparent',
             borderBottomColor: 'transparent',
             borderLeftColor: Colors?.bodyColor,
@@ -761,33 +748,33 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'space-around',
         },
         LeftfoodImage: {
-            height: 120,
-            width: 120,
-            marginTop: 25,
-            marginLeft: 15,
+            height: vh(120),
+            width: vw(120),
+            marginTop: vh(25),
+            marginLeft: vw(15),
         },
         EditLeftfoodImage: {
-            height: 100,
-            width: 100,
-            marginTop: 35,
-            marginLeft: 15,
+            height: vh(100),
+            width: vw(100),
+            marginTop: vh(35),
+            marginLeft: vw(15),
         },
         RightContainer: {
             width: '60%',
             height: '90%',
-            paddingTop: 5,
-            marginLeft: 10,
+            paddingTop: vh(5),
+            marginLeft: vw(10),
         },
         EditRightContainer: {
             width: '50%',
-            paddingTop: 5,
-            marginLeft: 10,
+            paddingTop: vh(5),
+            marginLeft: vw(10),
         },
         FoodName: {
-            fontSize: 15,
+            fontSize: normalize(15),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            marginVertical: 10,
+            marginVertical: vh(10),
             color: Colors?.textBlack
         },
         DescriptionContainer: {
@@ -795,35 +782,35 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flexDirection: 'row',
             flexWrap: 'wrap',
             width: '100%',
-            marginLeft: 1,
-            marginBottom: 10,
+            marginLeft: vw(1),
+            marginBottom: vh(10),
         },
         EditModeDescriptionContainer: {
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
             width: '85%',
-            marginLeft: 1,
+            marginLeft: vw(1),
         },
         DotAndDescription: {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            marginVertical: 4
+            marginVertical: vh(4)
         },
         dot: {
             margin: 5,
-            height: 4,
-            width: 4,
-            borderRadius: 20,
+            height: vh(4),
+            width: vw(4),
+            borderRadius: normalize(20),
             backgroundColor: Colors?.textFadeBlack,
         },
         DescriptioText: {
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.timerFadeText,
-            fontSize: 11,
-            marginRight: 5,
+            fontSize: normalize(11),
+            marginRight: vw(5),
         },
         LowerContainer: {
             display: 'flex',
@@ -840,190 +827,127 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             alignSelf: 'center',
             width: '100%',
-            marginBottom: 10,
+            marginBottom: vh(10),
         },
         LowerLeftPriceContainer: {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
-            marginHorizontal: 20
+            marginHorizontal: vw(20)
         },
         EditLowerLeftPriceContainer: {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
-            marginLeft: 20
+            marginLeft: vw(20)
         },
         Price: {
-            fontSize: 15,
+            fontSize: normalize(15),
             fontWeight: 700,
-            marginHorizontal: 2,
+            marginHorizontal: vw(2),
             color: Colors?.textBlack,
         },
         OldPrice: {
-            fontSize: 13,
+            fontSize: normalize(13),
             fontWeight: 700,
-            marginHorizontal: 2,
+            marginHorizontal: vw(2),
             color: Colors?.textFadeBlack,
         },
         CrossBorder: {
             width: '100%',
             borderBottomColor: Colors?.textFadeBlack,
-            borderBottomWidth: 2,
+            borderBottomWidth: normalize(2),
             position: 'absolute',
-            top: 8,
+            top: vh(8),
             left: 0,
         },
         OldPriceContainer: {
             display: 'flex',
             flexDirection: 'row',
-            marginLeft: 4
+            marginLeft: vw(4)
         },
-
         AddedCartButtonContainer: {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            marginHorizontal: 20,
-            marginVertical: 10,
+            marginHorizontal: vw(20),
+            marginVertical: vh(10),
         },
         EditModeAddedCartButtonContainer: {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            marginHorizontal: 10,
-            marginVertical: 10,
+            marginHorizontal: vw(10),
+            marginVertical: vh(10),
         },
         deleteButtonContainer: {
-            borderWidth: 1,
+            borderWidth: normalize(1),
             borderColor: Colors?.fadeBorder,
-            borderRadius: 4,
-            padding: 4
+            borderRadius: normalize(4),
+            padding: normalize(4)
         },
         deleteIcon: {
-            height: 20,
-            width: 20,
+            height: vh(20),
+            width: vw(20),
             tintColor: Colors?.textBlack
         },
         counter: {
-            marginHorizontal: 8,
+            marginHorizontal: vw(8),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            fontSize: 16,
+            fontSize: normalize(16),
             color: Colors?.textBlack
         },
         AddCounterButton: {
-            height: 30,
-            width: 30,
+            height: vh(30),
+            width: vw(30),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: 4,
+            borderRadius: normalize(4),
             backgroundColor: Colors?.KFC_red,
         },
         AddCounterButtonFade: {
-            height: 30,
-            width: 30,
+            height: vh(30),
+            width: vw(30),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: 4,
+            borderRadius: normalize(4),
             backgroundColor: Colors?.KFC_red_Fade,
         },
         AddButtonImage: {
-            height: 15,
-            width: 15,
+            height: vh(15),
+            width: vw(15),
             tintColor: Colors?.constantWhite,
         },
         AddToCartButton: {
             backgroundColor: Colors?.KFC_red,
-            borderRadius: 4,
-            marginHorizontal: 14,
-            marginVertical: 14
+            borderRadius: normalize(4),
+            marginHorizontal: vw(14),
+            marginVertical: vh(14)
         },
         AddToCartButtonText: {
             color: Colors?.constantWhite,
-            fontSize: 10,
-            marginHorizontal: 14,
-            marginVertical: 10,
+            fontSize: normalize(10),
+            marginHorizontal: vw(14),
+            marginVertical: vh(10),
             fontFamily: Fonts?.headerRegular,
             fontWeight: 700
         },
-
         Favourite_Icon: {
-            height: 20,
-            width: 20,
+            height: vh(20),
+            width: vw(20),
             position: 'absolute',
-            right: 15,
-            top: 20,
+            right: vw(15),
+            top: vh(20),
             tintColor: Colors?.KFC_red
-        },
-        NotFoundContainer: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        imageContaienr: {
-            height: 220,
-            width: 220,
-            borderRadius: 200,
-            backgroundColor: Colors?.blueLightBG,
-            marginHorizontal: 'auto',
-            marginTop: 120,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        ConfeeCupImage: {
-            height: 120,
-            width: 120,
-            transform: [{ rotate: '-20deg' }],
-            zIndex: 5,
-        },
-        questionMark: {
-            fontSize: 50,
-            fontFamily: Fonts?.expHead,
-            position: 'absolute',
-            top: 30,
-            right: 50,
-            color: Colors?.constantBlack
-        },
-        Opps: {
-            marginTop: 50,
-            alignSelf: 'center',
-            fontSize: 20,
-            fontWeight: 700,
-            color: Colors?.textBlack,
-            fontFamily: Fonts?.font17
-        },
-        NotFoundRes: {
-            alignSelf: 'center',
-            marginVertical: 10,
-            fontSize: 14,
-            fontWeight: 600,
-            marginTop: 20,
-            color: Colors?.resendOtpText,
-            fontFamily: Fonts?.subHeader
-        },
-        ExploreMoreButton: {
-            backgroundColor: Colors?.KFC_red,
-            marginHorizontal: 'auto',
-            marginTop: 20,
-            borderRadius: 2,
-        },
-        ExploreMoreButtonTxt: {
-            color: Colors.constantWhite,
-            fontWeight: 600,
-            fontSize: 15,
-            marginHorizontal: 35,
-            marginVertical: 16,
-            fontFamily: Fonts?.font17
         },
     });
     return Styles;

@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Animated, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Animated, TouchableWithoutFeedback, Platform, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import MapView, { Marker } from 'react-native-maps';
-// data imports 
-import { stores } from '../../data/StoresData';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+// maps import 
+import MapView from 'react-native-maps';
+import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
+import GetLocation from 'react-native-get-location'
+import { PermissionsAndroid } from 'react-native';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -13,8 +16,9 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 // datat imports 
-import{DeliveryDetails}from '../../data/DeliveryDetails';
+import { DeliveryDetails } from '../../data/DeliveryDetails';
 import { CountryInfo } from '../../data/CountryInfo';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function Maps() {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -34,7 +38,10 @@ export default function Maps() {
     })
     const [tag, setTag] = useState<string>('');
     const [showPopup, setShowPopup] = useState(false);
-    const [location, setLocation] = useState<any>(null);
+    const [location, setLocation] = useState({
+        latitude: 26.9124,
+        longitude: 75.7873,
+    });
     const handleChangeAddress = (text: string) => {
         setAddress(prev => ({ ...prev, address: text }))
     }
@@ -79,6 +86,21 @@ export default function Maps() {
             flatNo: ''
         })
     }
+    const getCurrentLocation = async () => {
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 60000,
+        })
+            .then(location => {
+                console.log(location?.latitude, location?.longitude);
+                setLocation({ latitude: location?.latitude, longitude: location?.longitude })
+            })
+            .catch(error => {
+                const { code, message } = error;
+                console.warn(code, message);
+            })
+    };
+
     return (
         <View style={Styles.OuterContianer}>
             <TouchableWithoutFeedback
@@ -117,10 +139,17 @@ export default function Maps() {
                         </View>
                     )}
                 </View>
+
             </TouchableWithoutFeedback>
-            <View style={Styles.container}>
+            <KeyboardAwareScrollView
+                extraHeight={20}
+                extraScrollHeight={150}
+                keyboardShouldPersistTaps='handled'
+                enableOnAndroid={true}
+                style={Styles.container}>
                 <View style={[Styles.MapContainer, open ? { zIndex: -1 } : { zIndex: 0 }]}>
                     <MapView
+                        // provider={PROVIDER_GOOGLE}
                         style={Styles.map}
                         initialRegion={
                             {
@@ -129,18 +158,19 @@ export default function Maps() {
                                 latitudeDelta: 0.05,
                                 longitudeDelta: 0.05,
                             }
-                            // location
                         }>
-                        <Marker coordinate={location} title='You are here' />
-                        {stores.map(store => (
+                        {location && (
                             <Marker
-                                key={store.id}
-                                coordinate={{ latitude: store.latitude, longitude: store.longitude }}
-                                title={store.name}
+                                coordinate={location}
+                                title="You are here"
                             />
-                        ))}
+                        )}
                     </MapView>
                 </View>
+                <TouchableOpacity
+                    onPress={getCurrentLocation} >
+                    <Text>get locaiton </Text>
+                </TouchableOpacity>
                 <View style={Styles.LowerContainer}>
                     <View style={Styles.locationTypeSelection}>
                         <Text style={Styles.iWant}>{Strings?.iWant} : </Text>
@@ -239,7 +269,7 @@ export default function Maps() {
                         </View>
                     </View>
                 </View>
-            </View>
+            </KeyboardAwareScrollView>
             <View style={[Styles.ButtonWrapper, { bottom: inset.bottom + 10 }]}>
                 <TouchableOpacity
                     disabled={!goodToSave}
@@ -294,17 +324,17 @@ export default function Maps() {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         NavWrapper: {
-            width: '100%',
+            width:'100%',
             backgroundColor: Colors?.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
-            paddingBottom: 15,
+            paddingBottom: vh( 15),
         },
         headerCountrySelection: {
-            marginRight: 20,
+            marginRight: vw(20),
             flexDirection: "row",
             justifyContent: "space-between",
             display: 'flex',
@@ -312,20 +342,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         arrowdonwn: {
-            height: 15,
-            width: 15,
+            height: vh(15),
+            width: vw(15),
             tintColor: Colors?.textBlack
         },
         CountrySelectionContainer: {
             position: 'absolute',
             zIndex: 5,
-            right: 20,
-            top: 30,
-            width: 120,
+            right: vw(0),
+            top: vh(30),
+            width: vw(120),
             backgroundColor: Colors?.bodyColor,
-            borderWidth: 1,
+            borderWidth: normalize(1),
             borderColor: Colors?.fadeBorder,
-            borderRadius: 4,
+            borderRadius: normalize(4),
         },
         BackIconAndHeaderText: {
             display: 'flex',
@@ -335,53 +365,53 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         BackIcon: {
             tintColor: Colors?.textBlack,
-            height: 18,
-            width: 18,
+            height: vh(18),
+            width: vw(18),
             alignSelf: 'flex-start',
-            marginHorizontal: 18,
+            marginHorizontal: vw(18),
         },
         navHeaderText: {
             overflow: 'hidden',
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            width: '70%',
+            width:'70%',
             color: Colors?.textBlack
         },
         arrow: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontWeight: "700",
         },
         row: {
             flexDirection: "row",
-            paddingVertical: 12,
-            paddingHorizontal: 15,
+            paddingVertical: vh(12),
+            paddingHorizontal: vw(15),
             alignItems: "center",
-            borderBottomWidth: 1,
+            borderBottomWidth: normalize(1),
         },
         flag: {
-            height: 20,
-            width: 30,
+            height: vh(20),
+            width: vw(30),
         },
         countryName: {
-            fontSize: 15,
+            fontSize: normalize(15),
             fontFamily: Fonts?.font17,
             fontWeight: "500",
             color: Colors?.textBlack,
-            marginLeft: 8
+            marginLeft: vw(8)
         },
         OuterContianer: {
             flex: 1,
             backgroundColor: Colors?.bodyColor
         },
         container: {
-            height: 400,
+            height: vh(400),
         },
         MapContainer: {
-            // position: 'relative',
+        
         },
         map: {
-            height: 400,
+            height: vh(400),
         },
         LowerContainer: {
             backgroundColor: Colors?.bodyColor,
@@ -390,8 +420,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            marginTop: 20,
-            marginLeft: 20
+            marginTop: vh(20),
+            marginLeft: vw(20)
         },
         iWant: {
             fontFamily: Fonts?.font17,
@@ -404,27 +434,27 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
-            marginHorizontal: 5,
+            marginHorizontal: vw(5),
         },
         CheckBoxContainer: {
-            height: 20,
-            width: 20,
-            borderRadius: 50,
+            height: vh(20),
+            width: vw(20),
+            borderRadius: normalize(50),
             borderColor: Colors?.textBlack,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            borderWidth: 2,
-            marginHorizontal: 8,
+            borderWidth: normalize(2),
+            marginHorizontal: vw(8),
         },
         ActiveBorder: {
             borderColor: Colors?.KFC_red,
         },
         CheckBoxSelected: {
-            height: 10,
-            width: 10,
+            height: vh(10),
+            width: vw(10),
             backgroundColor: Colors?.KFC_red,
-            borderRadius: 10,
+            borderRadius: normalize(10),
         },
         checkBoxText: {
             fontFamily: Fonts?.font17,
@@ -432,50 +462,50 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors?.textBlack,
         },
         completeAddress: {
-            width: '90%',
+            width:'90%',
             alignSelf: 'center'
         },
         completeYourAddress: {
-            marginVertical: 20,
-            marginTop: 30,
+            marginVertical: vh(20),
+            marginTop: vh(30),
             color: Colors?.textBlack,
             fontFamily: Fonts?.font17,
-            fontSize: 16,
+            fontSize: normalize(16),
             fontWeight: 700,
         },
         adressAndChangeButton: {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            width: '100%',
+            width:'100%',
             alignSelf: 'center',
         },
         PlaceHolderText: {
             color: Colors?.textBlack,
             fontFamily: Fonts?.font17,
-            fontSize: 16,
+            fontSize: normalize(16),
             fontWeight: 500,
         },
         addresPlaceHolder: {
-            width: '75%'
+            width:'75%'
         },
         ChangeButton: {
-            borderWidth: 1,
+            borderWidth: normalize(1),
             borderColor: Colors?.KFC_red,
-            borderRadius: 2,
-            marginLeft: 'auto'
+            borderRadius: normalize(2),
+            marginLeft:'auto'
         },
         ChangeButtonText: {
-            fontSize: 12,
+            fontSize: normalize(12),
             color: Colors?.textBlack,
             fontFamily: Fonts?.font17,
-            marginHorizontal: 8,
-            marginVertical: 4
+            marginHorizontal: vw(8),
+            marginVertical: vh(4)
         },
         CustomBottomBorder: {
-            width: '100%',
-            marginTop: 10,
-            borderBottomWidth: 1,
+            width:'100%',
+            marginTop: vh(10),
+            borderBottomWidth: normalize(1),
             borderBottomColor: Colors?.fadeBorder
         },
         BuildingAndFLat: {
@@ -484,14 +514,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
-            marginVertical: 20,
-            gap: 20,
+            marginVertical: vh(20),
+            gap: normalize(20),
         },
         buildingNameContainer: {
-            width: '55%',
+            width:'55%',
         },
         FlatNoContainer: {
-            width: '40%',
+            width:'40%',
         },
         AddressTagsContainer: {
             display: 'flex',
@@ -499,10 +529,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
-            marginTop: 10
+            marginTop: vh(10)
         },
         tagLocation: {
-            fontSize: 13,
+            fontSize: normalize(13),
             fontFamily: Fonts?.font17,
             fontWeight: 500,
             color: Colors?.textBlack,
@@ -515,15 +545,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         Tag: {
-            borderRadius: 2,
+            borderRadius: normalize(2),
             color: Colors?.ButtonTextBlueColor,
             backgroundColor: Colors?.blueLightBG,
-            marginHorizontal: 5,
-            marginVertical: 2,
-            paddingHorizontal: 10,
-            paddingVertical: 5,
+            marginHorizontal: vw(5),
+            marginVertical: vh(2),
+            paddingHorizontal: vw(10),
+            paddingVertical: vh(5),
             fontFamily: Fonts?.font17,
-            fontSize: 11,
+            fontSize: normalize(11),
             fontWeight: 500,
         },
         ActiveTag: {
@@ -532,13 +562,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         ButtonWrapper: {
             backgroundColor: Colors?.bodyColor,
-            width: '100%',
+            width:'100%',
             position: 'absolute',
             left: 0
         },
         confirmLocationButton: {
-            width: '93%',
-            height: 50,
+            width:'93%',
+            height: vh(50),
             alignSelf: 'center',
             backgroundColor: Colors?.timerFadeText,
             display: 'flex',
@@ -549,50 +579,50 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         confirmLocation: {
             color: Colors?.constantWhite,
             fontFamily: Fonts?.font17,
-            fontSize: 17,
+            fontSize: normalize(17),
             fontWeight: 700,
         },
         popupOverlay: {
             position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '100%',
+            top: vh(0),
+            left: vw(0),
+            height:'100%',
+            width:'100%',
             backgroundColor: Colors?.SemiTransparent,
             justifyContent: 'center',
             alignItems: 'center',
             zIndex: 999
         },
         popupBox: {
-            width: '80%',
+            width:'80%',
             backgroundColor: Colors.bodyColor,
-            padding: 20,
-            borderRadius: 10,
+            padding: normalize(20),
+            borderRadius: normalize(10),
             elevation: 10
         },
         popupTitle: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontWeight: 700,
             fontFamily: Fonts?.subHeader,
             color: Colors.textBlack,
-            marginBottom: 10,
+            marginBottom: vh(10),
         },
         popupMessage: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts?.font17,
             color: Colors.textFadeBlack,
-            marginBottom: 20
+            marginBottom: vh(20)
         },
         popupButtons: {
             flexDirection: 'row',
             justifyContent: 'flex-end',
-            marginTop: 10
+            marginTop: vh(10)
         },
         popupButton: {
-            paddingHorizontal: 15,
+            paddingHorizontal: vw(15),
             paddingVertical: 8,
-            borderRadius: 5,
-            marginLeft: 10
+            borderRadius: normalize(5),
+            marginLeft: vw(10)
         },
         cancelButton: {
             backgroundColor: Colors.blueLightBG

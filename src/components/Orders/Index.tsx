@@ -14,6 +14,7 @@ import { useThemeColors } from '../../utils/Colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOrders } from '../../features/orderSlice';
 import { AppDispatch, RootState } from '../../store/store';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function Index() {
   const Colors = useThemeColors();
@@ -103,10 +104,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       alignSelf: 'center',
-      paddingBottom: 15,
+      paddingBottom: vh(15),
     },
     headerText: {
-      fontSize: 20,
+      fontSize: normalize(20),
       fontFamily: Fonts?.subHeader,
       fontWeight: 700,
       color: Colors?.textBlack
@@ -119,44 +120,44 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     BackIcon: {
       tintColor: Colors?.textBlack,
-      height: 18,
-      width: 18,
+      height: vh(18),
+      width: vw(18),
       alignSelf: 'flex-start',
-      marginHorizontal: 18,
+      marginHorizontal: vw(18),
     },
     CardContainer: {
-      paddingHorizontal: 18,
-      marginTop: 10
+      paddingHorizontal: vw(18),
+      marginTop: vh(10)
     },
     Divider: {
-      marginTop: 5,
+      marginTop: vh(5),
     },
     sectionTitle: {
-      marginTop: 0,
-      fontSize: 17,
+      marginTop: vh(0),
+      fontSize: normalize(17),
       fontFamily: Fonts.subHeader,
       fontWeight: 600,
       color: Colors.textBlack,
-      marginBottom: 8,
+      marginBottom: vh(8),
     },
     ScrollContainer: {
       height: '90%',
       backgroundColor: Colors?.bodyLigheterColor,
-      paddingBottom: 40
+      paddingBottom: vh(40)
     },
     ScrollView: {
     },
     EmptyCartContainer: {
-      height: 700,
+      height: vh(700),
       width: '100%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
     },
     ImageContainer: {
-      height: 200,
-      width: 200,
-      borderRadius: 400,
+      height: vh(200),
+      width: vw(200),
+      borderRadius: normalize(400),
       backgroundColor: Colors?.ButtonTextBlueColor,
       opacity: .3,
       display: 'flex',
@@ -165,40 +166,40 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       overflow: 'hidden',
     },
     EmptyBox: {
-      height: 150,
-      width: 150,
+      height: vh(150),
+      width: vw(150),
       opacity: 1,
       position: 'relative',
-      top: 20
+      top: vh(20)
     },
     NoOrdersYet: {
-      fontSize: 24,
+      fontSize: normalize(24),
       fontFamily: Fonts?.subHeader,
       color: Colors?.textBlack,
       fontWeight: 700,
-      marginTop: 30
+      marginTop: vh(30)
     },
     makeAorder: {
-      fontSize: 14,
+      fontSize: normalize(14),
       color: Colors?.timerFadeText,
       fontFamily: Fonts?.font17,
-      letterSpacing: 1,
+      letterSpacing: normalize(1),
       fontWeight: 500,
-      marginTop: 20,
-      marginBottom: 10
+      marginTop: vh(20),
+      marginBottom: vh(10)
     },
     ExploreMenuButton: {
       backgroundColor: Colors?.KFC_red,
-      borderRadius: 2,
-      marginVertical: 10
+      borderRadius: normalize(2),
+      marginVertical: vh(10)
     },
     ExploreMenu: {
       color: Colors?.constantWhite,
-      fontSize: 16,
+      fontSize: normalize(16),
       fontFamily: Fonts?.font17,
       fontWeight: 700,
-      marginHorizontal: 50,
-      marginVertical: 15
+      marginHorizontal: vw(50),
+      marginVertical: vh(15)
     },
   });
   return Styles;

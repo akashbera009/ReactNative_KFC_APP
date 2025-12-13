@@ -17,6 +17,7 @@ import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function CheckOut({ totalAmount, discount }: { totalAmount: number, discount: number }) {
     const Colors = useThemeColors();
@@ -312,10 +313,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
-            paddingBottom: 15,
+            paddingBottom: vh(15),
         },
         headerText: {
-            fontSize: 20,
+            fontSize: normalize(20),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.textBlack
@@ -328,10 +329,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         BackIcon: {
             tintColor: Colors?.textBlack,
-            height: 18,
-            width: 18,
+            height: vh(18),
+            width: vw(18),
             alignSelf: 'flex-start',
-            marginHorizontal: 18,
+            marginHorizontal: vw(18),
         },
         ContentConatiner: {
             height: '90%',
@@ -339,18 +340,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         CustomerCard: {
             backgroundColor: Colors?.bodyColor,
-            marginHorizontal: 12,
-            marginTop: 12,
-            padding: 16,
-            borderRadius: 2,
+            marginHorizontal: vw(12),
+            marginTop: vh(12),
+            padding: normalize(16),
+            borderRadius: normalize(2),
             elevation: 3,
             shadowColor: Colors?.blueShadows,
             shadowOffset: {
-                width: 0,
-                height: 2
+                width: vw(0),
+                height: vh(2)
             },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
@@ -359,81 +360,81 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             elevation: 3,
             shadowColor: Colors?.blueShadows,
             shadowOffset: {
-                width: 0,
-                height: 2
+                width: vw(0),
+                height: vh(2)
             },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             backgroundColor: Colors?.bodyColor,
-            marginHorizontal: 12,
-            marginTop: 6,
-            padding: 16,
-            borderRadius: 2
+            marginHorizontal: vw(12),
+            marginTop: vh(6),
+            padding: normalize(16),
+            borderRadius: normalize(2)
         },
         userName: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontWeight: 700,
             color: Colors?.textBlack,
             fontFamily: Fonts?.font17
         },
         userPhone: {
-            fontSize: 14,
+            fontSize: normalize(14),
             opacity: 0.7,
-            marginTop: 4,
+            marginTop: vh(4),
             fontWeight: 700,
             color: Colors?.textFadeBlack2,
             fontFamily: Fonts?.subHeader
         },
         changeButton: {
             position: 'absolute',
-            right: 16,
-            top: 28,
-            borderWidth: 1,
+            right: vw(16),
+            top: vh(28),
+            borderWidth: normalize(1),
             borderColor: Colors?.activeBorder,
-            borderRadius: 2,
+            borderRadius: normalize(2),
         },
         changeText: {
             color: Colors?.activeBorder,
             fontWeight: 500,
             fontFamily: Fonts?.font17,
-            fontSize: 10,
-            marginHorizontal: 12,
-            marginVertical: 6
+            fontSize: normalize(10),
+            marginHorizontal: vw(12),
+            marginVertical: vh(6)
         },
         deliveryContainer: {
             flexDirection: 'row',
             alignItems: 'center'
         },
         deliveryBike: {
-            width: 40,
-            height: 40,
-            marginRight: 8,
+            width: vw(40),
+            height: vh(40),
+            marginRight: vw(8),
             transform: [{ scaleX: -1 }]
         },
         sectionTitle: {
-            fontSize: 14,
-            marginLeft: 8.,
+            fontSize: normalize(14),
+            marginLeft: vw(8),
             fontWeight: 700,
             color: Colors?.textBlack,
         },
         radioRow: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            paddingVertical: 12,
-            borderBottomWidth: 1,
+            paddingVertical: vw(12),
+            borderBottomWidth: normalize(1),
             borderColor: Colors?.bodyColor,
-            marginRight: 6,
+            marginRight: vw(6),
         },
         radioText: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontWeight: 500,
             color: Colors?.textFadeBlack2,
         },
         radioOuter: {
-            width: 20,
-            height: 20,
-            borderRadius: 11,
-            borderWidth: 2,
+            width: vw(20),
+            height: vh(20),
+            borderRadius: normalize(11),
+            borderWidth: normalize(2),
             borderColor: Colors?.textFadeBlack,
             justifyContent: 'center',
             alignItems: 'center',
@@ -442,15 +443,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderColor: Colors?.KFC_red,
         },
         radioInner: {
-            width: 10,
-            height: 10,
+            width: vw(10),
+            height: vh(10),
             backgroundColor: Colors?.KFC_red,
-            borderRadius: 6,
+            borderRadius: normalize(6),
         },
 
         sectionLabel: {
-            marginTop: 12,
-            fontSize: 13,
+            marginTop: vh(12),
+            fontSize: normalize(13),
             color: Colors?.textFadeBlack,
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
@@ -460,79 +461,79 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         addressHeader: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginBottom: 8,
+            marginBottom: vh(8),
         },
         homeTag: {
             backgroundColor: Colors?.KFC_red,
-            paddingHorizontal: 10,
-            paddingVertical: 4,
-            borderRadius: 2,
-            marginLeft: 6,
+            paddingHorizontal: vw(10),
+            paddingVertical: vh(4),
+            borderRadius: normalize(2),
+            marginLeft: vw(6),
         },
         homeTagText: {
             color: Colors?.constantWhite,
-            fontSize: 10,
+            fontSize: normalize(10),
             fontWeight: 700,
-            marginHorizontal: 4,
-            marginVertical: 2,
+            marginHorizontal: vw(4),
+            marginVertical: vh(2),
             fontFamily: Fonts?.font17,
         },
         editText: {
             color: Colors?.ButtonBlueColor,
             fontWeight: 600,
-            fontSize: 12,
+            fontSize: normalize(12),
             fontFamily: Fonts?.font17,
-            marginRight: 6,
+            marginRight: vw(6),
         },
         addressText: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: 500,
-            marginBottom: 10,
-            marginLeft: 6,
+            marginBottom: vh(10),
+            marginLeft: vw(6),
             fontFamily: Fonts?.font17,
             color: Colors?.textFadeBlack,
-            maxWidth: 280,
-            lineHeight: 20,
+            maxWidth: vw(280),
+            lineHeight: normalize(20),
         },
         contactlessRow: {
             flexDirection: 'row',
             alignItems: 'center',
-            marginLeft: 6,
+            marginLeft: vw(6),
         },
         checkboxRed: {
-            width: 16,
-            height: 16,
+            width: vw(16),
+            height: vh(16),
             backgroundColor: Colors?.KFC_red,
-            marginRight: 6,
-            borderRadius: 1,
+            marginRight: vw(6),
+            borderRadius: normalize(1),
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
         },
         Tick_Mark: {
-            height: 12,
-            width: 12,
+            height: vh(12),
+            width: vw(12),
             tintColor: Colors?.constantWhite,
         },
         contactlessText: {
-            fontSize: 12,
+            fontSize: normalize(12),
             color: Colors?.textFadeBlack,
-            marginVertical: 10,
+            marginVertical: vh(10),
         },
         ItemsCard: {
             elevation: 3,
             shadowColor: Colors?.blueShadows,
             shadowOffset: {
-                width: 0, height: 2
+                width: vw(0), height: vh(2)
             },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             backgroundColor: Colors?.bodyColor,
-            marginHorizontal: 12,
-            marginTop: 6,
-            paddingVertical: 16,
-            paddingHorizontal: 10,
-            borderRadius: 2,
+            marginHorizontal: vw(12),
+            marginTop: vh(6),
+            paddingVertical: vh(16),
+            paddingHorizontal: vw(10),
+            borderRadius: normalize(2),
         },
         ItemsCardUpperBox: {
             display: 'flex',
@@ -542,16 +543,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         itemCountRow: {
             flexDirection: 'column',
             alignItems: 'center',
-            marginBottom: 6
+            marginBottom: vh(6)
         },
         itemCount: {
-            fontSize: 22,
+            fontSize: normalize(22),
             fontWeight: 700,
             color: Colors?.textBlack
         },
         itemsLabel: {
-            marginLeft: 6,
-            fontSize: 12,
+            marginLeft: vw(6),
+            fontSize: normalize(12),
             opacity: 0.7,
             color: Colors?.textBlack
         },
@@ -560,8 +561,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             overflow: 'hidden'
         },
         itemDescription: {
-            fontSize: 14,
-            marginBottom: 12,
+            fontSize: normalize(14),
+            marginBottom: vh(12),
             color: Colors?.timerFadeText,
             fontFamily: Fonts?.font17,
             fontWeight: 600,
@@ -570,28 +571,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         CustomVerticalBorder: {
             height: '50%',
             borderRightColor: Colors?.textFadeBlack,
-            borderRightWidth: 1,
-            marginHorizontal: 10,
+            borderRightWidth: normalize(1),
+            marginHorizontal: vw(10),
         },
         AmountBoxContainer: {
             display: 'flex',
             flexDirection: 'column',
             backgroundColor: Colors?.blueMixBG,
-            borderRadius: 4,
+            borderRadius: normalize(4),
             borderStyle: 'dashed',
-            borderWidth: 1,
+            borderWidth: normalize(1),
             borderColor: Colors?.blueShadows,
         },
         amountBox: {
-            height: 60,
-            padding: 12,
+            height: vh(60),
+            padding: normalize(12),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
         },
         amountText: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: '600'
         },
         AmountWithButton: {
@@ -601,22 +602,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flexDirection: 'row',
         },
         amountNumber: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontWeight: '700'
         },
         PaymentMethodExpandButtonContainer: {
-            marginLeft: 8,
-            height: 16,
-            width: 16,
+            marginLeft: vw(8),
+            height: vh(16),
+            width: vw(16),
             backgroundColor: Colors?.blueShadows,
-            borderRadius: 50,
+            borderRadius: normalize(50),
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
         },
         ArrowDown: {
-            height: 14,
-            width: 14,
+            height: vh(14),
+            width: vw(14),
             tintColor: Colors?.constantWhite
         },
         ArrowUp: {
@@ -624,22 +625,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         amountDetailsContainer: {
             width: '100%',
-            marginBottom: 6,
+            marginBottom: vh(6),
         },
         PriceEntries: {
             display: 'flex',
             flexDirection: 'row',
-            marginVertical: 8,
-            marginHorizontal: 15,
+            marginVertical: vh(8),
+            marginHorizontal: vw(15),
         },
         PriceEntriesLeft: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts?.subHeader,
             color: Colors?.textFadeBlack,
             fontWeight: 500,
         },
         PriceEntriesRight: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts?.subHeader,
             color: Colors?.textFadeBlack2,
             fontWeight: 500,
@@ -649,25 +650,25 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors?.greenOk
         },
         PaymentMethodsContainer: {
-            marginTop: 10,
+            marginTop: vh(10),
             backgroundColor: Colors?.bodyColor,
             width: '93%',
-            marginHorizontal: 12,
+            marginHorizontal: vw(12),
             alignSelf: 'center',
             display: 'flex',
-            marginBottom: 150,
+            marginBottom: vh(150),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             elevation: 5,
         },
         PaymentMethodsEntries: {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginHorizontal: 10,
-            marginVertical: 6,
+            marginHorizontal: vw(10),
+            marginVertical: vh(6),
             flexDirection: 'row',
         },
         PaymentTextLeft: {
@@ -677,23 +678,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flexDirection: 'row',
         },
         paymentImage: {
-            height: 30,
-            width: 30,
+            height: vh(30),
+            width: vw(30),
             tintColor: Colors?.textBlack,
         },
         paymentImageVisaContainer: {
             borderWidth: 1,
             borderColor: Colors?.textBlack,
-            borderRadius: 2,
+            borderRadius: normalize(2),
             paddingHorizontal: 4,
         },
         paymentImageVisa: {
-            height: 30,
-            width: 30,
+            height: vh(30),
+            width: vw(30),
             tintColor: Colors?.KFC_red,
         },
         paymentText: {
-            marginLeft: 15,
+            marginLeft: vw(15),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.textFadeBlack2
@@ -701,24 +702,24 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         ButtonWrapper: {
             width: '100%',
             position: 'absolute',
-            left: 0,
-            bottom: 0,
+            left: vw(0),
+            bottom: vh(0),
             backgroundColor: Colors?.KFC_red_Fade_Solid,
         },
         bottomButton: {
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: 10,
+            marginTop: vh(10),
         },
         ActiveButton: {
             backgroundColor: Colors?.KFC_red,
         },
         bottomButtonText: {
-            marginVertical: 10,
+            marginVertical: vh(10),
             color: Colors?.constantWhite,
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            fontSize: 18,
+            fontSize: normalize(18),
         },
     });
     return Styles;

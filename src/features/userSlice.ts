@@ -1,11 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
-import { Platform } from "react-native";
 import { RootState } from "../store/store";
-const BACKEND_SERVER =
-    Platform.OS === 'android'
-        ? 'http://10.0.2.2:3000'
-        : 'http://localhost:3000';
+import {BACKEND_SERVER} from './backendLink'
 
 interface userfetchedType {
     userData: userDatailsType[],

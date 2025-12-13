@@ -15,6 +15,7 @@ import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages'
 import { useStrings } from '../../utils/Strings'
 import { useThemeColors } from '../../utils/Colors'
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 const Index = ({ categoryType }: { categoryType: string }) => {
     const Colors = useThemeColors()
@@ -141,17 +142,17 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flex: 1
         },
         NavWrapper: {
-            width: '100%',
+            width:'100%',
             backgroundColor: Colors?.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
-            paddingBottom: 15,
+            paddingBottom: vh( 15),
         },
         headerText: {
-            fontSize: 20,
+            fontSize: normalize (20),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.textBlack
@@ -164,55 +165,55 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         BackIcon: {
             tintColor: Colors?.textBlack,
-            height: 18,
-            width: 18,
+            height: vh(18),
+            width: vw(18),
             alignSelf: 'flex-start',
-            marginHorizontal: 18,
+            marginHorizontal: vw(18),
         },
         SearchIcon: {
-            height: 26,
-            width: 26,
+            height: vh(26),
+            width: vw(26),
             alignSelf: 'flex-end',
-            marginHorizontal: 30,
+            marginHorizontal: vw(30),
         },
         CategorySelector: {
-            height: 45,
-            width: '100%',
+            height: vh(45),
+            width:'100%',
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'flex-end',
-            borderBottomWidth: 1,
+            borderBottomWidth: normalize(1),
             borderColor: Colors?.fadeWhiteText,
         },
         menuIconContainer: {
-            height: '100%',
-            width: 65,
+            height:'100%',
+            width: vw(65),
             backgroundColor: Colors?.KFC_red,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
         },
         menuIcon: {
-            height: 30,
-            width: 30,
+            height: vh(30),
+            width: vw(30),
             tintColor: Colors?.constantWhite,
         },
         categoryContainer: {
-            height: 40,
-            marginHorizontal: 5,
+            height: vh(40),
+            marginHorizontal: vw(5),
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
         },
         ActiveBorder: {
             borderBottomColor: Colors?.activeBorder,
-            borderBottomWidth: 4
+            borderBottomWidth: normalize(4)
         },
         categoryContainerText: {
-            marginHorizontal: 5,
+            marginHorizontal: vw(5),
             fontFamily: Fonts?.font17,
             color: Colors?.resendOtpText,
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: 600,
         },
         ActiveText: {
@@ -220,16 +221,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors?.textBlack,
         },
         BottomCartContainer: {
-            width: '100%',
-            height: 70,
+            width:'100%',
+            height: vh(70),
             backgroundColor: Colors?.bodyColor,
             position: 'absolute',
             left: 0,
             zIndex: 2,
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 0 },
+            shadowOffset: { width: vw(0), height: vh(0) },
             shadowOpacity: 0.25,
-            shadowRadius: 5,
+            shadowRadius: normalize(5),
             elevation: 5,
         }
     })

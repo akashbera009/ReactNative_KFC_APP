@@ -8,6 +8,7 @@ import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function FAQPage() {
     const Colors = useThemeColors();
@@ -123,11 +124,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         NavWrapper: {
             width: '100%',
-            paddingBottom: 15,
+            paddingBottom: vh(15),
             backgroundColor: Colors?.bodyColor,
             flexDirection: 'row',
             alignItems: 'center',
-            paddingHorizontal: 10,
+            paddingHorizontal: vw(10),
         },
         rowCenter: {
             flexDirection: 'row',
@@ -135,92 +136,88 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         BackIcon: {
             tintColor: Colors?.textBlack,
-            height: 20,
-            width: 20,
-            marginRight: 18,
+            height: vh(20),
+            width: vw(20),
+            marginRight: vw(18),
         },
         headerText: {
-            fontSize: 22,
+            fontSize: normalize(22),
             fontFamily: Fonts?.subHeader,
             fontWeight: '700',
             color: Colors?.textBlack,
         },
-
         tabWrapper: {
             flexDirection: 'row',
             alignItems: 'center',
-            paddingHorizontal: 20,
-            paddingTop: 15,
+            paddingHorizontal: vw(20),
+            paddingTop: vh(15),
             backgroundColor: Colors?.bodyColor,
         },
         activeTab: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             fontWeight: '700',
             color: Colors?.textBlack,
             borderBottomColor: Colors?.KFC_red,
-            borderBottomWidth: 2,
-            paddingBottom: 8,
-            marginRight: 20,
+            borderBottomWidth: normalize(2),
+            paddingBottom: vh(8),
+            marginRight: vw(20),
         },
         inactiveTab: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             fontWeight: '600',
             color: Colors?.timerFadeText,
-            marginRight: 20,
-            paddingBottom: 6,
+            marginRight: vw(20),
+            paddingBottom: vh(6),
         },
-
         listContainer: {
-            marginTop: 10,
+            marginTop:vh(10),
         },
         card: {
             width: '92%',
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
-            paddingVertical: 18,
-            paddingHorizontal: 15,
-            borderRadius: 6,
-            marginVertical: 6,
+            paddingVertical: vh(18),
+            paddingHorizontal: vw(15),
+            borderRadius: normalize(6),
+            marginVertical: vh(6),
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between'
         },
         cardText: {
             width: '80%',
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             color: Colors?.textBlack,
             fontWeight: '600',
-            lineHeight: 25,
+            lineHeight: vh(25),
         },
         rightArrow: {
-            width: 15,
-            height: 15,
+            width: vw(15),
+            height: vh(15),
             transform: [{ scaleX: -1 }],
             tintColor: Colors?.textBlack,
-            marginRight: 10
+            marginRight: vw(10)
         },
         answerBox: {
-            width: '92%',
+            marginHorizontal: vw(15),
+            paddingHorizontal: vw(20),
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
-            marginTop: -6,
-            paddingHorizontal: 15,
-            paddingBottom: 15,
-            borderBottomLeftRadius: 6,
-            borderBottomRightRadius: 6,
+            marginTop: vh(-6),
+            paddingBottom: vh(15),
+            borderBottomLeftRadius: normalize(6),
+            borderBottomRightRadius: normalize(6),
         },
-
         answerText: {
-            fontSize: 15,
+            fontSize: normalize(15),
             fontFamily: Fonts?.font17 ,
             color: Colors?.textFadeBlack,
-            lineHeight: 22,
-            marginTop: 8,
+            lineHeight: vh(22),
+            marginTop: vh(8),
         },
-
     })
     return Styles
 }

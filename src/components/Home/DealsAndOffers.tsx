@@ -13,6 +13,7 @@ import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function DealsAndOffer() {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -75,11 +76,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         NavWrapper: {
             width: '100%',
-            paddingBottom: 15,
+            paddingBottom: vh(15),
             backgroundColor: Colors?.bodyColor,
             flexDirection: 'row',
             alignItems: 'center',
-            paddingHorizontal: 10,
+            paddingHorizontal: vw(10),
         },
         rowCenter: {
             flexDirection: 'row',
@@ -87,73 +88,72 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         BackIcon: {
             tintColor: Colors?.textBlack,
-            height: 20,
-            width: 20,
-            marginRight: 18,
+            height: vh(20),
+            width: vw(20),
+            marginRight: vw(18),
         },
         headerText: {
-            fontSize: 20,
+            fontSize:  normalize(20),
             fontFamily: Fonts?.subHeader,
             fontWeight: '700',
             color: Colors?.textBlack,
         },
         sectionTitle: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             fontWeight: '700',
             color: Colors?.textBlack,
-            marginTop: 10,
-            marginLeft: 20,
+            marginTop: vh(10),
+            marginLeft: vw(20),
         },
 
         offerCard: {
             width: '92%',
             alignSelf: 'center',
             backgroundColor: Colors?.bodyColor,
-            paddingVertical: 18,
-            paddingHorizontal: 15,
-            borderRadius: 10,
-            marginVertical: 8,
+            paddingVertical: vh(18),
+            paddingHorizontal: vw(15),
+            borderRadius: normalize(10),
+            marginVertical: vh(8),
             shadowColor: Colors?.blueShadows,
             shadowOpacity: 0.06,
-            shadowOffset: { width: 0, height: 3 },
-            shadowRadius: 4,
+            shadowOffset: { width: vw(0), height: vh(3) },
+            shadowRadius: normalize(4),
             elevation: 2,
         },
         HeaderContainer: {
-            width: '80%',
-            marginLeft: 5,
+            marginLeft: vw(5),
         },
         offerTitle: {
-            fontSize: 17,
+            fontSize: normalize(17),
             fontFamily: Fonts?.font17,
             fontWeight: '700',
             color: Colors?.textBlack,
-            marginBottom: 4,
+            marginBottom: vh(4),
         },
         offerDesc: {
-            fontSize: 15,
+            fontSize: normalize(15),
             fontFamily: Fonts?.font17,
             color: Colors?.timerFadeText,
-            marginTop: 10,
-            lineHeight: 22,
+            marginTop: vh(10),
+            lineHeight: vh(22),
         },
 
         downBlock: {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: 30,
-            marginLeft: 5
+            marginTop: vh(30),
+            marginLeft: vw(5)
         },
         tncText: {
-            fontSize: 13,
-            letterSpacing: 1,
+            fontSize: normalize(13),
+            letterSpacing: normalize(1),
             fontFamily: Fonts?.font17,
             color: Colors?.ButtonTextBlueColor,
         },
         applyText: {
-            fontSize: 15,
+            fontSize: normalize(15),
             fontFamily: Fonts?.font17,
             color: Colors?.KFC_red,
             fontWeight: 500,

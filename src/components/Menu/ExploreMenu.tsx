@@ -53,7 +53,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '100%',
             position: 'relative',
             zIndex: 1,
-            marginTop: 4,
+            marginTop: vh(4),
             flex: 1 ,
         },
         bottomBlank: {

@@ -11,6 +11,7 @@ import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function BottomCart({ ButtonType, navLink, totalAmount, discount }: BottomCartProps) {
     const Colors = useThemeColors();
@@ -85,7 +86,6 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
         </Animated.View >
     );
 }
-
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         ViewCartWrapper: {
@@ -103,21 +103,21 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         ImageContainer: {
-            width: 42,
+            width: vw(42),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
-            borderRadius: 1,
+            borderRadius: normalize(1),
         },
         ImageWrapper: {
-            height: 42,
-            width: 42,
+            height: vh(42),
+            width: vw(42),
             position: 'relative',
             left: '-50%',
             zIndex: 4,
-            borderRadius: 1,
+            borderRadius: normalize(1),
             backgroundColor: Colors?.HyperTransparent,
             display: 'flex',
             flexDirection: 'row',
@@ -125,28 +125,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         CounterText: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: 700,
             color: Colors?.constantWhite,
         },
         CartImage: {
-            height: 42,
-            width: 42,
+            height: vh(42),
+            width: vw(42),
             left: '50%',
             position: 'relative',
             zIndex: 3,
-            borderRadius: 1,
+            borderRadius: normalize(1),
         },
         PriceDetails: {
-            marginLeft: 10,
+            marginLeft: vw(10),
             display: 'flex',
             justifyContent: 'center',
             alignSelf: 'center',
         },
         totalPrice: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontWeight: 700,
-            marginBottom: 4,
+            marginBottom:vh(4),
             fontFamily: Fonts?.subHeader,
             color: Colors?.textBlack
         },
@@ -163,7 +163,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         countrycode: {
-            marginHorizontal: 2,
+            marginHorizontal: vw(2),
             color: Colors?.textFadeBlack,
             fontFamily: Fonts?.subHeader,
             fontWeight: 600
@@ -175,16 +175,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         ViewCart: {
             backgroundColor: Colors?.KFC_red,
-            borderRadius: 4,
+            borderRadius: normalize(4),
             alignSelf: 'flex-end',
             marginLeft: 'auto',
-            marginVertical: 14,
+            marginVertical: vh(14),
         },
         ViewCartText: {
             color: Colors?.constantWhite,
-            fontSize: 13,
-            marginHorizontal: 16,
-            marginVertical: 10,
+            fontSize: normalize(13),
+            marginHorizontal: vw(16),
+            marginVertical: vh(10),
             fontFamily: Fonts?.font17,
             fontWeight: 700
         },

@@ -323,7 +323,12 @@ const en = {
   youreHere: 'You are here',
   takeInvoicePlease: 'Take this invoice please ',
   UserDeatailUpdatedHeader: 'Successful',
-  UserDeatailUpdatedMessage: 'Your Details has been Updated!'
+  UserDeatailUpdatedMessage: 'Your Details has been Updated!',
+  loading: 'loading................',
+   userInfoHeader :'User Information',
+  taptoPick: 'Tap to pick ',
+  image: 'Image',
+  video: 'video'
 } as const
 
 const ar = {
@@ -655,8 +660,13 @@ const ar = {
   reset: 'Reset',
   youreHere: 'You are here',
   takeInvoicePlease: 'Take this invoice please ',
-    UserDeatailUpdatedHeader: 'Successful',
-  UserDeatailUpdatedMessage: 'Your Details has been Updated!'
+  UserDeatailUpdatedHeader: 'Successful',
+  UserDeatailUpdatedMessage: 'Your Details has been Updated!',
+  loading: 'loading................',
+  userInfoHeader :'User Information',
+  taptoPick: 'Tap to pick ',
+  image: 'Image',
+  video: 'video'
 } as const
 
 export const useStrings = () => {

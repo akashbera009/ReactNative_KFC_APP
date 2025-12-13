@@ -19,6 +19,7 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import Images from '../../utils/LocalImages';
 import { savedCards, otherPaymentOption } from '../../data/DeliveryDetails';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function PaymentOptionsBottomSheet({ amount, orderId, onSuccess }: PaymentModalScreenProps) {
     const Colors = useThemeColors();
@@ -120,7 +121,7 @@ export default function PaymentOptionsBottomSheet({ amount, orderId, onSuccess }
                                 >
                                     <Image source={Images?.VisaPNG} style={Styles.VisaPNGFade} />
                                     <View style={Styles.HeaderAndButton}>
-                                        <View style={Styles.Headers}>
+                                        <View >
                                             <Text style={Styles.bankName}>{card?.bank}</Text>
                                             <Text style={Styles.cardNumber}>
                                                 **** **** **** {card.last}
@@ -212,61 +213,61 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         InnerContainer: {
             backgroundColor: Colors?.bodyColor,
-            borderTopLeftRadius: 28,
-            borderTopRightRadius: 28,
-            paddingHorizontal: 20,
+            borderTopLeftRadius: normalize(28),
+            borderTopRightRadius: normalize(28),
+            paddingHorizontal: vw(20),
             height: '100%'
         },
         ThreeColumnStyle: {
             alignSelf: 'center',
             width: '34%',
-            height: 30,
+            height: vh(30),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
         },
         singleCOlumnStyle: {
-            height: 25,
-            width: 24,
+            height: vh(25),
+            width: vw(24),
             backgroundColor: Colors?.KFC_red,
         },
         title: {
-            fontSize: 20,
+            fontSize: normalize(20),
             fontFamily: Fonts.font17,
             fontWeight: 700,
             textAlign: 'center',
-            marginBottom: 25,
-            marginTop: 10 ,
+            marginBottom: vh(25),
+            marginTop: vh(10) ,
             color: Colors?.textBlack
         },
         savedCardsLabel: {
-            fontSize: 13,
+            fontSize: normalize(13),
             color: Colors?.textFadeBlack,
-            marginBottom: 15,
+            marginBottom: vh(15),
             fontFamily: Fonts.font17,
             fontWeight: 700,
         },
         cardsScroll: {
-            paddingBottom: 20
+            paddingBottom: vh(20)
         },
         cardBox: {
-            width: 260,
-            height: 120,
-            borderRadius: 2,
-            padding: 15,
-            marginRight: 12,
+            width: vw(260),
+            height: vh(120),
+            borderRadius: normalize(2),
+            padding: normalize(15),
+            marginRight: vw(12),
             justifyContent: 'space-between',
-            borderWidth: 1,
+            borderWidth: normalize(1),
             borderColor: Colors?.ButtonTextBlueColor,
             borderStyle: 'dotted'
         },
         VisaPNGFade: {
             tintColor: Colors?.HyperFadeWhiteText,
-            height: 60,
-            width: 200,
+            height: vh(60),
+            width: vw(200),
             position: 'absolute',
-            right: 5,
-            top: 30
+            right: vw(5),
+            top: vh(30)
         },
         HeaderAndButton: {
             display: 'flex',
@@ -274,46 +275,43 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: '100%',
             justifyContent: 'space-between',
         },
-        Headers: {
-
-        },
         cardSelected: {
             borderColor: Colors?.ButtonTextBlueColor,
-            borderWidth: 2,
+            borderWidth: normalize(2),
         },
         bankName: {
             color: Colors?.constantWhite,
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: 600
         },
         cardNumber: {
             color: Colors?.constantWhite,
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: 700,
-            marginTop: 10,
+            marginTop: vh(10),
             fontFamily: Fonts?.font17,
-            letterSpacing: 1.25
+            letterSpacing: normalize(1.25)
         },
         cardFooter: {
             flexDirection: 'row',
             justifyContent: 'space-between',
         },
         VisaPNG: {
-            height: 12,
-            width: 40,
+            height: vh(12),
+            width: vw(40),
             tintColor: Colors?.constantWhite,
         },
         cardType: {
             color: Colors?.constantWhite,
-            fontSize: 10,
+            fontSize: normalize(10),
             fontWeight: 600,
             backgroundColor: Colors?.HyperTransparent2,
-            padding: 8,
+            padding: normalize(8),
         },
         otherMethodLabel: {
-            marginTop: 10,
-            marginBottom: 10,
-            fontSize: 13,
+            marginTop: vh(10),
+            marginBottom: vh(10),
+            fontSize: normalize(13),
             color: Colors?.textFadeBlack,
             fontFamily: Fonts?.font17,
             fontWeight: 700
@@ -321,7 +319,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         methodRow: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            paddingVertical: 16,
+            paddingVertical: vh(16),
             alignItems: 'center'
         },
         methodLeft: {
@@ -329,97 +327,97 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center'
         },
         methodIcon: {
-            height: 40,
-            width: 40,
-            marginRight: 20
+            height: vh(40),
+            width: vw(40),
+            marginRight: vw(20)
         },
         methodText: {
-            fontSize: 17,
+            fontSize: normalize(17),
             color: Colors?.textBlack,
             fontFamily: Fonts?.font17,
             fontWeight: 500,
-            letterSpacing: .5,
+            letterSpacing: normalize(.5),
         },
         methodOffer: {
-            fontSize: 12,
+            fontSize: normalize(12),
             color: Colors?.orangeColorText,
-            marginTop: 2
+            marginTop: vh(2)
         },
         tc: {
             color: Colors?.ButtonTextBlueColor,
-            fontSize: 10
+            fontSize: normalize(10)
         },
         radioBlackOuter: {
-            margin: 2,
-            height: 20,
-            width: 20,
-            borderRadius: 20,
-            borderWidth: 2,
+            margin: normalize(2),
+            height: vh(20),
+            width: vw(20),
+            borderRadius: normalize(20),
+            borderWidth: normalize(2),
             borderColor: Colors?.textFadeBlack2,
             justifyContent: 'center',
             alignItems: 'center'
         },
         radioBlackInner: {
-            height: 10,
-            width: 10,
+            height: vh(10),
+            width: vw(10),
             backgroundColor: Colors?.textFadeBlack2,
-            borderRadius: 10
+            borderRadius: normalize(10)
         },
         radioOuter: {
-            height: 20,
-            width: 20,
-            borderRadius: 20,
-            borderWidth: 2,
+            height: vh(20),
+            width: vw(20),
+            borderRadius: normalize(20),
+            borderWidth: normalize(2),
             borderColor: Colors?.fadeWhiteText2,
             justifyContent: 'center',
             alignItems: 'center'
         },
         radioInner: {
-            height: 10,
-            width: 10,
+            height: vh(10),
+            width: vw(10),
             backgroundColor: Colors?.KFC_red,
-            borderRadius: 10
+            borderRadius: normalize(10)
         },
         checkboxRow: {
             flexDirection: 'row',
             alignItems: 'center',
-            marginTop: 15
+            marginTop: vh(15)
         },
         checkboxOuter: {
-            height: 15,
-            width: 15,
-            borderWidth: 2,
-            borderRadius: 1,
+            height: vh(15),
+            width: vw(15),
+            borderWidth: normalize(2),
+            borderRadius: normalize(1),
             borderColor: Colors?.fadeWhiteText2,
             justifyContent: 'center',
             alignItems: 'center',
-            marginRight: 10
+            marginRight: vw(10)
         },
         checkboxSelected: {
             borderColor: Colors?.KFC_red,
             backgroundColor: Colors?.KFC_red,
         },
         tickMark: {
-            height: 10,
-            width: 10,
+            height: vh(10),
+            width: vw(10),
             tintColor: Colors?.constantWhite
         },
         preferredText: {
             color: Colors?.textFadeBlack2,
-            fontSize: 12,
+            fontSize: normalize(12),
             fontWeight: 600
         },
         buttonsRow: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginTop: 20
+            marginTop: vh(20)
         },
         cancelBtn: {
-            borderWidth: 1,
+            borderWidth: normalize(1),
             borderColor: Colors?.fadeWhiteText2,
             width: '45%',
-            paddingVertical: 14,
-            borderRadius: 6
+            paddingVertical: vh(14),
+            borderRadius: normalize(6)
         },
         cancelText: {
             color: Colors?.textBlack,
@@ -429,8 +427,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         payBtn: {
             width: '45%',
             backgroundColor: Colors?.KFC_red,
-            paddingVertical: 14,
-            borderRadius: 6
+            paddingVertical: vh(14),
+            borderRadius: normalize(6)
         },
         payText: {
             color: Colors?.constantWhite,

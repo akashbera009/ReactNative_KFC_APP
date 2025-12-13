@@ -8,6 +8,7 @@ import Fonts from '../../utils/Fonts';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export const CommonPopUp = ({ header, message }: CommonPopUpScreenProps) => {
     const Colors = useThemeColors();
@@ -52,8 +53,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         popupOverlay: {
             position: 'absolute',
-            top: 0,
-            left: 0,
+            top: vh(0),
+            left: vw(0),
             height: '100%',
             width: '100%',
             backgroundColor: Colors?.SemiTransparent,
@@ -64,28 +65,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         popupBox: {
             width: '80%',
             backgroundColor: Colors.bodyColor,
-            padding: 20,
-            borderRadius: 10,
+            padding: normalize(20),
+            borderRadius: normalize(10),
             elevation: 10
         },
         popupTitle: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontWeight: 700,
             fontFamily: Fonts?.subHeader,
             color: Colors.textBlack,
-            marginBottom: 10,
+            marginBottom: vh(10),
         },
         popupMessage: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts?.font17,
             color: Colors.textFadeBlack,
-            marginBottom: 20
+            marginBottom: vh(20)
         },
         popupButton: {
-            marginTop: 15,
-            paddingHorizontal: 0,
-            paddingVertical: 12,
-            borderRadius: 5,
+            marginTop: vh(15),
+            paddingHorizontal: vw(0),
+            paddingVertical: vh(12),
+            borderRadius: normalize(5),
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -93,7 +94,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.KFC_red
         },
         saveText: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts?.font17,
             color: Colors.constantWhite,
             fontWeight: 700

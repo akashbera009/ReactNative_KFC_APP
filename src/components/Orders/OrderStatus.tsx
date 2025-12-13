@@ -13,6 +13,7 @@ import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { useCountry } from '../../context/CountryContext';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function OrderStatus({
     orderId,
@@ -74,7 +75,7 @@ export default function OrderStatus({
         }
     }
 
-    
+
     return (
         <View style={[Styles.Parent, { paddingTop: inset.top }]}>
             <View style={Styles.NavWrapper}>
@@ -276,7 +277,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             width: '100%',
             flexDirection: 'row',
             alignItems: 'center',
-            paddingBottom: 10,
+            paddingBottom: vh(10),
             paddingHorizontal: 10,
         },
         BackIconAndHeaderText: {
@@ -285,12 +286,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         BackIcon: {
             tintColor: Colors.textBlack,
-            height: 18,
-            width: 18,
-            marginHorizontal: 18,
+            height: vh(18),
+            width: vw(18),
+            marginHorizontal: vw(18),
         },
         headerText: {
-            fontSize: 20,
+            fontSize: normalize(20),
             fontFamily: Fonts.subHeader,
             fontWeight: 700,
             color: Colors.textBlack,
@@ -300,24 +301,24 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         OrderBox: {
             backgroundColor: Colors.bodyColor,
-            marginHorizontal: 15,
-            marginTop: 15,
-            padding: 20,
-            borderRadius: 2,
+            marginHorizontal: vw(15),
+            marginTop: vh(15),
+            padding: normalize(20),
+            borderRadius: normalize(2),
             elevation: 5,
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
         },
         Row: {
             flexDirection: 'row',
             alignItems: 'center',
         },
         BucketImg: {
-            height: 60,
-            width: 60,
-            marginRight: 15
+            height: vh(60),
+            width: vw(60),
+            marginRight: vw(15)
         },
         orderNotConfrimedAndRotator: {
             display: 'flex',
@@ -325,66 +326,66 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             flexDirection: 'row',
         },
         OrderConfirmed: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontFamily: Fonts.subHeader,
             fontWeight: 700,
             color: Colors.textBlack,
         },
         RoundLoader: {
-            height: 15,
-            width: 15,
-            marginHorizontal: 10,
+            height: vh(15),
+            width: vw(15),
+            marginHorizontal: vw(10),
             tintColor: Colors?.textFadeBlack
         },
         OrderNumber: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
-            marginTop: 3,
+            marginTop: vh(3),
             fontWeight: 600,
         },
         WaitingText: {
             maxWidth: '80%',
-            marginTop: 5,
+            marginTop: vh(5),
             fontFamily: Fonts.font17,
             fontWeight: 500,
             color: Colors.timerFadeText,
-            lineHeight: 20,
-            fontSize: 12,
+            lineHeight: normalize(20),
+            fontSize: normalize(12),
         },
         DateRow: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginTop: 20,
+            marginTop: vh(20),
         },
         DateText: {
-            fontSize: 12,
+            fontSize: normalize(12),
             color: Colors.textBlack,
             fontFamily: Fonts.font17,
             fontWeight: 600
         },
         TrackBox: {
-            marginTop: 15,
-            marginHorizontal: 15,
+            marginTop: vh(15),
+            marginHorizontal: vw(15),
             backgroundColor: Colors.bodyColor,
-            padding: 14,
-            borderRadius: 2,
+            padding: normalize(14),
+            borderRadius: normalize(2),
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             elevation: 5,
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
         },
         TrackLeft: {
             flexDirection: 'row',
             alignItems: 'center'
         },
         TrackIcon: {
-            height: 25,
-            width: 25,
+            height: vh(25),
+            width: vw(25),
             tintColor: Colors.textBlack
         },
         FadeIcon: {
@@ -394,110 +395,110 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             color: Colors.fadeBorder
         },
         TrackText: {
-            fontSize: 15,
+            fontSize: normalize(15),
             fontFamily: Fonts.font17,
-            marginLeft: 10,
+            marginLeft: vw(10),
             fontWeight: 600,
             color: Colors.textBlack,
         },
         TrackArrow: {
-            height: 18,
-            width: 18,
+            height: vh(18),
+            width: vw(18),
             tintColor: Colors.textBlack,
             transform: [{ scaleX: -1 }]
         },
         SummaryBox: {
-            marginHorizontal: 15,
-            marginTop: 20,
+            marginHorizontal: vw(15),
+            marginTop: vh(20),
             backgroundColor: Colors.bodyColor,
-            paddingBottom: 20,
-            borderRadius: 2,
+            paddingBottom: vh(20),
+            borderRadius: normalize(2),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             elevation: 5,
         },
         SumaryBottomBox: {
-            marginHorizontal: 15,
+            marginHorizontal: vw(15),
         },
         SummaryHeaderRow: {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             backgroundColor: Colors?.bodyShadeColor,
-            paddingHorizontal: 15,
+            paddingHorizontal: vw(15),
         },
         SummaryHeader: {
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts.subHeader,
             fontWeight: 700,
             color: Colors.textBlack,
-            marginVertical: 20,
+            marginVertical: vh(20),
         },
         DownloadIcon: {
-            height: 25,
-            width: 25,
+            height: vh(25),
+            width: vw(25),
             tintColor: Colors?.textBlack
         },
 
         SectionTitle: {
-            marginTop: 20,
-            fontSize: 15,
+            marginTop: vh(20),
+            fontSize: normalize(15),
             fontFamily: Fonts.subHeader,
             color: Colors.textBlack,
-            marginBottom: 5,
+            marginBottom: vh(5),
         },
         DeliveryAddressheader: {
-            marginTop: 10,
-            fontSize: 13,
+            marginTop: vh(10),
+            fontSize: normalize(13),
             color: Colors?.textBlack,
             fontWeight: 600,
             fontFamily: Fonts?.font17
         },
         AddressInfo: {
-            marginTop: 10,
-            marginBottom: 10,
+            marginTop: vh(10),
+            marginBottom: vh(10),
             fontFamily: Fonts.font17,
             fontWeight: 500,
             color: Colors.timerFadeText,
-            lineHeight: 20,
-            fontSize: 13,
+            lineHeight: normalize(20),
+            fontSize: normalize(13),
         },
         customBorder: {
             width: '100%',
             borderBottomColor: Colors?.blueLightBG,
-            borderBottomWidth: 1,
+            borderBottomWidth: normalize(1),
         },
         customBorder2: {
             borderBottomColor: Colors?.blueLightBG,
             width: '100%',
-            marginTop: 15,
-            borderBottomWidth: 1,
+            marginTop: vh(15),
+            borderBottomWidth: normalize(1),
         },
         paymentModeContainer: {
-            marginTop: 15,
-            marginBottom: 15,
+            marginTop: vh(15),
+            marginBottom: vh(15),
             display: 'flex',
             alignItems: 'center',
             flexDirection: 'row',
         },
         paymentMode: {
             fontFamily: Fonts.font12,
-            fontSize: 13,
+            fontSize: normalize(13),
             color: Colors.timerFadeText,
             fontWeight: 700,
         },
         InfoBold: {
             fontFamily: Fonts.subHeader,
-            fontSize: 13,
+            fontSize: normalize(13),
             fontWeight: 700,
             color: Colors.textFadeBlack2,
         },
         items: {
-            marginTop: 10,
+            marginTop: vh(10),
             fontFamily: Fonts.subHeader,
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: 700,
             color: Colors.textBlack,
         },
@@ -505,7 +506,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: 12,
+            marginTop: vh(12),
         },
         ItemRowQty: {
             width: '55%',
@@ -518,20 +519,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             flex: 1,
             fontFamily: Fonts.font12,
             color: Colors.timerFadeText,
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: 500
         },
         ItemQty: {
-            width: 30,
+            width: vw(30),
             textAlign: 'center',
             fontFamily: Fonts.regular,
             color: Colors.textGrey,
-            fontSize: 14,
+            fontSize: normalize(14),
         },
         ItemPrice: {
             color: Colors.textBlack,
-            fontSize: 13,
-            marginTop: 8,
+            fontSize: normalize(13),
+            marginTop: vh(8),
             fontFamily: Fonts.subHeader,
             fontWeight: 500
         },
@@ -539,7 +540,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         TotalRow: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginTop: 25,
+            marginTop: vh(25),
         },
         TotalLabelLeft: {
             display: 'flex',
@@ -549,23 +550,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         TotalLabel: {
             fontFamily: Fonts.subHeader,
-            fontSize: 14,
+            fontSize: normalize(14),
             color: Colors?.textFadeBlack2
         },
         ExpansionButton: {
-            height: 20,
-            width: 20,
-            borderRadius: 15,
+            height: vh(20),
+            width: vw(20),
+            borderRadius: normalize(15),
             backgroundColor: Colors?.blueMixBG,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            marginHorizontal: 10
+            marginHorizontal: vw(10)
         },
         ArrowDown: {
-            height: 15,
-            width: 15,
+            height: vh(15),
+            width: vw(15),
             tintColor: Colors?.textBlack
         },
         rotateImage: {
@@ -573,13 +574,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         TotalAmount: {
             fontFamily: Fonts.subHeader,
-            fontSize: 16,
+            fontSize: normalize(16),
             color: Colors.textBlack,
             fontWeight: 600,
         },
         amountOpenContainer: {
-            marginTop: 12,
-            marginLeft: 10,
+            marginTop: vh(12),
+            marginLeft: vw(10),
         },
         BillRowEntries: {
             display: 'flex',
@@ -590,37 +591,37 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         BillRowLeft: {
             fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: 500.
         },
         BillRow: {
-            fontSize: 14,
-            marginTop: 8,
+            fontSize: normalize(14),
+            marginTop: vh(8),
             fontFamily: Fonts.subHeader,
             color: Colors.textFadeBlack2,
             fontWeight: 500
         },
         FailedContainer: {
             backgroundColor: Colors.bodyColor,
-            marginTop: 20,
-            padding: 20,
+            marginTop: vh(20),
+            padding: normalize(20),
         },
         FailedTitle: {
-            fontSize: 20,
+            fontSize: normalize(20),
             fontFamily: Fonts.font17,
             fontWeight: '700',
             color: Colors.textBlack,
             textAlign: 'center',
         },
         FailedSubText: {
-            marginTop: 10,
-            fontSize: 16,
+            marginTop: vh(10),
+            fontSize: normalize(16),
             width: '80%',
             alignSelf: 'center',
             fontFamily: Fonts.font17,
             color: Colors.textFadeBlack,
             textAlign: 'center',
-            lineHeight: 20,
+            lineHeight: normalize(20),
         },
         PhoneNumber: {
             fontFamily: Fonts.subHeader,
@@ -628,30 +629,30 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             color: Colors.textFadeBlack,
         },
         RefundBox: {
-            marginTop: 25,
+            marginTop: vh(25),
             backgroundColor: Colors.bodyLigheterColor,
-            padding: 15,
+            padding: normalize(15),
             borderStyle: 'dashed',
-            borderRadius: 2,
-            borderWidth: 1,
+            borderRadius: normalize(2),
+            borderWidth: normalize(1),
             borderColor: Colors.textFadeBlack,
         },
         RefundTitle: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontFamily: Fonts.subHeader,
             fontWeight: 600,
             color: Colors.textFadeBlack2,
         },
         RefundInfo: {
-            marginTop: 10,
-            fontSize: 15,
+            marginTop: vh(10),
+            fontSize: normalize(15),
             fontFamily: Fonts.font17,
             color: Colors.timerFadeText,
             fontWeight: 500,
-            lineHeight: 25,
+            lineHeight: normalize(25),
         },
         failedTotalAmount: {
-            fontSize: 15,
+            fontSize: normalize(15),
             fontFamily: Fonts.subHeader,
             fontWeight: 600,
             color: Colors.textFadeBlack2,
@@ -659,50 +660,49 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         WriteBox: {
         },
         WriteTitle: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontFamily: Fonts.font17,
             fontWeight: 500,
             color: Colors.textFadeBlack2,
         },
         WriteSub: {
-            marginTop: 5,
-            fontSize: 13,
+            marginTop: vh(5),
+            fontSize: normalize(13),
             fontFamily: Fonts.font17,
             color: Colors.textFadeBlack,
             lineHeight: 20,
         },
         EmailBox: {
             marginHorizontal: 'auto',
-            marginTop: 15,
-            paddingHorizontal: 16,
-            paddingVertical: 12,
-            borderWidth: 1,
+            marginTop: vh(15),
+            paddingHorizontal: vw(16),
+            paddingVertical: vh(12),
+            borderWidth: normalize(1),
             borderColor: Colors.timerFadeText,
-            borderRadius: 1,
+            borderRadius: normalize(1),
         },
         EmailText: {
             fontFamily: Fonts.subHeader,
-            fontSize: 14,
+            fontSize: normalize(14),
             fontWeight: 600,
-            marginHorizontal: 10,
+            marginHorizontal: vw(10),
             color: Colors.textFadeBlack,
-            // textAlign: 'center',
         },
         RestaurantBox: {
-            marginTop: 20,
-            marginHorizontal: 15,
+            marginTop: vh(20),
+            marginHorizontal: vw(15),
             backgroundColor: Colors.bodyColor,
-            padding: 20,
-            borderRadius: 2,
-            marginBottom: 40,
+            padding: normalize(20),
+            borderRadius: normalize(2),
+            marginBottom: vh(40),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             elevation: 5,
         },
         RestaurantTitle: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontFamily: Fonts.font17,
             color: Colors.textBlack,
             fontWeight: 700,
@@ -714,16 +714,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             justifyContent: 'space-between',
         },
         RestaurantAddress: {
-            marginTop: 10,
+            marginTop: vh(10),
             color: Colors.timerFadeText,
             lineHeight: 20,
-            fontSize: 13,
+            fontSize: normalize(13),
             fontWeight: 500,
             maxWidth: '75%'
         },
         CallIcon: {
-            height: 38,
-            width: 38,
+            height: vh(38),
+            width: vw(38),
             tintColor: Colors?.greenOk
         },
     });

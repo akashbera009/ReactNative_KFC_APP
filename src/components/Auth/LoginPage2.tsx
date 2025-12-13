@@ -11,6 +11,7 @@ import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useCountry } from '../../context/CountryContext';
 import { useLanguage } from '../../context/LanguageContex';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function LoginPage2() {
     const Colors = useThemeColors();
@@ -176,47 +177,47 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         ThreeColumnStyle: {
             alignSelf: 'center',
             width: '32%',
-            height: 200,
-            top: 0,
+            height: vh(200),
+            top: vh(0),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
             position: 'absolute'
         },
         singleCOlumnStyle: {
-            height: 100,
-            width: 25,
+            height: vh(100),
+            width: vw(25),
             backgroundColor: Colors?.KFC_red,
         },
         KFC_ComboImage: {
-            height: 200,
-            width: 200,
+            height: vh(200),
+            width: vw(200),
             alignSelf: 'center',
-            shadowColor: '#000',
-            shadowOffset: { width: 2, height: 10 },
+            shadowColor: Colors?.blueShadows,
+            shadowOffset: { width: vw(2), height: vh(10) },
             shadowOpacity: .5,
-            shadowRadius: 5,
+            shadowRadius: normalize(5),
             elevation: 5,
         },
         Welcome2: {
-            fontSize: 18,
+            fontSize: normalize(18),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            marginHorizontal: 5,
+            marginHorizontal: vw(5),
             alignSelf: 'center',
-            letterSpacing: .2
+            letterSpacing: normalize(.2)
         },
         SecondLine: {
             display: 'flex',
             flexDirection: 'row',
             alignSelf: 'center',
-            margin: 5
+            margin: normalize(5)
         },
         SecondLineText: {
-            fontSize: 22,
+            fontSize: normalize(22),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            marginHorizontal: 4
+            marginHorizontal: vw(4)
         },
 
         LowerContaienr: {
@@ -228,22 +229,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         ChooseLanguageContainer: {
             width: '100%',
             alignSelf: 'center',
-            height: 100,
+            height: vh(100),
             backgroundColor: Colors?.bodyColor,
-            marginTop: 10
+            marginTop: vh(10)
         },
         headerTextContainer: {
             display: 'flex',
             flexDirection: 'row',
-            marginLeft: 15,
-            marginTop: 15
+            marginLeft: vw(15),
+            marginTop: vh(15)
         },
         chooseLangHeader: {
             color: Colors?.timerFadeText,
             fontWeight: 700,
-            fontSize: 13,
-            marginTop: 15,
-            marginLeft: 15
+            fontSize: normalize(13),
+            marginTop: vh(15),
+            marginLeft: vw(15)
         },
         languageContainer: {
             width: '90%',
@@ -256,25 +257,24 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         LanguageButton: {
             width: '50%',
-            height: 60,
+            height: vh(60),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-            alignSelf: 'center',
-
+            alignSelf: 'center'
         },
         chooseLangText: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontWeight: 600,
             fontFamily: Fonts?.subHeader
         },
         TickMarkOuter: {
-            width: 20,
-            height: 20,
-            borderWidth: 2,
+            width: vw(20),
+            height: vh(20),
+            borderWidth: normalize(2),
             borderColor: Colors?.textFadeBlack,
-            borderRadius: 40,
+            borderRadius: normalize(40),
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -283,23 +283,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderColor: Colors?.KFC_red,
         },
         CheckBox: {
-            width: 10,
-            height: 10,
+            width: vw(10),
+            height: vh(10),
             backgroundColor: Colors?.KFC_red,
-            borderRadius: 50,
+            borderRadius: normalize(50),
         },
         MobileNumberIPContainer: {
             width: '100%',
             alignSelf: 'center',
-            height: 140,
+            height: vh(140),
             backgroundColor: Colors?.bodyColor,
-            marginTop: 10,
+            marginTop: vh(10),
         },
         mobileNoHeader: {
             color: Colors?.timerFadeText,
             fontWeight: 700,
-            fontSize: 13,
-            marginRight: 4
+            fontSize: normalize(13),
+            marginRight: vw(4)
         },
         loginMobileLowerContainer: {
             display: 'flex',
@@ -313,40 +313,40 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 600
         },
         customBorder: {
-            borderBottomWidth: 1,
+            borderBottomWidth: normalize(1),
             borderBottomColor: Colors?.fadeBorder,
-            marginTop: 10,
-            marginRight: 10
+            marginTop: vh(10),
+            marginRight: vw(10)
         },
         CountryCode: {
-            marginRight: 10,
-            marginTop: -8,
+            marginRight: vw(10),
+            marginTop: vh(-8),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700
         },
         centralMobileContainer: {
-            width: 200,
+            width: vw(200),
             display: 'flex',
             flexDirection: 'column',
             alignSelf: 'center',
-            marginTop: 20
+            marginTop: vh(20)
         },
         egMobile: {
             color: Colors?.timerFadeText,
             fontFamily: Fonts?.subHeader,
-            fontSize: 12,
-            marginTop: 2
+            fontSize: normalize(12),
+            marginTop: vh(2)
         },
         submitButton: {
-            height: 30,
+            height: vh(30),
             backgroundColor: Colors?.fadeVerify,
-            paddingHorizontal: 10,
+            paddingHorizontal: vw(10),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             marginHorizontal: 'auto',
-            borderRadius: 2,
+            borderRadius: normalize(2),
         },
         ActiveButton: {
             backgroundColor: Colors?.KFC_red
@@ -356,59 +356,59 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 700,
         },
         SubmitButtonText: {
-            fontSize: 13,
+            fontSize: normalize(13),
             fontFamily: Fonts?.subHeader,
             fontWeight: 600,
             color: Colors?.textFadeBlack,
-            paddingHorizontal: 10,
+            paddingHorizontal: vw(10),
         },
         SocialContainer: {
             width: '100%',
             alignSelf: 'center',
-            height: 130,
+            height: vh(130),
             backgroundColor: Colors?.bodyColor,
-            marginTop: 10,
+            marginTop: vh(10),
         },
         FaangContainer: {
             display: 'flex',
             flexDirection: 'row',
             width: '90%',
             alignSelf: 'center',
-            marginTop: 20
+            marginTop: vh(20)
         },
         faangButton: {
-            height: 50,
+            height: vh(50),
             backgroundColor: Colors?.bodyColor,
-            paddingHorizontal: 25,
+            paddingHorizontal: vw(25),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'flex-start',
             alignItems: 'center',
             marginHorizontal: 'auto',
-            borderRadius: 2,
+            borderRadius: normalize(2),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.3,
-            shadowRadius: 5,
+            shadowRadius: normalize(5),
             elevation: 5,
         },
         faangLogo: {
-            height: 20,
-            width: 20,
+            height: vh(20),
+            width: vw(20),
         },
         faangButtonText: {
-            fontSize: 13,
+            fontSize: normalize(13),
             fontFamily: Fonts?.subHeader,
             fontWeight: 600,
             color: Colors?.textBlack,
-            paddingHorizontal: 10,
-            marginLeft: 8
+            paddingHorizontal: vw(10),
+            marginLeft: vw(8)
         },
         TcContainer: {
             width: '100%',
             position: 'absolute',
-            left: 0,
-            height: 60,
+            left: vw(0),
+            height: vh(60),
             backgroundColor: Colors?.bodyColor,
             display: 'flex',
             justifyContent: 'center',
@@ -424,7 +424,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         tcText: {
             color: Colors?.ButtonBlueColor,
             fontWeight: 700,
-            fontSize: 12
+            fontSize: normalize(12)
         }
     })
     return styles

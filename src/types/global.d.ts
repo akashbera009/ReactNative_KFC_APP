@@ -42,8 +42,8 @@ type savedAddress = {
   lng: number;
 }
 type userDatailsType = {
-  id: string , 
-  name: string|undefined,
+  id: string,
+  name: string | undefined,
   mobileNo: string,
   email?: string | undefined,
   avatar?: string | undefined,
@@ -143,3 +143,9 @@ type OrderStatusPageProps = {
 type FoodCustomizationProps = {
   foodHeaderName: string
 }
+type CropResult = {
+  uri: string;
+  width: number;
+  height: number;
+  target: number;
+};

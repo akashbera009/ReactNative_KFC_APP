@@ -11,6 +11,7 @@ import Fonts from '../../utils/Fonts'
 import { useStrings } from '../../utils/Strings';
 import { useLanguage } from '../../context/LanguageContex';
 import Images from '../../utils/LocalImages';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function LanguagePopUp() { 
     const Colors = useThemeColors()
@@ -86,11 +87,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         backDrop: {
             backgroundColor: Colors.SemiTransparent,
             width: '100%',
-            height: '100%',
+            height:'100%',
             justifyContent: 'flex-end'
         },
         Wrapper: {
-            height: '100%',
+            height:'100%',
             width: '100%',
             display: 'flex',
             flexDirection: 'row',
@@ -98,67 +99,67 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         PopUpContainer: {
-            height: 250,
-            width: 350,
-            borderWidth: 1,
-            borderRadius: 15,
+            height: vh(250),
+            width: vw(350),
+            borderWidth: normalize(1),
+            borderRadius: normalize(15),
             backgroundColor: Colors?.bodyColor,
         },
         selectionLanguageHeader: {
-            fontSize: 20,
+            fontSize: normalize(20),
             fontWeight: 600,
             fontFamily: Fonts?.subHeader,
             color: Colors?.textBlack,
             alignSelf: 'center',
-            marginVertical: 20,
+            marginVertical: vh(20),
         },
         LanguageChangeContainer: {
             width: '90%',
-            height: 45,
+            height: vh(45),
             marginHorizontal: 'auto',
-            borderRadius: 2,
+            borderRadius: normalize(2),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-            marginVertical: 20
+            marginVertical: vh(20)
         },
         languageContainer: {
             width: '45%',
-            height: 45,
+            height: vh(45),
             backgroundColor: Colors?.bodyShadeColor,
-            borderRadius: 6,
+            borderRadius: normalize(6),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            borderWidth: 1,
+            borderWidth: normalize(1),
             borderColor: Colors?.fadeBorder
         },
         checkBox: {
-            height: 25,
-            width: 25,
+            height: vh(25),
+            width: vw(25),
             borderRadius: '50%',
-            borderWidth: 2,
+            borderWidth: normalize(2),
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            marginRight: 15,
+            marginRight: vw(15),
             borderColor: Colors?.textFadeBlack
         },
         tickMark: {
-            height: 15,
-            width: 15,
+            height: vh(15),
+            width: vw(15),
         },
         TickMarkImageContainer: {
-            borderRadius: 50,
-            padding: 6,
+            borderRadius: normalize(50),
+            padding: normalize(6),
             tintColor: Colors?.constantWhite,
             backgroundColor: Colors?.KFC_red
         },
         changeText: {
-            marginRight: 10,
-            marginLeft: 15,
+            marginRight: vw(10),
+            marginLeft: vw(15),
             fontWeight: 700,
             fontFamily: Fonts?.subHeader,
             color: Colors?.textBlack
@@ -167,18 +168,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             position: 'absolute',
             left: '5%',
             bottom: '10%',
-            height: 50,
+            height: vh(50),
             width: '90%',
             marginHorizontal: 'auto',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             paddingVertical: 10,
-            borderRadius: 2,
+            borderRadius: normalize(2),
             backgroundColor: Colors?.KFC_red
         },
         LoginButtonText: {
-            fontSize: 16,
+            fontSize: normalize(16),
             fontWeight: 800,
             fontFamily: Fonts?.subHeader,
             color: Colors?.constantWhite

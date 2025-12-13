@@ -1,15 +1,15 @@
-import { StyleSheet, Text, View, TextInput, Image, TouchableWithoutFeedback, Keyboard, TouchableOpacity, KeyboardAvoidingView, Platform, } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, TouchableWithoutFeedback, Keyboard, TouchableOpacity, KeyboardAvoidingView, Platform, RefreshControl, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // image picker
-import ImagePicker from 'react-native-image-crop-picker';
+// import ImagePicker from 'react-native-image-crop-picker';
 // redux 
 import { useSelector } from "react-redux";
 import { addUserDetails, fetctUserDeatails, selectUserByMobile, updateUser } from '../../features/userSlice';
 import { RootState, useAppDispatch } from '../../store/store';
-
 // util imports
 import Fonts from '../../utils/Fonts'
 import { useCountry } from '../../context/CountryContext';
@@ -42,8 +42,9 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     );
     useEffect(() => {
         dispatch(fetctUserDeatails())
-    }, [])
+    }, [dispatch])
     const userdata = useSelector((state: RootState) => state.users)
+    console.log(userdata);
     const currentUser = userdata?.userData.find((item) => item?.mobileNo == rawPhone)
     const [email, setEmail] = useState<string | undefined>(currentUser?.email)
     const [name, setName] = useState<string | undefined>(currentUser?.name)
@@ -55,7 +56,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const [showTopName, setShowTopName] = useState<boolean>(false)
     const [goodToLogin, setGoodToLogin] = useState(false)
     const [selectedImage, setSelectedImage] = useState<string | undefined>(currentUser?.avatar)
-    const [successModal, setSuccessModal] = useState(true)
+    const [refreshing, setRefreshing] = React.useState(false);
     useEffect(() => {
         checkGoodToLogin();
         handleShowWarningEmail();
@@ -80,7 +81,6 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         setName(text)
         setIsTouchedName(true)
     }
-
     const handleSave = () => {
         if (!goodToLogin) return;
         if (existingUser) {
@@ -139,121 +139,146 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
             setShowTopName(false)
     }
     const openImagePicker = () => {
-        ImagePicker.openPicker({
-            width: 300,
-            height: 400,
-            mediaType: 'photo',
-            cropping: true,
-        }).then(async (image) => {
-            const url = await uploadToImgBB({
-                path: image.path,
-                mime: image.mime,
-                filename: image.filename
-            });
-            setSelectedImage(url)
-        });
+        // ImagePicker.openPicker({
+        //     width: 300,
+        //     height: 400,
+        //     mediaType: 'photo',
+        //     cropping: true,
+        // }).then(async (image) => {
+        //     const url = await uploadToImgBB({
+        //         path: image.path,
+        //         mime: image.mime,
+        //         filename: image.filename
+        //     });
+        //     setSelectedImage(url)
+        // });
     }
-
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        dispatch(fetctUserDeatails())
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 1000);
+    }, []);
     return (
         <View style={Styles.parentBackground}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                <View >
-                    <View style={[Styles.navigationContainer, {}]}>
-                        <View style={[Styles.innerNavigationContainer, { marginTop: inset.top }]}>
-                            <TouchableOpacity
-                                onPress={() => navigation.pop()}>
-                                <Image source={Images?.back_arrow} style={Styles.BackBUtton} />
-                            </TouchableOpacity>
-                            <Text style={Styles.navHeaderText} >{Strings?.createProfileHeader}</Text>
-                        </View>
-                    </View>
-
-                    <View style={Styles.enterCreateProfileHeaderContainer}>
-                        <Text style={Styles.enterCreateProfileHeader}>{Strings?.enterYourDetails}</Text>
-                    </View>
-                    <KeyboardAvoidingView
-                        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                        style={[Styles.CreateProfileRelatedContainer, Platform.OS == 'android' ? Styles.CreateProfileRelatedContainerAndroid : null]}
-                    >
-                        <View style={Styles.InputEntriesContainer}>
-                            <TouchableOpacity
-                                onPress={openImagePicker}
-                                style={Styles.ImageContainer}>
-                                {selectedImage != '' ? (
-                                    <Image source={{ uri: selectedImage }} style={Styles.profileImage} />
-                                ) : (
-                                    <Image source={Images?.Camera} style={Styles.CameraImage} />
-                                )}
-                            </TouchableOpacity>
-                            {showTopName && (
-                                <Text style={Styles.placeHolderTopText}>{Strings?.name.toUpperCase() + '*'} </Text>
-                            )}
-                            <View style={Styles.EmailAndWarning} >
-                                <TextInput
-                                    value={name}
-                                    onChangeText={handleChangeName}
-                                    placeholder={Strings?.name + '*'}
-                                    style={Styles.InputEntries} />
-                                {showWarningName && (
-                                    <Image source={Images?.Orange_Warning} style={[Styles.tickMark, Styles.warningMark]} />
-                                )}
+            <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
+                <View style={Styles.rowCenter}>
+                    <TouchableOpacity onPress={() => navigation.pop()}>
+                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                    </TouchableOpacity>
+                    <Text style={Styles.headerText} >{Strings?.createProfileHeader}</Text>
+                </View>
+            </View> 
+                <KeyboardAwareScrollView
+                    extraScrollHeight={120}
+                    extraHeight={20}
+                    keyboardShouldPersistTaps='handled'
+                    enableOnAndroid={true}
+                     refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+                >
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                        <View >
+                            <View style={Styles.enterCreateProfileHeaderContainer}>
+                                <Text style={Styles.enterCreateProfileHeader}>{Strings?.enterYourDetails}</Text>
                             </View>
-                            <View style={[Styles.customBorder, showWarningName && Styles.OrangeBorder]} />
-                            {showWarningName ? (
-                                <Text style={Styles.orangeMandatoryField}>{Strings?.fieldIsMandatory} </Text>
-                            ) : (
-                                <View style={Styles.BlankWarning} />
-                            )}
-                            <View style={Styles.WrapperPhoneNoContainer}>
-                                <Text style={Styles.mobileNumberPlaceholder}>{Strings?.mobileNumber.toUpperCase() + '*'} </Text>
-                                <View style={Styles.PhoneNoContainer}>
-                                    <View style={Styles.leftMobileContainer}>
-                                        <View style={Styles.mobileCodeAndArrow}>
-                                            <Text style={Styles.mobileCode}>{countrySelected?.mobileCode} </Text>
-                                            <Image source={Images?.Arrow_down} style={Styles.arrowDown} />
-                                        </View>
-                                        <View style={Styles.customBorder} />
+                            <View
+                                style={[Styles.CreateProfileRelatedContainer]}
+                            >
+                                <View style={Styles.InputEntriesContainer}>
+                                    {userdata?.loading != 'success' ? (
+                                        <Text>{Strings?.loading}</Text>
+                                    ) : (
+                                        <TouchableOpacity
+                                            onPress={openImagePicker}
+                                            style={Styles.ImageContainer}>
+                                            {selectedImage != '' ? (
+                                                <Image source={{ uri: selectedImage }} style={Styles.profileImage} />
+                                            ) : (
+                                                <Image source={Images?.Camera} style={Styles.CameraImage} />
+                                            )}
+                                        </TouchableOpacity>
+                                    )}
+                                    {showTopName && (
+                                        <Text style={Styles.placeHolderTopText}>{Strings?.name.toUpperCase() + '*'} </Text>
+                                    )}
+                                    <View style={Styles.EmailAndWarning} >
+                                        {userdata?.loading != 'success' ? (
+                                            <Text>{Strings?.loading}</Text>
+                                        ) : (
+                                            <TextInput
+                                                value={name}
+                                                onChangeText={handleChangeName}
+                                                placeholder={Strings?.name + '*'}
+                                                style={Styles.InputEntries} />
+                                        )}
+                                        {showWarningName && (
+                                            <Image source={Images?.Orange_Warning} style={[Styles.tickMark, Styles.warningMark]} />
+                                        )}
                                     </View>
-                                    <View style={Styles.RightMobileContainer}>
-                                        <View style={Styles.mobileAndImage}>
-                                            <Text style={Styles.mobileNo}>{phoneNo} </Text>
-                                            <Image source={Images?.Green_Tick} style={[Styles.tickMark, Styles.tickMark_Green]} />
+                                    <View style={[Styles.customBorder, showWarningName && Styles.OrangeBorder]} />
+                                    {showWarningName ? (
+                                        <Text style={Styles.orangeMandatoryField}>{Strings?.fieldIsMandatory} </Text>
+                                    ) : (
+                                        <View style={Styles.BlankWarning} />
+                                    )}
+                                    <View style={Styles.WrapperPhoneNoContainer}>
+                                        <Text style={Styles.mobileNumberPlaceholder}>{Strings?.mobileNumber.toUpperCase() + '*'} </Text>
+                                        <View style={Styles.PhoneNoContainer}>
+                                            <View style={Styles.leftMobileContainer}>
+                                                <View style={Styles.mobileCodeAndArrow}>
+                                                    <Text style={Styles.mobileCode}>{countrySelected?.mobileCode} </Text>
+                                                    <Image source={Images?.Arrow_down} style={Styles.arrowDown} />
+                                                </View>
+                                                <View style={Styles.customBorder} />
+                                            </View>
+                                            <View style={Styles.RightMobileContainer}>
+                                                <View style={Styles.mobileAndImage}>
+                                                    <Text style={Styles.mobileNo}>{phoneNo} </Text>
+                                                    <Image source={Images?.Green_Tick} style={[Styles.tickMark, Styles.tickMark_Green]} />
+                                                </View>
+                                                <View style={Styles.customBorder} />
+                                            </View>
                                         </View>
-                                        <View style={Styles.customBorder} />
                                     </View>
+                                    {showTopEmail && (
+                                        <Text style={Styles.placeHolderTopText}>{Strings?.email.toUpperCase() + '*'} </Text>
+                                    )}
+                                    <View style={Styles.EmailAndWarning} >
+                                        {userdata?.loading != 'success' ? (
+                                            <Text>{Strings?.loading}</Text>
+                                        ) : (
+                                            <TextInput
+                                                value={email}
+                                                onChangeText={handleChangeEmail}
+                                                placeholder={Strings?.email + '*'}
+                                                style={Styles.InputEntries} />
+                                        )}
+                                        {showWarningEmail && (
+                                            <Image source={Images?.Orange_Warning} style={[Styles.tickMark, Styles.warningMark]} />
+                                        )}
+                                    </View>
+                                    <View style={[Styles.customBorder, showWarningEmail && Styles.OrangeBorder]} />
+                                    {showWarningEmail ? (
+                                        <Text style={Styles.orangeMandatoryField}>{Strings?.fieldIsMandatory} </Text>
+                                    ) : (
+                                        <View style={Styles.BlankWarning} />
+                                    )}
+                                </View>
+                                <View style={Styles.verifyButtonContainer}>
+                                    <TouchableOpacity
+                                        activeOpacity={.5}
+                                        onPress={handleSave}
+                                        style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
+                                        <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings?.save.toUpperCase()}</Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
-                            {showTopEmail && (
-                                <Text style={Styles.placeHolderTopText}>{Strings?.email.toUpperCase() + '*'} </Text>
-                            )}
-                            <View style={Styles.EmailAndWarning} >
-                                <TextInput
-                                    value={email}
-                                    onChangeText={handleChangeEmail}
-                                    placeholder={Strings?.email + '*'}
-                                    style={Styles.InputEntries} />
-                                {showWarningEmail && (
-                                    <Image source={Images?.Orange_Warning} style={[Styles.tickMark, Styles.warningMark]} />
-                                )}
-                            </View>
-                            <View style={[Styles.customBorder, showWarningEmail && Styles.OrangeBorder]} />
-                            {showWarningEmail ? (
-                                <Text style={Styles.orangeMandatoryField}>{Strings?.fieldIsMandatory} </Text>
-                            ) : (
-                                <View style={Styles.BlankWarning} />
-                            )}
                         </View>
-                        <View style={Styles.verifyButtonContainer}>
-                            <TouchableOpacity
-                                activeOpacity={.5}
-                                onPress={handleSave}
-                                style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
-                                <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings?.save.toUpperCase()}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </KeyboardAvoidingView>
-                </View>
-            </TouchableWithoutFeedback>
+                    </TouchableWithoutFeedback>
+                </KeyboardAwareScrollView>
         </View>
     )
 }
@@ -261,43 +286,43 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parentBackground: {
-            height: '100%',
-            width: '100%',
+            flex: 1,
             backgroundColor: Colors?.bodyLigheterColor,
         },
-        navigationContainer: {
+        NavWrapper: {
             width: '100%',
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'flex-end',
+            paddingBottom: vh(15),
             backgroundColor: Colors?.bodyColor,
-            shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: vw(0), height: vh(0) },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-        },
-        innerNavigationContainer: {
-            width: '100%',
-            height: vh(60),
-            display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            backgroundColor: Colors?.bodyColor,
+            paddingHorizontal: vw(10),
         },
-        BackBUtton: {
+        rowCenter: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        BackIcon: {
+            tintColor: Colors?.textBlack,
             height: vh(20),
             width: vw(20),
-            margin: normalize(20),
+            marginRight: vw(18),
         },
-        navHeaderText: {
+        headerText: {
             fontSize: normalize(20),
             fontFamily: Fonts?.subHeader,
-            fontWeight: 700,
+            fontWeight: '700',
+            color: Colors?.textBlack,
+        },
+        sectionTitle: {
+            fontSize: normalize(16),
+            fontFamily: Fonts?.subHeader,
+            fontWeight: '700',
+            color: Colors?.textBlack,
+            marginTop: vh(10),
+            marginLeft: vw(20),
         },
         enterCreateProfileHeaderContainer: {
-            width: '90%',
-            alignSelf: 'center',
+            marginHorizontal: vw(20),
         },
         enterCreateProfileHeader: {
             fontSize: normalize(18),
@@ -307,19 +332,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         CreateProfileRelatedContainer: {
             marginTop: vh(15),
-            width:'90%',
-            alignSelf: 'center',
+            marginHorizontal: vw(15),
             backgroundColor: Colors?.bodyColor,
             display: 'flex',
             flexDirection: 'column',
             shadowColor: Colors?.blueShadows,
             shadowOffset: { width: vw(5), height: vh(5) },
-            shadowOpacity: .1,
+            shadowOpacity:.25,
             shadowRadius: normalize(10),
             elevation: normalize(5),
-        },
-        CreateProfileRelatedContainerAndroid: {
-            height: vh(390)
         },
         customBorder: {
             borderBottomWidth: normalize(1),
@@ -332,15 +353,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         InputEntriesContainer: {
             display: 'flex',
             flexDirection: 'column',
-            width:'90%',
+            marginHorizontal: vw(20),
             alignSelf: 'center',
-            marginTop: vh(25)
+            marginTop: vh(25),
         },
         InputEntries: {
-            width: '90%',
+            marginRight: vw(10),
             fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
-            fontWeight: 600
+            fontWeight: 600,
+            color: Colors?.textBlack
         },
         WrapperPhoneNoContainer: {
             marginVertical: vh(8),
@@ -353,7 +375,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         leftMobileContainer: {
-            width: '25%',
+            width: vw(80),
             marginRight: vw(10),
         },
         mobileCodeAndArrow: {
@@ -365,15 +387,17 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginBottom: vh(5),
             fontSize: normalize(16),
             fontWeight: 600,
+            color: Colors?.textBlack
         },
         arrowDown: {
             height: vh(15),
             width: vw(15),
             marginTop: vh(2),
-            marginRight: vw(4)
+            marginRight: vw(4),
+            tintColor: Colors?.textBlack
         },
         RightMobileContainer: {
-            width: '70%',
+            width: vw(225),
             marginLeft: vw(10)
         },
         mobileNumberPlaceholder: {
@@ -381,12 +405,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 700,
             color: Colors?.timerFadeText,
             fontSize: normalize(10),
-            marginLeft: '32%',
+            marginLeft: vw(105),
         },
         mobileNo: {
             fontSize: normalize(16),
             fontWeight: 600,
-            marginLeft: vw(5)
+            alignSelf: 'center',
+            marginLeft: vw(5),
+            color: Colors?.textBlack
         },
         placeHolderTopText: {
             fontWeight: 800,
@@ -424,7 +450,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(8)
         },
         mobileAndImage: {
-            width:'100%',
+            width: '100%',
             display: 'flex',
             flexDirection: 'row',
             alignSelf: 'center',
@@ -453,8 +479,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             tintColor: Colors?.timerText,
         },
         verifyButtonContainer: {
-            width: '90%',
-            alignSelf: 'center',
+            marginHorizontal: vw(20),
             marginBottom: vh(40),
         },
         VerifyBUtton: {
@@ -462,7 +487,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             paddingVertical: vh(10),
             paddingHorizontal: vw(30),
             marginTop: vh(30),
-            width: 'auto',
             alignSelf: "flex-end",
             backgroundColor: Colors?.fadeVerify,
             borderRadius: normalize(2)

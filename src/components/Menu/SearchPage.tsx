@@ -13,6 +13,7 @@ import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function SearchPage() {
     const Colors = useThemeColors();
     const inset = useSafeAreaInsets();
@@ -52,20 +53,24 @@ export default function SearchPage() {
 
             <View style={Styles.ContentContainer}>
                 {searchResult?.length === 0 && (
-                    <View style={Styles.NotFoundContainer}>
-                        <View style={Styles.imageContaienr}>
-                            <Image source={Images?.CoffeeCup} style={Styles.ConfeeCupImage} />
-                            <Image source={Images?.SpilledWater} style={Styles.SplledWaterImage} />
+                    <TouchableWithoutFeedback
+                        onPress={Keyboard.dismiss} accessible={false}>
+                        <View
+                            style={Styles.NotFoundContainer}>
+                            <View style={Styles.imageContaienr}>
+                                <Image source={Images?.CoffeeCup} style={Styles.ConfeeCupImage} />
+                                <Image source={Images?.SpilledWater} style={Styles.SplledWaterImage} />
+                            </View>
+                            <Text style={Styles.Opps}>{Strings?.opps.toUpperCase()} </Text>
+                            <Text style={Styles.NotFoundRes}>{Strings?.noResFound} </Text>
+                            <TouchableOpacity
+                                style={Styles.ExploreMoreButton}
+                                onPress={() => { navigation.pop() }}
+                            >
+                                <Text style={Styles.ExploreMoreButtonTxt}>{Strings?.exploreKFCMenu.toUpperCase()} </Text>
+                            </TouchableOpacity>
                         </View>
-                        <Text style={Styles.Opps}>{Strings?.opps.toUpperCase()} </Text>
-                        <Text style={Styles.NotFoundRes}>{Strings?.noResFound} </Text>
-                        <TouchableOpacity
-                            style={Styles.ExploreMoreButton}
-                            onPress={() => { navigation.pop() }}
-                        >
-                            <Text style={Styles.ExploreMoreButtonTxt}>{Strings?.exploreKFCMenu.toUpperCase()} </Text>
-                        </TouchableOpacity>
-                    </View>
+                    </TouchableWithoutFeedback>
                 )}
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <FlatList
@@ -78,7 +83,6 @@ export default function SearchPage() {
                     />
                 </TouchableWithoutFeedback>
             </View>
-
         </View>
     );
 }
@@ -89,20 +93,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flex: 1
         },
         navigationContainer: {
-            width: '100%',
+            width:'100%',
             display: 'flex',
             alignItems: 'flex-end',
             justifyContent: 'flex-end',
             backgroundColor: Colors?.bodyColor,
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 0 },
+            shadowOffset: { width: vw(0), height: vh(0) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             elevation: 5,
         },
         innerNavigationContainer: {
-            width: '100%',
-            height: 60,
+            width:'100%',
+            height: vh(60),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -110,87 +114,87 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors?.bodyColor,
         },
         BackBUtton: {
-            height: 18,
-            width: 18,
-            marginLeft: 20,
+            height: vh(18),
+            width: vw(18),
+            marginLeft: vw(20),
         },
 
         SearchBar: {
-            width: '70%',
+            width:'70%',
             height: '90%',
-            fontSize: 14,
+            fontSize: normalize(14),
             fontFamily: Fonts?.subHeader,
             fontWeight: 600,
             color: Colors?.textBlack,
-            marginLeft: 20
+            marginLeft: vw(20)
         },
         crossButton: {
-            height: 14,
-            width: 14,
+            height: vh(14),
+            width: vw(14),
             color: Colors?.textBlack,
-            marginRight: 40,
+            marginRight: vw(40),
         },
         ContentContainer: {
-            marginTop: 8,
-            height: '90%',
+            marginTop: vh(8),
+            flex: 1,
         },
         NotFoundContainer: {
-            height: '70%',
-            width: '100%',
+            marginTop: vh(100),
+            width:'100%',
         },
         imageContaienr: {
-            height: 200,
-            marginHorizontal: 'auto',
-            marginTop: 60,
+            height: vh(200),
+            marginHorizontal:'auto',
+            marginTop: vh(60),
         },
         ConfeeCupImage: {
-            height: 160,
-            width: 160,
+            height: vh(160),
+            width: vw(160),
             transform: [{ rotate: '-88deg' }],
             position: 'relative',
             zIndex: 5,
-            left: 20,
-            top: 10,
+            left: vw(20),
+            top: vh(10),
         },
         SplledWaterImage: {
-            height: 210,
-            width: 210,
+            height: vh(210),
+            width: vw(210),
             transform: [{ rotate: '-5deg' }],
             position: 'absolute',
             zIndex: 4,
-            right: 10,
-            top: 50,
+            right: vw(10),
+            top: vh(50),
             objectFit: 'contain',
             opacity: .3
         },
         Opps: {
-            marginTop: 30,
+            marginTop: vh(30),
             alignSelf: 'center',
-            fontSize: 24,
+            fontSize: normalize(24),
             fontWeight: 700,
             color: Colors?.textBlack,
             fontFamily: Fonts?.subHeader
         },
         NotFoundRes: {
             alignSelf: 'center',
-            marginVertical: 10,
-            fontSize: 18,
+            marginVertical: vh(10),
+            fontSize: normalize(18),
             fontWeight: 600,
             color: Colors?.textFadeBlack,
             fontFamily: Fonts?.subHeader
         },
         ExploreMoreButton: {
             backgroundColor: Colors?.KFC_red,
-            marginHorizontal: 'auto',
-            marginTop: 15,
-            borderRadius: 2,
+            marginHorizontal:'auto',
+            marginTop: vh(15),
+            borderRadius: normalize(2),
         },
         ExploreMoreButtonTxt: {
             color: Colors.constantWhite,
             fontWeight: 700,
-            fontSize: 15,
-            marginHorizontal: 35,
-            marginVertical: 16,
+            fontSize: normalize(15),
+            marginHorizontal: vw(35),
+            marginVertical: vh(16),
             fontFamily: Fonts?.font17
         },
         ScrollViewContainer: {

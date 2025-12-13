@@ -10,6 +10,7 @@ import { useAppDispatch } from '../../../store/store';
 import Fonts from '../../../utils/Fonts';
 import { useStrings } from '../../../utils/Strings';
 import { useThemeColors } from '../../../utils/Colors';
+import { normalize, vh, vw } from '../../../utils/Dimensions';
 
 export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) {
     const Colors = useThemeColors();
@@ -69,23 +70,21 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
             <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
-                < View style={Styles.OuterContainer}>
-                    <View
-                        style={Styles.InnerContainer}>
-                        <Image src={imageLink} style={Styles.foodImage} />
-                        <Text style={Styles.confirmAskingText} numberOfLines={3}>{Strings?.confirmAskingText} </Text>
-                        <View style={[Styles.DoneButtonContainer, { bottom: inset.bottom }]}>
-                            <TouchableOpacity
-                                style={[Styles.Button, Styles.ChangeButton]}
-                                onPress={() => navigation.pop()}>
-                                <Text style={[Styles.DoneButtonText, Styles.ChangeButtonText]}>{Strings?.cancel.toLocaleUpperCase()}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={[Styles.Button]}
-                                onPress={handleConfirmDelete}>
-                                <Text style={Styles.DoneButtonText}>{Strings?.yesConfirm.toLocaleUpperCase()}</Text>
-                            </TouchableOpacity>
-                        </View>
+                <View
+                    style={Styles.InnerContainer}>
+                    <Image src={imageLink} style={Styles.foodImage} />
+                    <Text style={Styles.confirmAskingText} numberOfLines={3}>{Strings?.confirmAskingText} </Text>
+                    <View style={[Styles.DoneButtonContainer, { bottom: inset.bottom }]}>
+                        <TouchableOpacity
+                            style={[Styles.Button, Styles.ChangeButton]}
+                            onPress={() => navigation.pop()}>
+                            <Text style={[Styles.DoneButtonText, Styles.ChangeButtonText]}>{Strings?.cancel.toLocaleUpperCase()}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[Styles.Button]}
+                            onPress={handleConfirmDelete}>
+                            <Text style={Styles.DoneButtonText}>{Strings?.yesConfirm.toLocaleUpperCase()}</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Animated.View>
@@ -103,22 +102,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         bottomSheet: {
             width: '100%',
-            height: 500,
-        },
-        OuterContainer: {
+            height: vh(500),
         },
         InnerContainer: {
-            height: 500,
+            height: vh(500),
             backgroundColor: Colors.bodyColor,
-            borderTopRightRadius: 40,
-            borderTopLeftRadius: 40,
+            borderTopRightRadius: normalize(40),
+            borderTopLeftRadius: normalize(40),
             position: 'relative',
         },
         closeButton: {
-            marginVertical: 8,
+            marginVertical: vh(8),
             marginHorizontal: 'auto',
-            height: 40,
-            width: 40,
+            height: vh(40),
+            width: vw(40),
             borderRadius: '50%',
             backgroundColor: Colors.Black,
             display: 'flex',
@@ -126,30 +123,30 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center'
         },
         closeBtnImage: {
-            height: 20,
-            width: 20,
-            padding: 5
+            height: vh(20),
+            width: vw(20),
+            padding: normalize(5)
         },
         foodImage: {
-            height: 220,
-            width: 220,
+            height: vh(220),
+            width: vw(220),
             alignSelf: 'center',
-            marginTop: 30,
+            marginTop: vh(30),
             shadowColor: Colors?.textBlack,
-            shadowOffset: { width: 2, height: 2 },
+            shadowOffset: { width: vw(2), height: vh(2) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             elevation: 5,
         },
         confirmAskingText: {
             width: '75%',
-            marginTop: 20,
-            lineHeight: 40,
+            marginTop: vh(20),
+            lineHeight: vh(40),
             fontFamily: Fonts?.font17,
             fontWeight: 700,
             textAlign: 'center',
             alignSelf: 'center',
-            fontSize: 24,
+            fontSize: normalize(24),
             color: Colors?.textBlack,
         },
         DoneButtonContainer: {
@@ -161,14 +158,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
-
         },
         Button: {
             backgroundColor: Colors?.KFC_red,
-            borderRadius: 2,
-            paddingVertical: 10,
+            borderRadius: normalize(2),
+            paddingVertical: vh(10),
             width: '47%',
-
         },
         ChangeButton: {
             backgroundColor: Colors?.bodyColor,
@@ -181,12 +176,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             textAlign: 'center'
         },
         DoneButtonText: {
-            fontSize: 16,
+            fontSize: normalize(15),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
             color: Colors?.constantWhite,
-            marginHorizontal: 20,
-            marginVertical: 3
+            marginHorizontal: vw(20),
+            marginVertical: vh(3)
         }
     })
     return Styles;

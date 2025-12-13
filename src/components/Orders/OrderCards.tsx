@@ -7,6 +7,7 @@ import Fonts from '../../utils/Fonts';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function OrderCards({ order }: { order: OrderHistory }) {
     const Colors = useThemeColors();
@@ -44,22 +45,22 @@ export default function OrderCards({ order }: { order: OrderHistory }) {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         wrapper: {
-            marginBottom: 12,
+            marginBottom: vh(12),
             backgroundColor: Colors.bodyColor,
-            borderRadius: 2,
-            padding: 15,
+            borderRadius: normalize(2),
+            padding: normalize(15),
             shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             elevation: 5,
         },
         badge: {
             backgroundColor: Colors.blueMixBG,
-            paddingVertical: 8,
-            paddingHorizontal: 10,
-            marginTop: 4,
-            borderRadius: 4,
+            paddingVertical: vh(8),
+            paddingHorizontal: vw(10),
+            marginTop: vh(4),
+            borderRadius: normalize(4),
             flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'flex-start'
@@ -67,9 +68,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         CustomVerticalBorder: {
             height: '80%',
             borderRightColor: Colors?.fadeBorder,
-            borderRightWidth: 1,
-            marginLeft: 2,
-            marginRight: 5
+            borderRightWidth: normalize(1),
+            marginLeft: vw(2),
+            marginRight: vw(5)
         },
         badgeText: {
             fontFamily: Fonts.font17,
@@ -86,35 +87,35 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 700,
         },
         itemsTitle: {
-            marginTop: 18,
+            marginTop: vh(18),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            fontSize: 15,
+            fontSize: normalize(15),
             color: Colors.textBlack,
         },
         itemDesc: {
-            marginTop: 4,
+            marginTop: vh(4),
             fontFamily: Fonts.font17,
             color: Colors.timerFadeText,
-            fontSize: 15,
+            fontSize: normalize(15),
             width: '85%',
-            lineHeight: 25,
+            lineHeight: normalize(25),
         },
         priceRow: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            marginTop: 16,
+            marginTop: vh(16),
             alignItems: 'center',
-            marginBottom: 8,
+            marginBottom: vh(8),
         },
         priceText: {
-            fontSize: 17,
+            fontSize: normalize(17),
             fontFamily: Fonts.subHeader,
             color: Colors.textBlack,
             fontWeight: 700
         },
         statusText: {
-            fontSize: 15,
+            fontSize: normalize(15),
             fontFamily: Fonts.subHeader,
             fontWeight: 700
         },

@@ -11,6 +11,7 @@ import { useStrings } from '../../utils/Strings'
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages'
 import { useCountry } from '../../context/CountryContext';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 
 export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
@@ -176,26 +177,26 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       justifyContent: 'flex-end',
       backgroundColor: Colors?.bodyColor,
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 0 },
+      shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 0.25,
-      shadowRadius: 3.84,
+      shadowRadius: normalize(3.84),
       elevation: 5,
     },
     innerNavigationContainer: {
       width: '100%',
-      height: 60,
+      height: vh(60),
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
       backgroundColor: Colors?.bodyColor,
     },
     BackBUtton: {
-      height: 20,
-      width: 20,
-      margin: 20,
+      height: vh(20),
+      width: vw(20),
+      margin: normalize(20),
     },
     navHeaderText: {
-      fontSize: 20,
+      fontSize: normalize(20),
       fontFamily: Fonts?.subHeader,
       fontWeight: 700,
     },
@@ -204,29 +205,29 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignSelf: 'center',
     },
     enterOtpHeader: {
-      fontSize: 18,
+      fontSize: normalize(18),
       fontWeight: 600,
-      marginTop: 30,
+      marginTop: vh(30),
       fontFamily: Fonts?.subHeader,
     },
     PhoneNo: {
-      fontSize: 17,
+      fontSize: normalize(17),
       fontWeight: 600,
-      marginTop: 10,
+      marginTop: vh(10),
       fontFamily: Fonts?.subHeader,
     },
     otpRelatedContainer: {
-      marginTop: 15,
-      height: 320,
+      marginTop: vh(15),
+      height: vh(320),
       width: '90%',
       alignSelf: 'center',
       backgroundColor: Colors?.bodyColor,
       display: 'flex',
       flexDirection: 'column',
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 5, height: 5 },
+      shadowOffset: { width: vw(5), height: vh(5) },
       shadowOpacity: .1,
-      shadowRadius: 10,
+      shadowRadius: normalize(10),
       elevation: 5,
     },
     innerOtpContainer: {
@@ -235,18 +236,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       flexDirection: 'row',
       justifyContent: 'space-around',
       width: '95%',
-      marginTop: 50,
+      marginTop: vh(50),
     },
     SingleOtp: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      borderBottomWidth: 2,
-      height: 60,
-      width: 60
+      borderBottomWidth: normalize(2),
+      height: vh(60),
+      width: vw(60)
     },
     OtpInputText: {
-      fontSize: 24,
+      fontSize: normalize(24),
       height: '100%',
       width: '100%',
       textAlign: 'center'
@@ -256,14 +257,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignSelf: 'center',
     },
     VerifyBUtton: {
-      height: 40,
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-      marginTop: 30,
+      height: vh(40),
+      paddingVertical: vh(10),
+      paddingHorizontal: vw(20),
+      marginTop: vh(30),
       width: 'auto',
       alignSelf: "flex-end",
       backgroundColor: Colors?.fadeVerify,
-      borderRadius: 2
+      borderRadius: normalize(2)
     },
     VerifyBUttonActive: {
       backgroundColor: Colors?.KFC_red
@@ -271,14 +272,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     VerifyBUttonText: {
       fontFamily: Fonts?.subHeader,
       fontWeight: 700,
-      fontSize: 16,
+      fontSize: normalize(16),
       color: Colors?.verifyText
     },
     VerifyBUttonTextActive: {
       color: Colors?.constantWhite
     },
     LowerOtpContainer: {
-      margin: 10,
+      margin: normalize(10),
       width: '90%',
       alignSelf: 'center',
       display: 'flex',
@@ -289,32 +290,30 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      margin: 8,
+      margin: normalize(8),
     },
     LowerOtpContainerEntriesLeft: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      // justifyContent: 'space-between',
-      height: 40,
-
+      height: vh(40),
     },
     otpentriesIcon: {
-      height: 25,
-      width: 25
+      height: vh(25),
+      width: vw(25)
     },
     resendRealtedText: {
       color: Colors?.resendOtpText,
       fontFamily: Fonts?.subHeader,
       fontWeight: 700,
-      margin: 10
+      margin: normalize(10)
     },
     activeResndText: {
       color: Colors?.ButtonBlueColor,
     },
     timerText: {
       color: Colors?.timerText,
-      padding: 2,
+      padding: normalize(2),
     },
     ActiveBorder: {
       borderBottomColor: Colors?.activeBorder,
