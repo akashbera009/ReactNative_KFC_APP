@@ -33,7 +33,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                     </View>
                 </View>
                 <View style={Styles.resetButton}>
-                    <Text style={Styles.resetButtonText}>{Strings?.reset.toUpperCase()} </Text>
+                    <Text style={Styles.resetButtonText}>{Strings.reset.toUpperCase()} </Text>
                 </View>
             </View>
             <View style={Styles.ScrollContainer}>
@@ -66,7 +66,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                             <Text
                                 style={{
                                     fontSize: normalize(16),
-                                    fontFamily: Fonts?.subHeader,
+                                    fontFamily: Fonts.subHeader,
                                     fontWeight: '700',
                                     marginHorizontal: vw(20),
                                     marginBottom: normalize(10),
@@ -93,7 +93,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                             <Text
                                                 style={{
                                                     fontSize: normalize(15),
-                                                    fontFamily: Fonts?.font17,
+                                                    fontFamily: Fonts.font17,
                                                     fontWeight: '600',
                                                     color: Colors.textBlack,
                                                 }}
@@ -120,7 +120,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                                         width: vw(40),
                                                         textAlign: "center",
                                                         fontSize: normalize(16),
-                                                        fontFamily: Fonts?.subHeader,
+                                                        fontFamily: Fonts.subHeader,
                                                     }}
                                                 >
                                                     {choice.default || 0}
@@ -174,7 +174,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                             <Text
                                                 style={{
                                                     fontSize: normalize(14),
-                                                    fontFamily: Fonts?.font17,
+                                                    fontFamily: Fonts.font17,
                                                     fontWeight: '600',
                                                     color: Colors.textBlack,
                                                 }}
@@ -186,7 +186,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                                 <Text
                                                     style={{
                                                         fontSize: normalize(12),
-                                                        fontFamily: Fonts?.font17,
+                                                        fontFamily: Fonts.font17,
                                                         color: Colors.textFadeBlack,
                                                         marginTop: normalize(2),
                                                     }}
@@ -213,7 +213,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                                             height: vh(12),
                                                             width: vw(12),
                                                             borderRadius: vw(6),
-                                                            backgroundColor: Colors?.bodyColor,
+                                                            backgroundColor: Colors.bodyColor,
                                                         }}
                                                     />
                                                 )}
@@ -238,7 +238,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                     ))}
                 </ScrollView>
                 <View style={[Styles.BottomCartContainer, { bottom: 0 }]}>
-                    <BottomCart ButtonType={Strings?.AddToCart.toUpperCase()} navLink={Strings?.CartScreen} totalAmount={0} discount={0} />
+                    <BottomCart ButtonType={Strings.AddToCart.toUpperCase()} navLink={Strings.CartScreen} totalAmount={0} discount={0} />
                 </View>
             </View>
         </View>
@@ -249,11 +249,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parent: {
             height: '100%',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -263,9 +263,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         BackIconAndHeaderText: {
             display: 'flex',
@@ -274,7 +274,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         BackIcon: {
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             height: vh(18),
             width: vw(18),
             alignSelf: 'flex-start',
@@ -289,12 +289,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         navHeaderText: {
             fontSize: normalize(20),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
         },
         ScrollContainer: {
             height: '92%',
-            backgroundColor: Colors?.bodyLigheterColor,
+            backgroundColor: Colors.bodyLigheterColor,
         },
         TopImageSlider: {
             width: "100%",
@@ -336,24 +336,24 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         resetButton: {
             marginRight: vw(20),
             borderWidth: normalize(1),
-            borderColor: Colors?.fadeBorder
+            borderColor: Colors.fadeBorder
         },
         resetButtonText: {
             fontSize: normalize(12),
             fontWeight: 700,
             paddingHorizontal: normalize(12),
             paddingVertical: normalize(6),
-            fontFamily: Fonts?.font17,
-            color: Colors?.textFadeBlack
+            fontFamily: Fonts.font17,
+            color: Colors.textFadeBlack
         },
         BottomCartContainer: {
             width: '100%',
             height: vh(110),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             position: 'absolute',
             left: 0,
             zIndex: 2,
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: 0, height: vh(0) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(5),

@@ -20,21 +20,21 @@ export default function OrderCards({ order }: { order: OrderHistory }) {
     return (
         <TouchableOpacity
             activeOpacity={.7}
-            onPress={() => navigation.push(Strings?.OrderDetailsScreen, {
+            onPress={() => navigation.push(Strings.OrderDetailsScreen, {
                 order: order
             })}
             style={Styles.wrapper} >
             <View style={Styles.badge}>
-                <Text style={Styles.badgeText}>{Strings?.orderId}:</Text>
+                <Text style={Styles.badgeText}>{Strings.orderId}:</Text>
                 <Text style={Styles.OrderId}> {order?.orderId}</Text>
                 <View style={Styles.CustomVerticalBorder} />
                 <Text style={Styles.orderDate}>{order?.date}</Text>
             </View>
-            <Text style={Styles.itemsTitle}>{order?.Items?.length} {Strings?.items.toUpperCase()}</Text>
+            <Text style={Styles.itemsTitle}>{order?.Items?.length} {Strings.items.toUpperCase()}</Text>
             <Text style={Styles.itemDesc}>{itemNames}</Text>
             <View style={Styles.priceRow}>
                 <Text style={Styles.priceText}>{totalPrice.toFixed(2)} {countrySelected?.currencyCode}</Text>
-                <Text style={[Styles.statusText, (order?.status === Strings?.deliveredString) ? Styles.Delivered : Styles.Cencelled]}>
+                <Text style={[Styles.statusText, (order?.status === Strings.deliveredString) ? Styles.Delivered : Styles.Cencelled]}>
                     {order?.status}
                 </Text>
             </View>
@@ -49,7 +49,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.bodyColor,
             borderRadius: normalize(2),
             padding: normalize(15),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
@@ -67,7 +67,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         CustomVerticalBorder: {
             height: '80%',
-            borderRightColor: Colors?.fadeBorder,
+            borderRightColor: Colors.fadeBorder,
             borderRightWidth: normalize(1),
             marginLeft: vw(2),
             marginRight: vw(5)
@@ -88,7 +88,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         itemsTitle: {
             marginTop: vh(18),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             fontSize: normalize(15),
             color: Colors.textBlack,
@@ -120,10 +120,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 700
         },
         Delivered: {
-            color: Colors?.greenOk
+            color: Colors.greenOk
         },
         Cencelled: {
-            color: Colors?.activeBorder
+            color: Colors.activeBorder
         }
     });
     return Styles;

@@ -23,7 +23,7 @@ export default function SplashPage() {
                 </View>
                 <View style={[Styles.LowerContainer, { marginBottom: inset.bottom + 80 }]}>
                     <Text numberOfLines={2} style={Styles.mainText}>
-                        "{Strings?.lickingGood}"
+                        "{Strings.lickingGood}"
                     </Text>
                 </View>
             </View>
@@ -39,7 +39,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         HomeScreen: {
             width: '100%',
             height: '100%',
-            backgroundColor: Colors?.KFC_red
+            backgroundColor: Colors.KFC_red
         },
         backGroundContainer: {
             width: '100%',
@@ -59,7 +59,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         singleCOlumnStyle: {
             height: vh(120),
             width: vw(40),
-            backgroundColor: Colors?.constantWhite
+            backgroundColor: Colors.constantWhite
         },
         LowerContainer: {
             display: 'flex',
@@ -84,7 +84,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         mainText: {
             fontFamily: Fonts.firstPageCUrsuve,
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             fontSize: normalize(65),
             maxWidth: '90%',
             marginHorizontal: 'auto',

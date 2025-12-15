@@ -39,9 +39,9 @@ export default function SearchPage() {
                     <TextInput value={searchTerm}
                         style={Styles.SearchBar}
                         onChangeText={setSearchTerm}
-                        placeholder={Strings?.search}
-                        cursorColor={Colors?.KFC_red}
-                        selectionColor={Colors?.KFC_red}
+                        placeholder={Strings.search}
+                        cursorColor={Colors.KFC_red}
+                        selectionColor={Colors.KFC_red}
                     />
                     <TouchableOpacity
                         onPress={() => setSearchTerm('')}
@@ -61,13 +61,13 @@ export default function SearchPage() {
                                 <Image source={Images?.CoffeeCup} style={Styles.ConfeeCupImage} />
                                 <Image source={Images?.SpilledWater} style={Styles.SplledWaterImage} />
                             </View>
-                            <Text style={Styles.Opps}>{Strings?.opps.toUpperCase()} </Text>
-                            <Text style={Styles.NotFoundRes}>{Strings?.noResFound} </Text>
+                            <Text style={Styles.Opps}>{Strings.opps.toUpperCase()} </Text>
+                            <Text style={Styles.NotFoundRes}>{Strings.noResFound} </Text>
                             <TouchableOpacity
                                 style={Styles.ExploreMoreButton}
                                 onPress={() => { navigation.pop() }}
                             >
-                                <Text style={Styles.ExploreMoreButtonTxt}>{Strings?.exploreKFCMenu.toUpperCase()} </Text>
+                                <Text style={Styles.ExploreMoreButtonTxt}>{Strings.exploreKFCMenu.toUpperCase()} </Text>
                             </TouchableOpacity>
                         </View>
                     </TouchableWithoutFeedback>
@@ -97,8 +97,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             display: 'flex',
             alignItems: 'flex-end',
             justifyContent: 'flex-end',
-            backgroundColor: Colors?.bodyColor,
-            shadowColor: Colors?.blueShadows,
+            backgroundColor: Colors.bodyColor,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(0) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
@@ -111,7 +111,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
         },
         BackBUtton: {
             height: vh(18),
@@ -123,15 +123,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width:'70%',
             height: '90%',
             fontSize: normalize(14),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 600,
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
             marginLeft: vw(20)
         },
         crossButton: {
             height: vh(14),
             width: vw(14),
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
             marginRight: vw(40),
         },
         ContentContainer: {
@@ -172,19 +172,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
             fontSize: normalize(24),
             fontWeight: 700,
-            color: Colors?.textBlack,
-            fontFamily: Fonts?.subHeader
+            color: Colors.textBlack,
+            fontFamily: Fonts.subHeader
         },
         NotFoundRes: {
             alignSelf: 'center',
             marginVertical: vh(10),
             fontSize: normalize(18),
             fontWeight: 600,
-            color: Colors?.textFadeBlack,
-            fontFamily: Fonts?.subHeader
+            color: Colors.textFadeBlack,
+            fontFamily: Fonts.subHeader
         },
         ExploreMoreButton: {
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             marginHorizontal:'auto',
             marginTop: vh(15),
             borderRadius: normalize(2),
@@ -195,7 +195,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(15),
             marginHorizontal: vw(35),
             marginVertical: vh(16),
-            fontFamily: Fonts?.font17
+            fontFamily: Fonts.font17
         },
         ScrollViewContainer: {
 

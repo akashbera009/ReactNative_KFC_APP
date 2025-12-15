@@ -12,7 +12,7 @@ export default function SplashScreen() {
     const Strings = useStrings()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     setTimeout(() => {
-        navigation.navigate(Strings?.LoginScreen)
+        navigation.navigate(Strings.LoginScreen)
     }, 1500)
     return (
         <SplashPage />

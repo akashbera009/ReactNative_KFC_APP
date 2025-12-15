@@ -42,9 +42,9 @@ export default function HomePage() {
   const menuData = useSelector((state: RootState) => state.menuData)
   const { countrySelected } = useCountry()
   const colorList: { offset: string, color: string, opacity: string }[] = [
-    { offset: '0%', color: Colors?.orangeColorText, opacity: '1' },
-    { offset: '40%', color: Colors?.orangeColorText, opacity: '1' },
-    { offset: '100%', color: Colors?.KFC_red, opacity: '1' },
+    { offset: '0%', color: Colors.orangeColorText, opacity: '1' },
+    { offset: '40%', color: Colors.orangeColorText, opacity: '1' },
+    { offset: '100%', color: Colors.KFC_red, opacity: '1' },
   ]
   // fade animation 
   const fadeAnimation = useRef(new Animated.Value(0)).current
@@ -95,13 +95,13 @@ export default function HomePage() {
         </View>
         <View style={[Styles.ImagesAndAddressContainer, Platform.OS == 'android' && Styles.AndroidHeight]}>
           <TouchableOpacity
-            onPress={() => navigation.navigate(Strings?.SplashScreen)}
+            onPress={() => navigation.navigate(Strings.SplashScreen)}
           >
             <Image source={Images?.KfcTextLogo} style={[Styles.HeaderKFC, { marginTop: inset.top }]} />
           </TouchableOpacity>
           <Animated.View style={{ opacity: fadeAnimation }}>
             <View style={Styles.SVGContainerLeft}>
-              <Svg width={200} height={200}>
+              <Svg width={vw(200)} height={vh(200)}>
                 <Polygon
                   points="99,30 100,50 100,55 0,72 11,49 0,24"
                   fill="white"
@@ -110,14 +110,14 @@ export default function HomePage() {
                 <View style={Styles.SvgTextContainer1}>
                   <Text style={Styles.svgcashbackTextTop1}>{DeliveryDetails?.homePagediscountRate}% </Text>
                   <View style={Styles.svgcashbackTextTop2Container}>
-                    <Text style={Styles.svgcashbackTextTop2}>{Strings?.cashback.toUpperCase()} </Text>
+                    <Text style={Styles.svgcashbackTextTop2}>{Strings.cashback.toUpperCase()} </Text>
                   </View>
                 </View>
               </Svg>
             </View>
             <Image source={imageSet[imageIndex]} style={[Styles.HomePageMainImage]} />
             <View style={Styles.SVGContainerRight}>
-              <Svg width={200} height={200}>
+              <Svg width={vw(200)} height={vh(200)}>
                 <Polygon
                   points="100,25 90,45 100,70 0,65 0,45 0,33"
                   fill="white"
@@ -125,13 +125,13 @@ export default function HomePage() {
                 />
                 <View style={Styles.SvgOrderContainer3}>
                   <View style={Styles.SvgOrderContainer3Upper}>
-                    <Text style={Styles.svgcashbackTextTop3} numberOfLines={2}>{Strings?.onTheAbove.toUpperCase()} </Text>
+                    <Text style={Styles.svgcashbackTextTop3} numberOfLines={2}>{Strings.onTheAbove.toUpperCase()} </Text>
                     <View style={Styles.svgcashbackTextTop4Container}>
                       <Text style={Styles.svgcashbackTextTop4}>{DeliveryDetails?.homePagediscountPrice} </Text>
                     </View>
                   </View>
                   <View style={Styles.SvgOrderContainer3Lower}>
-                    <Text style={Styles.svgcashbackTextTop5}>{Strings?.order.toUpperCase()} </Text>
+                    <Text style={Styles.svgcashbackTextTop5}>{Strings.order.toUpperCase()} </Text>
                     <Text style={Styles.svgcashbackTextTop6}>{countrySelected?.currencyCode.toUpperCase()} </Text>
                   </View>
                 </View>
@@ -148,73 +148,73 @@ export default function HomePage() {
             <Image source={Images.Location} style={Styles.locationIcon} />
             <View style={Styles.DeliveryTextContainer}>
               <View style={Styles.upperDeliveryContainer}>
-                <Text style={Styles.DeliveryTo}>{Strings?.deliveryTo.toUpperCase()} - </Text>
+                <Text style={Styles.DeliveryTo}>{Strings.deliveryTo.toUpperCase()} - </Text>
                 <Text style={Styles.DeliveryType}>{DeliveryDetails?.type.toUpperCase()} </Text>
               </View>
               <Text style={Styles.DeliveryAddress} numberOfLines={1}>{DeliveryDetails?.address} </Text>
             </View>
             <TouchableOpacity
-              onPress={() => navigation.navigate(Strings?.ChangeLocationBottomSheetScreen)}
+              onPress={() => navigation.navigate(Strings.ChangeLocationBottomSheetScreen)}
               style={Styles.RightSideButton}>
-              <Text style={Styles.changeText}>{Strings?.change} </Text>
+              <Text style={Styles.changeText}>{Strings.change} </Text>
             </TouchableOpacity>
           </View>
         </View>
         <View style={[Styles.LowerScrollContainer, { marginBottom: inset.bottom + 10 }]}>
           <View style={Styles.ExploreContainer}>
             <View style={Styles.headerExplore}>
-              <Text style={Styles.ExploreHeader}>{Strings?.exploreMore.toUpperCase()} </Text>
+              <Text style={Styles.ExploreHeader}>{Strings.exploreMore.toUpperCase()} </Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                  categoryType: Strings?.dealsString
+                onPress={() => navigation.navigate(Strings.ExploreMenuScreen, {
+                  categoryType: Strings.dealsString
                 })}
               >
-                <Text style={Styles.ExploreHeaderViewAll}>{Strings?.viewAll.toUpperCase()} </Text>
+                <Text style={Styles.ExploreHeaderViewAll}>{Strings.viewAll.toUpperCase()} </Text>
               </TouchableOpacity>
             </View>
             <View style={Styles.ExploreCardsContainer}>
               <TouchableOpacity
-                onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                  categoryType: Strings?.dealsString
+                onPress={() => navigation.navigate(Strings.ExploreMenuScreen, {
+                  categoryType: Strings.dealsString
                 })}
                 style={Styles.FirstCard}>
-                <Text style={[Styles.ExploreCardText, Styles.FirstCardtext]}>{Strings?.deals.toUpperCase()} </Text>
+                <Text style={[Styles.ExploreCardText, Styles.FirstCardtext]}>{Strings.deals.toUpperCase()} </Text>
                 <Image source={Images?.Chicken_Bucket} style={Styles.FirstCardImage} />
               </TouchableOpacity>
               <View style={Styles.SecondCardGroup}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                    categoryType: Strings?.fonOneString
+                  onPress={() => navigation.navigate(Strings.ExploreMenuScreen, {
+                    categoryType: Strings.fonOneString
                   })}
                   style={Styles.SecondCardTop}>
-                  <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings?.forOne.toUpperCase()} </Text>
+                  <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings.forOne.toUpperCase()} </Text>
                   <Image source={Images?.Chicken_Nugedts} style={[Styles.SecondCardImage, Styles.RotateImage]} />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                    categoryType: Strings?.slideDesertString
+                  onPress={() => navigation.navigate(Strings.ExploreMenuScreen, {
+                    categoryType: Strings.slideDesertString
                   })}
                   style={Styles.SecondCardDown}>
-                  <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings?.sideDeserts.toUpperCase()} </Text>
+                  <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings.sideDeserts.toUpperCase()} </Text>
                   <Image source={Images?.French_Fries_Coke} style={Styles.SecondCardImage} />
                 </TouchableOpacity>
               </View>
               <View
                 style={Styles.ThirdCardGroup}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-                    categoryType: Strings?.forSharingString
+                  onPress={() => navigation.navigate(Strings.ExploreMenuScreen, {
+                    categoryType: Strings.forSharingString
                   })}
                   style={Styles.ThirdCardTop}>
-                  <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings?.forSharing.toUpperCase()} </Text>
+                  <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings.forSharing.toUpperCase()} </Text>
                   <Image source={Images?.Chicken_Roll} style={[Styles.ThirdCardImage, Styles.ThirdCardTopExtra]} />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
+                  onPress={() => navigation.navigate(Strings.ExploreMenuScreen, {
                     categoryType: Strings.sandwichString
                   })}
                   style={Styles.ThirdCardDown}>
-                  <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings?.beverages.toUpperCase()} </Text>
+                  <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings.beverages.toUpperCase()} </Text>
                   <Image source={Images?.Pepsi_Double_Can} style={Styles.ThirdCardImage} />
                 </TouchableOpacity>
               </View>
@@ -224,18 +224,18 @@ export default function HomePage() {
           <BestSeller />
           <View style={Styles.FavouriteContainer}>
             <View style={Styles.ThreeColumnStyle}>
-              <View style={[Styles.singleCOlumnStyle, { backgroundColor: Colors?.constantWhite }]} />
-              <View style={[Styles.singleCOlumnStyle, { backgroundColor: Colors?.constantWhite }]} />
-              <View style={[Styles.singleCOlumnStyle, { backgroundColor: Colors?.constantWhite }]} />
+              <View style={[Styles.singleCOlumnStyle, { backgroundColor: Colors.constantWhite }]} />
+              <View style={[Styles.singleCOlumnStyle, { backgroundColor: Colors.constantWhite }]} />
+              <View style={[Styles.singleCOlumnStyle, { backgroundColor: Colors.constantWhite }]} />
             </View>
             <View style={Styles.LefttextContainer}>
-              <Text style={Styles.favourites}>{Strings?.favourites.toUpperCase()} </Text>
-              <Text style={Styles.OrderFromList} numberOfLines={2}>{Strings?.orderFromList} </Text>
+              <Text style={Styles.favourites}>{Strings.favourites.toUpperCase()} </Text>
+              <Text style={Styles.OrderFromList} numberOfLines={2}>{Strings.orderFromList} </Text>
               <TouchableOpacity
                 style={Styles.OrderNowButton}
                 onPress={() => { }}
               >
-                <Text style={Styles.orderNowButtonText}>{Strings?.orderNow.toUpperCase()} </Text>
+                <Text style={Styles.orderNowButtonText}>{Strings.orderNow.toUpperCase()} </Text>
                 <Image source={Images?.back_arrow} style={Styles.BackArrow} />
               </TouchableOpacity>
             </View>
@@ -243,12 +243,12 @@ export default function HomePage() {
           </View>
           <View style={Styles.ParentWhatsNewContainer}>
             <View style={Styles.headerExplore}>
-              <Text style={Styles.WhatsNewHeader}>{Strings?.WhatsNew.toUpperCase()} </Text>
-              <Text style={Styles.ExploreHeaderViewAll}>{Strings?.viewAll.toUpperCase()} </Text>
+              <Text style={Styles.WhatsNewHeader}>{Strings.WhatsNew.toUpperCase()} </Text>
+              <Text style={Styles.ExploreHeaderViewAll}>{Strings.viewAll.toUpperCase()} </Text>
             </View>
             <ScrollView style={Styles.CardsContainer} horizontal showsHorizontalScrollIndicator={false}>
               {menuData?.loading != 'Success' ? (
-                <Text>{Strings?.loading}</Text>
+                <Text>{Strings.loading}</Text>
               ) : (
                 <>
                   {menuData?.menuData?.map((item, idx) => (
@@ -263,7 +263,7 @@ export default function HomePage() {
                             style={Styles.OrderButton}
                             onPress={() => { }}
                           >
-                            <Text style={Styles.OrderText}>{Strings?.order.toUpperCase()} </Text>
+                            <Text style={Styles.OrderText}>{Strings.order.toUpperCase()} </Text>
                           </TouchableOpacity>
                         </View>
                       </View>
@@ -298,7 +298,7 @@ export default function HomePage() {
                   <View style={Styles.line1} />
                 </View>
               </View>
-              <Text style={Styles.bottomKFCDescription}>{Strings?.bottomKFCDescription.toUpperCase()} </Text>
+              <Text style={Styles.bottomKFCDescription}>{Strings.bottomKFCDescription.toUpperCase()} </Text>
             </View>
             <VideoPlayerComponent uri={''} />
           </View>
@@ -310,7 +310,7 @@ export default function HomePage() {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
   const Styles = StyleSheet.create({
     ParentContaine: {
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
     },
     BlankCover: {
       width: '100%',
@@ -324,7 +324,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     menuIcon: {
       height: vh(25),
       width: vw(25),
-      tintColor: Colors?.constantWhite,
+      tintColor: Colors.constantWhite,
     },
     gradientBg: {
       position: 'absolute',
@@ -351,12 +351,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     HeaderKFC: {
       height: vh(30),
       width: vw(100),
-      tintColor: Colors?.constantWhite
+      tintColor: Colors.constantWhite
     },
     HeaderKFC2: {
       height: vh(18),
       width: vw(60),
-      tintColor: Colors?.textBlack,
+      tintColor: Colors.textBlack,
       marginHorizontal: vw(5)
     },
 
@@ -366,7 +366,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       position: 'relative',
       left: vw(2),
       top: vh(-25),
-      fontFamily: Fonts?.expHead,
+      fontFamily: Fonts.expHead,
     },
     svgcashbackTextTop2Container: {
       transform: [{ rotate: '-10deg' }],
@@ -377,7 +377,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     svgcashbackTextTop2: {
       fontSize: normalize(18),
       fontWeight: 600,
-      fontFamily: Fonts?.expHead,
+      fontFamily: Fonts.expHead,
     },
     SvgOrderContainer3: {
       position: 'absolute',
@@ -387,7 +387,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     svgcashbackTextTop3: {
       fontSize: normalize(16),
       fontWeight: 600,
-      fontFamily: Fonts?.expHead,
+      fontFamily: Fonts.expHead,
       width: vw(80)
     },
     SvgOrderContainer3Upper: {
@@ -415,19 +415,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     svgcashbackTextTop4: {
       fontSize: normalize(45),
       fontWeight: 600,
-      fontFamily: Fonts?.expHead,
+      fontFamily: Fonts.expHead,
       position: 'relative',
       left: vw(-40)
     },
     svgcashbackTextTop5: {
       fontSize: normalize(25),
       fontWeight: 600,
-      fontFamily: Fonts?.expHead
+      fontFamily: Fonts.expHead
     },
     svgcashbackTextTop6: {
       fontSize: normalize(18),
       fontWeight: 600,
-      fontFamily: Fonts?.expHead
+      fontFamily: Fonts.expHead
     },
     SVGContainerLeft: {
       transform: [{ rotate: '-12deg' }],
@@ -471,18 +471,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: vh(8),
       width: vw(8),
       borderWidth: normalize(1),
-      borderColor: Colors?.constantWhite,
+      borderColor: Colors.constantWhite,
       borderRadius: normalize(10),
     },
     fillIndex: {
-      backgroundColor: Colors?.constantWhite,
+      backgroundColor: Colors.constantWhite,
     },
     AddressContainer: {
       height: vh(60),
       width: '93%',
       marginTop: vh(20),
       alignSelf: 'center',
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       borderRadius: normalize(2),
       display: 'flex',
       flexDirection: 'row',
@@ -493,7 +493,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       width: vw(22),
       margin: normalize(10),
       marginLeft: vw(15),
-      tintColor: Colors?.textBlack,
+      tintColor: Colors.textBlack,
     },
     DeliveryTextContainer: {
       display: 'flex',
@@ -507,40 +507,40 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     DeliveryTo: {
       fontWeight: 700,
-      color: Colors?.textFadeBlack,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.textFadeBlack,
+      fontFamily: Fonts.subHeader,
     },
     DeliveryType: {
       fontWeight: 700,
-      fontFamily: Fonts?.subHeader,
-      color: Colors?.textBlack,
+      fontFamily: Fonts.subHeader,
+      color: Colors.textBlack,
     },
     DeliveryAddress: {
       width: vw(230),
       overflow: 'hidden',
       marginRight: vw(15),
       fontWeight: 600,
-      color: Colors?.textFadeBlack,
+      color: Colors.textFadeBlack,
     },
     RightSideButton: {
-      borderWidth: 1,
-      borderColor: Colors?.timerText,
-      borderRadius: 4,
+      borderWidth: normalize(1),
+      borderColor: Colors.timerText,
+      borderRadius: normalize(4),
       position: 'absolute',
-      right: 15
+      right: vw(15)
     },
     changeText: {
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
       fontSize: normalize(11),
       paddingHorizontal: vw(6),
       paddingVertical: vh(4),
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
     },
     LowerScrollContainer: {
       position: 'relative',
       zIndex: 3,
-      backgroundColor: Colors?.bodyLigheterColor,
+      backgroundColor: Colors.bodyLigheterColor,
     },
     ExploreContainer: {
       width: '93%',
@@ -553,14 +553,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       justifyContent: 'space-between',
     },
     ExploreHeader: {
-      color: Colors?.textBlack,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.textBlack,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
       fontSize: normalize(14)
     },
     ExploreHeaderViewAll: {
-      color: Colors?.textFadeBlack,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.textFadeBlack,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
       fontSize: normalize(12)
     },
@@ -575,10 +575,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     FirstCard: {
       height: vh(260),
       width: vw(110),
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       margin: normalize(6),
       overflow: 'hidden',
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 1,
       shadowRadius: normalize(5),
@@ -593,7 +593,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: vh(160),
       width: vw(110),
       transform: [{ scaleX: -1 }],
-      shadowColor: Colors?.constantBlack,
+      shadowColor: Colors.constantBlack,
       shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
       shadowRadius: normalize(3.84),
@@ -603,7 +603,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       bottom: vh(5),
     },
     SecondCardGroup: {
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: .1,
       shadowRadius: normalize(5),
@@ -612,12 +612,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     SecondCardTop: {
       height: vh(125),
       width: vw(115),
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       margin: normalize(6),
       position: 'relative',
       zIndex: 2,
       overflow: 'hidden',
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 1,
       shadowRadius: normalize(5),
@@ -626,19 +626,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     SecondCardDown: {
       height: vh(125),
       width: vw(115),
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       margin: normalize(6),
       position: 'relative',
       zIndex: 2,
       overflow: 'hidden',
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 1,
       shadowRadius: normalize(5),
       elevation: 5,
     },
     ThirdCardGroup: {
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: .1,
       shadowRadius: normalize(5),
@@ -647,12 +647,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     ThirdCardTop: {
       height: vh(125),
       width: vw(115),
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       margin: normalize(6),
       position: 'relative',
       zIndex: 2,
       overflow: 'hidden',
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 1,
       shadowRadius: normalize(5),
@@ -661,20 +661,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     ThirdCardDown: {
       height: vh(125),
       width: vw(115),
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       margin: normalize(6),
       position: 'relative',
       zIndex: 2,
       overflow: 'hidden',
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(0) },
       shadowOpacity: 1,
       shadowRadius: normalize(5),
       elevation: 5,
     },
     ExploreCardText: {
-      fontFamily: Fonts?.font9,
-      color: Colors?.textFadeBlack2,
+      fontFamily: Fonts.font9,
+      color: Colors.textFadeBlack2,
       fontSize: normalize(19),
       fontWeight: 600,
       textAlign: 'right',
@@ -688,7 +688,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       zIndex: 1,
       bottom: vh(-10),
       left: 0,
-      shadowColor: Colors?.constantBlack,
+      shadowColor: Colors.constantBlack,
       shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
       shadowRadius: normalize(3.84),
@@ -704,7 +704,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       zIndex: 1,
       bottom: vh(-10),
       left: vw(5),
-      shadowColor: Colors?.constantBlack,
+      shadowColor: Colors.constantBlack,
       shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
       shadowRadius: normalize(3.84),
@@ -715,7 +715,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       bottom: vh(-20)
     },
     FavouriteContainer: {
-      backgroundColor: Colors?.KFC_red,
+      backgroundColor: Colors.KFC_red,
       width: '93%',
       height: vh(140),
       alignSelf: 'center',
@@ -742,23 +742,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginLeft: vw(20)
     },
     favourites: {
-      fontFamily: Fonts?.font2,
-      color: Colors?.constantWhite,
+      fontFamily: Fonts.font2,
+      color: Colors.constantWhite,
       fontSize: normalize(28),
-      textShadowColor: Colors?.textFadeBlack2,
+      textShadowColor: Colors.textFadeBlack2,
       textShadowOffset: { width: vw(1), height: vh(2) },
       textShadowRadius: normalize(2),
     },
     OrderFromList: {
-      color: Colors?.constantWhite,
+      color: Colors.constantWhite,
       width: '55%',
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontSize: normalize(14),
       fontWeight: 700
     },
     OrderNowButton: {
       borderWidth: normalize(2),
-      borderColor: Colors?.fadeWhiteText,
+      borderColor: Colors.fadeWhiteText,
       borderRadius: normalize(1),
       marginHorizontal: 'auto',
       marginLeft: 0,
@@ -769,8 +769,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       margin: normalize(12)
     },
     orderNowButtonText: {
-      fontFamily: Fonts?.subHeader,
-      color: Colors?.constantWhite,
+      fontFamily: Fonts.subHeader,
+      color: Colors.constantWhite,
       fontSize: normalize(10),
       fontWeight: 800,
     },
@@ -778,7 +778,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: vh(10),
       width: vw(10),
       transform: [{ scaleX: -1 }],
-      tintColor: Colors?.constantWhite,
+      tintColor: Colors.constantWhite,
       margin: normalize(2)
     },
     Favourite_Combo_Pack: {
@@ -795,8 +795,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignSelf: 'center',
     },
     WhatsNewHeader: {
-      color: Colors?.textBlack,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.textBlack,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
       fontSize: normalize(14)
     },
@@ -806,10 +806,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     Cards: {
       height: vh(120),
       width: vw(250),
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       marginRight: vw(10),
       marginVertical: vh(10),
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(2), height: vh(2) },
       shadowOpacity: .3,
       borderRadius: normalize(2),
@@ -828,7 +828,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: vh(80),
       width: vw(80),
       marginLeft: 20,
-      shadowColor: Colors?.constantBlack,
+      shadowColor: Colors.constantBlack,
       shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
       shadowRadius: normalize(3.84),
@@ -852,7 +852,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontSize: normalize(14),
       fontWeight: 600,
       marginHorizontal: vw(4),
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
       width: '80%',
       overflow: 'hidden'
     },
@@ -861,21 +861,21 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       left: 0,
       bottom: vh(10),
       borderWidth: normalize(2),
-      borderColor: Colors?.fadeBorder,
+      borderColor: Colors.fadeBorder,
       borderRadius: normalize(3),
       marginLeft: vw(10),
       marginRight: 'auto'
     },
     OrderText: {
-      color: Colors?.KFC_red,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.KFC_red,
+      fontFamily: Fonts.subHeader,
       fontSize: normalize(11),
       marginHorizontal: vw(15),
       marginVertical: vh(5),
       fontWeight: 800
     },
     BottomView: {
-      backgroundColor: Colors?.bodyColor
+      backgroundColor: Colors.bodyColor
     },
     laurel_Container: {
       marginVertical: vh(10),
@@ -890,7 +890,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     laurel: {
       width: vw(40),
       height: vh(80),
-      tintColor: Colors?.textBlack
+      tintColor: Colors.textBlack
     },
     rightLaurel: {
       position: 'relative',
@@ -903,9 +903,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     centerText: {
       fontSize: normalize(28),
-      fontFamily: Fonts?.exp,
+      fontFamily: Fonts.exp,
       marginHorizontal: vw(8),
-      color: Colors?.textBlack
+      color: Colors.textBlack
     },
     linesContainer: {
       flexDirection: 'column',
@@ -925,19 +925,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     line1: {
       width: vw(15),
       height: vh(1.2),
-      backgroundColor: Colors?.textBlack,
+      backgroundColor: Colors.textBlack,
       marginVertical: vh(3),
     },
     line2: {
       width: vw(25),
       height: vh(1.5),
-      backgroundColor: Colors?.textBlack,
+      backgroundColor: Colors.textBlack,
       marginVertical: vh(2),
     },
     bottomKFCDescription: {
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontSize: normalize(11),
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
       fontWeight: 700,
       alignSelf: 'center',
       position: 'relative',

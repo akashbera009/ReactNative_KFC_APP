@@ -103,9 +103,9 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
             }));
         }
         navigation.pop()
-        navigation.navigate(Strings?.CommonPopUpScreen, {
-            header: Strings?.UserDeatailUpdatedHeader,
-            message: Strings?.UserDeatailUpdatedMessage
+        navigation.navigate(Strings.CommonPopUpScreen, {
+            header: Strings.UserDeatailUpdatedHeader,
+            message: Strings.UserDeatailUpdatedMessage
         })
         setTimeout(() => {
             navigation.pop()
@@ -139,19 +139,6 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
             setShowTopName(false)
     }
     const openImagePicker = () => {
-        // ImagePicker.openPicker({
-        //     width: 300,
-        //     height: 400,
-        //     mediaType: 'photo',
-        //     cropping: true,
-        // }).then(async (image) => {
-        //     const url = await uploadToImgBB({
-        //         path: image.path,
-        //         mime: image.mime,
-        //         filename: image.filename
-        //     });
-        //     setSelectedImage(url)
-        // });
     }
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
@@ -167,7 +154,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                     <TouchableOpacity onPress={() => navigation.pop()}>
                         <Image source={Images?.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
-                    <Text style={Styles.headerText} >{Strings?.createProfileHeader}</Text>
+                    <Text style={Styles.headerText} >{Strings.createProfileHeader}</Text>
                 </View>
             </View> 
                 <KeyboardAwareScrollView
@@ -182,14 +169,14 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                         <View >
                             <View style={Styles.enterCreateProfileHeaderContainer}>
-                                <Text style={Styles.enterCreateProfileHeader}>{Strings?.enterYourDetails}</Text>
+                                <Text style={Styles.enterCreateProfileHeader}>{Strings.enterYourDetails}</Text>
                             </View>
                             <View
                                 style={[Styles.CreateProfileRelatedContainer]}
                             >
                                 <View style={Styles.InputEntriesContainer}>
                                     {userdata?.loading != 'success' ? (
-                                        <Text>{Strings?.loading}</Text>
+                                        <Text>{Strings.loading}</Text>
                                     ) : (
                                         <TouchableOpacity
                                             onPress={openImagePicker}
@@ -202,16 +189,16 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                         </TouchableOpacity>
                                     )}
                                     {showTopName && (
-                                        <Text style={Styles.placeHolderTopText}>{Strings?.name.toUpperCase() + '*'} </Text>
+                                        <Text style={Styles.placeHolderTopText}>{Strings.name.toUpperCase() + '*'} </Text>
                                     )}
                                     <View style={Styles.EmailAndWarning} >
                                         {userdata?.loading != 'success' ? (
-                                            <Text>{Strings?.loading}</Text>
+                                            <Text>{Strings.loading}</Text>
                                         ) : (
                                             <TextInput
                                                 value={name}
                                                 onChangeText={handleChangeName}
-                                                placeholder={Strings?.name + '*'}
+                                                placeholder={Strings.name + '*'}
                                                 style={Styles.InputEntries} />
                                         )}
                                         {showWarningName && (
@@ -220,12 +207,12 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                     </View>
                                     <View style={[Styles.customBorder, showWarningName && Styles.OrangeBorder]} />
                                     {showWarningName ? (
-                                        <Text style={Styles.orangeMandatoryField}>{Strings?.fieldIsMandatory} </Text>
+                                        <Text style={Styles.orangeMandatoryField}>{Strings.fieldIsMandatory} </Text>
                                     ) : (
                                         <View style={Styles.BlankWarning} />
                                     )}
                                     <View style={Styles.WrapperPhoneNoContainer}>
-                                        <Text style={Styles.mobileNumberPlaceholder}>{Strings?.mobileNumber.toUpperCase() + '*'} </Text>
+                                        <Text style={Styles.mobileNumberPlaceholder}>{Strings.mobileNumber.toUpperCase() + '*'} </Text>
                                         <View style={Styles.PhoneNoContainer}>
                                             <View style={Styles.leftMobileContainer}>
                                                 <View style={Styles.mobileCodeAndArrow}>
@@ -244,16 +231,16 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                         </View>
                                     </View>
                                     {showTopEmail && (
-                                        <Text style={Styles.placeHolderTopText}>{Strings?.email.toUpperCase() + '*'} </Text>
+                                        <Text style={Styles.placeHolderTopText}>{Strings.email.toUpperCase() + '*'} </Text>
                                     )}
                                     <View style={Styles.EmailAndWarning} >
                                         {userdata?.loading != 'success' ? (
-                                            <Text>{Strings?.loading}</Text>
+                                            <Text>{Strings.loading}</Text>
                                         ) : (
                                             <TextInput
                                                 value={email}
                                                 onChangeText={handleChangeEmail}
-                                                placeholder={Strings?.email + '*'}
+                                                placeholder={Strings.email + '*'}
                                                 style={Styles.InputEntries} />
                                         )}
                                         {showWarningEmail && (
@@ -262,7 +249,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                     </View>
                                     <View style={[Styles.customBorder, showWarningEmail && Styles.OrangeBorder]} />
                                     {showWarningEmail ? (
-                                        <Text style={Styles.orangeMandatoryField}>{Strings?.fieldIsMandatory} </Text>
+                                        <Text style={Styles.orangeMandatoryField}>{Strings.fieldIsMandatory} </Text>
                                     ) : (
                                         <View style={Styles.BlankWarning} />
                                     )}
@@ -272,7 +259,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                         activeOpacity={.5}
                                         onPress={handleSave}
                                         style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
-                                        <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings?.save.toUpperCase()}</Text>
+                                        <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings.save.toUpperCase()}</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -287,12 +274,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parentBackground: {
             flex: 1,
-            backgroundColor: Colors?.bodyLigheterColor,
+            backgroundColor: Colors.bodyLigheterColor,
         },
         NavWrapper: {
             width: '100%',
             paddingBottom: vh(15),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             flexDirection: 'row',
             alignItems: 'center',
             paddingHorizontal: vw(10),
@@ -302,22 +289,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         BackIcon: {
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             height: vh(20),
             width: vw(20),
             marginRight: vw(18),
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: '700',
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
         },
         sectionTitle: {
             fontSize: normalize(16),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: '700',
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
             marginTop: vh(10),
             marginLeft: vw(20),
         },
@@ -328,15 +315,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(18),
             fontWeight: 600,
             marginTop: vh(30),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
         },
         CreateProfileRelatedContainer: {
             marginTop: vh(15),
             marginHorizontal: vw(15),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             flexDirection: 'column',
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(5), height: vh(5) },
             shadowOpacity:.25,
             shadowRadius: normalize(10),
@@ -344,11 +331,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         customBorder: {
             borderBottomWidth: normalize(1),
-            borderBottomColor: Colors?.fadeBorder,
+            borderBottomColor: Colors.fadeBorder,
             marginTop: vh(2),
         },
         OrangeBorder: {
-            borderBottomColor: Colors?.orangeColorText,
+            borderBottomColor: Colors.orangeColorText,
         },
         InputEntriesContainer: {
             display: 'flex',
@@ -360,9 +347,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         InputEntries: {
             marginRight: vw(10),
             fontSize: normalize(16),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 600,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         WrapperPhoneNoContainer: {
             marginVertical: vh(8),
@@ -387,23 +374,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginBottom: vh(5),
             fontSize: normalize(16),
             fontWeight: 600,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         arrowDown: {
             height: vh(15),
             width: vw(15),
             marginTop: vh(2),
             marginRight: vw(4),
-            tintColor: Colors?.textBlack
+            tintColor: Colors.textBlack
         },
         RightMobileContainer: {
             width: vw(225),
             marginLeft: vw(10)
         },
         mobileNumberPlaceholder: {
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.timerFadeText,
+            color: Colors.timerFadeText,
             fontSize: normalize(10),
             marginLeft: vw(105),
         },
@@ -412,13 +399,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 600,
             alignSelf: 'center',
             marginLeft: vw(5),
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         placeHolderTopText: {
             fontWeight: 800,
             fontSize: normalize(11),
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.timerFadeText,
+            fontFamily: Fonts.subHeader,
+            color: Colors.timerFadeText,
             marginBottom: vh(-15)
         },
         EmailAndWarning: {
@@ -444,7 +431,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         orangeMandatoryField: {
             fontSize: normalize(12),
-            color: Colors?.orangeColorText,
+            color: Colors.orangeColorText,
             marginLeft: vw(10),
             fontWeight: 500,
             marginTop: vh(8)
@@ -460,7 +447,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: vh(80),
             width: vw(80),
             borderRadius: normalize(100),
-            backgroundColor: Colors?.HyperTransparent,
+            backgroundColor: Colors.HyperTransparent,
             objectFit: 'fill',
             overflow: 'hidden',
             display: 'flex',
@@ -476,7 +463,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         CameraImage: {
             height: vh(30),
             width: vw(30),
-            tintColor: Colors?.timerText,
+            tintColor: Colors.timerText,
         },
         verifyButtonContainer: {
             marginHorizontal: vw(20),
@@ -488,20 +475,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             paddingHorizontal: vw(30),
             marginTop: vh(30),
             alignSelf: "flex-end",
-            backgroundColor: Colors?.fadeVerify,
+            backgroundColor: Colors.fadeVerify,
             borderRadius: normalize(2)
         },
         VerifyBUttonActive: {
-            backgroundColor: Colors?.KFC_red
+            backgroundColor: Colors.KFC_red
         },
         VerifyBUttonText: {
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             fontSize: normalize(16),
-            color: Colors?.verifyText
+            color: Colors.verifyText
         },
         VerifyBUttonTextActive: {
-            color: Colors?.constantWhite
+            color: Colors.constantWhite
         },
 
     })

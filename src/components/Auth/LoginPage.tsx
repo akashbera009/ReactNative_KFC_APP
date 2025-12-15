@@ -25,7 +25,7 @@ export default function LoginPage() {
   const { language, setLanguage } = useLanguage()
   const { countrySelected } = useCountry();
   return (
-    <View style={[Styles.parentBackground, { backgroundColor: Colors?.constantBlack }]}>
+    <View style={[Styles.parentBackground, { backgroundColor: Colors.constantBlack }]}>
       <View style={Styles.backgroundThreeScreen}>
         <View style={Styles.TopImageLayer}>
           <Image source={Images?.FoodImage1} style={Styles.TopImageGridElement} />
@@ -49,29 +49,29 @@ export default function LoginPage() {
       <View style={[Styles.GradientOverlayBG,]}>
         <LinearGradient colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.25)', '#000000f3', '#000000ff']} style={[Styles.GradientOverlayBG,]} >
           <View style={Styles.MiddleContainer}>
-            <Text style={Styles.HeaderKFC}> {Strings?.KFC}</Text>
-            <Text style={Styles.LoginDescriptionText}> {Strings?.loginToUlock}</Text>
-            <Text style={Styles.LoginDescriptionText}> {Strings?.awesomeNewFeature}</Text>
+            <Text style={Styles.HeaderKFC}> {Strings.KFC}</Text>
+            <Text style={Styles.LoginDescriptionText}> {Strings.loginToUlock}</Text>
+            <Text style={Styles.LoginDescriptionText}> {Strings.awesomeNewFeature}</Text>
           </View>
           <View style={Styles.DealsAndOffersContainer}>
             <View style={Styles.DealsAndOffersInnerContainer} >
               <Image source={Images?.burger_and_coke} style={Styles.middleSectionImagesIcon} />
-              <Text style={Styles.OfferDealsText} >{Strings?.fingerLicking}</Text>
+              <Text style={Styles.OfferDealsText} >{Strings.fingerLicking}</Text>
             </View>
             <View style={Styles.DealsAndOffersInnerContainer} >
               <Image source={Images?.discount} style={Styles.middleSectionImagesIcon} />
-              <Text style={Styles.OfferDealsText} numberOfLines={2}>{Strings?.dealAndOfferTxt}</Text>
+              <Text style={Styles.OfferDealsText} numberOfLines={2}>{Strings.dealAndOfferTxt}</Text>
             </View>
             <View style={Styles.DealsAndOffersInnerContainer} >
               <Image source={Images?.Easy_Order} style={Styles.middleSectionImagesIcon} />
-              <Text style={Styles.OfferDealsText} numberOfLines={2} >{Strings?.easyOrdering}</Text>
+              <Text style={Styles.OfferDealsText} numberOfLines={2} >{Strings.easyOrdering}</Text>
             </View>
           </View>
-          <Text style={[Styles.ChooseLangageText]}>{Strings?.chooseLanguage}</Text>
+          <Text style={[Styles.ChooseLangageText]}>{Strings.chooseLanguage}</Text>
           <View style={[Styles.LanguageChangeContainer,]}>
             <View
               style={[Styles.languageContainer]}>
-              <Text style={Styles.changeText}>{Strings?.english}</Text>
+              <Text style={Styles.changeText}>{Strings.english}</Text>
               <TouchableOpacity
                 onPress={() => setLanguage('en')}
                 style={[Styles.checkBox]}
@@ -85,7 +85,7 @@ export default function LoginPage() {
             </View>
             <View
               style={[Styles.languageContainer,]}>
-              <Text style={Styles.changeText}>{Strings?.arabic}</Text>
+              <Text style={Styles.changeText}>{Strings.arabic}</Text>
               <TouchableOpacity
                 onPress={() => setLanguage('ar')}
                 style={[Styles.checkBox]}
@@ -104,22 +104,22 @@ export default function LoginPage() {
               <Text style={[Styles.CountryName,]}>{countrySelected?.name}</Text>
             </View>
             <TouchableOpacity onPress={() => navigation.navigate('LoginPageCountryBottomSheetScreen')}>
-              <Text style={[Styles.changeText, { fontFamily: Fonts?.subHeader, color: Colors?.ButtonBlueColor }]}>{Strings?.change}</Text>
+              <Text style={[Styles.changeText, { fontFamily: Fonts.subHeader, color: Colors.ButtonBlueColor }]}>{Strings.change}</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
             activeOpacity={.5}
             style={[Styles.loginButton, {}]}
-            onPress={() => navigation.push(Strings?.LoginScreen2)}>
-            <Text style={[Styles.LoginButtonText]}>{Strings?.login}</Text>
+            onPress={() => navigation.push(Strings.LoginScreen2)}>
+            <Text style={[Styles.LoginButtonText]}>{Strings.login}</Text>
           </TouchableOpacity>
           <View style={[Styles.BottomTermsContainer, { marginBottom: inset.bottom + 10 }]}>
             <TouchableOpacity >
-              <Text style={[{ fontFamily: Fonts?.subHeader, color: Colors?.fadeWhiteText }]}>{Strings?.termsCondition.toUpperCase()}</Text>
+              <Text style={[{ fontFamily: Fonts.subHeader, color: Colors.fadeWhiteText }]}>{Strings.termsCondition.toUpperCase()}</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate(Strings?.HomeScreen)}>
-              <Text style={[{ fontFamily: Fonts?.subHeader, color: Colors?.fadeWhiteText }]}>{Strings?.skipLogin}</Text>
+              onPress={() => navigation.navigate(Strings.HomeScreen)}>
+              <Text style={[{ fontFamily: Fonts.subHeader, color: Colors.fadeWhiteText }]}>{Strings.skipLogin}</Text>
             </TouchableOpacity>
           </View>
         </LinearGradient>
@@ -150,14 +150,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: vh(130),
       width: '33.33%',
       borderWidth: normalize(.5),
-      borderColor: Colors?.constantWhite
+      borderColor: Colors.constantWhite
     },
     middleColorLayer: {
       height: vh(260),
       width: '100%',
-      backgroundColor: Colors?.KFC_red,
+      backgroundColor: Colors.KFC_red,
       borderWidth: normalize(1),
-      borderColor: Colors?.constantWhite
+      borderColor: Colors.constantWhite
     },
     GradientOverlayBG: {
       position: 'absolute',
@@ -174,14 +174,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     HeaderKFC: {
       fontSize: normalize(80),
       fontWeight: 900,
-      color: Colors?.constantWhite,
-      fontFamily: Fonts?.kfcLogoTextFont,
+      color: Colors.constantWhite,
+      fontFamily: Fonts.kfcLogoTextFont,
     },
     LoginDescriptionText: {
       fontSize: normalize(22),
       fontWeight: 700,
-      color: Colors?.constantWhite,
-      fontFamily: Fonts?.headerRegular
+      color: Colors.constantWhite,
+      fontFamily: Fonts.headerRegular
     },
     MiddleContainer: {
       marginTop: vh(100),
@@ -206,7 +206,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     middleSectionImagesIcon: {
       height: vh(28),
       width: vw(28),
-      tintColor: Colors?.constantWhite
+      tintColor: Colors.constantWhite
     },
     OfferDealsText: {
       fontWeight: 800,
@@ -214,11 +214,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginLeft: vw(8),
       fontSize: normalize(12),
       marginHorizontal: 'auto',
-      fontFamily: Fonts?.headerRegular,
-      color: Colors?.constantWhite
+      fontFamily: Fonts.headerRegular,
+      color: Colors.constantWhite
     },
     ChooseLangageText: {
-      color: Colors?.fadeWhiteText,
+      color: Colors.fadeWhiteText,
       width: '90%',
       marginVertical: vh(10),
       marginHorizontal: 'auto'
@@ -241,7 +241,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: Colors?.constantWhite
+      backgroundColor: Colors.constantWhite
     },
     checkBox: {
       height: vh(25),
@@ -252,7 +252,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       justifyContent: 'center',
       alignItems: 'center',
       marginRight: vw(15),
-      borderColor: Colors?.fadeborder
+      borderColor: Colors.fadeborder
     },
     tickMark: {
       height: vh(15),
@@ -261,8 +261,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     TickMarkImageContainer: {
       borderRadius: normalize(50),
       padding: normalize(6),
-      tintColor: Colors?.constantWhite,
-      backgroundColor: Colors?.KFC_red
+      tintColor: Colors.constantWhite,
+      backgroundColor: Colors.KFC_red
     },
     CountryChangeContainer: {
       width: '90%',
@@ -274,7 +274,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       marginVertical: vh(20),
-      backgroundColor: Colors?.constantWhite
+      backgroundColor: Colors.constantWhite
     },
     flagAndNameContainer: {
       display: 'flex',
@@ -290,14 +290,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     CountryName: {
       fontWeight: 500,
-      fontFamily: Fonts?.subHeader
+      fontFamily: Fonts.subHeader
     },
     changeText: {
       marginRight: vw(10),
       marginLeft: vw(15),
       fontWeight: 700,
-      fontFamily: Fonts?.subHeader,
-      color: Colors?.constantBlack
+      fontFamily: Fonts.subHeader,
+      color: Colors.constantBlack
     },
     loginButton: {
       height: vh(50),
@@ -308,13 +308,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       justifyContent: 'center',
       paddingVertical: vh(10),
       borderRadius: normalize(2),
-      backgroundColor: Colors?.KFC_red
+      backgroundColor: Colors.KFC_red
     },
     LoginButtonText: {
       fontSize: normalize(16),
       fontWeight: 800,
-      fontFamily: Fonts?.subHeader,
-      color: Colors?.constantWhite
+      fontFamily: Fonts.subHeader,
+      color: Colors.constantWhite
     },
     BottomTermsContainer: {
       width: '90%',

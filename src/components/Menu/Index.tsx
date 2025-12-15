@@ -69,10 +69,10 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                     >
                         <Image source={Images?.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
-                    <Text style={Styles.headerText}>{Strings?.exploreMenu} </Text>
+                    <Text style={Styles.headerText}>{Strings.exploreMenu} </Text>
                 </View>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate(Strings?.SearchScreen)}
+                    onPress={() => navigation.navigate(Strings.SearchScreen)}
                 >
                     <Image source={Images?.Search_Icon} style={Styles.SearchIcon} />
                 </TouchableOpacity>
@@ -81,7 +81,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                 <TouchableOpacity
                     style={Styles.menuIconContainer}
                     onPress={() => {
-                        navigation.navigate(Strings?.MenuCategorizeScreen, {
+                        navigation.navigate(Strings.MenuCategorizeScreen, {
                             activeCategory: activeCategory,
                             setActiveCategory: setActiveCategory,
                             frequencyArray: frequencyArray
@@ -128,7 +128,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                         }
                     ]
                 }]}>
-                    <BottomCart ButtonType={Strings?.viewCart} navLink={Strings?.CartScreen} totalAmount={0} discount={0} />
+                    <BottomCart ButtonType={Strings.viewCart} navLink={Strings.CartScreen} totalAmount={0} discount={0} />
                 </Animated.View>
             )}
         </View>
@@ -138,12 +138,12 @@ const Index = ({ categoryType }: { categoryType: string }) => {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         ParentContaienr: {
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             flex: 1
         },
         NavWrapper: {
             width:'100%',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -153,9 +153,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize (20),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         BackIconAndHeaderText: {
             display: 'flex',
@@ -164,7 +164,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         BackIcon: {
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             height: vh(18),
             width: vw(18),
             alignSelf: 'flex-start',
@@ -183,12 +183,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flexDirection: 'row',
             alignItems: 'flex-end',
             borderBottomWidth: normalize(1),
-            borderColor: Colors?.fadeWhiteText,
+            borderColor: Colors.fadeWhiteText,
         },
         menuIconContainer: {
             height:'100%',
             width: vw(65),
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -196,7 +196,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         menuIcon: {
             height: vh(30),
             width: vw(30),
-            tintColor: Colors?.constantWhite,
+            tintColor: Colors.constantWhite,
         },
         categoryContainer: {
             height: vh(40),
@@ -206,28 +206,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         ActiveBorder: {
-            borderBottomColor: Colors?.activeBorder,
+            borderBottomColor: Colors.activeBorder,
             borderBottomWidth: normalize(4)
         },
         categoryContainerText: {
             marginHorizontal: vw(5),
-            fontFamily: Fonts?.font17,
-            color: Colors?.resendOtpText,
+            fontFamily: Fonts.font17,
+            color: Colors.resendOtpText,
             fontSize: normalize(14),
             fontWeight: 600,
         },
         ActiveText: {
             fontWeight: 700,
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
         },
         BottomCartContainer: {
             width:'100%',
             height: vh(70),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             position: 'absolute',
             left: 0,
             zIndex: 2,
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(0) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(5),

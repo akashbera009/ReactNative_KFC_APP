@@ -27,8 +27,8 @@ export default function Index() {
     dispatch(fetchOrders())
   }, [dispatch])
   const ordersArray = useSelector((state: RootState) => state.orders);
-  const previousOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status === Strings?.deliveredString || item?.status === Strings?.cancelledString)
-  const currentOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status !== Strings?.deliveredString && item?.status !== Strings?.cancelledString)
+  const previousOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status === Strings.deliveredString || item?.status === Strings.cancelledString)
+  const currentOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status !== Strings.deliveredString && item?.status !== Strings.cancelledString)
   const sortedCrrentOrder = currentOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
   const sortedPreviousOrder = previousOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
   return (
@@ -40,7 +40,7 @@ export default function Index() {
           >
             <Image source={Images?.back_arrow} style={Styles.BackIcon} />
           </TouchableOpacity>
-          <Text style={Styles.headerText}>{Strings?.orderHistory} </Text>
+          <Text style={Styles.headerText}>{Strings.orderHistory} </Text>
         </View>
       </View>
       <View style={Styles.ScrollContainer}>
@@ -51,7 +51,7 @@ export default function Index() {
           <View style={Styles?.CardContainer}>
             {sortedCrrentOrder?.length > 0 && (
               <>
-                <Text style={Styles.sectionTitle}>{Strings?.currentOrders}</Text>
+                <Text style={Styles.sectionTitle}>{Strings.currentOrders}</Text>
                 {sortedCrrentOrder?.map((order, index) => (
                   <OrderCards order={order} key={index} />
                 ))}
@@ -60,7 +60,7 @@ export default function Index() {
             <View style={Styles.Divider} />
             {sortedPreviousOrder?.length > 0 && (
               <>
-                <Text style={Styles.sectionTitle}>{Strings?.previousOrders}</Text>
+                <Text style={Styles.sectionTitle}>{Strings.previousOrders}</Text>
                 {sortedPreviousOrder?.map((order, index) => (
                   <OrderCards order={order} key={index} />
                 ))}
@@ -72,16 +72,16 @@ export default function Index() {
                   <Image source={Images?.EmptyBox} style={Styles.EmptyBox} />
                 </View>
                 <Text style={Styles.NoOrdersYet}>{Strings.NoOrdersYet} </Text>
-                <Text style={Styles.makeAorder}>{Strings?.makeAOrder} </Text>
+                <Text style={Styles.makeAorder}>{Strings.makeAOrder} </Text>
                 <TouchableOpacity
                   style={Styles.ExploreMenuButton}
                   onPress={() => {
-                    navigation.replace(Strings?.ExploreMenuScreen, {
+                    navigation.replace(Strings.ExploreMenuScreen, {
                       categoryType: ''
                     })
                   }}
                 >
-                  <Text style={Styles.ExploreMenu}>{Strings?.exploreMenu.toUpperCase()} </Text>
+                  <Text style={Styles.ExploreMenu}>{Strings.exploreMenu.toUpperCase()} </Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -94,11 +94,11 @@ export default function Index() {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
   const Styles = StyleSheet.create({
     Parent: {
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
     },
     NavWrapper: {
       width: '100%',
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -108,9 +108,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     headerText: {
       fontSize: normalize(20),
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
-      color: Colors?.textBlack
+      color: Colors.textBlack
     },
     BackIconAndHeaderText: {
       display: 'flex',
@@ -119,7 +119,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignSelf: 'center',
     },
     BackIcon: {
-      tintColor: Colors?.textBlack,
+      tintColor: Colors.textBlack,
       height: vh(18),
       width: vw(18),
       alignSelf: 'flex-start',
@@ -142,7 +142,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     ScrollContainer: {
       height: '90%',
-      backgroundColor: Colors?.bodyLigheterColor,
+      backgroundColor: Colors.bodyLigheterColor,
       paddingBottom: vh(40)
     },
     ScrollView: {
@@ -158,7 +158,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: vh(200),
       width: vw(200),
       borderRadius: normalize(400),
-      backgroundColor: Colors?.ButtonTextBlueColor,
+      backgroundColor: Colors.ButtonTextBlueColor,
       opacity: .3,
       display: 'flex',
       alignItems: 'center',
@@ -174,29 +174,29 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     NoOrdersYet: {
       fontSize: normalize(24),
-      fontFamily: Fonts?.subHeader,
-      color: Colors?.textBlack,
+      fontFamily: Fonts.subHeader,
+      color: Colors.textBlack,
       fontWeight: 700,
       marginTop: vh(30)
     },
     makeAorder: {
       fontSize: normalize(14),
-      color: Colors?.timerFadeText,
-      fontFamily: Fonts?.font17,
+      color: Colors.timerFadeText,
+      fontFamily: Fonts.font17,
       letterSpacing: normalize(1),
       fontWeight: 500,
       marginTop: vh(20),
       marginBottom: vh(10)
     },
     ExploreMenuButton: {
-      backgroundColor: Colors?.KFC_red,
+      backgroundColor: Colors.KFC_red,
       borderRadius: normalize(2),
       marginVertical: vh(10)
     },
     ExploreMenu: {
-      color: Colors?.constantWhite,
+      color: Colors.constantWhite,
       fontSize: normalize(16),
-      fontFamily: Fonts?.font17,
+      fontFamily: Fonts.font17,
       fontWeight: 700,
       marginHorizontal: vw(50),
       marginVertical: vh(15)

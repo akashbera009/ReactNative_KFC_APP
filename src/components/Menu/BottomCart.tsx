@@ -60,21 +60,21 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
                     <View style={Styles.DisctointContainer}>
                         <Text style={Styles.discountPrice}>{Math.abs(discountPrice)?.toFixed(2)}</Text>
                         <Text style={Styles.countrycode}>{countrySelected?.currencyCode} </Text>
-                        <Text style={Styles.savedtext}>{Strings?.youSaved} </Text>
+                        <Text style={Styles.savedtext}>{Strings.youSaved} </Text>
                     </View>
                 </View>
             </View>
             <TouchableOpacity
                 style={Styles.ViewCart}
                 onPress={() => {
-                    if (navLink === Strings?.CartScreen) {
-                        navigation.navigate(Strings?.CartScreen, {
+                    if (navLink === Strings.CartScreen) {
+                        navigation.navigate(Strings.CartScreen, {
                             discount: 0,
                             discountPercentage: 0,
                             offerCode: ''
                         });
                     } else {
-                        navigation.navigate(Strings?.CheckOutScreen, {
+                        navigation.navigate(Strings.CheckOutScreen, {
                             totalAmount: totalAmount,
                             discount: discount
                         });
@@ -118,7 +118,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             left: '-50%',
             zIndex: 4,
             borderRadius: normalize(1),
-            backgroundColor: Colors?.HyperTransparent,
+            backgroundColor: Colors.HyperTransparent,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
@@ -127,7 +127,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         CounterText: {
             fontSize: normalize(14),
             fontWeight: 700,
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
         },
         CartImage: {
             height: vh(42),
@@ -147,12 +147,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(16),
             fontWeight: 700,
             marginBottom:vh(4),
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textBlack
+            fontFamily: Fonts.subHeader,
+            color: Colors.textBlack
         },
         discountPrice: {
-            color: Colors?.textFadeBlack,
-            fontFamily: Fonts?.subHeader,
+            color: Colors.textFadeBlack,
+            fontFamily: Fonts.subHeader,
             fontWeight: 600
         },
         DisctointContainer: {
@@ -164,28 +164,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         countrycode: {
             marginHorizontal: vw(2),
-            color: Colors?.textFadeBlack,
-            fontFamily: Fonts?.subHeader,
+            color: Colors.textFadeBlack,
+            fontFamily: Fonts.subHeader,
             fontWeight: 600
         },
         savedtext: {
-            color: Colors?.textFadeBlack,
-            fontFamily: Fonts?.subHeader,
+            color: Colors.textFadeBlack,
+            fontFamily: Fonts.subHeader,
             fontWeight: 600
         },
         ViewCart: {
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             borderRadius: normalize(4),
             alignSelf: 'flex-end',
             marginLeft: 'auto',
             marginVertical: vh(14),
         },
         ViewCartText: {
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             fontSize: normalize(13),
             marginHorizontal: vw(16),
             marginVertical: vh(10),
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             fontWeight: 700
         },
     });

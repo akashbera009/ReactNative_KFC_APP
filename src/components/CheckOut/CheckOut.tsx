@@ -47,13 +47,13 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
         const OrderDate = TempOrderDate.join(' ')
         const OrderTime = new Date().toTimeString().split(' ')[0]
         const OrderId = `ORD-${nanoid(7)}`
-        if (paymentMethodSelected == Strings?.cashOnDeliveryString) {
-            onPaymentSuccess('', OrderId, true, OrderDate, OrderTime, Strings?.cashOnDeliveryString)
+        if (paymentMethodSelected == Strings.cashOnDeliveryString) {
+            onPaymentSuccess('', OrderId, true, OrderDate, OrderTime, Strings.cashOnDeliveryString)
         } else {
-            navigation.navigate(Strings?.PaymentModalScreen, {
+            navigation.navigate(Strings.PaymentModalScreen, {
                 amount: GrandTotal,
                 onSuccess: (paymentId: string, isSuccess: boolean) => {
-                    onPaymentSuccess(paymentId, OrderId, isSuccess, OrderDate, OrderTime, Strings?.onlineString);
+                    onPaymentSuccess(paymentId, OrderId, isSuccess, OrderDate, OrderTime, Strings.onlineString);
                 }
             })
         }
@@ -64,18 +64,18 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
             Items: cartItem,
             date: `${OrderDate}`,
             orderId: orderId,
-            status: Strings?.beingPreparedString,
+            status: Strings.beingPreparedString,
             paymentMode: paymentMode,
             paymentId: paymentId
         };
-        Alert.alert(isSuccess ? Strings?.success : Strings?.failed);
+        Alert.alert(isSuccess ? Strings.success : Strings.failed);
         setTimeout(() => {
             navigation.pop(2);
             if (isSuccess) {
                 dispatch(addAsyncOrder(newOrder))
                 dispatch(clearCart)
             }
-            navigation.navigate(Strings?.OrderStatusScreen, {
+            navigation.navigate(Strings.OrderStatusScreen, {
                 currentOrders: cartItem,
                 orderId: orderId,
                 OrderDate: OrderDate,
@@ -113,7 +113,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                     >
                         <Image source={Images?.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
-                    <Text style={Styles.headerText}>{Strings?.checkOut} </Text>
+                    <Text style={Styles.headerText}>{Strings.checkOut} </Text>
                 </View>
             </View>
             <View style={Styles.ContentConatiner}>
@@ -124,11 +124,11 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             <Text style={Styles.userPhone}>{countrySelected?.mobileCode} - {DeliveryDetails?.mobileNumber}</Text>
                         </View>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate(Strings?.CreateProfileScreen, {
+                            onPress={() => navigation.navigate(Strings.CreateProfileScreen, {
                                 phoneNo: DeliveryDetails?.mobileNumber
                             })}
                             style={Styles.changeButton}>
-                            <Text style={Styles.changeText}>{Strings?.change}</Text>
+                            <Text style={Styles.changeText}>{Strings.change}</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -138,7 +138,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                                 source={Images?.DeliveryBike}
                                 style={Styles.deliveryBike}
                             />
-                            <Text style={Styles.sectionTitle}>{Strings?.wantOrder}</Text>
+                            <Text style={Styles.sectionTitle}>{Strings.wantOrder}</Text>
                         </View>
 
                         <TouchableOpacity
@@ -146,7 +146,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             style={Styles.radioRow}
                             onPress={() => setDeliveryType('now')}
                         >
-                            <Text style={Styles.radioText}>{Strings?.deliverNow}</Text>
+                            <Text style={Styles.radioText}>{Strings.deliverNow}</Text>
                             <View style={[Styles.radioOuter, deliveryType === 'now' && Styles.radioActiveOuter]}>
                                 {deliveryType === 'now' && <View style={Styles.radioInner} />}
                             </View>
@@ -156,22 +156,22 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             style={Styles.radioRow}
                             onPress={() => setDeliveryType('later')}
                         >
-                            <Text style={Styles.radioText}>{Strings?.deliveryLater}</Text>
+                            <Text style={Styles.radioText}>{Strings.deliveryLater}</Text>
                             <View style={[Styles.radioOuter, deliveryType === 'later' && Styles.radioActiveOuter]}>
                                 {deliveryType === 'later' && <View style={Styles.radioInner} />}
                             </View>
                         </TouchableOpacity>
                     </View>
 
-                    <Text style={Styles.sectionLabel}>{Strings?.deliveryAddress.toUpperCase()}</Text>
+                    <Text style={Styles.sectionLabel}>{Strings.deliveryAddress.toUpperCase()}</Text>
                     <View style={Styles.card}>
                         <View style={Styles.addressHeader}>
                             <View style={Styles.homeTag}>
-                                <Text style={Styles.homeTagText}>{Strings?.home.toUpperCase()}</Text>
+                                <Text style={Styles.homeTagText}>{Strings.home.toUpperCase()}</Text>
                             </View>
                             <TouchableOpacity
-                                onPress={() => navigation.navigate(Strings?.MapsScreen)}>
-                                <Text style={Styles.editText}>{Strings?.edit.toUpperCase()}</Text>
+                                onPress={() => navigation.navigate(Strings.MapsScreen)}>
+                                <Text style={Styles.editText}>{Strings.edit.toUpperCase()}</Text>
                             </TouchableOpacity>
                         </View>
                         <Text style={Styles.addressText} numberOfLines={2}>
@@ -181,14 +181,14 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             <View style={Styles.checkboxRed} >
                                 <Image source={Images?.Tick_Mark} style={Styles.Tick_Mark} />
                             </View>
-                            <Text style={Styles.contactlessText}>{Strings?.contactLessDelivery}</Text>
+                            <Text style={Styles.contactlessText}>{Strings.contactLessDelivery}</Text>
                         </View>
                     </View>
                     <View style={Styles.ItemsCard}>
                         <View style={Styles.ItemsCardUpperBox}>
                             <View style={Styles.itemCountRow}>
                                 <Text style={Styles.itemCount}>{totalItem}</Text>
-                                <Text style={Styles.itemsLabel}>{Strings?.items}</Text>
+                                <Text style={Styles.itemsLabel}>{Strings.items}</Text>
                             </View>
                             <View style={Styles.CustomVerticalBorder} />
                             <View style={Styles.ItemTextContainer}>
@@ -203,7 +203,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                                 activeOpacity={.8}
                                 onPress={HandleAmountBoxToggle}
                                 style={Styles.amountBox}>
-                                <Text style={Styles.amountText}>{Strings?.amountToBepaid}</Text>
+                                <Text style={Styles.amountText}>{Strings.amountToBepaid}</Text>
                                 <View style={Styles.AmountWithButton}>
                                     <Text style={Styles.amountNumber}>{GrandTotal.toFixed(2)} {countrySelected?.code.toUpperCase()}</Text>
                                     <View
@@ -216,70 +216,70 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             {paymentMethodOpen && (
                                 <View style={Styles.amountDetailsContainer}>
                                     <View style={Styles.PriceEntries}>
-                                        <Text style={Styles.PriceEntriesLeft}>{Strings?.SubTotal} </Text>
+                                        <Text style={Styles.PriceEntriesLeft}>{Strings.SubTotal} </Text>
                                         <Text style={Styles.PriceEntriesRight}>{AfterDiscount} {countrySelected?.currencyCode} </Text>
                                     </View>
                                     {DiscountPrice != 0 && (
                                         <View style={Styles.PriceEntries}>
-                                            <Text style={Styles.PriceEntriesLeft}>{Strings?.discount} </Text>
+                                            <Text style={Styles.PriceEntriesLeft}>{Strings.discount} </Text>
                                             <Text style={[Styles.PriceEntriesRight, Styles?.discountPrice]}>- {DiscountPrice} {countrySelected?.currencyCode} </Text>
                                         </View>
                                     )}
                                     <View style={Styles.PriceEntries}>
-                                        <Text style={Styles.PriceEntriesLeft}>{Strings?.vat.toUpperCase()} @ {DeliveryDetails?.vatCharge}% </Text>
+                                        <Text style={Styles.PriceEntriesLeft}>{Strings.vat.toUpperCase()} @ {DeliveryDetails?.vatCharge}% </Text>
                                         <Text style={Styles.PriceEntriesRight}>{vatAmount} {countrySelected?.currencyCode} </Text>
                                     </View>
                                     <View style={Styles.PriceEntries}>
-                                        <Text style={Styles.PriceEntriesLeft}>{Strings?.deliveriCharge} </Text>
+                                        <Text style={Styles.PriceEntriesLeft}>{Strings.deliveriCharge} </Text>
                                         <Text style={Styles.PriceEntriesRight}>{DeliveryDetails?.charges} {countrySelected?.currencyCode} </Text>
                                     </View>
                                 </View>
                             )}
                         </View>
                     </View>
-                    <Text style={Styles.sectionLabel}>{Strings?.paymentMethods.toUpperCase()}</Text>
+                    <Text style={Styles.sectionLabel}>{Strings.paymentMethods.toUpperCase()}</Text>
                     <View style={Styles.PaymentMethodsContainer}>
                         <TouchableOpacity
-                            onPress={() => setPaymentMethodSelected(Strings?.cashOnDeliveryString)}
+                            onPress={() => setPaymentMethodSelected(Strings.cashOnDeliveryString)}
                             activeOpacity={.5}
                             style={Styles.PaymentMethodsEntries}>
                             <View style={Styles.PaymentTextLeft}>
                                 <Image source={Images?.COD_Cash} style={Styles.paymentImage} />
-                                <Text style={Styles.paymentText}>{Strings?.cashOnDelivery} </Text>
+                                <Text style={Styles.paymentText}>{Strings.cashOnDelivery} </Text>
                             </View>
                             <View style={Styles.radioRow}>
-                                <View style={[Styles.radioOuter, paymentMethodSelected === Strings?.cashOnDeliveryString && Styles.radioActiveOuter]}>
-                                    {paymentMethodSelected === Strings?.cashOnDeliveryString && <View style={Styles.radioInner} />}
+                                <View style={[Styles.radioOuter, paymentMethodSelected === Strings.cashOnDeliveryString && Styles.radioActiveOuter]}>
+                                    {paymentMethodSelected === Strings.cashOnDeliveryString && <View style={Styles.radioInner} />}
                                 </View>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
                             activeOpacity={.5}
-                            onPress={() => setPaymentMethodSelected(Strings?.creditCardString)}
+                            onPress={() => setPaymentMethodSelected(Strings.creditCardString)}
                             style={Styles.PaymentMethodsEntries}>
                             <View style={Styles.PaymentTextLeft}>
                                 <Image source={Images?.CreditCard} style={Styles.paymentImage} />
-                                <Text style={Styles.paymentText}>{Strings?.creditDebitcards} </Text>
+                                <Text style={Styles.paymentText}>{Strings.creditDebitcards} </Text>
                             </View>
                             <View style={Styles.radioRow}>
-                                <View style={[Styles.radioOuter, paymentMethodSelected === Strings?.creditCardString && Styles.radioActiveOuter]}>
-                                    {paymentMethodSelected === Strings?.creditCardString && <View style={Styles.radioInner} />}
+                                <View style={[Styles.radioOuter, paymentMethodSelected === Strings.creditCardString && Styles.radioActiveOuter]}>
+                                    {paymentMethodSelected === Strings.creditCardString && <View style={Styles.radioInner} />}
                                 </View>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
                             activeOpacity={.5}
-                            onPress={() => setPaymentMethodSelected(Strings?.visaString)}
+                            onPress={() => setPaymentMethodSelected(Strings.visaString)}
                             style={Styles.PaymentMethodsEntries}>
                             <View style={Styles.PaymentTextLeft}>
                                 <View style={Styles.paymentImageVisaContainer}>
                                     <Image source={Images?.Visa_Text} style={Styles.paymentImageVisa} />
                                 </View>
-                                <Text style={Styles.paymentText}>{Strings?.visaCheckOut} </Text>
+                                <Text style={Styles.paymentText}>{Strings.visaCheckOut} </Text>
                             </View>
                             <View style={Styles.radioRow} >
-                                <View style={[Styles.radioOuter, paymentMethodSelected === Strings?.visaString && Styles.radioActiveOuter]}>
-                                    {paymentMethodSelected === Strings?.visaString && <View style={Styles.radioInner} />}
+                                <View style={[Styles.radioOuter, paymentMethodSelected === Strings.visaString && Styles.radioActiveOuter]}>
+                                    {paymentMethodSelected === Strings.visaString && <View style={Styles.radioInner} />}
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -293,7 +293,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                         paymentMethodSelected &&
                         openPaymentModal()
                     }>
-                    <Text style={Styles.bottomButtonText}>{paymentMethodSelected ? Strings?.makePayment.toUpperCase() : Strings?.paymentMode.toUpperCase()}</Text>
+                    <Text style={Styles.bottomButtonText}>{paymentMethodSelected ? Strings.makePayment.toUpperCase() : Strings.paymentMode.toUpperCase()}</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -303,11 +303,11 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parent: {
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -317,9 +317,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         BackIconAndHeaderText: {
             display: 'flex',
@@ -328,7 +328,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         BackIcon: {
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             height: vh(18),
             width: vw(18),
             alignSelf: 'flex-start',
@@ -336,16 +336,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         ContentConatiner: {
             height: '90%',
-            backgroundColor: Colors?.bodyLigheterColor,
+            backgroundColor: Colors.bodyLigheterColor,
         },
         CustomerCard: {
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginHorizontal: vw(12),
             marginTop: vh(12),
             padding: normalize(16),
             borderRadius: normalize(2),
             elevation: 3,
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: {
                 width: vw(0),
                 height: vh(2)
@@ -358,14 +358,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         card: {
             elevation: 3,
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: {
                 width: vw(0),
                 height: vh(2)
             },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginHorizontal: vw(12),
             marginTop: vh(6),
             padding: normalize(16),
@@ -374,29 +374,29 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         userName: {
             fontSize: normalize(18),
             fontWeight: 700,
-            color: Colors?.textBlack,
-            fontFamily: Fonts?.font17
+            color: Colors.textBlack,
+            fontFamily: Fonts.font17
         },
         userPhone: {
             fontSize: normalize(14),
             opacity: 0.7,
             marginTop: vh(4),
             fontWeight: 700,
-            color: Colors?.textFadeBlack2,
-            fontFamily: Fonts?.subHeader
+            color: Colors.textFadeBlack2,
+            fontFamily: Fonts.subHeader
         },
         changeButton: {
             position: 'absolute',
             right: vw(16),
             top: vh(28),
             borderWidth: normalize(1),
-            borderColor: Colors?.activeBorder,
+            borderColor: Colors.activeBorder,
             borderRadius: normalize(2),
         },
         changeText: {
-            color: Colors?.activeBorder,
+            color: Colors.activeBorder,
             fontWeight: 500,
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             fontSize: normalize(10),
             marginHorizontal: vw(12),
             marginVertical: vh(6)
@@ -415,45 +415,45 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(14),
             marginLeft: vw(8),
             fontWeight: 700,
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
         },
         radioRow: {
             flexDirection: 'row',
             justifyContent: 'space-between',
             paddingVertical: vw(12),
             borderBottomWidth: normalize(1),
-            borderColor: Colors?.bodyColor,
+            borderColor: Colors.bodyColor,
             marginRight: vw(6),
         },
         radioText: {
             fontSize: normalize(16),
             fontWeight: 500,
-            color: Colors?.textFadeBlack2,
+            color: Colors.textFadeBlack2,
         },
         radioOuter: {
             width: vw(20),
             height: vh(20),
             borderRadius: normalize(11),
             borderWidth: normalize(2),
-            borderColor: Colors?.textFadeBlack,
+            borderColor: Colors.textFadeBlack,
             justifyContent: 'center',
             alignItems: 'center',
         },
         radioActiveOuter: {
-            borderColor: Colors?.KFC_red,
+            borderColor: Colors.KFC_red,
         },
         radioInner: {
             width: vw(10),
             height: vh(10),
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             borderRadius: normalize(6),
         },
 
         sectionLabel: {
             marginTop: vh(12),
             fontSize: normalize(13),
-            color: Colors?.textFadeBlack,
-            fontFamily: Fonts?.subHeader,
+            color: Colors.textFadeBlack,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             width: '90%',
             alignSelf: 'center'
@@ -464,25 +464,25 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginBottom: vh(8),
         },
         homeTag: {
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             paddingHorizontal: vw(10),
             paddingVertical: vh(4),
             borderRadius: normalize(2),
             marginLeft: vw(6),
         },
         homeTagText: {
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             fontSize: normalize(10),
             fontWeight: 700,
             marginHorizontal: vw(4),
             marginVertical: vh(2),
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
         },
         editText: {
-            color: Colors?.ButtonBlueColor,
+            color: Colors.ButtonBlueColor,
             fontWeight: 600,
             fontSize: normalize(12),
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             marginRight: vw(6),
         },
         addressText: {
@@ -490,8 +490,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 500,
             marginBottom: vh(10),
             marginLeft: vw(6),
-            fontFamily: Fonts?.font17,
-            color: Colors?.textFadeBlack,
+            fontFamily: Fonts.font17,
+            color: Colors.textFadeBlack,
             maxWidth: vw(280),
             lineHeight: normalize(20),
         },
@@ -503,7 +503,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         checkboxRed: {
             width: vw(16),
             height: vh(16),
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             marginRight: vw(6),
             borderRadius: normalize(1),
             display: 'flex',
@@ -513,22 +513,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         Tick_Mark: {
             height: vh(12),
             width: vw(12),
-            tintColor: Colors?.constantWhite,
+            tintColor: Colors.constantWhite,
         },
         contactlessText: {
             fontSize: normalize(12),
-            color: Colors?.textFadeBlack,
+            color: Colors.textFadeBlack,
             marginVertical: vh(10),
         },
         ItemsCard: {
             elevation: 3,
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: {
                 width: vw(0), height: vh(2)
             },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginHorizontal: vw(12),
             marginTop: vh(6),
             paddingVertical: vh(16),
@@ -548,13 +548,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         itemCount: {
             fontSize: normalize(22),
             fontWeight: 700,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         itemsLabel: {
             marginLeft: vw(6),
             fontSize: normalize(12),
             opacity: 0.7,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         ItemTextContainer: {
             width: '70%',
@@ -563,25 +563,25 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         itemDescription: {
             fontSize: normalize(14),
             marginBottom: vh(12),
-            color: Colors?.timerFadeText,
-            fontFamily: Fonts?.font17,
+            color: Colors.timerFadeText,
+            fontFamily: Fonts.font17,
             fontWeight: 600,
             lineHeight: 20
         },
         CustomVerticalBorder: {
             height: '50%',
-            borderRightColor: Colors?.textFadeBlack,
+            borderRightColor: Colors.textFadeBlack,
             borderRightWidth: normalize(1),
             marginHorizontal: vw(10),
         },
         AmountBoxContainer: {
             display: 'flex',
             flexDirection: 'column',
-            backgroundColor: Colors?.blueMixBG,
+            backgroundColor: Colors.blueMixBG,
             borderRadius: normalize(4),
             borderStyle: 'dashed',
             borderWidth: normalize(1),
-            borderColor: Colors?.blueShadows,
+            borderColor: Colors.blueShadows,
         },
         amountBox: {
             height: vh(60),
@@ -609,7 +609,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginLeft: vw(8),
             height: vh(16),
             width: vw(16),
-            backgroundColor: Colors?.blueShadows,
+            backgroundColor: Colors.blueShadows,
             borderRadius: normalize(50),
             display: 'flex',
             alignItems: 'center',
@@ -618,7 +618,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         ArrowDown: {
             height: vh(14),
             width: vw(14),
-            tintColor: Colors?.constantWhite
+            tintColor: Colors.constantWhite
         },
         ArrowUp: {
             transform: [{ rotate: '180deg' }]
@@ -635,29 +635,29 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         PriceEntriesLeft: {
             fontSize: normalize(14),
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textFadeBlack,
+            fontFamily: Fonts.subHeader,
+            color: Colors.textFadeBlack,
             fontWeight: 500,
         },
         PriceEntriesRight: {
             fontSize: normalize(14),
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textFadeBlack2,
+            fontFamily: Fonts.subHeader,
+            color: Colors.textFadeBlack2,
             fontWeight: 500,
             marginLeft: 'auto'
         },
         discountPrice: {
-            color: Colors?.greenOk
+            color: Colors.greenOk
         },
         PaymentMethodsContainer: {
             marginTop: vh(10),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             width: '93%',
             marginHorizontal: vw(12),
             alignSelf: 'center',
             display: 'flex',
             marginBottom: vh(150),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
@@ -680,31 +680,31 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         paymentImage: {
             height: vh(30),
             width: vw(30),
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
         },
         paymentImageVisaContainer: {
-            borderWidth: 1,
-            borderColor: Colors?.textBlack,
+            borderWidth: normalize(1),
+            borderColor: Colors.textBlack,
             borderRadius: normalize(2),
             paddingHorizontal: 4,
         },
         paymentImageVisa: {
             height: vh(30),
             width: vw(30),
-            tintColor: Colors?.KFC_red,
+            tintColor: Colors.KFC_red,
         },
         paymentText: {
             marginLeft: vw(15),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.textFadeBlack2
+            color: Colors.textFadeBlack2
         },
         ButtonWrapper: {
             width: '100%',
             position: 'absolute',
             left: vw(0),
             bottom: vh(0),
-            backgroundColor: Colors?.KFC_red_Fade_Solid,
+            backgroundColor: Colors.KFC_red_Fade_Solid,
         },
         bottomButton: {
             justifyContent: 'center',
@@ -712,12 +712,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(10),
         },
         ActiveButton: {
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
         },
         bottomButtonText: {
             marginVertical: vh(10),
-            color: Colors?.constantWhite,
-            fontFamily: Fonts?.subHeader,
+            color: Colors.constantWhite,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             fontSize: normalize(18),
         },

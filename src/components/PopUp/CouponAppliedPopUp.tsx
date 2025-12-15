@@ -69,14 +69,14 @@ export default function CouponAppliedPopUp() {
                                 <Image source={Images?.Bow_Tie} style={Styles.bow_Tie} />
                             </View>
                             <View style={Styles.RightContainer}>
-                                <Text style={Styles.offerApplied}>{Strings?.offerApplied.toUpperCase()} </Text>
-                                <Text style={Styles.offerAvailderText}>{Strings?.offerAvailText} </Text>
+                                <Text style={Styles.offerApplied}>{Strings.offerApplied.toUpperCase()} </Text>
+                                <Text style={Styles.offerAvailderText}>{Strings.offerAvailText} </Text>
                             </View>
                             <TouchableOpacity
                                 style={Styles.gotItButton}
                                 onPress={() => navigation.pop()}
                             >
-                                <Text style={Styles.gotItText}>{Strings?.gotIt.toUpperCase()} </Text>
+                                <Text style={Styles.gotItText}>{Strings.gotIt.toUpperCase()} </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -110,7 +110,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: '93%',
             alignSelf: 'center',
             borderRadius: normalize(2),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
@@ -118,7 +118,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         verticalStrap: {
             height: '100%',
             width: vw(6),
-            backgroundColor: Colors?.activeBorder,
+            backgroundColor: Colors.activeBorder,
             marginLeft: vw(40)
         },
         bow_Tie: {
@@ -138,15 +138,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginLeft: vw(5),
             marginTop: vh(18),
             fontSize: normalize(15),
-            color: Colors?.textBlack,
-            fontFamily: Fonts?.subHeader,
+            color: Colors.textBlack,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
         },
         offerAvailderText: {
             fontSize: normalize(13),
             marginTop: vh(12),
-            color: Colors?.textFadeBlack2,
-            fontFamily: Fonts?.font17,
+            color: Colors.textFadeBlack2,
+            fontFamily: Fonts.font17,
             fontWeight: 600,
             lineHeight: normalize(16),
         },
@@ -155,16 +155,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             right: vw(20),
             top: '40%',
             borderWidth: normalize(1),
-            borderColor: Colors?.fadeBorder,
+            borderColor: Colors.fadeBorder,
             borderRadius: normalize(2),
         },
         gotItText: {
             marginHorizontal: vw(15),
             marginVertical: vh(5),
             fontSize: normalize(11),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.KFC_red
+            color: Colors.KFC_red
         },
         closeButton: {
             marginVertical: vh(8),

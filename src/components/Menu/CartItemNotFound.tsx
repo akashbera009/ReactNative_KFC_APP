@@ -25,17 +25,17 @@ export const CartItemNotFound = () => {
                 <Image source={Images?.CartEmptyDustbin} style={Styles.ConfeeCupImage} />
                 <Text style={Styles.questionMark}>? </Text>
             </View>
-            <Text style={Styles.Opps}>{Strings?.cartIsEmpty} </Text>
-            <Text style={Styles.NotFoundRes}>{Strings?.addSomeItem} </Text>
+            <Text style={Styles.Opps}>{Strings.cartIsEmpty} </Text>
+            <Text style={Styles.NotFoundRes}>{Strings.addSomeItem} </Text>
             <TouchableOpacity
                 style={Styles.ExploreMoreButton}
                 onPress={() => {
-                    navigation.navigate(Strings?.ExploreMenuScreen, {
-                        categoryType: Strings?.dealsString
+                    navigation.navigate(Strings.ExploreMenuScreen, {
+                        categoryType: Strings.dealsString
                     })
                 }}
             >
-                <Text style={Styles.ExploreMoreButtonTxt}>{Strings?.exploreKFCMenu.toUpperCase()} </Text>
+                <Text style={Styles.ExploreMoreButtonTxt}>{Strings.exploreKFCMenu.toUpperCase()} </Text>
             </TouchableOpacity>
         </View>
     )
@@ -51,7 +51,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: vh(220),
             width: vw(220),
             borderRadius: normalize(200),
-            backgroundColor: Colors?.blueLightBG,
+            backgroundColor: Colors.blueLightBG,
             marginHorizontal: 'auto',
             marginTop: vh(120),
             display: 'flex',
@@ -66,19 +66,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         questionMark: {
             fontSize: normalize(50),
-            fontFamily: Fonts?.expHead,
+            fontFamily: Fonts.expHead,
             position: 'absolute',
             top: vh(30),
             right: vw(50),
-            color: Colors?.constantBlack
+            color: Colors.constantBlack
         },
         Opps: {
             marginTop: vh(50),
             alignSelf: 'center',
             fontSize: normalize(20),
             fontWeight: 700,
-            color: Colors?.textBlack,
-            fontFamily: Fonts?.font17
+            color: Colors.textBlack,
+            fontFamily: Fonts.font17
         },
         NotFoundRes: {
             alignSelf: 'center',
@@ -86,11 +86,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(14),
             fontWeight: 600,
             marginTop: vh(20),
-            color: Colors?.resendOtpText,
-            fontFamily: Fonts?.subHeader
+            color: Colors.resendOtpText,
+            fontFamily: Fonts.subHeader
         },
         ExploreMoreButton: {
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             marginHorizontal: 'auto',
             marginTop: vh(20),
             borderRadius: normalize(2),
@@ -101,7 +101,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(15),
             marginHorizontal: vw(35),
             marginVertical: vh(16),
-            fontFamily: Fonts?.font17
+            fontFamily: Fonts.font17
         },
     })
     return Styles;

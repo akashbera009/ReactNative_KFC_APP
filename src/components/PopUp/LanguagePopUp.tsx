@@ -34,13 +34,13 @@ export default function LanguagePopUp() {
                 <View style={[Styles.Wrapper, { marginTop: inset.top }]}>
                     <TouchableWithoutFeedback>
                         <View style={Styles.PopUpContainer}>
-                            <Text style={Styles.selectionLanguageHeader}>{Strings?.pleaseSelectlanguage} </Text>
+                            <Text style={Styles.selectionLanguageHeader}>{Strings.pleaseSelectlanguage} </Text>
                             <View style={[Styles.LanguageChangeContainer,]}>
                                 < TouchableOpacity
                                     activeOpacity={.7}
                                     onPress={() => handleSelectionLanguage('en') }
                                     style={[Styles.languageContainer]}>
-                                    <Text style={Styles.changeText}>{Strings?.english}</Text>
+                                    <Text style={Styles.changeText}>{Strings.english}</Text>
                                     <View
                                         style={[Styles.checkBox]}
                                     >
@@ -54,7 +54,7 @@ export default function LanguagePopUp() {
                                 <TouchableOpacity
                                     onPress={() => handleSelectionLanguage('ar') }
                                     style={[Styles.languageContainer,]}>
-                                    <Text style={Styles.changeText}>{Strings?.arabic}</Text>
+                                    <Text style={Styles.changeText}>{Strings.arabic}</Text>
                                     <View
                                         style={[Styles.checkBox]}
                                     >
@@ -71,7 +71,7 @@ export default function LanguagePopUp() {
                                 activeOpacity={.5}
                                 style={[Styles.loginButton, {}]}
                                 onPress={handleSetLanguage}>
-                                <Text style={[Styles.LoginButtonText]}>{Strings?.done}</Text>
+                                <Text style={[Styles.LoginButtonText]}>{Strings.done}</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -103,13 +103,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: vw(350),
             borderWidth: normalize(1),
             borderRadius: normalize(15),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
         },
         selectionLanguageHeader: {
             fontSize: normalize(20),
             fontWeight: 600,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textBlack,
+            fontFamily: Fonts.subHeader,
+            color: Colors.textBlack,
             alignSelf: 'center',
             marginVertical: vh(20),
         },
@@ -127,14 +127,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         languageContainer: {
             width: '45%',
             height: vh(45),
-            backgroundColor: Colors?.bodyShadeColor,
+            backgroundColor: Colors.bodyShadeColor,
             borderRadius: normalize(6),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             borderWidth: normalize(1),
-            borderColor: Colors?.fadeBorder
+            borderColor: Colors.fadeBorder
         },
         checkBox: {
             height: vh(25),
@@ -145,7 +145,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             alignItems: 'center',
             marginRight: vw(15),
-            borderColor: Colors?.textFadeBlack
+            borderColor: Colors.textFadeBlack
         },
         tickMark: {
             height: vh(15),
@@ -154,15 +154,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         TickMarkImageContainer: {
             borderRadius: normalize(50),
             padding: normalize(6),
-            tintColor: Colors?.constantWhite,
-            backgroundColor: Colors?.KFC_red
+            tintColor: Colors.constantWhite,
+            backgroundColor: Colors.KFC_red
         },
         changeText: {
             marginRight: vw(10),
             marginLeft: vw(15),
             fontWeight: 700,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textBlack
+            fontFamily: Fonts.subHeader,
+            color: Colors.textBlack
         },
         loginButton: {
             position: 'absolute',
@@ -176,13 +176,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             paddingVertical: 10,
             borderRadius: normalize(2),
-            backgroundColor: Colors?.KFC_red
+            backgroundColor: Colors.KFC_red
         },
         LoginButtonText: {
             fontSize: normalize(16),
             fontWeight: 800,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.constantWhite
+            fontFamily: Fonts.subHeader,
+            color: Colors.constantWhite
         },
     })
     return Styles

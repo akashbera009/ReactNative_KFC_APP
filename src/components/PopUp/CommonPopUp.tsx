@@ -41,7 +41,7 @@ export const CommonPopUp = ({ header, message }: CommonPopUpScreenProps) => {
                                 navigation.pop()
                             }}
                         >
-                            <Text style={Styles.saveText}>{Strings?.done.toUpperCase()}</Text>
+                            <Text style={Styles.saveText}>{Strings.done.toUpperCase()}</Text>
                         </TouchableOpacity>
                     </Animated.View>
                 </TouchableOpacity>
@@ -57,7 +57,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             left: vw(0),
             height: '100%',
             width: '100%',
-            backgroundColor: Colors?.SemiTransparent,
+            backgroundColor: Colors.SemiTransparent,
             justifyContent: 'center',
             alignItems: 'center',
             zIndex: 999
@@ -72,13 +72,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         popupTitle: {
             fontSize: normalize(18),
             fontWeight: 700,
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             color: Colors.textBlack,
             marginBottom: vh(10),
         },
         popupMessage: {
             fontSize: normalize(14),
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack,
             marginBottom: vh(20)
         },
@@ -95,7 +95,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         saveText: {
             fontSize: normalize(16),
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             color: Colors.constantWhite,
             fontWeight: 700
         }

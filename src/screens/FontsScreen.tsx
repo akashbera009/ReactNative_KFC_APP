@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 // navigation 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { normalize, vh } from '../utils/Dimensions';
 const FontsScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     return (
@@ -182,9 +183,9 @@ const Styles = StyleSheet.create({
     },
     divider: {
         width: 'auto',
-        height: 1,
+        height: vh(1),
         borderTopColor: '#000000',
-        borderTopWidth: 1
+        borderTopWidth: normalize(1)
     }
 })
 export default FontsScreen

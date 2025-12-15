@@ -59,7 +59,7 @@ export default function OrderStatus({
         try {
             const result = await Share.share({
                 message:
-                    `${Strings?.takeInvoicePlease}: ${pdfUrl}`,
+                    `${Strings.takeInvoicePlease}: ${pdfUrl}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -83,14 +83,14 @@ export default function OrderStatus({
                     <TouchableOpacity
                         onPress={() => {
                             orderStatus ?
-                                navigation.navigate(Strings?.HomeScreen)
+                                navigation.navigate(Strings.HomeScreen)
                                 :
                                 navigation.pop(2)
                         }}
                     >
                         <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
-                    <Text style={Styles.headerText}>{Strings?.orderStatus}</Text>
+                    <Text style={Styles.headerText}>{Strings.orderStatus}</Text>
                 </View>
             </View>
             <View style={Styles.ContentContainer}>
@@ -103,7 +103,7 @@ export default function OrderStatus({
                                     {pending ? (
                                         <View>
                                             <View style={Styles.orderNotConfrimedAndRotator}>
-                                                <Text style={Styles.OrderConfirmed}>{Strings?.pendingConfirmation}</Text>
+                                                <Text style={Styles.OrderConfirmed}>{Strings.pendingConfirmation}</Text>
                                                 <Animated.Image
                                                     style={[Styles.RoundLoader, {
                                                         transform: [{
@@ -116,16 +116,16 @@ export default function OrderStatus({
                                                     source={Images?.RoundLoader}
                                                 />
                                             </View>
-                                            <Text style={[Styles.WaitingText,]}>{Strings?.waitingOrder}</Text>
+                                            <Text style={[Styles.WaitingText,]}>{Strings.waitingOrder}</Text>
                                         </View>
                                     ) : (
                                         <View>
-                                            <Text style={Styles.OrderConfirmed}>{Strings?.orderConfired}</Text>
-                                            <Text style={Styles.OrderNumber}>{Strings?.OrderNo} {orderId}</Text>
+                                            <Text style={Styles.OrderConfirmed}>{Strings.orderConfired}</Text>
+                                            <Text style={Styles.OrderNumber}>{Strings.OrderNo} {orderId}</Text>
                                         </View>
                                     )}
                                 </>) : (
-                                <Text style={Styles.OrderConfirmed}>{Strings?.orderFailed} </Text>
+                                <Text style={Styles.OrderConfirmed}>{Strings.orderFailed} </Text>
                             )}
                         </View>
                         <View style={Styles.DateRow}>
@@ -141,14 +141,14 @@ export default function OrderStatus({
                                     style={Styles.TrackBox}>
                                     <View style={Styles.TrackLeft}>
                                         <Image source={Images.Track_Order} style={[Styles.TrackIcon, Styles?.FadeIcon]} />
-                                        <Text style={[Styles.TrackText, Styles?.FadeText]}>{Strings?.trackOrder}</Text>
+                                        <Text style={[Styles.TrackText, Styles?.FadeText]}>{Strings.trackOrder}</Text>
                                     </View>
                                     <Image source={Images.back_arrow} style={[Styles.TrackArrow, Styles?.FadeIcon]} />
                                 </TouchableOpacity>
                             ) : (
                                 <TouchableOpacity
                                     onPress={() =>
-                                        navigation.navigate(Strings?.TrackOrderScreen, {
+                                        navigation.navigate(Strings.TrackOrderScreen, {
                                             currentOrder: currentOrder ?? null,
                                             orderId: orderId,
                                             GrandTotal: GrandTotal
@@ -156,7 +156,7 @@ export default function OrderStatus({
                                     style={Styles.TrackBox}>
                                     <View style={Styles.TrackLeft}>
                                         <Image source={Images.Track_Order} style={Styles.TrackIcon} />
-                                        <Text style={Styles.TrackText}>{Strings?.trackOrder}</Text>
+                                        <Text style={Styles.TrackText}>{Strings.trackOrder}</Text>
                                     </View>
                                     <Image source={Images.back_arrow} style={Styles.TrackArrow} />
                                 </TouchableOpacity>
@@ -168,7 +168,7 @@ export default function OrderStatus({
                         {orderStatus ? (
                             <>
                                 <View style={Styles.SummaryHeaderRow}>
-                                    <Text style={Styles.SummaryHeader}>{Strings?.orderSummary}</Text>
+                                    <Text style={Styles.SummaryHeader}>{Strings.orderSummary}</Text>
                                     <TouchableOpacity
                                         onPress={handleShareInvoice}
                                     >
@@ -176,15 +176,15 @@ export default function OrderStatus({
                                     </TouchableOpacity>
                                 </View>
                                 <View style={Styles.SumaryBottomBox}>
-                                    <Text style={Styles.DeliveryAddressheader}>{Strings?.deliveryAddress}</Text>
+                                    <Text style={Styles.DeliveryAddressheader}>{Strings.deliveryAddress}</Text>
                                     <Text style={Styles.AddressInfo}>{DeliveryDetails?.address}</Text>
                                     <View style={Styles.customBorder} />
                                     <View style={Styles.paymentModeContainer}>
-                                        <Text style={[Styles.paymentMode]}>{Strings?.PaymentMode}</Text>
+                                        <Text style={[Styles.paymentMode]}>{Strings.PaymentMode}</Text>
                                         <Text style={Styles.InfoBold}>{paymentMode}</Text>
                                     </View>
                                     <View style={Styles.customBorder} />
-                                    <Text style={[Styles.items]}>{Strings?.items}</Text>
+                                    <Text style={[Styles.items]}>{Strings.items}</Text>
                                     {currentOrder?.Items.map((item, idx) => (
                                         <View key={idx} style={Styles.ItemRow}>
                                             <View style={Styles.ItemRowQty}>
@@ -200,7 +200,7 @@ export default function OrderStatus({
                                         onPress={() => { setOpenAmountDetails(!openAmountDetails) }}
                                         style={Styles.TotalRow}>
                                         <View style={Styles.TotalLabelLeft}>
-                                            <Text style={Styles.TotalLabel}>{Strings?.grandTotal}</Text>
+                                            <Text style={Styles.TotalLabel}>{Strings.grandTotal}</Text>
                                             <View style={Styles.ExpansionButton}>
                                                 <Image source={Images?.Arrow_down} style={[Styles.ArrowDown, openAmountDetails && Styles.rotateImage]} />
                                             </View>
@@ -210,15 +210,15 @@ export default function OrderStatus({
                                     {openAmountDetails && (
                                         <View style={Styles.amountOpenContainer}>
                                             <View style={Styles.BillRowEntries}>
-                                                <Text style={Styles.BillRowLeft}>{Strings?.SubTotal}</Text>
+                                                <Text style={Styles.BillRowLeft}>{Strings.SubTotal}</Text>
                                                 <Text style={Styles.BillRow}> {SubTotal.toFixed(2)} {countrySelected?.currencyCode}</Text>
                                             </View>
                                             <View style={Styles.BillRowEntries}>
-                                                <Text style={Styles.BillRowLeft}>{Strings?.vat} @ {DeliveryDetails?.vatCharge}% </Text>
+                                                <Text style={Styles.BillRowLeft}>{Strings.vat} @ {DeliveryDetails?.vatCharge}% </Text>
                                                 <Text style={Styles.BillRow}>  {vatAmount.toFixed(2)} {countrySelected?.currencyCode}</Text>
                                             </View>
                                             <View style={Styles.BillRowEntries}>
-                                                <Text style={Styles.BillRowLeft}>{Strings?.deliveriCharge} </Text>
+                                                <Text style={Styles.BillRowLeft}>{Strings.deliveriCharge} </Text>
                                                 <Text style={Styles.BillRow}> {deliveriCharge} {countrySelected?.currencyCode}</Text>
                                             </View>
                                         </View>
@@ -227,14 +227,14 @@ export default function OrderStatus({
                             </>
                         ) : (
                             <View style={Styles.FailedContainer}>
-                                <Text style={Styles.FailedTitle}>{Strings?.unableToProcess}</Text>
+                                <Text style={Styles.FailedTitle}>{Strings.unableToProcess}</Text>
                                 <Text style={Styles.FailedSubText}>
-                                    {Strings?.tryAgainMsg} <Text style={Styles.PhoneNumber}>{DeliveryDetails?.supprotMobile}</Text>
+                                    {Strings.tryAgainMsg} <Text style={Styles.PhoneNumber}>{DeliveryDetails?.supprotMobile}</Text>
                                 </Text>
                                 <View style={Styles.RefundBox}>
-                                    <Text style={Styles.RefundTitle}>{Strings?.refundInitiated}</Text>
+                                    <Text style={Styles.RefundTitle}>{Strings.refundInitiated}</Text>
                                     <Text style={Styles.RefundInfo}>
-                                        {Strings?.refundMessage} <Text style={Styles.failedTotalAmount}>{GrandTotal.toFixed(2)} {countrySelected?.currencyCode}</Text> {Strings?.refundMessage2}
+                                        {Strings.refundMessage} <Text style={Styles.failedTotalAmount}>{GrandTotal.toFixed(2)} {countrySelected?.currencyCode}</Text> {Strings.refundMessage2}
                                     </Text>
                                 </View>
                             </View>
@@ -243,7 +243,7 @@ export default function OrderStatus({
                     <View style={Styles.RestaurantBox}>
                         {orderStatus ? (
                             <>
-                                <Text style={Styles.RestaurantTitle}>{Strings?.KFC_restaurant}</Text>
+                                <Text style={Styles.RestaurantTitle}>{Strings.KFC_restaurant}</Text>
                                 <View style={Styles.addressAndCall}>
                                     <Text style={Styles.RestaurantAddress} numberOfLines={2}>{DeliveryDetails?.restaurantName}</Text>
                                     <TouchableOpacity>
@@ -253,8 +253,8 @@ export default function OrderStatus({
                             </>
                         ) : (
                             <View style={Styles.WriteBox}>
-                                <Text style={Styles.WriteTitle}>{Strings?.writeToUs}</Text>
-                                <Text style={Styles.WriteSub}>{Strings?.writeMessage}</Text>
+                                <Text style={Styles.WriteTitle}>{Strings.writeToUs}</Text>
+                                <Text style={Styles.WriteSub}>{Strings.writeMessage}</Text>
                                 <View style={Styles.EmailBox}>
                                     <Text style={Styles.EmailText}>{DeliveryDetails?.supportMail}</Text>
                                 </View>
@@ -297,7 +297,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             color: Colors.textBlack,
         },
         ContentContainer: {
-            backgroundColor: Colors?.bodyLigheterColor
+            backgroundColor: Colors.bodyLigheterColor
         },
         OrderBox: {
             backgroundColor: Colors.bodyColor,
@@ -306,7 +306,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             padding: normalize(20),
             borderRadius: normalize(2),
             elevation: 5,
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
@@ -335,7 +335,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             height: vh(15),
             width: vw(15),
             marginHorizontal: vw(10),
-            tintColor: Colors?.textFadeBlack
+            tintColor: Colors.textFadeBlack
         },
         OrderNumber: {
             fontSize: normalize(16),
@@ -374,7 +374,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             justifyContent: 'space-between',
             alignItems: 'center',
             elevation: 5,
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
@@ -413,7 +413,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             backgroundColor: Colors.bodyColor,
             paddingBottom: vh(20),
             borderRadius: normalize(2),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
@@ -426,7 +426,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: Colors?.bodyShadeColor,
+            backgroundColor: Colors.bodyShadeColor,
             paddingHorizontal: vw(15),
         },
         SummaryHeader: {
@@ -439,7 +439,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         DownloadIcon: {
             height: vh(25),
             width: vw(25),
-            tintColor: Colors?.textBlack
+            tintColor: Colors.textBlack
         },
 
         SectionTitle: {
@@ -452,9 +452,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         DeliveryAddressheader: {
             marginTop: vh(10),
             fontSize: normalize(13),
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
             fontWeight: 600,
-            fontFamily: Fonts?.font17
+            fontFamily: Fonts.font17
         },
         AddressInfo: {
             marginTop: vh(10),
@@ -467,11 +467,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         customBorder: {
             width: '100%',
-            borderBottomColor: Colors?.blueLightBG,
+            borderBottomColor: Colors.blueLightBG,
             borderBottomWidth: normalize(1),
         },
         customBorder2: {
-            borderBottomColor: Colors?.blueLightBG,
+            borderBottomColor: Colors.blueLightBG,
             width: '100%',
             marginTop: vh(15),
             borderBottomWidth: normalize(1),
@@ -551,13 +551,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         TotalLabel: {
             fontFamily: Fonts.subHeader,
             fontSize: normalize(14),
-            color: Colors?.textFadeBlack2
+            color: Colors.textFadeBlack2
         },
         ExpansionButton: {
             height: vh(20),
             width: vw(20),
             borderRadius: normalize(15),
-            backgroundColor: Colors?.blueMixBG,
+            backgroundColor: Colors.blueMixBG,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -567,7 +567,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         ArrowDown: {
             height: vh(15),
             width: vw(15),
-            tintColor: Colors?.textBlack
+            tintColor: Colors.textBlack
         },
         rotateImage: {
             transform: [{ rotate: '180deg' }]
@@ -670,7 +670,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             fontSize: normalize(13),
             fontFamily: Fonts.font17,
             color: Colors.textFadeBlack,
-            lineHeight: 20,
+            lineHeight: vh(20),
         },
         EmailBox: {
             marginHorizontal: 'auto',
@@ -695,7 +695,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             padding: normalize(20),
             borderRadius: normalize(2),
             marginBottom: vh(40),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
@@ -716,7 +716,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         RestaurantAddress: {
             marginTop: vh(10),
             color: Colors.timerFadeText,
-            lineHeight: 20,
+            lineHeight: vh(20),
             fontSize: normalize(13),
             fontWeight: 500,
             maxWidth: '75%'
@@ -724,6 +724,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         CallIcon: {
             height: vh(38),
             width: vw(38),
-            tintColor: Colors?.greenOk
+            tintColor: Colors.greenOk
         },
     });

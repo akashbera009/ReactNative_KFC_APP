@@ -89,13 +89,13 @@ const SideBar = () => {
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
                 onPress={() => {
-                  navigation.navigate(Strings?.CreateProfileScreen, {
+                  navigation.navigate(Strings.CreateProfileScreen, {
                     phoneNo: '9876543210'
                   })
                   setIsSettingsMenuOpen(false)
                 }}>
                 <Image source={Images?.UserIcon} style={Styles.ThemeIcon} />
-                <Text style={Styles.countryEntriesText}>{Strings?.profileSettings}</Text>
+                <Text style={Styles.countryEntriesText}>{Strings.profileSettings}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={Styles.SettingsMenuEntries}
@@ -105,17 +105,17 @@ const SideBar = () => {
                   setIsSettingsMenuOpen(false)
                 }}>
                 <Image source={Images?.Theme_Icon} style={Styles.ThemeIcon} />
-                <Text style={Styles.countryEntriesText}>{Strings?.ChangeTheme}</Text>
+                <Text style={Styles.countryEntriesText}>{Strings.ChangeTheme}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
                 onPress={() => {
-                  navigation.navigate(Strings?.SplashScreen)
+                  navigation.navigate(Strings.SplashScreen)
                   setIsSettingsMenuOpen(false)
                 }}>
                 <Image source={Images?.Logout_Icon} style={Styles.ThemeIcon} />
-                <Text style={Styles.countryEntriesText}>{Strings?.logout}</Text>
+                <Text style={Styles.countryEntriesText}>{Strings.logout}</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -123,16 +123,16 @@ const SideBar = () => {
 
         <View style={Styles.LanguageCountryContainer}>
           <View style={Styles.LanguageContainer}>
-            <Text style={Styles.Language}>{Strings?.language} / {Strings?.languageToggle}</Text>
+            <Text style={Styles.Language}>{Strings.language} / {Strings.languageToggle}</Text>
             <TouchableOpacity
               style={Styles.LanguageChangeButton}
-              onPress={() => navigation.navigate(Strings?.PopUpScreens)}
+              onPress={() => navigation.navigate(Strings.PopUpScreens)}
             >
-              <Text style={Styles.LanguageText}>{languae?.language == 'en' ? Strings?.english : Strings?.arabic} </Text>
+              <Text style={Styles.LanguageText}>{languae?.language == 'en' ? Strings.english : Strings.arabic} </Text>
             </TouchableOpacity>
           </View>
           <View style={Styles.CountryContainer}>
-            <Text style={Styles.Language}>{Strings?.country} </Text>
+            <Text style={Styles.Language}>{Strings.country} </Text>
             <TouchableOpacity
               style={Styles.CountryChangeButton}
               activeOpacity={.7}
@@ -163,62 +163,62 @@ const SideBar = () => {
         </View>
         <View style={Styles.MenuListContainer}>
           <TouchableOpacity
-            onPress={() => navigation.navigate(Strings?.OrderDetailsScreen, {
+            onPress={() => navigation.navigate(Strings.OrderDetailsScreen, {
               order: currentOrder
             })}
             style={Styles.SingleEntry}>
             <Image source={Images?.Track_Order} style={[Styles.SideImageIcon, Styles.TrackOrderIcon]} />
-            <Text style={Styles.singleEntryText}>{Strings?.trackOrder} </Text>
+            <Text style={Styles.singleEntryText}>{Strings.trackOrder} </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate(Strings?.OrderHistoryScreens)}
+            onPress={() => navigation.navigate(Strings.OrderHistoryScreens)}
             style={Styles.SingleEntry}>
             <Image source={Images?.menu} style={Styles.SideImageIcon} />
-            <Text style={Styles.singleEntryText}>{Strings?.orderHistory} </Text>
+            <Text style={Styles.singleEntryText}>{Strings.orderHistory} </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate(Strings?.DealsAndOfferScreen)}
+            onPress={() => navigation.navigate(Strings.DealsAndOfferScreen)}
             style={Styles.SingleEntry}>
             <Image source={Images?.discount} style={Styles.SideImageIcon} />
-            <Text style={Styles.singleEntryText}>{Strings?.dealsAndOffer} </Text>
+            <Text style={Styles.singleEntryText}>{Strings.dealsAndOffer} </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate(Strings?.ExploreMenuScreen, {
-              categoryType: Strings?.dealsString
+            onPress={() => navigation.navigate(Strings.ExploreMenuScreen, {
+              categoryType: Strings.dealsString
             })}
             style={Styles.SingleEntry}>
             <Image source={Images?.Great_Menu} style={Styles.SideImageIcon} />
-            <Text style={Styles.singleEntryText}>{Strings?.greatMenu} </Text>
+            <Text style={Styles.singleEntryText}>{Strings.greatMenu} </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(Strings?.CartScreen, {
+              navigation.navigate(Strings.CartScreen, {
                 discount: 0,
                 discountPercentage: 0,
                 offerCode: ''
               })
             }} style={Styles.SingleEntry}>
             <Image source={Images?.MyCart} style={Styles.SideImageIcon} />
-            <Text style={Styles.singleEntryText}>{Strings?.myCart} </Text>
+            <Text style={Styles.singleEntryText}>{Strings.myCart} </Text>
           </TouchableOpacity>
         </View>
 
         <View style={[Styles.LowerCallSupportContainer, { bottom: inset.bottom + 10 }]}>
           <View style={Styles.LowerFAQSection}>
             <TouchableOpacity
-              onPress={() => { navigation.navigate(Strings?.FAQPageScreen) }}
+              onPress={() => { navigation.navigate(Strings.FAQPageScreen) }}
             >
-              <Text style={Styles.BottomViewText}>{Strings?.faq.toUpperCase()} </Text>
+              <Text style={Styles.BottomViewText}>{Strings.faq.toUpperCase()} </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => { navigation.navigate(Strings?.TermsAndConditionsScreen) }}
+              onPress={() => { navigation.navigate(Strings.TermsAndConditionsScreen) }}
             >
-              <Text style={Styles.BottomViewText}>{Strings?.termsCondition} </Text>
+              <Text style={Styles.BottomViewText}>{Strings.termsCondition} </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate(Strings?.HelpScreen)}
+              onPress={() => navigation.navigate(Strings.HelpScreen)}
             >
-              <Text style={Styles.BottomViewText}>{Strings?.userInfoHeader} </Text>
+              <Text style={Styles.BottomViewText}>{Strings.userInfoHeader} </Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -227,7 +227,7 @@ const SideBar = () => {
             <View style={Styles.CallImageContainer}>
               <Image source={Images?.Fill_Call} style={Styles.CallImageContainerImage} />
             </View>
-            <Text style={Styles.CallSupport}>{Strings?.callSupport.toUpperCase()} </Text>
+            <Text style={Styles.CallSupport}>{Strings.callSupport.toUpperCase()} </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -238,7 +238,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
   const Styles = StyleSheet.create({
     ParentContainer: {
       height: '100%',
-      backgroundColor: Colors?.bodyColor
+      backgroundColor: Colors.bodyColor
     },
     TopNameContainer: {
       height: vh(80),
@@ -263,7 +263,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginLeft: vw(10),
       objectFit: 'contain',
       overflow: 'hidden',
-      backgroundColor: Colors?.KFC_red,
+      backgroundColor: Colors.KFC_red,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -273,16 +273,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       width: vw(100)
     },
     NameLetter: {
-      fontFamily: Fonts?.headerRegular,
+      fontFamily: Fonts.headerRegular,
       fontSize: normalize(30),
-      color: Colors?.constantWhite,
+      color: Colors.constantWhite,
       fontWeight: 800,
       textAlign: 'center',
     },
     Name: {
-      fontFamily: Fonts?.headerRegular,
+      fontFamily: Fonts.headerRegular,
       fontSize: normalize(22),
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
       fontWeight: 600,
       textAlign: 'center',
       margin: normalize(15)
@@ -290,20 +290,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     SettingsIcon: {
       height: vh(20),
       width: vw(20),
-      tintColor: Colors?.textBlack,
+      tintColor: Colors.textBlack,
     },
     SettingOptionMenu: {
       minHeight: vh(60),
       width: vw(190),
       borderWidth: normalize(1),
-      borderColor: Colors?.fadeBorder,
-      backgroundColor: Colors?.bodyColor,
+      borderColor: Colors.fadeBorder,
+      backgroundColor: Colors.bodyColor,
       position: 'absolute',
       zIndex: 5,
       right: vw(35),
       top: vh(55),
       borderRadius: normalize(5),
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
       shadowRadius: normalize(3.84),
@@ -319,7 +319,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     ThemeIcon: {
       height: vh(25),
       width: vw(25),
-      tintColor: Colors?.textBlack,
+      tintColor: Colors.textBlack,
       margin: normalize(5)
     },
     LanguageCountryContainer: {
@@ -337,22 +337,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     Language: {
       fontSize: normalize(15),
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
       fontWeight: 600,
-      fontFamily: Fonts?.font17
+      fontFamily: Fonts.font17
     },
     LanguageChangeButton: {
       borderWidth: normalize(1),
-      borderColor: Colors?.KFC_red,
+      borderColor: Colors.KFC_red,
       borderRadius: normalize(2),
       marginHorizontal: vw(10)
     },
     LanguageText: {
       marginHorizontal: vw(12),
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
       marginVertical: vh(8),
       fontWeight: 600,
-      fontFamily: Fonts?.font17
+      fontFamily: Fonts.font17
     },
     CountryContainer: {
       display: 'flex',
@@ -377,26 +377,26 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     countryName: {
       fontSize: normalize(16),
       fontWeight: 600,
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
     },
     Arrow: {
       height: vh(10),
       width: vw(10),
       marginHorizontal: vw(8),
-      tintColor: Colors?.textBlack,
+      tintColor: Colors.textBlack,
     },
     countrySelectorOption: {
       minHeight: vh(100),
       width: vw(120),
       borderWidth: normalize(1),
-      borderColor: Colors?.fadeBorder,
-      backgroundColor: Colors?.bodyColor,
+      borderColor: Colors.fadeBorder,
+      backgroundColor: Colors.bodyColor,
       position: 'absolute',
       right: vw(0),
       top: vh(30),
       zIndex: 1000,
       borderRadius: normalize(5),
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
       shadowRadius: normalize(3.84),
@@ -409,20 +409,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: vh(40)
     },
     ActiveCountry: {
-      backgroundColor: Colors?.blueLightBG,
+      backgroundColor: Colors.blueLightBG,
     },
     countryEntriesText: {
       marginBottom: vh(4),
       fontWeight: 600,
       fontSize: normalize(16),
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
       marginLeft: vw(4)
     },
     CustomBottomBorder: {
       width: '100%',
       height: vh(40),
       position: 'absolute',
-      borderBottomColor: Colors?.fadeBorder,
+      borderBottomColor: Colors.fadeBorder,
       borderBottomWidth: normalize(1),
     },
     MenuListContainer: {
@@ -443,7 +443,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: vh(28),
       width: vw(28),
       margin: normalize(12),
-      tintColor: Colors?.textBlack,
+      tintColor: Colors.textBlack,
     },
     TrackOrderIcon: {
       height: vh(35),
@@ -451,11 +451,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       margin: normalize(8)
     },
     singleEntryText: {
-      fontFamily: Fonts?.headerRegular,
+      fontFamily: Fonts.headerRegular,
       fontWeight: 600,
       fontSize: normalize(17),
       margin: normalize(5),
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
     },
     LowerFAQSection: {
 
@@ -468,10 +468,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginBottom: vh(25),
     },
     BottomViewText: {
-      fontFamily: Fonts?.font17,
+      fontFamily: Fonts.font17,
       fontWeight: 600,
       fontSize: normalize(17),
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
     },
     LowerCallSupportContainer: {
       position: 'absolute',
@@ -486,7 +486,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginLeft: vw(20)
     },
     CallImageContainer: {
-      backgroundColor: Colors?.KFC_red,
+      backgroundColor: Colors.KFC_red,
       height: vh(30),
       width: vw(30),
       borderRadius: normalize(50),
@@ -498,14 +498,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     CallImageContainerImage: {
       height: vh(18),
       width: vw(18),
-      tintColor: Colors?.constantWhite,
+      tintColor: Colors.constantWhite,
 
     },
     CallSupport: {
-      fontFamily: Fonts?.font9,
+      fontFamily: Fonts.font9,
       fontWeight: 600,
       fontSize: normalize(26),
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
     }
   })
   return Styles

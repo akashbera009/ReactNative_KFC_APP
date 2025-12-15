@@ -102,8 +102,8 @@ export default function PaymentOptionsBottomSheet({ amount, orderId, onSuccess }
                         <View style={[Styles.singleCOlumnStyle,]} />
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <Text style={Styles.title}>{Strings?.otherPaymentOptions}</Text>
-                        <Text style={Styles.savedCardsLabel}>{savedCards.length} {Strings?.savedCards.toUpperCase()}</Text>
+                        <Text style={Styles.title}>{Strings.otherPaymentOptions}</Text>
+                        <Text style={Styles.savedCardsLabel}>{savedCards.length} {Strings.savedCards.toUpperCase()}</Text>
                         <ScrollView
                             horizontal
                             showsHorizontalScrollIndicator={false}
@@ -141,7 +141,7 @@ export default function PaymentOptionsBottomSheet({ amount, orderId, onSuccess }
                             ))}
                         </ScrollView>
                         <Text style={Styles.otherMethodLabel}>
-                            {Strings?.otherPaymentMethod.toUpperCase()}
+                            {Strings.otherPaymentMethod.toUpperCase()}
                         </Text>
                         {otherPaymentOption.map((item, idx) => (
                             <TouchableOpacity
@@ -180,18 +180,18 @@ export default function PaymentOptionsBottomSheet({ amount, orderId, onSuccess }
                                 {preferred && <Image source={Images?.Tick_Mark} style={Styles.tickMark} />}
                             </View>
                             <Text style={Styles.preferredText}>
-                                {Strings?.makePreferredMode}
+                                {Strings.makePreferredMode}
                             </Text>
                         </TouchableOpacity>
                     </ScrollView>
                     <View style={[Styles.buttonsRow, { marginBottom: inset.bottom + 10 }]}>
                         <TouchableOpacity style={Styles.cancelBtn} onPress={closeModal}>
-                            <Text style={Styles.cancelText}>{Strings?.cancel.toUpperCase()}</Text>
+                            <Text style={Styles.cancelText}>{Strings.cancel.toUpperCase()}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={Styles.payBtn}
                             onPress={initiatePayment}>
-                            <Text style={Styles.payText}>{Strings?.makePayment.toUpperCase()}</Text>
+                            <Text style={Styles.payText}>{Strings.makePayment.toUpperCase()}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -202,7 +202,7 @@ export default function PaymentOptionsBottomSheet({ amount, orderId, onSuccess }
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     return StyleSheet.create({
         backDrop: {
-            backgroundColor: Colors?.SemiTransparent,
+            backgroundColor: Colors.SemiTransparent,
             width: '100%',
             height: '100%',
             justifyContent: 'flex-end'
@@ -212,7 +212,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: '78%'
         },
         InnerContainer: {
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             borderTopLeftRadius: normalize(28),
             borderTopRightRadius: normalize(28),
             paddingHorizontal: vw(20),
@@ -229,7 +229,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         singleCOlumnStyle: {
             height: vh(25),
             width: vw(24),
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
         },
         title: {
             fontSize: normalize(20),
@@ -238,11 +238,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             textAlign: 'center',
             marginBottom: vh(25),
             marginTop: vh(10) ,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         savedCardsLabel: {
             fontSize: normalize(13),
-            color: Colors?.textFadeBlack,
+            color: Colors.textFadeBlack,
             marginBottom: vh(15),
             fontFamily: Fonts.font17,
             fontWeight: 700,
@@ -258,11 +258,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginRight: vw(12),
             justifyContent: 'space-between',
             borderWidth: normalize(1),
-            borderColor: Colors?.ButtonTextBlueColor,
+            borderColor: Colors.ButtonTextBlueColor,
             borderStyle: 'dotted'
         },
         VisaPNGFade: {
-            tintColor: Colors?.HyperFadeWhiteText,
+            tintColor: Colors.HyperFadeWhiteText,
             height: vh(60),
             width: vw(200),
             position: 'absolute',
@@ -276,20 +276,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'space-between',
         },
         cardSelected: {
-            borderColor: Colors?.ButtonTextBlueColor,
+            borderColor: Colors.ButtonTextBlueColor,
             borderWidth: normalize(2),
         },
         bankName: {
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             fontSize: normalize(14),
             fontWeight: 600
         },
         cardNumber: {
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             fontSize: normalize(14),
             fontWeight: 700,
             marginTop: vh(10),
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             letterSpacing: normalize(1.25)
         },
         cardFooter: {
@@ -299,21 +299,21 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         VisaPNG: {
             height: vh(12),
             width: vw(40),
-            tintColor: Colors?.constantWhite,
+            tintColor: Colors.constantWhite,
         },
         cardType: {
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             fontSize: normalize(10),
             fontWeight: 600,
-            backgroundColor: Colors?.HyperTransparent2,
+            backgroundColor: Colors.HyperTransparent2,
             padding: normalize(8),
         },
         otherMethodLabel: {
             marginTop: vh(10),
             marginBottom: vh(10),
             fontSize: normalize(13),
-            color: Colors?.textFadeBlack,
-            fontFamily: Fonts?.font17,
+            color: Colors.textFadeBlack,
+            fontFamily: Fonts.font17,
             fontWeight: 700
         },
         methodRow: {
@@ -333,18 +333,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         methodText: {
             fontSize: normalize(17),
-            color: Colors?.textBlack,
-            fontFamily: Fonts?.font17,
+            color: Colors.textBlack,
+            fontFamily: Fonts.font17,
             fontWeight: 500,
             letterSpacing: normalize(.5),
         },
         methodOffer: {
             fontSize: normalize(12),
-            color: Colors?.orangeColorText,
+            color: Colors.orangeColorText,
             marginTop: vh(2)
         },
         tc: {
-            color: Colors?.ButtonTextBlueColor,
+            color: Colors.ButtonTextBlueColor,
             fontSize: normalize(10)
         },
         radioBlackOuter: {
@@ -353,14 +353,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: vw(20),
             borderRadius: normalize(20),
             borderWidth: normalize(2),
-            borderColor: Colors?.textFadeBlack2,
+            borderColor: Colors.textFadeBlack2,
             justifyContent: 'center',
             alignItems: 'center'
         },
         radioBlackInner: {
             height: vh(10),
             width: vw(10),
-            backgroundColor: Colors?.textFadeBlack2,
+            backgroundColor: Colors.textFadeBlack2,
             borderRadius: normalize(10)
         },
         radioOuter: {
@@ -368,14 +368,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: vw(20),
             borderRadius: normalize(20),
             borderWidth: normalize(2),
-            borderColor: Colors?.fadeWhiteText2,
+            borderColor: Colors.fadeWhiteText2,
             justifyContent: 'center',
             alignItems: 'center'
         },
         radioInner: {
             height: vh(10),
             width: vw(10),
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             borderRadius: normalize(10)
         },
         checkboxRow: {
@@ -388,22 +388,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: vw(15),
             borderWidth: normalize(2),
             borderRadius: normalize(1),
-            borderColor: Colors?.fadeWhiteText2,
+            borderColor: Colors.fadeWhiteText2,
             justifyContent: 'center',
             alignItems: 'center',
             marginRight: vw(10)
         },
         checkboxSelected: {
-            borderColor: Colors?.KFC_red,
-            backgroundColor: Colors?.KFC_red,
+            borderColor: Colors.KFC_red,
+            backgroundColor: Colors.KFC_red,
         },
         tickMark: {
             height: vh(10),
             width: vw(10),
-            tintColor: Colors?.constantWhite
+            tintColor: Colors.constantWhite
         },
         preferredText: {
-            color: Colors?.textFadeBlack2,
+            color: Colors.textFadeBlack2,
             fontSize: normalize(12),
             fontWeight: 600
         },
@@ -414,24 +414,24 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         cancelBtn: {
             borderWidth: normalize(1),
-            borderColor: Colors?.fadeWhiteText2,
+            borderColor: Colors.fadeWhiteText2,
             width: '45%',
             paddingVertical: vh(14),
             borderRadius: normalize(6)
         },
         cancelText: {
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
             textAlign: 'center',
             fontWeight: 700
         },
         payBtn: {
             width: '45%',
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             paddingVertical: vh(14),
             borderRadius: normalize(6)
         },
         payText: {
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             textAlign: 'center',
             fontWeight: 700
         }

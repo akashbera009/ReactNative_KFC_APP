@@ -38,7 +38,6 @@ import TrackOrderScreen from '../screens/TrackOrderScreen';
 import PaymentModalScreen from '../screens/PaymentModalScreen';
 import CommonPopUpScreen from '../screens/CommonPopUpScreen';
 import TermsAndConditionsScreen from '../screens/TermsAndConditionsScreen';
-import KeyboardTestScreen from '../CommonFunctions/KeyboardTestScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -46,152 +45,148 @@ const Drawer = createDrawerNavigator()
 function StackNavigator() {
     const Strings = useStrings()
     return (
-        <Stack.Navigator initialRouteName={Strings?.HelpScreen} screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName={Strings.HomeScreen} screenOptions={{ headerShown: false }}>
             <Stack.Screen
-                name={Strings?.SplashScreen}
+                name={Strings.SplashScreen}
                 component={SplashScreen}
             />
             <Stack.Screen
-                name={Strings?.KeyboardTestScreen}
-                component={KeyboardTestScreen}
-            />
-            <Stack.Screen
-                name={Strings?.HomeScreen}
+                name={Strings.HomeScreen}
                 component={HomeScreen}
             />
             <Stack.Screen
-                name={Strings?.ChangeLocationBottomSheetScreen}
+                name={Strings.ChangeLocationBottomSheetScreen}
                 component={ChangeLocationBottomSheetScreen}
                 options={{
                     presentation: 'transparentModal'
                 }}
             />
             <Stack.Screen
-                name={Strings?.MapsScreen}
+                name={Strings.MapsScreen}
                 component={MapsScreen}
                 options={{
                     presentation: 'fullScreenModal'
                 }}
             />
             <Stack.Screen
-                name={Strings?.PopUpScreens}
+                name={Strings.PopUpScreens}
                 component={PopUpScreens}
                 options={{
                     presentation: 'transparentModal'
                 }}
             />
             <Stack.Screen
-                name={Strings?.LoginScreen}
+                name={Strings.LoginScreen}
                 component={LoginScreen}
             />
             <Stack.Screen
-                name={Strings?.LoginScreen2}
+                name={Strings.LoginScreen2}
                 component={LoginScreen2}
             />
             <Stack.Screen
-                name={Strings?.LoginPageCountryBottomSheetScreen}
+                name={Strings.LoginPageCountryBottomSheetScreen}
                 component={LoginPageCountryBottomSheetScreen}
                 options={{
                     presentation: 'transparentModal'
                 }}
             />
             <Stack.Screen
-                name={Strings?.OTPScreen}
+                name={Strings.OTPScreen}
                 component={OTPScreen}
             />
             <Stack.Screen
-                name={Strings?.FAQPageScreen}
+                name={Strings.FAQPageScreen}
                 component={FAQPageScreen}
             />
             <Stack.Screen
-                name={Strings?.DealsAndOfferScreen}
+                name={Strings.DealsAndOfferScreen}
                 component={DealsAndOfferScreen}
             />
             <Stack.Screen
-                name={Strings?.ExploreMenuScreen}
+                name={Strings.ExploreMenuScreen}
                 component={ExploreMenuScreen}
             />
             <Stack.Screen
-                name={Strings?.MenuCategorizeScreen}
+                name={Strings.MenuCategorizeScreen}
                 component={MenuCategorizeScreen}
                 options={{
                     presentation: 'transparentModal'
                 }}
             />
             <Stack.Screen
-                name={Strings?.FoodCustomizationScreen}
+                name={Strings.FoodCustomizationScreen}
                 component={FoodCustomizationScreen}
             />
             <Stack.Screen
-                name={Strings?.CartScreen}
+                name={Strings.CartScreen}
                 component={CartScreen}
             />
             <Stack.Screen
-                name={Strings?.RemoveCartItemBottomSheetScreen}
+                name={Strings.RemoveCartItemBottomSheetScreen}
                 component={RemoveCartItemBottomSheetScreen}
                 options={{
                     presentation: 'transparentModal'
                 }}
             />
             <Stack.Screen
-                name={Strings?.SearchScreen}
+                name={Strings.SearchScreen}
                 component={SearchScreen}
             />
             <Stack.Screen
-                name={Strings?.OfferAppliedScreen}
+                name={Strings.OfferAppliedScreen}
                 component={OfferAppliedScreen}
                 options={{
                     presentation: 'transparentModal'
                 }}
             />
             <Stack.Screen
-                name={Strings?.CheckOutScreen}
+                name={Strings.CheckOutScreen}
                 component={CheckOutScreen}
             />
             <Stack.Screen
-                name={Strings?.PaymentModalScreen}
+                name={Strings.PaymentModalScreen}
                 component={PaymentModalScreen}
                 options={{
                     presentation: 'transparentModal'
                 }}
             />
             <Stack.Screen
-                name={Strings?.OrderStatusScreen}
+                name={Strings.OrderStatusScreen}
                 component={OrderStatusScreen}
             />
             <Stack.Screen
-                name={Strings?.TrackOrderScreen}
+                name={Strings.TrackOrderScreen}
                 component={TrackOrderScreen}
             />
             <Stack.Screen
-                name={Strings?.OrderHistoryScreens}
+                name={Strings.OrderHistoryScreens}
                 component={OrderHistoryScreens}
             />
             <Stack.Screen
-                name={Strings?.OrderDetailsScreen}
+                name={Strings.OrderDetailsScreen}
                 component={OrderDetailsScreen}
             />
             <Stack.Screen
-                name={Strings?.CreateProfileScreen}
+                name={Strings.CreateProfileScreen}
                 component={CreateProfileScreen}
             />
             <Stack.Screen
-                name={Strings?.CommonPopUpScreen}
+                name={Strings.CommonPopUpScreen}
                 component={CommonPopUpScreen}
                 options={{
                     presentation: 'transparentModal'
                 }}
             />
             <Stack.Screen
-                name={Strings?.TermsAndConditionsScreen}
+                name={Strings.TermsAndConditionsScreen}
                 component={TermsAndConditionsScreen}
             />
             <Stack.Screen
-                name={Strings?.FontsScreen}
+                name={Strings.FontsScreen}
                 component={FontsScreen}
             />
             <Stack.Screen
-                name={Strings?.HelpScreen}
+                name={Strings.HelpScreen}
                 component={HelpScreen}
             />
         </Stack.Navigator>

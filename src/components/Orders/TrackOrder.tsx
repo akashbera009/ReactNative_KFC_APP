@@ -76,13 +76,13 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
           >
             <Image source={Images?.back_arrow} style={Styles.BackIcon} />
           </TouchableOpacity>
-          <Text style={Styles.headerText}>{Strings?.trackOrder} </Text>
+          <Text style={Styles.headerText}>{Strings.trackOrder} </Text>
         </View>
         <TouchableOpacity
           onPress={onRefresh}
           style={Styles.editButton}
         >
-          <Text style={Styles.editbuttonFadeText}>{Strings?.refresh.toUpperCase()} </Text>
+          <Text style={Styles.editbuttonFadeText}>{Strings.refresh.toUpperCase()} </Text>
         </TouchableOpacity>
       </View>
       <View style={Styles.ScrollWrapper}>
@@ -95,7 +95,7 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
             <MapView
               style={Styles.map}
               initialRegion={initialRegion}>
-              <Marker coordinate={location} title={Strings?.youreHere} />
+              <Marker coordinate={location} title={Strings.youreHere} />
               <Marker
                 coordinate={{
                   latitude: stores[0].latitude,
@@ -111,7 +111,7 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
               </Marker>
               <Polyline
                 coordinates={curvePoints}
-                strokeColor={Colors?.KFC_red}
+                strokeColor={Colors.KFC_red}
                 strokeWidth={3}
                 lineCap="round"
                 lineJoin="round"
@@ -140,25 +140,25 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
           <View style={Styles.statusRow}>
             <Image source={Images.PopCornCup} style={Styles.statusIcon} />
             <View style={Styles.statusTextWrapper}>
-              <Text style={Styles.statusTitle}>{Strings?.orderConfired}</Text>
+              <Text style={Styles.statusTitle}>{Strings.orderConfired}</Text>
               <View style={Styles.statusBadgeDone}>
-                <Text style={Styles.statusBadgeText}>{Strings?.done.toUpperCase()}</Text>
+                <Text style={Styles.statusBadgeText}>{Strings.done.toUpperCase()}</Text>
               </View>
             </View>
           </View>
           <View style={Styles.statusRow}>
             <Image source={Images.OvenIcon} style={Styles.statusIcon} />
             <View style={Styles.statusTextWrapper}>
-              <Text style={Styles.statusTitle}>{Strings?.beingPrepared}</Text>
-              <Text style={Styles.statusSubtitle}>{Strings?.foodPrepared}</Text>
+              <Text style={Styles.statusTitle}>{Strings.beingPrepared}</Text>
+              <Text style={Styles.statusSubtitle}>{Strings.foodPrepared}</Text>
             </View>
           </View>
           <View style={Styles.statusRow}>
             <Image source={Images.DeliveryBike} style={[Styles.statusIcon, Styles.fadeImage]} />
             <View style={Styles.statusTextWrapper}>
-              <Text style={[Styles.statusTitle, Styles.fadeText]}>{Strings?.onTheWay}</Text>
+              <Text style={[Styles.statusTitle, Styles.fadeText]}>{Strings.onTheWay}</Text>
               <View style={Styles.statusBadgeNext}>
-                <Text style={Styles.statusBadgeNextText}>{Strings?.next.toUpperCase()}</Text>
+                <Text style={Styles.statusBadgeNextText}>{Strings.next.toUpperCase()}</Text>
               </View>
             </View>
           </View>
@@ -170,11 +170,11 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
   const Styles = StyleSheet.create({
     Parent: {
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
     },
     NavWrapper: {
       width: '100%',
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -184,9 +184,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     headerText: {
       fontSize: normalize(20),
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
-      color: Colors?.textBlack
+      color: Colors.textBlack
     },
     BackIconAndHeaderText: {
       display: 'flex',
@@ -195,7 +195,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignSelf: 'center',
     },
     BackIcon: {
-      tintColor: Colors?.textBlack,
+      tintColor: Colors.textBlack,
       height: vh(18),
       width: vw(18),
       alignSelf: 'flex-start',
@@ -203,13 +203,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     editButton: {
       borderWidth: normalize(1),
-      borderColor: Colors?.textBlack,
+      borderColor: Colors.textBlack,
       borderRadius: normalize(2),
       marginHorizontal: vw(16),
     },
     editbuttonFadeText: {
-      color: Colors?.textBlack,
-      fontFamily: Fonts?.font17,
+      color: Colors.textBlack,
+      fontFamily: Fonts.font17,
       fontSize: normalize(12),
       fontWeight: 700,
       marginHorizontal: vw(10),
@@ -217,7 +217,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     ScrollWrapper: {
       height: '88%',
-      backgroundColor: Colors?.bodyLigheterColor
+      backgroundColor: Colors.bodyLigheterColor
     },
     MapContainer: {
     },
@@ -276,9 +276,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       borderRadius: normalize(4),
     },
     detailsButtonText: {
-      color: Colors?.textBlack,
+      color: Colors.textBlack,
       fontWeight: 600,
-      fontFamily: Fonts?.font17,
+      fontFamily: Fonts.font17,
       fontSize: normalize(10),
     },
     currentStatusHeading: {
@@ -307,7 +307,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       opacity: .5
     },
     fadeText: {
-      color: Colors?.timerFadeText
+      color: Colors.timerFadeText
     },
     statusTextWrapper: {
       flex: 1,
@@ -339,7 +339,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontWeight: 700,
     },
     statusBadgeNext: {
-      backgroundColor: Colors?.blueShadows,
+      backgroundColor: Colors.blueShadows,
       borderRadius: normalize(4),
       paddingHorizontal: vw(10),
       paddingVertical: vh(2),

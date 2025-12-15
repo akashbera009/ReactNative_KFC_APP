@@ -22,26 +22,26 @@ export default function FAQPage() {
         setOpenIndex(prev => (prev === index ? null : index));
     };
     const OnlineFAQ = [
-        { question: Strings?.resetPassword, answer: Strings?.resetPasswordA },
-        { question: Strings?.restaurantReceive, answer: Strings?.restaurantReceiveA },
-        { question: Strings?.paymentOptions, answer: Strings?.paymentOptionsA },
-        { question: Strings?.saveCreditCard, answer: Strings?.saveCreditCardA },
-        { question: Strings?.changeAccountInfo, answer: Strings?.changeAccountInfoA },
-        { question: Strings?.deliveryChargesHigher, answer: Strings?.deliveryChargesHigherA },
-        { question: Strings?.deliveryServiceCharge, answer: Strings?.deliveryServiceChargeA },
+        { question: Strings.resetPassword, answer: Strings.resetPasswordA },
+        { question: Strings.restaurantReceive, answer: Strings.restaurantReceiveA },
+        { question: Strings.paymentOptions, answer: Strings.paymentOptionsA },
+        { question: Strings.saveCreditCard, answer: Strings.saveCreditCardA },
+        { question: Strings.changeAccountInfo, answer: Strings.changeAccountInfoA },
+        { question: Strings.deliveryChargesHigher, answer: Strings.deliveryChargesHigherA },
+        { question: Strings.deliveryServiceCharge, answer: Strings.deliveryServiceChargeA },
     ];
 
     const RestaurantFAQ = [
-        { question: Strings?.faqQ1, answer: Strings?.faqA1 },
-        { question: Strings?.faqQ2, answer: Strings?.faqA2 },
-        { question: Strings?.faqQ3, answer: Strings?.faqA3 },
+        { question: Strings.faqQ1, answer: Strings.faqA1 },
+        { question: Strings.faqQ2, answer: Strings.faqA2 },
+        { question: Strings.faqQ3, answer: Strings.faqA3 },
     ];
 
     const EmploymentFAQ = [
-        { question: Strings?.faqQ4, answer: Strings?.faqA4 },
-        { question: Strings?.faqQ9, answer: Strings?.faqA9 },
-        { question: Strings?.faqQ10, answer: Strings?.faqA10 },
-        { question: Strings?.faqQ11, answer: Strings?.faqA11 },
+        { question: Strings.faqQ4, answer: Strings.faqA4 },
+        { question: Strings.faqQ9, answer: Strings.faqA9 },
+        { question: Strings.faqQ10, answer: Strings.faqA10 },
+        { question: Strings.faqQ11, answer: Strings.faqA11 },
     ];
 
     const getFaqData = () => {
@@ -60,25 +60,25 @@ export default function FAQPage() {
                     <TouchableOpacity onPress={() => navigation.pop()}>
                         <Image source={Images?.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
-                    <Text style={Styles.headerText}>{Strings?.faqs}</Text>
+                    <Text style={Styles.headerText}>{Strings.faqs}</Text>
                 </View>
             </View>
             <View style={Styles.tabWrapper}>
                 <TouchableOpacity onPress={() => setSelectedTab('online')}>
                     <Text style={selectedTab === 'online' ? Styles.activeTab : Styles.inactiveTab}>
-                        {Strings?.onlineOrdering}
+                        {Strings.onlineOrdering}
                     </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => setSelectedTab('restaurants')}>
                     <Text style={selectedTab === 'restaurants' ? Styles.activeTab : Styles.inactiveTab}>
-                        {Strings?.restaurants}
+                        {Strings.restaurants}
                     </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => setSelectedTab('employment')}>
                     <Text style={selectedTab === 'employment' ? Styles.activeTab : Styles.inactiveTab}>
-                        {Strings?.employment}
+                        {Strings.employment}
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -120,12 +120,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parent: {
             flex: 1,
-            backgroundColor: Colors?.bodyLigheterColor,
+            backgroundColor: Colors.bodyLigheterColor,
         },
         NavWrapper: {
             width: '100%',
             paddingBottom: vh(15),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             flexDirection: 'row',
             alignItems: 'center',
             paddingHorizontal: vw(10),
@@ -135,39 +135,39 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         BackIcon: {
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             height: vh(20),
             width: vw(20),
             marginRight: vw(18),
         },
         headerText: {
             fontSize: normalize(22),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: '700',
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
         },
         tabWrapper: {
             flexDirection: 'row',
             alignItems: 'center',
             paddingHorizontal: vw(20),
             paddingTop: vh(15),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
         },
         activeTab: {
             fontSize: normalize(16),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: '700',
-            color: Colors?.textBlack,
-            borderBottomColor: Colors?.KFC_red,
+            color: Colors.textBlack,
+            borderBottomColor: Colors.KFC_red,
             borderBottomWidth: normalize(2),
             paddingBottom: vh(8),
             marginRight: vw(20),
         },
         inactiveTab: {
             fontSize: normalize(16),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: '600',
-            color: Colors?.timerFadeText,
+            color: Colors.timerFadeText,
             marginRight: vw(20),
             paddingBottom: vh(6),
         },
@@ -177,7 +177,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         card: {
             width: '92%',
             alignSelf: 'center',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             paddingVertical: vh(18),
             paddingHorizontal: vw(15),
             borderRadius: normalize(6),
@@ -189,8 +189,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         cardText: {
             width: '80%',
             fontSize: normalize(16),
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textBlack,
+            fontFamily: Fonts.subHeader,
+            color: Colors.textBlack,
             fontWeight: '600',
             lineHeight: vh(25),
         },
@@ -198,14 +198,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: vw(15),
             height: vh(15),
             transform: [{ scaleX: -1 }],
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             marginRight: vw(10)
         },
         answerBox: {
             marginHorizontal: vw(15),
             paddingHorizontal: vw(20),
             alignSelf: 'center',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginTop: vh(-6),
             paddingBottom: vh(15),
             borderBottomLeftRadius: normalize(6),
@@ -213,8 +213,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         answerText: {
             fontSize: normalize(15),
-            fontFamily: Fonts?.font17 ,
-            color: Colors?.textFadeBlack,
+            fontFamily: Fonts.font17 ,
+            color: Colors.textFadeBlack,
             lineHeight: vh(22),
             marginTop: vh(8),
         },

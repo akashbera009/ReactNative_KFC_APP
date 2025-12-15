@@ -56,7 +56,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   const handleVerify = () => {
     // if(goodToLogin) 
     // comment
-    navigation.push(Strings?.CreateProfileScreen, {
+    navigation.push(Strings.CreateProfileScreen, {
       phoneNo: phoneNo1
     })
   }
@@ -80,7 +80,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
           >
             <Image source={Images?.back_arrow} style={Styles.BackIcon} />
           </TouchableOpacity>
-          <Text style={Styles.headerText}>{Strings?.otpText}</Text>
+          <Text style={Styles.headerText}>{Strings.otpText}</Text>
         </View>
       </View>
       <KeyboardAvoidingView
@@ -95,10 +95,9 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
             showsVerticalScrollIndicator={false}
           >
             <View style={Styles.enterOtpHeaderContainer}>
-              <Text style={Styles.enterOtpHeader}>{Strings?.enterOtpHeader}</Text>
+              <Text style={Styles.enterOtpHeader}>{Strings.enterOtpHeader}</Text>
               <Text style={Styles.PhoneNo}>{countrySelected?.mobileCode} {phoneNo1}</Text>
             </View>
-
             <View style={Styles.otpRelatedContainer}>
               <View style={Styles.innerOtpContainer}>
                 {inputValue.map((item, idx) => (
@@ -134,7 +133,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
                   style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}
                 >
                   <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]}>
-                    {Strings?.verifyText}
+                    {Strings.verifyText}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -148,7 +147,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
                   <View style={Styles.LowerOtpContainerEntriesLeft}>
                     <Image source={Images?.Messege} style={Styles.otpentriesIcon} />
                     <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>
-                      {Strings?.resendOtp.toUpperCase()}
+                      {Strings.resendOtp.toUpperCase()}
                     </Text>
                   </View>
                   {resendActive == false && (
@@ -164,7 +163,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
                   <View style={Styles.LowerOtpContainerEntriesLeft}>
                     <Image source={Images?.call} style={Styles.otpentriesIcon} />
                     <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>
-                      {Strings?.callMe.toLocaleUpperCase()}
+                      {Strings.callMe.toLocaleUpperCase()}
                     </Text>
                   </View>
                   {resendActive == false && (
@@ -185,18 +184,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     parentBackground: {
       height: '100%',
       width: '100%',
-      backgroundColor: Colors?.bodyLigheterColor,
+      backgroundColor: Colors.bodyLigheterColor,
     },
     NavWrapper: {
       width: '100%',
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       alignSelf: 'center',
       paddingBottom: vh(15),
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
       shadowRadius: normalize(3.84),
@@ -204,9 +203,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     headerText: {
       fontSize: normalize(20),
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
-      color: Colors?.textBlack
+      color: Colors.textBlack
     },
     BackIconAndHeaderText: {
       display: 'flex',
@@ -215,7 +214,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignSelf: 'center',
     },
     BackIcon: {
-      tintColor: Colors?.textBlack,
+      tintColor: Colors.textBlack,
       height: vh(18),
       width: vw(18),
       alignSelf: 'flex-start',
@@ -223,7 +222,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     navHeaderText: {
       fontSize: normalize(20),
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
     },
     enterOtpHeaderContainer: {
@@ -234,23 +233,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontSize: normalize(18),
       fontWeight: 600,
       marginTop: vh(30),
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
     },
     PhoneNo: {
       fontSize: normalize(17),
       fontWeight: 600,
       marginTop: vh(10),
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
     },
     otpRelatedContainer: {
       marginTop: vh(15),
       height: vh(320),
       width: '90%',
       alignSelf: 'center',
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       display: 'flex',
       flexDirection: 'column',
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(5), height: vh(5) },
       shadowOpacity: .1,
       shadowRadius: normalize(10),
@@ -289,20 +288,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginTop: vh(30),
       width: 'auto',
       alignSelf: "flex-end",
-      backgroundColor: Colors?.fadeVerify,
+      backgroundColor: Colors.fadeVerify,
       borderRadius: normalize(2)
     },
     VerifyBUttonActive: {
-      backgroundColor: Colors?.KFC_red
+      backgroundColor: Colors.KFC_red
     },
     VerifyBUttonText: {
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
       fontSize: normalize(16),
-      color: Colors?.verifyText
+      color: Colors.verifyText
     },
     VerifyBUttonTextActive: {
-      color: Colors?.constantWhite
+      color: Colors.constantWhite
     },
     LowerOtpContainer: {
       margin: normalize(10),
@@ -329,23 +328,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       width: vw(25)
     },
     resendRealtedText: {
-      color: Colors?.resendOtpText,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.resendOtpText,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
       margin: normalize(10)
     },
     activeResndText: {
-      color: Colors?.ButtonBlueColor,
+      color: Colors.ButtonBlueColor,
     },
     timerText: {
-      color: Colors?.timerText,
+      color: Colors.timerText,
       padding: normalize(2),
     },
     ActiveBorder: {
-      borderBottomColor: Colors?.activeBorder,
+      borderBottomColor: Colors.activeBorder,
     },
     NonActiveBorder: {
-      borderBottomColor: Colors?.fadeBorder,
+      borderBottomColor: Colors.fadeBorder,
     },
 
   })

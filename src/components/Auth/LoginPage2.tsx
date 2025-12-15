@@ -50,7 +50,7 @@ export default function LoginPage2() {
         //     return
         // await Keyboard.dismiss()
         // comment
-        navigation.push(Strings?.OTPScreen, {
+        navigation.push(Strings.OTPScreen, {
             phoneNo: mobileNo
         })
     }
@@ -65,22 +65,22 @@ export default function LoginPage2() {
                         <View style={[Styles.singleCOlumnStyle,]} />
                     </View>
                     <Image source={Images?.KFC_Combo_Pack} style={[Styles.KFC_ComboImage, { marginTop: inset.top }]} />
-                    <Text style={Styles.Welcome2} >{Strings?.welcome2.toUpperCase()}</Text>
+                    <Text style={Styles.Welcome2} >{Strings.welcome2.toUpperCase()}</Text>
                     <View style={Styles.SecondLine}>
-                        <Text style={Styles.SecondLineText}>{Strings?.KFC.toUpperCase()}</Text>
+                        <Text style={Styles.SecondLineText}>{Strings.KFC.toUpperCase()}</Text>
                         <Text style={Styles.SecondLineText}>{countrySelected.name.toUpperCase()}</Text>
-                        <Text style={Styles.SecondLineText}>{Strings?.app.toUpperCase()}</Text>
+                        <Text style={Styles.SecondLineText}>{Strings.app.toUpperCase()}</Text>
                     </View>
                     <View style={Styles.LowerContaienr}>
                         <View style={Styles.ChooseLanguageContainer}>
-                            <Text style={Styles.chooseLangHeader}>{Strings?.chooseLanguage}</Text>
+                            <Text style={Styles.chooseLangHeader}>{Strings.chooseLanguage}</Text>
                             <View style={Styles.languageContainer}>
                                 <TouchableOpacity
                                     style={Styles.LanguageButton}
                                     onPress={() => { setLanguage('en') }}
                                     activeOpacity={.3}
                                 >
-                                    <Text style={Styles.chooseLangText}>{Strings?.english} </Text>
+                                    <Text style={Styles.chooseLangText}>{Strings.english} </Text>
                                     <View style={[Styles.TickMarkOuter, language == 'en' ? Styles.ActiveBorder : null]} >
                                         {language == 'en' && (
                                             <View style={Styles.CheckBox} />
@@ -92,7 +92,7 @@ export default function LoginPage2() {
                                     onPress={() => { setLanguage('ar') }}
                                     activeOpacity={.3}
                                 >
-                                    <Text style={Styles.chooseLangText}>{Strings?.arabic} </Text>
+                                    <Text style={Styles.chooseLangText}>{Strings.arabic} </Text>
                                     <View style={[Styles.TickMarkOuter, language == 'ar' ? Styles.ActiveBorder : null]} >
                                         {language == 'ar' && (
                                             <View style={Styles.CheckBox} />
@@ -103,9 +103,9 @@ export default function LoginPage2() {
                         </View>
                         <View style={Styles.MobileNumberIPContainer}>
                             <View style={Styles.headerTextContainer}>
-                                <Text style={Styles.mobileNoHeader}>{Strings?.loginWIthNumberText} </Text>
+                                <Text style={Styles.mobileNoHeader}>{Strings.loginWIthNumberText} </Text>
                                 <Text style={Styles.mobileNoHeader}>{countrySelected?.name} </Text>
-                                <Text style={Styles.mobileNoHeader}>{Strings?.mobileNumber} </Text>
+                                <Text style={Styles.mobileNoHeader}>{Strings.mobileNumber} </Text>
                             </View>
                             <View
                                 style={Styles.loginMobileLowerContainer}
@@ -115,23 +115,23 @@ export default function LoginPage2() {
                                     <TextInput
                                         value={mobileNo}
                                         onChangeText={handleMobileNoInput}
-                                        placeholder={Strings?.enterNumberPlaceHoler.toUpperCase()}
+                                        placeholder={Strings.enterNumberPlaceHoler.toUpperCase()}
                                         keyboardType='numeric'
                                         style={Styles.MobileInputContainer}
                                     />
                                     <View style={Styles.customBorder} />
-                                    <Text style={Styles.egMobile}>{Strings?.EgMobile} </Text>
+                                    <Text style={Styles.egMobile}>{Strings.EgMobile} </Text>
                                 </View>
                                 <TouchableOpacity
                                     style={[Styles.submitButton, goodToLogin ? null : Styles.ActiveButton]}
                                     onPress={handleSubmit}
                                 >
-                                    <Text style={[Styles.SubmitButtonText, goodToLogin ? null : Styles.ActiveButtonText]}>{Strings?.submit.toUpperCase()} </Text>
+                                    <Text style={[Styles.SubmitButtonText, goodToLogin ? null : Styles.ActiveButtonText]}>{Strings.submit.toUpperCase()} </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <View style={Styles.SocialContainer}>
-                            <Text style={Styles.chooseLangHeader}>{Strings?.loginWithSocialHeader} </Text>
+                            <Text style={Styles.chooseLangHeader}>{Strings.loginWithSocialHeader} </Text>
 
                             <View style={Styles.FaangContainer}>
 
@@ -140,14 +140,14 @@ export default function LoginPage2() {
                                     onPress={handleSubmit}
                                 >
                                     <Image source={Images?.facebook} style={Styles.faangLogo} />
-                                    <Text style={Styles.faangButtonText}>{Strings?.facebook.toUpperCase()} </Text>
+                                    <Text style={Styles.faangButtonText}>{Strings.facebook.toUpperCase()} </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={Styles.faangButton}
                                     onPress={handleSubmit}
                                 >
                                     <Image source={Images?.google} style={Styles.faangLogo} />
-                                    <Text style={Styles.faangButtonText}>{Strings?.google.toUpperCase()} </Text>
+                                    <Text style={Styles.faangButtonText}>{Strings.google.toUpperCase()} </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -158,11 +158,11 @@ export default function LoginPage2() {
                 <View style={Styles.TcInnerContainer}>
                     <TouchableOpacity
                         onPress={() => navigation.pop()}>
-                        <Text style={Styles.tcText}>{Strings?.tc.toUpperCase()} </Text>
+                        <Text style={Styles.tcText}>{Strings.tc.toUpperCase()} </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(Strings?.HomeScreen)}>
-                        <Text style={Styles.tcText}>{Strings?.skipLoginAndContinue.toUpperCase()} </Text>
+                        onPress={() => navigation.navigate(Strings.HomeScreen)}>
+                        <Text style={Styles.tcText}>{Strings.skipLoginAndContinue.toUpperCase()} </Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -187,13 +187,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         singleCOlumnStyle: {
             height: vh(100),
             width: vw(25),
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
         },
         KFC_ComboImage: {
             height: vh(200),
             width: vw(200),
             alignSelf: 'center',
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(2), height: vh(10) },
             shadowOpacity: .5,
             shadowRadius: normalize(5),
@@ -201,7 +201,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         Welcome2: {
             fontSize: normalize(18),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             marginHorizontal: vw(5),
             alignSelf: 'center',
@@ -215,7 +215,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         SecondLineText: {
             fontSize: normalize(22),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             marginHorizontal: vw(4)
         },
@@ -224,13 +224,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: '100%',
             height: '100%',
             alignSelf: 'center',
-            backgroundColor: Colors?.bodyShadeColor,
+            backgroundColor: Colors.bodyShadeColor,
         },
         ChooseLanguageContainer: {
             width: '100%',
             alignSelf: 'center',
             height: vh(100),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginTop: vh(10)
         },
         headerTextContainer: {
@@ -240,7 +240,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(15)
         },
         chooseLangHeader: {
-            color: Colors?.timerFadeText,
+            color: Colors.timerFadeText,
             fontWeight: 700,
             fontSize: normalize(13),
             marginTop: vh(15),
@@ -267,36 +267,36 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         chooseLangText: {
             fontSize: normalize(16),
             fontWeight: 600,
-            fontFamily: Fonts?.subHeader
+            fontFamily: Fonts.subHeader
         },
         TickMarkOuter: {
             width: vw(20),
             height: vh(20),
             borderWidth: normalize(2),
-            borderColor: Colors?.textFadeBlack,
+            borderColor: Colors.textFadeBlack,
             borderRadius: normalize(40),
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
         },
         ActiveBorder: {
-            borderColor: Colors?.KFC_red,
+            borderColor: Colors.KFC_red,
         },
         CheckBox: {
             width: vw(10),
             height: vh(10),
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             borderRadius: normalize(50),
         },
         MobileNumberIPContainer: {
             width: '100%',
             alignSelf: 'center',
             height: vh(140),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginTop: vh(10),
         },
         mobileNoHeader: {
-            color: Colors?.timerFadeText,
+            color: Colors.timerFadeText,
             fontWeight: 700,
             fontSize: normalize(13),
             marginRight: vw(4)
@@ -309,19 +309,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         MobileInputContainer: {
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 600
         },
         customBorder: {
             borderBottomWidth: normalize(1),
-            borderBottomColor: Colors?.fadeBorder,
+            borderBottomColor: Colors.fadeBorder,
             marginTop: vh(10),
             marginRight: vw(10)
         },
         CountryCode: {
             marginRight: vw(10),
             marginTop: vh(-8),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700
         },
         centralMobileContainer: {
@@ -332,14 +332,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(20)
         },
         egMobile: {
-            color: Colors?.timerFadeText,
-            fontFamily: Fonts?.subHeader,
+            color: Colors.timerFadeText,
+            fontFamily: Fonts.subHeader,
             fontSize: normalize(12),
             marginTop: vh(2)
         },
         submitButton: {
             height: vh(30),
-            backgroundColor: Colors?.fadeVerify,
+            backgroundColor: Colors.fadeVerify,
             paddingHorizontal: vw(10),
             display: 'flex',
             flexDirection: 'row',
@@ -349,24 +349,24 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderRadius: normalize(2),
         },
         ActiveButton: {
-            backgroundColor: Colors?.KFC_red
+            backgroundColor: Colors.KFC_red
         },
         ActiveButtonText: {
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             fontWeight: 700,
         },
         SubmitButtonText: {
             fontSize: normalize(13),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 600,
-            color: Colors?.textFadeBlack,
+            color: Colors.textFadeBlack,
             paddingHorizontal: vw(10),
         },
         SocialContainer: {
             width: '100%',
             alignSelf: 'center',
             height: vh(130),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginTop: vh(10),
         },
         FaangContainer: {
@@ -378,7 +378,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         faangButton: {
             height: vh(50),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             paddingHorizontal: vw(25),
             display: 'flex',
             flexDirection: 'row',
@@ -386,7 +386,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             marginHorizontal: 'auto',
             borderRadius: normalize(2),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.3,
             shadowRadius: normalize(5),
@@ -398,9 +398,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         faangButtonText: {
             fontSize: normalize(13),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 600,
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
             paddingHorizontal: vw(10),
             marginLeft: vw(8)
         },
@@ -409,7 +409,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             position: 'absolute',
             left: vw(0),
             height: vh(60),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             justifyContent: 'center',
         },
@@ -422,7 +422,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'space-between',
         },
         tcText: {
-            color: Colors?.ButtonBlueColor,
+            color: Colors.ButtonBlueColor,
             fontWeight: 700,
             fontSize: normalize(12)
         }

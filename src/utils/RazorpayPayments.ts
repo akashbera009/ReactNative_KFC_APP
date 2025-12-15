@@ -10,12 +10,12 @@ export const useRazorpayPayment = () => {
     const handlePayment = async (amount: number) => {
         try {
             const options = {
-                description: Strings?.KFC_restaurant,
+                description: Strings.KFC_restaurant,
                 image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWp9hoNV1qp1p83g-DwIQA7dU-XzIeelAHwg&s',
                 currency: 'INR',
                 key: 'rzp_test_v4UV05zNfrIcEE',
                 amount: String(Math.round(amount * 100)),
-                name: Strings?.KFC,
+                name: Strings.KFC,
                 prefill: {
                     email: DeliveryDetails?.email,
                     contact: DeliveryDetails?.mobileNumber,

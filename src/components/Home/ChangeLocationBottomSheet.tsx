@@ -70,8 +70,8 @@ export default function ChangeLocationBottomSheet() {
                             <Image source={Images?.Mao_Location} style={Styles.mapImage} />
                             <Image source={Images?.Cloud} style={Styles.Cloud1} />
                             <Image source={Images?.Cloud2} style={Styles.Cloud2} />
-                            <Text style={Styles.ConfirmHeader}>{Strings?.consfirmLocation}</Text>
-                            <Text style={Styles.countryDescription} >{Strings?.consfirmLocationDescription}</Text>
+                            <Text style={Styles.ConfirmHeader}>{Strings.consfirmLocation}</Text>
+                            <Text style={Styles.countryDescription} >{Strings.consfirmLocationDescription}</Text>
                             <View style={Styles.LocationContainer}>
                                 <Image source={Images.Location} style={Styles.locationIcon} />
                                 <Text style={Styles.Address} numberOfLines={1}>{DeliveryDetails?.address} </Text>
@@ -79,13 +79,13 @@ export default function ChangeLocationBottomSheet() {
                             <View style={[Styles.DoneButtonContainer, { bottom: inset.bottom }]}>
                                 <TouchableOpacity
                                     style={[Styles.Button, Styles.ChangeButton]}
-                                    onPress={() => navigation.navigate(Strings?.MapsScreen)}>
-                                    <Text style={[Styles.DoneButtonText, Styles.ChangeButtonText]}>{Strings?.change.toLocaleUpperCase()}</Text>
+                                    onPress={() => navigation.navigate(Strings.MapsScreen)}>
+                                    <Text style={[Styles.DoneButtonText, Styles.ChangeButtonText]}>{Strings.change.toLocaleUpperCase()}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={[Styles.Button]}
                                     onPress={() => navigation.pop()}>
-                                    <Text style={Styles.DoneButtonText}>{Strings?.confirm.toLocaleUpperCase()}</Text>
+                                    <Text style={Styles.DoneButtonText}>{Strings.confirm.toLocaleUpperCase()}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -144,7 +144,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             right: '20%',
             height: vh(30),
             width: vw(30),
-            tintColor: Colors?.CloudBorder
+            tintColor: Colors.CloudBorder
         },
         Cloud2: {
             position: 'absolute',
@@ -152,11 +152,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             left: '20%',
             height: vh(40),
             width: vw(40),
-            tintColor: Colors?.CloudBorder,
+            tintColor: Colors.CloudBorder,
         },
         ConfirmHeader: {
             fontSize:normalize(22),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             alignSelf: 'center',
             letterSpacing: normalize(1),
@@ -164,11 +164,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         countryDescription: {
             width: "90%",
             alignSelf: 'center',
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             fontSize: normalize(18),
             fontWeight: 400,
             textAlign: 'center',
-            color: Colors?.blueShadows,
+            color: Colors.blueShadows,
             marginTop: vh(15)
         },
         countryDescription2: {
@@ -177,7 +177,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(18),
             fontWeight: 400,
             textAlign: 'center',
-            color: Colors?.textFadeBlack,
+            color: Colors.textFadeBlack,
             marginTop: vh(15)
         },
         LocationContainer: {
@@ -186,7 +186,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: vh(50),
             marginVertical: vw(30),
             borderRadius: normalize(2),
-            backgroundColor: Colors?.blueLightBG,
+            backgroundColor: Colors.blueLightBG,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
@@ -202,8 +202,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         Address: {
             width: '80%',
             fontSize: normalize(14),
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.timerFadeText,
+            fontFamily: Fonts.subHeader,
+            color: Colors.timerFadeText,
             fontWeight: 700
         },
         DoneButtonContainer: {
@@ -217,23 +217,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flexDirection: 'row',
         },
         Button: {
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             borderRadius: normalize(4),
             paddingVertical: vh(10),
         },
         ChangeButton: {
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             borderWidth: 1,
-            borderColor: Colors?.fadeWhiteText2
+            borderColor: Colors.fadeWhiteText2
         },
         ChangeButtonText: {
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
         },
         DoneButtonText: {
             fontSize: normalize(16),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             marginHorizontal: vw(50),
             marginVertical: vh(5)
         }

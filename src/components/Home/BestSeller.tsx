@@ -17,8 +17,8 @@ export default function BestSeller() {
     return (
         <View style={Styles.ParentBestSellerContainer}>
             <View style={Styles.headerExplore}>
-                <Text style={Styles.BestSellerHeader}>{Strings?.bestSeller.toUpperCase()} </Text>
-                <Text style={Styles.ExploreHeaderViewAll}>{Strings?.viewAll.toUpperCase()} </Text>
+                <Text style={Styles.BestSellerHeader}>{Strings.bestSeller.toUpperCase()} </Text>
+                <Text style={Styles.ExploreHeaderViewAll}>{Strings.viewAll.toUpperCase()} </Text>
             </View>
             <ScrollView style={Styles.CardsContainer} horizontal showsHorizontalScrollIndicator={false}>
                 {BestSellerMenu.map((item, idx) => (
@@ -39,7 +39,7 @@ export default function BestSeller() {
                                 style={Styles.OrderButton}
                                 onPress={() => { }}
                             >
-                                <Text style={Styles.OrderText}>{Strings?.order.toUpperCase()} </Text>
+                                <Text style={Styles.OrderText}>{Strings.order.toUpperCase()} </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -62,14 +62,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'space-between',
         },
         BestSellerHeader: {
-            color: Colors?.textBlack,
-            fontFamily: Fonts?.subHeader,
+            color: Colors.textBlack,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             fontSize: normalize(14)
         },
         ExploreHeaderViewAll: {
-            color: Colors?.textFadeBlack,
-            fontFamily: Fonts?.subHeader,
+            color: Colors.textFadeBlack,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             fontSize: normalize(12)
         },
@@ -80,10 +80,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         Cards: {
             height: vh(150),
             width: vw(250),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginRight: vw(10),
             marginVertical: vh(10),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: 0, height: vh(2) },
             shadowOpacity: .1,
             borderRadius: normalize(2),
@@ -102,7 +102,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: vh(80),
             width: vw(80),
             marginLeft: vw(20),
-            shadowColor: Colors?.constantBlack,
+            shadowColor: Colors.constantBlack,
             shadowOffset: { width: 0, height: vh(2) },
             shadowOpacity: normalize(0.25),
             shadowRadius: normalize(3.84),
@@ -120,7 +120,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(14),
             fontWeight: 600,
             marginHorizontal: vw(4),
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
             width: '85%',
             overflow: 'hidden'
         },
@@ -128,13 +128,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: '85%',
             height: '40%',
             fontSize: normalize(11),
-            color: Colors?.timerFadeText,
+            color: Colors.timerFadeText,
             margin: normalize(4),
             fontWeight: 600
         },
         LowerContainer: {
             borderTopWidth: normalize(1),
-            borderTopColor: Colors?.fadeWhiteText2,
+            borderTopColor: Colors.fadeWhiteText2,
             width: '100%',
             height: vh(45),
             display: 'flex',
@@ -154,17 +154,17 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         price: {
             fontWeight: 800,
             fontSize: normalize(13),
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         OrderButton: {
             borderWidth: normalize(2),
-            borderColor: Colors?.fadeBorder,
+            borderColor: Colors.fadeBorder,
             borderRadius: normalize(3),
             marginHorizontal: vw(15),
         },
         OrderText: {
-            color: Colors?.KFC_red,
-            fontFamily: Fonts?.subHeader,
+            color: Colors.KFC_red,
+            fontFamily: Fonts.subHeader,
             fontSize: normalize(11),
             marginHorizontal: vw(15),
             marginVertical: vh(5),

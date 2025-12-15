@@ -95,11 +95,11 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
                     {foodItem?.customizable && (
                         <TouchableOpacity
                             style={Styles.CustomizeContainer}
-                            onPress={() => navigation.navigate(Strings?.FoodCustomizationScreen, {
+                            onPress={() => navigation.navigate(Strings.FoodCustomizationScreen, {
                                 foodItem: foodItem
                             })}
                         >
-                            <Text style={Styles.customizeText}>{Strings?.customize.toUpperCase()} </Text>
+                            <Text style={Styles.customizeText}>{Strings.customize.toUpperCase()} </Text>
                             <Image source={Images?.back_arrow} style={Styles.backArrow} />
                         </TouchableOpacity>
                     )}
@@ -120,7 +120,7 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
                         onPress={() => handleCartAdding()}
                         style={Styles.AddToCartButton}
                     >
-                        <Text style={Styles.AddToCartButtonText}>{Strings?.AddToCart.toUpperCase()} </Text>
+                        <Text style={Styles.AddToCartButtonText}>{Strings.AddToCart.toUpperCase()} </Text>
                     </TouchableOpacity>
                 ) : (
                     <View style={Styles.AddedCartButtonContainer}>
@@ -158,9 +158,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         CardContainer: {
             width:'100%',
             alignSelf: 'center',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginVertical: vh(6),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: .4,
             shadowRadius: normalize(5),
@@ -170,7 +170,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             position: 'absolute',
             top: vh(5),
             left: vw(5),
-            backgroundColor: Colors?.activeBorder,
+            backgroundColor: Colors.activeBorder,
             borderTopLeftRadius: normalize(2),
             borderTopRightRadius: normalize(2),
         },
@@ -179,7 +179,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginLeft: vw(5),
             marginRight: vw(14),
             marginVertical: vh(3),
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             fontWeight: 600
         },
         ribbonTriangle: {
@@ -193,7 +193,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderLeftWidth: normalize(8),
             borderTopColor: 'transparent',
             borderBottomColor: 'transparent',
-            borderLeftColor: Colors?.bodyColor,
+            borderLeftColor: Colors.bodyColor,
             transform: [{ scaleX: -1 }]
 
         },
@@ -225,10 +225,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         FoodName: {
             fontSize: normalize(15),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             marginVertical: vh(10),
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         DescriptionContainer: {
             display: 'flex',
@@ -248,12 +248,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: vh(4),
             width: vw(4),
             borderRadius: normalize(20),
-            backgroundColor: Colors?.textFadeBlack,
+            backgroundColor: Colors.textFadeBlack,
         },
         DescriptioText: {
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.timerFadeText,
+            color: Colors.timerFadeText,
             fontSize: normalize(11),
             marginRight: vw(5),
         },
@@ -267,8 +267,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         customizeText: {
             fontSize: normalize(13),
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.ButtonBlueColor,
+            fontFamily: Fonts.subHeader,
+            color: Colors.ButtonBlueColor,
             fontWeight: 700,
         },
         backArrow: {
@@ -276,7 +276,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: vw(12),
             marginLeft: vw(2),
             transform: [{ rotate: '180deg' }],
-            tintColor: Colors?.ButtonBlueColor,
+            tintColor: Colors.ButtonBlueColor,
         },
         LowerContainer: {
             display: 'flex',
@@ -297,7 +297,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(15),
             fontWeight: 700,
             marginHorizontal: vw(2),
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
         },
         OldPriceContainer: {
             display: 'flex',
@@ -308,11 +308,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(13),
             fontWeight: 700,
             marginHorizontal: vw(2),
-            color: Colors?.textFadeBlack,
+            color: Colors.textFadeBlack,
         },
         CrossBorder: {
             width:'100%',
-            borderBottomColor: Colors?.textFadeBlack,
+            borderBottomColor: Colors.textFadeBlack,
             borderBottomWidth: normalize(2),
             position: 'absolute',
             top: vh(8),
@@ -328,21 +328,21 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         deleteButtonContainer: {
             borderWidth: normalize(1),
-            borderColor: Colors?.fadeBorder,
+            borderColor: Colors.fadeBorder,
             borderRadius: normalize(4),
             padding: normalize(4)
         },
         deleteIcon: {
             height: vh(20),
             width: vw(20),
-            tintColor: Colors?.textBlack
+            tintColor: Colors.textBlack
         },
         counter: {
             marginHorizontal: vw(8),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             fontSize: normalize(16),
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         AddCounterButton: {
             height: vh(30),
@@ -352,7 +352,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: normalize(4),
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
         },
         AddCounterButtonFade: {
             height: vh(30),
@@ -362,31 +362,31 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: normalize(4),
-            backgroundColor: Colors?.KFC_red_Fade,
+            backgroundColor: Colors.KFC_red_Fade,
         },
         AddButtonImage: {
             height: vh(15),
             width: vw(15),
-            tintColor: Colors?.constantWhite,
+            tintColor: Colors.constantWhite,
         },
         AddToCartButton: {
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             borderRadius: normalize(4),
             marginHorizontal: vw(14),
             marginVertical: vh(14)
         },
         AddToCartButtonText: {
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             fontSize: normalize(10),
             marginHorizontal: vw(14),
             marginVertical: vh(10),
-            fontFamily: Fonts?.headerRegular,
+            fontFamily: Fonts.headerRegular,
             fontWeight: 700
         },
         Favourite_Icon: {
             height: vh(20),
             width: vw(20),
-            tintColor: Colors?.KFC_red
+            tintColor: Colors.KFC_red
         },
         favIconContainer: {
             marginRight: vw(15)

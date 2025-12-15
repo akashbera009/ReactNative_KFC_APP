@@ -74,8 +74,8 @@ export default function CountrySelectionBottomSheet() {
               <View style={[Styles.singleCOlumnStyle,]} />
             </View>
             <View style={Styles.bottomSheeetContentContainer}>
-              <Text style={Styles.WelcomeHeader}>{Strings?.welcome}</Text>
-              <Text style={Styles.countryDescription} numberOfLines={3} >{Strings?.countryDescription}</Text>
+              <Text style={Styles.WelcomeHeader}>{Strings.welcome}</Text>
+              <Text style={Styles.countryDescription} numberOfLines={3} >{Strings.countryDescription}</Text>
               <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={Styles.CountryContainer}>
@@ -91,7 +91,7 @@ export default function CountrySelectionBottomSheet() {
                       <View style={Styles.CountryEntriesRight}>
                         <Text style={Styles.CountryName}>{country?.name}</Text>
                         {countrySelected?.code == country?.code && (
-                          <Text style={Styles.needToHaveLocalNumber}>{Strings?.needToHaveLocalNumber}</Text>
+                          <Text style={Styles.needToHaveLocalNumber}>{Strings.needToHaveLocalNumber}</Text>
                         )}
                       </View>
                     </View>
@@ -112,7 +112,7 @@ export default function CountrySelectionBottomSheet() {
               <TouchableOpacity
                 style={[Styles.DoneButtonContainer, { bottom: inset.bottom + 30 }]}
                 onPress={() => navigation.pop()}>
-                <Text style={Styles.DoneButtonText}>{Strings?.done.toLocaleUpperCase()}</Text>
+                <Text style={Styles.DoneButtonText}>{Strings.done.toLocaleUpperCase()}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -154,7 +154,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     singleCOlumnStyle: {
       height: vh(28),
       width: vw(18),
-      backgroundColor: Colors?.KFC_red,
+      backgroundColor: Colors.KFC_red,
     },
     closeButton: {
       marginVertical: vh(8),
@@ -172,7 +172,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     WelcomeHeader: {
       fontSize: normalize(22),
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
       alignSelf: 'center',
       letterSpacing: normalize(1),
@@ -181,11 +181,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     countryDescription: {
       width: "90%",
       alignSelf: 'center',
-      fontFamily: Fonts?.fon17,
+      fontFamily: Fonts.fon17,
       fontSize: normalize(17),
       fontWeight: 500,
       textAlign: 'center',
-      color: Colors?.textFadeBlack,
+      color: Colors.textFadeBlack,
       marginTop: vh(15),
       lineHeight: vh(27) ,
     },
@@ -205,10 +205,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: vh(70),
       width: '85%',
       alignSelf: 'center',
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       marginVertical: vh(10),
       borderRadius: normalize(1),
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { height: vh(5), width: vw(2) },
       shadowOpacity: .2,
       shadowRadius: normalize(8)
@@ -232,19 +232,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     CountryName: {
       fontSize: normalize(14),
       fontWeight: 600,
-      fontFamily: Fonts?.subHeader
+      fontFamily: Fonts.subHeader
     },
     needToHaveLocalNumber: {
       fontSize: normalize(12),
-      color: Colors?.timerFadeText,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.timerFadeText,
+      fontFamily: Fonts.subHeader,
       marginTop: vh(6)
     },
     CheckBox: {
       height: vh(20),
       width: vw(20),
       borderWidth: normalize(2),
-      borderColor: Colors?.fadeBorder,
+      borderColor: Colors.fadeBorder,
       borderRadius: normalize(10),
       display: 'flex',
       justifyContent: 'center',
@@ -254,7 +254,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     CheckBoxSelected: {
       height: vh(10),
       width: vw(10),
-      backgroundColor: Colors?.KFC_red,
+      backgroundColor: Colors.KFC_red,
       borderRadius: normalize(10),
     },
 
@@ -263,7 +263,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       left: '5%',
       width: '90%',
       alignSelf: 'center',
-      backgroundColor: Colors?.KFC_red,
+      backgroundColor: Colors.KFC_red,
       borderRadius: normalize(2),
       paddingVertical: vh(10),
       display: 'flex',
@@ -271,9 +271,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     DoneButtonText: {
       fontSize: normalize(18),
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontWeight: 800,
-      color: Colors?.constantWhite
+      color: Colors.constantWhite
     }
   })
   return Styles

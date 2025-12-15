@@ -35,7 +35,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
         try {
             const result = await Share.share({
                 message:
-                    `${Strings?.takeInvoicePlease}: ${pdfUrl}`,
+                    `${Strings.takeInvoicePlease}: ${pdfUrl}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -59,7 +59,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                     >
                         <Image source={Images?.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
-                    <Text style={Styles.headerText}>{Strings?.OrderDetail} </Text>
+                    <Text style={Styles.headerText}>{Strings.OrderDetail} </Text>
                 </View>
             </View>
             <View style={Styles.ContentContainer}>
@@ -68,21 +68,21 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                         <View style={Styles.TrackUpperContainer}>
                             <View style={Styles.leftContainer}>
                                 <View style={Styles.LeftUpperContainer}>
-                                    <Text style={Styles.order}>{Strings?.orderId}: </Text>
+                                    <Text style={Styles.order}>{Strings.orderId}: </Text>
                                     <Text style={Styles.orderId}>{order?.orderId} </Text>
                                 </View>
                                 <Text style={Styles.date}>{order?.date} </Text>
                             </View>
-                            {order?.status == Strings?.beingPreparedString ? (
+                            {order?.status == Strings.beingPreparedString ? (
                                 <TouchableOpacity
                                     style={Styles.trackButton}
-                                    onPress={() => navigation.push(Strings?.TrackOrderScreen, {
+                                    onPress={() => navigation.push(Strings.TrackOrderScreen, {
                                         currentOrder: currentOrder,
                                         orderId: currentOrder?.orderId,
                                         GrandTotal: GrandAmount
                                     })}
                                 >
-                                    <Text style={Styles.TrackOrderText}>{Strings?.trackOrder} </Text>
+                                    <Text style={Styles.TrackOrderText}>{Strings.trackOrder} </Text>
                                 </TouchableOpacity>
                             ) : (
                                 <View style={Styles.Blank} />
@@ -90,19 +90,19 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                         </View>
                         <View style={[Styles.PricingTotalContainer]}>
                             <View style={Styles.PriceEntries}>
-                                <Text style={Styles.PriceEntriesLeft}>{Strings?.SubTotal} </Text>
+                                <Text style={Styles.PriceEntriesLeft}>{Strings.SubTotal} </Text>
                                 <Text style={Styles.PriceEntriesRight}>{beforeTax.toFixed(2)} {countrySelected?.currencyCode} </Text>
                             </View>
                             <View style={Styles.PriceEntries}>
-                                <Text style={Styles.PriceEntriesLeft}>{Strings?.vat.toUpperCase()} @ {DeliveryDetails?.vatCharge}% </Text>
+                                <Text style={Styles.PriceEntriesLeft}>{Strings.vat.toUpperCase()} @ {DeliveryDetails?.vatCharge}% </Text>
                                 <Text style={Styles.PriceEntriesRight}>{vatAmount} {countrySelected?.currencyCode} </Text>
                             </View>
                             <View style={Styles.PriceEntries}>
-                                <Text style={Styles.PriceEntriesLeft}>{Strings?.deliveriCharge} </Text>
+                                <Text style={Styles.PriceEntriesLeft}>{Strings.deliveriCharge} </Text>
                                 <Text style={Styles.PriceEntriesRight}>{DeliveryDetails?.charges} {countrySelected?.currencyCode} </Text>
                             </View>
                             <View style={Styles.PriceEntries}>
-                                <Text style={[Styles.PriceEntriesLeft, Styles.GrandText]}>{Strings?.grandTotal} </Text>
+                                <Text style={[Styles.PriceEntriesLeft, Styles.GrandText]}>{Strings.grandTotal} </Text>
                                 <Text style={[Styles.PriceEntriesRight, Styles.GrandText]}>{GrandAmount.toFixed(2)} {countrySelected?.currencyCode} </Text>
                             </View>
                         </View>
@@ -110,18 +110,18 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                     <TouchableOpacity
                         onPress={handleShareInvoice}
                         style={Styles.downloadContainer}>
-                        <Text style={Styles.ShareText}>{Strings?.shareInvoive} </Text>
+                        <Text style={Styles.ShareText}>{Strings.shareInvoive} </Text>
                         <Image source={Images?.ShareIcon} style={Styles.ShareIcon} />
                     </TouchableOpacity>
                     <View style={Styles.DeliveryAddressContainer}>
                         <View style={Styles.DeliveryUpperContainer}>
                             <Image source={Images?.HomeIcon} style={Styles.HomeIcon} />
-                            <Text style={Styles.deliveryTo}>{Strings?.deliveryTo.toUpperCase()} - </Text>
+                            <Text style={Styles.deliveryTo}>{Strings.deliveryTo.toUpperCase()} - </Text>
                             <Text style={Styles.Type}>{DeliveryDetails?.type.toUpperCase()} </Text>
                         </View>
                         <Text style={Styles.address} numberOfLines={1}>{DeliveryDetails?.address} </Text>
                     </View>
-                    <Text style={Styles.TotalItems}>{order?.Items?.length} {Strings?.items} </Text>
+                    <Text style={Styles.TotalItems}>{order?.Items?.length} {Strings.items} </Text>
                     {order?.Items?.map((item, idx) => (
                         <View style={Styles.CardContainer} key={idx}>
                             <View style={Styles.UpperContainer}>
@@ -149,7 +149,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                                     </View>
                                 </View>
                                 <View style={Styles.QuantityContainer}>
-                                    <Text style={Styles.Qty}>{Strings?.qty}: </Text>
+                                    <Text style={Styles.Qty}>{Strings.qty}: </Text>
                                     <Text style={Styles.QtyNumber}>{item?.quantity} </Text>
                                 </View>
                             </View>
@@ -165,11 +165,11 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parent: {
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -179,9 +179,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         BackIconAndHeaderText: {
             display: 'flex',
@@ -190,14 +190,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         BackIcon: {
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             height: vh(18),
             width: vw(18),
             alignSelf: 'flex-start',
             marginHorizontal: vw(18),
         },
         ContentContainer: {
-            backgroundColor: Colors?.bodyLigheterColor,
+            backgroundColor: Colors.bodyLigheterColor,
             height: '90%'
         },
         TrackUpperContainer: {
@@ -218,39 +218,39 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         order: {
             fontSize: normalize(15),
-            fontFamily: Fonts?.font17,
-            color: Colors?.textFadeBlack2,
+            fontFamily: Fonts.font17,
+            color: Colors.textFadeBlack2,
             fontWeight: 500
         },
         orderId: {
             fontSize: normalize(15),
-            fontFamily: Fonts?.font17,
-            color: Colors?.textBlack,
+            fontFamily: Fonts.font17,
+            color: Colors.textBlack,
             fontWeight: 700
         },
         date: {
             fontSize: normalize(14),
-            fontFamily: Fonts?.font17,
-            color: Colors?.timerFadeText,
+            fontFamily: Fonts.font17,
+            color: Colors.timerFadeText,
             fontWeight: 600,
             marginTop: vh(6)
         },
         TrackContainer: {
             width: "95%",
             alignSelf: 'center',
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
             elevation: 5,
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginTop: vh(15),
             borderRadius: normalize(2),
         },
         PricingTotalContainer: {
             width: '100%',
             alignSelf: 'center',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginTop: vh(25),
             marginBottom: vh(20),
             display: 'flex',
@@ -264,24 +264,24 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         PriceEntriesLeft: {
             fontSize: normalize(14),
-            fontFamily: Fonts?.font17,
-            color: Colors?.timerFadeText,
+            fontFamily: Fonts.font17,
+            color: Colors.timerFadeText,
             fontWeight: 500,
         },
         GrandText: {
             fontSize: normalize(15),
-            color: Colors?.textFadeBlack2,
+            color: Colors.textFadeBlack2,
             fontWeight: 700,
         },
         PriceEntriesRight: {
             fontSize: normalize(14),
-            fontFamily: Fonts?.font17,
-            color: Colors?.textBlack,
+            fontFamily: Fonts.font17,
+            color: Colors.textBlack,
             fontWeight: 600,
             marginLeft: 'auto'
         },
         trackButton: {
-            backgroundColor: Colors?.KFC_red,
+            backgroundColor: Colors.KFC_red,
             marginHorizontal: 'auto',
             borderRadius: normalize(4),
             marginRight: vw(15),
@@ -291,22 +291,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginHorizontal: 'auto'
         },
         TrackOrderText: {
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             paddingHorizontal: vw(10),
             paddingVertical: vh(6),
             fontWeight: 700,
             fontSize: normalize(12),
-            fontFamily: Fonts?.font17
+            fontFamily: Fonts.font17
         },
         downloadContainer: {
             width: "95%",
             alignSelf: 'center',
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
             elevation: 5,
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginVertical: vh(15),
             borderRadius: normalize(2),
             display: 'flex',
@@ -319,23 +319,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginHorizontal: vw(20),
             height: vh(20),
             width: vw(20),
-            tintColor: Colors?.textBlack
+            tintColor: Colors.textBlack
         },
         ShareText: {
             marginHorizontal: vw(10),
-            color: Colors?.textFadeBlack2,
+            color: Colors.textFadeBlack2,
             fontSize: normalize(16),
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
         },
         DeliveryAddressContainer: {
             width: "95%",
             alignSelf: 'center',
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
             elevation: 5,
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginVertical: vh(15),
             borderRadius: normalize(2),
         },
@@ -350,31 +350,31 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginLeft: vw(16),
             height: vh(20),
             width: vw(20),
-            tintColor: Colors?.textBlack
+            tintColor: Colors.textBlack
         },
         deliveryTo: {
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             fontSize: normalize(15),
-            color: Colors?.textFadeBlack2
+            color: Colors.textFadeBlack2
         },
         Type: {
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             fontWeight: 700,
             fontSize: normalize(15),
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         address: {
             width: '70%',
             marginLeft: vw(47),
             marginTop: vh(-5),
             marginBottom: vh(20),
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             fontWeight: 600,
-            color: Colors?.timerFadeText
+            color: Colors.timerFadeText
         },
         TotalItems: {
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             fontSize: normalize(16),
             fontWeight: 700,
             width: '95%',
@@ -385,9 +385,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         CardContainer: {
             width: '95%',
             alignSelf: 'center',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             marginVertical: vh(6),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: .4,
             shadowRadius: normalize(5),
@@ -414,10 +414,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         FoodName: {
             fontSize: normalize(15),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
             marginVertical: vh(10),
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         DescriptionContainer: {
             display: 'flex',
@@ -437,12 +437,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: vh(4),
             width: vw(4),
             borderRadius: normalize(20),
-            backgroundColor: Colors?.textFadeBlack,
+            backgroundColor: Colors.textFadeBlack,
         },
         DescriptioText: {
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.timerFadeText,
+            color: Colors.timerFadeText,
             fontSize: normalize(11),
             marginRight: vw(5),
         },
@@ -452,7 +452,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: vw(12),
             marginLeft: vw(2),
             transform: [{ rotate: '180deg' }],
-            tintColor: Colors?.ButtonBlueColor,
+            tintColor: Colors.ButtonBlueColor,
         },
         LowerContainer: {
             height: vh(50),
@@ -475,7 +475,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(15),
             fontWeight: 700,
             marginHorizontal: vw(2),
-            color: Colors?.textFadeBlack2,
+            color: Colors.textFadeBlack2,
         },
         OldPriceContainer: {
             display: 'flex',
@@ -486,11 +486,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(13),
             fontWeight: 700,
             marginHorizontal: vw(2),
-            color: Colors?.textFadeBlack,
+            color: Colors.textFadeBlack,
         },
         CrossBorder: {
             width: '100%',
-            borderBottomColor: Colors?.textFadeBlack,
+            borderBottomColor: Colors.textFadeBlack,
             borderBottomWidth: normalize(2),
             position: 'absolute',
             top: vh(8),
@@ -504,16 +504,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginHorizontal: vw(20),
         },
         Qty: {
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             fontSize: normalize(17),
             fontWeight: 600,
-            color: Colors?.textFadeBlack,
+            color: Colors.textFadeBlack,
         },
         QtyNumber: {
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             fontSize: normalize(18),
             fontWeight: 700,
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
         },
     });
     return Styles;

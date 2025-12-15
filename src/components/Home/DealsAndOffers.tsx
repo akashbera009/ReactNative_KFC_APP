@@ -23,11 +23,11 @@ export default function DealsAndOffer() {
     const cartData  = useSelector((state: RootState)=> state.cart)
     const cartItem = cartData.cartItems
     const handleApplyOffer = (discount: number, discountPercentage: number , offerCode: string) => {
-        navigation.navigate(Strings?.OfferAppliedScreen)
+        navigation.navigate(Strings.OfferAppliedScreen)
         if(cartItem.length  !== 0 ){
             setTimeout(() => {
                 navigation.pop(1)
-                navigation.replace(Strings?.CartScreen, {
+                navigation.replace(Strings.CartScreen, {
                     discount: discount,
                     discountPercentage: discountPercentage,
                     offerCode: offerCode
@@ -42,11 +42,11 @@ export default function DealsAndOffer() {
                     <TouchableOpacity onPress={() => navigation.pop()}>
                         <Image source={Images?.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
-                    <Text style={Styles.headerText}>{Strings?.dealsAndOffer}</Text>
+                    <Text style={Styles.headerText}>{Strings.dealsAndOffer}</Text>
                 </View>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <Text style={Styles.sectionTitle}>{Strings?.allOffers}</Text>
+                <Text style={Styles.sectionTitle}>{Strings.allOffers}</Text>
                 {DealsAndOffersData.map((item, index) => (
                     <View key={index} style={Styles.offerCard}>
                         <View style={Styles.HeaderContainer}>
@@ -55,11 +55,11 @@ export default function DealsAndOffer() {
                         </View>
                         <View style={Styles.downBlock}>
                             <TouchableOpacity>
-                                <Text style={Styles.tncText}>{Strings?.termsCondition}</Text>
+                                <Text style={Styles.tncText}>{Strings.termsCondition}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 onPress={() => handleApplyOffer(item?.discount, item?.discountPercentage , item?.offerCode)}>
-                                <Text style={Styles.applyText}>{Strings?.apply.toUpperCase()}</Text>
+                                <Text style={Styles.applyText}>{Strings.apply.toUpperCase()}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -72,12 +72,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parent: {
             flex: 1,
-            backgroundColor: Colors?.bodyLigheterColor,
+            backgroundColor: Colors.bodyLigheterColor,
         },
         NavWrapper: {
             width: '100%',
             paddingBottom: vh(15),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             flexDirection: 'row',
             alignItems: 'center',
             paddingHorizontal: vw(10),
@@ -87,22 +87,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         BackIcon: {
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             height: vh(20),
             width: vw(20),
             marginRight: vw(18),
         },
         headerText: {
             fontSize:  normalize(20),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: '700',
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
         },
         sectionTitle: {
             fontSize: normalize(16),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: '700',
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
             marginTop: vh(10),
             marginLeft: vw(20),
         },
@@ -110,12 +110,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         offerCard: {
             width: '92%',
             alignSelf: 'center',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             paddingVertical: vh(18),
             paddingHorizontal: vw(15),
             borderRadius: normalize(10),
             marginVertical: vh(8),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOpacity: 0.06,
             shadowOffset: { width: vw(0), height: vh(3) },
             shadowRadius: normalize(4),
@@ -126,15 +126,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         offerTitle: {
             fontSize: normalize(17),
-            fontFamily: Fonts?.font17,
+            fontFamily: Fonts.font17,
             fontWeight: '700',
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
             marginBottom: vh(4),
         },
         offerDesc: {
             fontSize: normalize(15),
-            fontFamily: Fonts?.font17,
-            color: Colors?.timerFadeText,
+            fontFamily: Fonts.font17,
+            color: Colors.timerFadeText,
             marginTop: vh(10),
             lineHeight: vh(22),
         },
@@ -149,13 +149,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         tncText: {
             fontSize: normalize(13),
             letterSpacing: normalize(1),
-            fontFamily: Fonts?.font17,
-            color: Colors?.ButtonTextBlueColor,
+            fontFamily: Fonts.font17,
+            color: Colors.ButtonTextBlueColor,
         },
         applyText: {
             fontSize: normalize(15),
-            fontFamily: Fonts?.font17,
-            color: Colors?.KFC_red,
+            fontFamily: Fonts.font17,
+            color: Colors.KFC_red,
             fontWeight: 500,
         },
     })

@@ -49,7 +49,7 @@ export default function ExploreMenu({ activeCategory}: { activeCategory: string 
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         ScrollContainer: {
-            backgroundColor: Colors?.bodyShadeColor,
+            backgroundColor: Colors.bodyShadeColor,
             width: '100%',
             position: 'relative',
             zIndex: 1,

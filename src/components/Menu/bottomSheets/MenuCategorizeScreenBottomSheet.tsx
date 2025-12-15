@@ -68,7 +68,7 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
                         <View style={Styles.HeaderContainer}>
                             <View style={Styles.HeaderWrapper}>
 
-                                <Text style={Styles.Header} >{Strings?.menuCategorizationHeader.toUpperCase()} </Text>
+                                <Text style={Styles.Header} >{Strings.menuCategorizationHeader.toUpperCase()} </Text>
                                 <TouchableOpacity
                                     onPress={() => navigation.pop()}
                                     style={Styles.crossIconContainer}>
@@ -128,7 +128,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         HeaderContainer: {
             height: vh(70),
             width: '100%',
-            backgroundColor: Colors?.blueMixBG,
+            backgroundColor: Colors.blueMixBG,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -144,8 +144,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         Header: {
             fontSize: normalize(18),
             fontWeight: 700,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textBlack
+            fontFamily: Fonts.subHeader,
+            color: Colors.textBlack
         },
         crossIconContainer: {
             height: vh(23),
@@ -154,12 +154,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: normalize(50),
-            backgroundColor: Colors?.textBlack,
+            backgroundColor: Colors.textBlack,
         },
         crossIcon: {
             height: vh(10),
             width: vw(10),
-            tintColor: Colors?.bodyColor
+            tintColor: Colors.bodyColor
         },
         categoryContainer: {
             width: '100%',
@@ -182,8 +182,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         CategoryText: {
             fontSize: normalize(18),
             fontWeight: 600,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textBlack,
+            fontFamily: Fonts.subHeader,
+            color: Colors.textBlack,
         },
         ArrowContainer: {
             transform: [{ rotate: '-90deg' }],
@@ -191,14 +191,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         arrowRight: {
             height: vh(25),
             width: vw(25),
-            tintColor: Colors?.textFadeBlack
+            tintColor: Colors.textFadeBlack
         },
         customBorder: {
             position: 'absolute',
             bottom: 0,
             left: 0,
             width: '100%',
-            borderBottomColor: Colors?.blueLightBG,
+            borderBottomColor: Colors.blueLightBG,
             borderBottomWidth: normalize(1),
         }
     })

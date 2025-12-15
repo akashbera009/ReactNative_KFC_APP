@@ -43,8 +43,8 @@ export default function ImagePickCropper() {
             if (!uri) return;
             const croppedImage = await ImagePicker.openCropper({
                 path: uri,
-                width: 300,
-                height: 300,
+                width: vh(300),
+                height: vw(300),
                 cropping: true,
                 mediaType: 'photo',
                 freeStyleCropEnabled: true,
@@ -124,7 +124,7 @@ export default function ImagePickCropper() {
                     >
                         <Image source={Images?.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
-                    <Text style={Styles.headerText}>{Strings?.userInfoHeader}</Text>
+                    <Text style={Styles.headerText}>{Strings.userInfoHeader}</Text>
                 </View>
             </View>
             <View style={Styles.body}>
@@ -134,7 +134,7 @@ export default function ImagePickCropper() {
                     {/* image section  */}
                     {imageUri == '' ? (
                         <TouchableOpacity style={Styles.field} onPress={pickImage}>
-                            <Text style={Styles.placeholder}>{Strings?.taptoPick}{Strings?.image}</Text>
+                            <Text style={Styles.placeholder}>{Strings.taptoPick}{Strings.image}</Text>
                         </TouchableOpacity>
                     ) : (
                         <TouchableOpacity
@@ -152,7 +152,7 @@ export default function ImagePickCropper() {
                     {/* video section  */}
                     {videoUri == '' ? (
                         <TouchableOpacity style={Styles.field} onPress={pickVideo}>
-                            <Text style={Styles.placeholder}>{Strings?.taptoPick}{Strings?.video}</Text>
+                            <Text style={Styles.placeholder}>{Strings.taptoPick}{Strings.video}</Text>
                         </TouchableOpacity>
                     ) : (
                         <TouchableOpacity
@@ -191,13 +191,13 @@ export default function ImagePickCropper() {
                         </View>
                     ) : (
                         <TouchableOpacity style={Styles.field} onPress={pickDocument}>
-                            <Text style={Styles.placeholder}>{Strings?.taptoPick}{Strings?.document}</Text>
+                            <Text style={Styles.placeholder}>{Strings.taptoPick}{Strings.document}</Text>
                         </TouchableOpacity>
                     )}
                     <TouchableOpacity
                         onPress={handleSave}
                         style={Styles.saveBtn}>
-                        <Text style={Styles.saveText}>{Strings?.save}</Text>
+                        <Text style={Styles.saveText}>{Strings.save}</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </View >
@@ -275,23 +275,23 @@ export default function ImagePickCropper() {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         demoImage: {
-            height: 100,
-            width: 300,
+            height: vh(100),
+            width: vw(300),
         },
         Parent: {
             flex: 1,
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
             paddingBottom: vh(15),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
@@ -299,9 +299,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         BackIconAndHeaderText: {
             display: 'flex',
@@ -310,20 +310,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         BackIcon: {
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             height: vh(18),
             width: vw(18),
             alignSelf: 'flex-start',
             marginHorizontal: vw(18),
         },
         body: {
-            backgroundColor: Colors?.bodyLigheterColor,
+            backgroundColor: Colors.bodyLigheterColor,
             paddingHorizontal: vw(15),
             flex: 1,
         },
         cropModalContainer: {
             flex: 1,
-            backgroundColor: Colors?.constantBlack
+            backgroundColor: Colors.constantBlack
         },
         closeIconButton: {
             position: 'absolute',
@@ -338,19 +338,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         closeIcon: {
             height: vh(20),
             width: vw(20),
-            tintColor: Colors?.constantWhite
+            tintColor: Colors.constantWhite
         },
         closeIcon1: {
             height: vh(18),
             width: vw(18),
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
         },
         field: {
             height: vh(160),
             borderWidth: normalize(1),
-            borderColor: Colors?.blueShadows,
+            borderColor: Colors.blueShadows,
             borderRadius: normalize(14),
-            backgroundColor: Colors?.blueLightBG,
+            backgroundColor: Colors.blueLightBG,
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: vh(20)
@@ -358,9 +358,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         fieldFilled: {
             height: vh(260),
             borderWidth: normalize(1),
-            borderColor: Colors?.blueShadows,
+            borderColor: Colors.blueShadows,
             borderRadius: normalize(14),
-            backgroundColor: Colors?.blueLightBG,
+            backgroundColor: Colors.blueLightBG,
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: vh(20)
@@ -378,7 +378,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             zIndex: 100,
             borderBottomLeftRadius: normalize(14),
             borderBottomRightRadius: normalize(14),
-            backgroundColor: Colors?.SemiTransparent,
+            backgroundColor: Colors.SemiTransparent,
         },
         VideoThumbnail: {
             width: '100%',
@@ -388,7 +388,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         editButton: {
             height: vh(25),
             width: vw(25),
-            tintColor: Colors?.constantWhite
+            tintColor: Colors.constantWhite
         },
         placeholder: {
             fontSize: normalize(15),
@@ -404,7 +404,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: '80%',
             height: vh(70),
             borderRadius: normalize(12),
-            backgroundColor: Colors?.fadeVerify,
+            backgroundColor: Colors.fadeVerify,
             justifyContent: 'center',
             alignItems: 'center'
         },
@@ -428,7 +428,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center'
         },
         saveText: {
-            color: Colors?.constantWhite,
+            color: Colors.constantWhite,
             fontFamily: Fonts.Bold,
             fontSize: normalize(16)
         },
@@ -437,7 +437,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             display: 'flex',
             height: vh(50),
             width: '100%',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
         },
         videoModalContainer: {
             flex: 1,
@@ -453,7 +453,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerCOntainer: {
             height: vh(25),
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -479,7 +479,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         crossIconPDF: {
             height: vh(18),
             width: vw(18),
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             zIndex: 999,
         },
         pdfPreviewer: {

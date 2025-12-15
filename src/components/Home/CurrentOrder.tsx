@@ -22,11 +22,11 @@ export default function orderQueueItem() {
   const ItemNames = currentOrder?.Items.map((item) => item?.name).join(',')
   return (
     <View style={Styles.ParentDeliveryContainer} >
-      <Text style={Styles.Header}>{Strings?.CurrentOrder.toUpperCase()} </Text>
+      <Text style={Styles.Header}>{Strings.CurrentOrder.toUpperCase()} </Text>
       <View style={Styles.WrapperContainer} >
         <View style={Styles.LeftTextContainer}>
           <View style={Styles.LeftTopContainer}>
-            <Text style={Styles.orderIdText}>{Strings?.orderIdText}: </Text>
+            <Text style={Styles.orderIdText}>{Strings.orderIdText}: </Text>
             <Text style={Styles.orderId}>{currentOrder?.orderId}</Text>
             <View style={Styles.VerticalBorder} />
             <Text style={Styles.date}>{currentOrder?.date}</Text>
@@ -36,10 +36,10 @@ export default function orderQueueItem() {
         </View>
         <TouchableOpacity
           style={Styles.trackButton}
-          onPress={() => navigation.push(Strings?.OrderDetailsScreen, {
+          onPress={() => navigation.push(Strings.OrderDetailsScreen, {
             order: currentOrder
           })}>
-          <Text style={Styles.TrackOrderText}>{Strings?.trackOrder} </Text>
+          <Text style={Styles.TrackOrderText}>{Strings.trackOrder} </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -55,13 +55,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       width: '100%',
       height: vh(100),
       alignSelf: 'center',
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: normalize(2),
-      shadowColor: Colors?.blueShadows,
+      shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(0), height: vh(4) },
       shadowOpacity: normalize(.25),
       shadowRadius: normalize(5),
@@ -81,63 +81,63 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       flexDirection: 'row',
     },
     orderIdText: {
-      color: Colors?.textFadeBlack2,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.textFadeBlack2,
+      fontFamily: Fonts.subHeader,
       fontSize: normalize(13),
       fontWeight: 600,
     },
     Header: {
-      color: Colors?.textBlack,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.textBlack,
+      fontFamily: Fonts.subHeader,
       fontSize: normalize(14),
       marginVertical: vw(10),
       fontWeight: 700,
     },
     orderId: {
       fontSize: normalize(13),
-      color: Colors?.textBlack,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.textBlack,
+      fontFamily: Fonts.subHeader,
       letterSpacing: normalize(.1),
       fontWeight: 700,
     },
     date: {
       fontSize: normalize(13),
-      color: Colors?.textBlack,
-      fontFamily: Fonts?.subHeader,
+      color: Colors.textBlack,
+      fontFamily: Fonts.subHeader,
       letterSpacing: normalize(.1),
       fontWeight: 600,
     },
     VerticalBorder: {
       height: '80%',
       width: vw(2),
-      borderRightColor: Colors?.fadeBorder,
+      borderRightColor: Colors.fadeBorder,
       borderRightWidth: normalize(2),
       marginHorizontal: vw(4),
       marginVertical: 'auto'
     },
     orderItem: {
       fontSize: normalize(12),
-      color: Colors?.timerFadeText,
+      color: Colors.timerFadeText,
       fontWeight: 600,
     },
     beverages: {
       fontSize: normalize(12),
-      color: Colors?.timerFadeText,
+      color: Colors.timerFadeText,
       fontWeight: 600,
     },
     trackButton: {
-      backgroundColor: Colors?.KFC_red,
+      backgroundColor: Colors.KFC_red,
       marginHorizontal: 'auto',
       borderRadius: normalize(4),
       marginRight: vw(15),
       fontSize: normalize(12)
     },
     TrackOrderText: {
-      color: Colors?.constantWhite,
+      color: Colors.constantWhite,
       paddingHorizontal: vw(8),
       paddingVertical: vh(6),
       fontSize: normalize(13),
-      fontFamily: Fonts?.subHeader,
+      fontFamily: Fonts.subHeader,
       fontWeight: 700,
     }
   })

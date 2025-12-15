@@ -96,7 +96,7 @@ export default function WebViewPage() {
                     >
                         <Image source={Images?.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
-                    <Text style={Styles.headerText}>{Strings?.termsCondition}</Text>
+                    <Text style={Styles.headerText}>{Strings.termsCondition}</Text>
                 </View>
             </View>
             <View style={Styles.body}>
@@ -135,18 +135,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parent: {
             flex: 1,
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors?.bodyColor,
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
             paddingBottom: vh(15),
-            shadowColor: Colors?.blueShadows,
+            shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
@@ -154,9 +154,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts?.subHeader,
+            fontFamily: Fonts.subHeader,
             fontWeight: 700,
-            color: Colors?.textBlack
+            color: Colors.textBlack
         },
         BackIconAndHeaderText: {
             display: 'flex',
@@ -165,14 +165,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         BackIcon: {
-            tintColor: Colors?.textBlack,
+            tintColor: Colors.textBlack,
             height: vh(18),
             width: vw(18),
             alignSelf: 'flex-start',
             marginHorizontal: vw(18),
         },
         body: {
-            backgroundColor: Colors?.bodyLigheterColor,
+            backgroundColor: Colors.bodyLigheterColor,
             flex: 1,
         },
         firstWeb: {
@@ -185,7 +185,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flex: 0,
             margin: normalize(0),
             padding: normalize(0),
-            backgroundColor: Colors?.bodyColor
+            backgroundColor: Colors.bodyColor
         },
     });
     return Styles;
