@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import React from 'react'
 import Video from 'react-native-video';
 import { localVideoPath } from '../../utils/VideoPaths';
-const VideoPlayerComponent = ({ uri }: { uri: string | undefined}) => {
+const VideoPlayerComponent = ({ uri }: { uri: string | undefined }) => {
     return (
         <View style={{ width: '95%', alignSelf: 'center' }}>
             {uri === '' ?
