@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Image, TouchableWithoutFeedback, Keyboard, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, TouchableWithoutFeedback, Keyboard, TouchableOpacity, KeyboardAvoidingView, Platform, Alert, ScrollView } from 'react-native'
 import React, { useRef, useState, useEffect } from 'react'
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -12,6 +12,7 @@ import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages'
 import { useCountry } from '../../context/CountryContext';
 import { normalize, vh, vw } from '../../utils/Dimensions';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
@@ -72,93 +73,109 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
 
   return (
     <View style={Styles.parentBackground}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View >
-
-          <View style={[Styles.navigationContainer, {}]}>
-            <View style={[Styles.innerNavigationContainer, { marginTop: inset.top }]}>
-              <TouchableOpacity
-                onPress={() => navigation.pop()}>
-                <Image source={Images?.back_arrow} style={Styles.BackBUtton} />
-              </TouchableOpacity>
-              <Text style={Styles.navHeaderText} >{Strings?.otpText}</Text>
-            </View>
-          </View>
-
-          <View style={Styles.enterOtpHeaderContainer}>
-
-            <Text style={Styles.enterOtpHeader}>{Strings?.enterOtpHeader}</Text>
-            <Text style={Styles.PhoneNo}>{countrySelected?.mobileCode} {phoneNo1}</Text>
-          </View>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={Styles.otpRelatedContainer}
+      <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
+        <View style={Styles.BackIconAndHeaderText}>
+          <TouchableOpacity
+            onPress={() => navigation.pop()}
           >
-            <View style={Styles.innerOtpContainer}>
-              {inputValue.map((item, idx) => (
-                <View key={idx} style={[Styles.SingleOtp, (inputValue[idx] != '') ? Styles.ActiveBorder : Styles.NonActiveBorder]}>
-                  <TextInput
-                    ref={element => { inputRef.current[idx] = element }}
-                    keyboardType='numeric'
-                    maxLength={1}
-                    autoFocus={idx == 0}
-                    style={[Styles.OtpInputText,]}
-                    onChangeText={(text) => {
-                      let newArray = [...inputValue];
-                      newArray[idx] = text;
-                      setInputValue(newArray)
-                      if (text && idx < inputValue.length - 1) {
-                        let c = idx + 1;
-                        inputRef.current[c]?.focus()
-                      }
-                    }}
-                    onKeyPress={(event) => {
-                      if (event.nativeEvent.key == 'Backspace' && !inputValue[idx] && idx > 0) {
-                        inputRef.current[idx - 1]?.focus()
-                      }
-                    }}
-                  />
-                </View>
-              ))}
-            </View>
-            <View style={Styles.verifyButtonContainer}>
-              <TouchableOpacity
-                onPress={handleVerify}
-                style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
-                <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings?.verifyText}</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={Styles.LowerOtpContainer}>
-              <TouchableOpacity
-                disabled={resendActive == false}
-                onPress={() => handleResendOtp()}
-                style={Styles.LowerOtpContainerEntries}>
-                <View style={Styles.LowerOtpContainerEntriesLeft}>
-                  <Image source={Images?.Messege} style={Styles.otpentriesIcon} />
-                  <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>{Strings?.resendOtp.toUpperCase()}</Text>
-                </View>
-                {resendActive == false && (
-                  <Text style={[Styles.resendRealtedText, Styles.timerText]} >{formattedTime}</Text>
-                )}
-              </TouchableOpacity>
-              <TouchableOpacity
-                disabled={resendActive == false}
-                onPress={() => handleCalling()}
-                style={Styles.LowerOtpContainerEntries}>
-                <View style={Styles.LowerOtpContainerEntriesLeft}>
-                  <Image source={Images?.call} style={Styles.otpentriesIcon} />
-                  <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>{Strings?.callMe.toLocaleUpperCase()}</Text>
-                </View>
-                {resendActive == false && (
-                  <Text style={[Styles.resendRealtedText, Styles.timerText]} >{formattedTime}</Text>
-                )}
-              </TouchableOpacity>
-            </View>
-          </KeyboardAvoidingView>
-
+            <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+          </TouchableOpacity>
+          <Text style={Styles.headerText}>{Strings?.otpText}</Text>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1, paddingBottom: 50 }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={Styles.enterOtpHeaderContainer}>
+              <Text style={Styles.enterOtpHeader}>{Strings?.enterOtpHeader}</Text>
+              <Text style={Styles.PhoneNo}>{countrySelected?.mobileCode} {phoneNo1}</Text>
+            </View>
+
+            <View style={Styles.otpRelatedContainer}>
+              <View style={Styles.innerOtpContainer}>
+                {inputValue.map((item, idx) => (
+                  <View key={idx} style={[Styles.SingleOtp, (inputValue[idx] != '') ? Styles.ActiveBorder : Styles.NonActiveBorder]}>
+                    <TextInput
+                      ref={element => { inputRef.current[idx] = element }}
+                      keyboardType='numeric'
+                      maxLength={1}
+                      autoFocus={idx == 0}
+                      style={[Styles.OtpInputText]}
+                      onChangeText={(text) => {
+                        let newArray = [...inputValue];
+                        newArray[idx] = text;
+                        setInputValue(newArray)
+                        if (text && idx < inputValue.length - 1) {
+                          let c = idx + 1;
+                          inputRef.current[c]?.focus()
+                        }
+                      }}
+                      onKeyPress={(event) => {
+                        if (event.nativeEvent.key == 'Backspace' && !inputValue[idx] && idx > 0) {
+                          inputRef.current[idx - 1]?.focus()
+                        }
+                      }}
+                    />
+                  </View>
+                ))}
+              </View>
+
+              <View style={Styles.verifyButtonContainer}>
+                <TouchableOpacity
+                  onPress={handleVerify}
+                  style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}
+                >
+                  <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]}>
+                    {Strings?.verifyText}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={Styles.LowerOtpContainer}>
+                <TouchableOpacity
+                  disabled={resendActive == false}
+                  onPress={() => handleResendOtp()}
+                  style={Styles.LowerOtpContainerEntries}
+                >
+                  <View style={Styles.LowerOtpContainerEntriesLeft}>
+                    <Image source={Images?.Messege} style={Styles.otpentriesIcon} />
+                    <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>
+                      {Strings?.resendOtp.toUpperCase()}
+                    </Text>
+                  </View>
+                  {resendActive == false && (
+                    <Text style={[Styles.resendRealtedText, Styles.timerText]}>{formattedTime}</Text>
+                  )}
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  disabled={resendActive == false}
+                  onPress={() => handleCalling()}
+                  style={Styles.LowerOtpContainerEntries}
+                >
+                  <View style={Styles.LowerOtpContainerEntriesLeft}>
+                    <Image source={Images?.call} style={Styles.otpentriesIcon} />
+                    <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>
+                      {Strings?.callMe.toLocaleUpperCase()}
+                    </Text>
+                  </View>
+                  {resendActive == false && (
+                    <Text style={[Styles.resendRealtedText, Styles.timerText]}>{formattedTime}</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </View>
   )
 }
@@ -170,30 +187,39 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       width: '100%',
       backgroundColor: Colors?.bodyLigheterColor,
     },
-    navigationContainer: {
+    NavWrapper: {
       width: '100%',
-      display: 'flex',
-      alignItems: 'flex-end',
-      justifyContent: 'flex-end',
       backgroundColor: Colors?.bodyColor,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      alignSelf: 'center',
+      paddingBottom: vh(15),
       shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: vw(0), height: vh(0) },
+      shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
       shadowRadius: normalize(3.84),
       elevation: 5,
     },
-    innerNavigationContainer: {
-      width: '100%',
-      height: vh(60),
+    headerText: {
+      fontSize: normalize(20),
+      fontFamily: Fonts?.subHeader,
+      fontWeight: 700,
+      color: Colors?.textBlack
+    },
+    BackIconAndHeaderText: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: Colors?.bodyColor,
+      alignSelf: 'center',
     },
-    BackBUtton: {
-      height: vh(20),
-      width: vw(20),
-      margin: normalize(20),
+    BackIcon: {
+      tintColor: Colors?.textBlack,
+      height: vh(18),
+      width: vw(18),
+      alignSelf: 'flex-start',
+      marginHorizontal: vw(18),
     },
     navHeaderText: {
       fontSize: normalize(20),

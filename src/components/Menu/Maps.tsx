@@ -139,7 +139,6 @@ export default function Maps() {
                         </View>
                     )}
                 </View>
-
             </TouchableWithoutFeedback>
             <KeyboardAwareScrollView
                 extraHeight={20}
@@ -147,128 +146,133 @@ export default function Maps() {
                 keyboardShouldPersistTaps='handled'
                 enableOnAndroid={true}
                 style={Styles.container}>
-                <View style={[Styles.MapContainer, open ? { zIndex: -1 } : { zIndex: 0 }]}>
-                    <MapView
-                        // provider={PROVIDER_GOOGLE}
-                        style={Styles.map}
-                        initialRegion={
-                            {
-                                latitude: 26.9124,
-                                longitude: 75.7873,
-                                latitudeDelta: 0.05,
-                                longitudeDelta: 0.05,
-                            }
-                        }>
-                        {location && (
-                            <Marker
-                                coordinate={location}
-                                title="You are here"
-                            />
-                        )}
-                    </MapView>
-                </View>
-                <TouchableOpacity
-                    onPress={getCurrentLocation} >
-                    <Text>get locaiton </Text>
-                </TouchableOpacity>
-                <View style={Styles.LowerContainer}>
-                    <View style={Styles.locationTypeSelection}>
-                        <Text style={Styles.iWant}>{Strings?.iWant} : </Text>
-                        <TouchableOpacity
-                            onPress={() => setDeliveryType(Strings?.delivery)}
-                            activeOpacity={.5}
-                            style={Styles.selectionContainer}>
-                            <View style={[Styles.CheckBoxContainer, (deliveryType == Strings?.delivery) && Styles.ActiveBorder]}>
-                                {(deliveryType === Strings?.delivery) &&
-                                    <View
-                                        style={Styles.CheckBoxSelected}
-                                    />
+                {/* <ScrollView
+                    contentContainerStyle={{ flexGrow: 1, paddingBottom: 50 }}
+                    keyboardShouldPersistTaps="handled"
+                    showsVerticalScrollIndicator={false}> */}
+                    <View style={[Styles.MapContainer, open ? { zIndex: -1 } : { zIndex: 0 }]}>
+                        <MapView
+                            provider={PROVIDER_GOOGLE}
+                            style={Styles.map}
+                            initialRegion={
+                                {
+                                    latitude: 26.9124,
+                                    longitude: 75.7873,
+                                    latitudeDelta: 0.05,
+                                    longitudeDelta: 0.05,
                                 }
-                            </View>
-                            <Text style={Styles.checkBoxText}>{Strings?.delivery.toUpperCase()} </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setDeliveryType(Strings?.pickup)}
-                            activeOpacity={.5}
-                            style={Styles.selectionContainer}>
-                            <View style={[Styles.CheckBoxContainer, (deliveryType == Strings?.pickup) && Styles.ActiveBorder]}>
-                                {(deliveryType == Strings?.pickup) &&
-                                    <View
-                                        style={Styles.CheckBoxSelected}
-                                    />
-                                }
-                            </View>
-                            <Text style={Styles.checkBoxText}>{Strings?.pickup.toUpperCase()} </Text>
-                        </TouchableOpacity>
+                            }>
+                            {location && (
+                                <Marker
+                                    coordinate={location}
+                                    title="You are here"
+                                />
+                            )}
+                        </MapView>
                     </View>
+                    <TouchableOpacity
+                        onPress={getCurrentLocation} >
+                        <Text>get locaiton </Text>
+                    </TouchableOpacity>
+                    <View style={Styles.LowerContainer}>
+                        <View style={Styles.locationTypeSelection}>
+                            <Text style={Styles.iWant}>{Strings?.iWant} : </Text>
+                            <TouchableOpacity
+                                onPress={() => setDeliveryType(Strings?.delivery)}
+                                activeOpacity={.5}
+                                style={Styles.selectionContainer}>
+                                <View style={[Styles.CheckBoxContainer, (deliveryType == Strings?.delivery) && Styles.ActiveBorder]}>
+                                    {(deliveryType === Strings?.delivery) &&
+                                        <View
+                                            style={Styles.CheckBoxSelected}
+                                        />
+                                    }
+                                </View>
+                                <Text style={Styles.checkBoxText}>{Strings?.delivery.toUpperCase()} </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => setDeliveryType(Strings?.pickup)}
+                                activeOpacity={.5}
+                                style={Styles.selectionContainer}>
+                                <View style={[Styles.CheckBoxContainer, (deliveryType == Strings?.pickup) && Styles.ActiveBorder]}>
+                                    {(deliveryType == Strings?.pickup) &&
+                                        <View
+                                            style={Styles.CheckBoxSelected}
+                                        />
+                                    }
+                                </View>
+                                <Text style={Styles.checkBoxText}>{Strings?.pickup.toUpperCase()} </Text>
+                            </TouchableOpacity>
+                        </View>
 
-                    <View style={Styles.completeAddress}>
-                        <Text style={Styles.completeYourAddress}>{Strings?.completeYourAddress} </Text>
-                        <View style={Styles.adressAndChangeButton} >
-                            <TextInput
-                                value={addressBox?.address}
-                                placeholderTextColor={Colors?.placeHoldertext}
-                                placeholder={Strings?.address}
-                                onChangeText={handleChangeAddress}
-                                style={[Styles.PlaceHolderText, Styles.addresPlaceHolder]}
-                            />
-                            <TouchableOpacity
-                                style={Styles.ChangeButton}
-                                onPress={handlChangeAddress}
-                            >
-                                <Text style={Styles.ChangeButtonText}>{Strings?.change.toUpperCase()} </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={Styles.CustomBottomBorder} />
-                        <View style={Styles.BuildingAndFLat}>
-                            <View style={Styles.buildingNameContainer}>
+                        <View style={Styles.completeAddress}>
+                            <Text style={Styles.completeYourAddress}>{Strings?.completeYourAddress} </Text>
+                            <View style={Styles.adressAndChangeButton} >
                                 <TextInput
-                                    value={addressBox?.buildingName}
-                                    placeholder={Strings?.buildingName + '*'}
+                                    value={addressBox?.address}
                                     placeholderTextColor={Colors?.placeHoldertext}
-                                    onChangeText={handleChangeBuildingName}
-                                    style={Styles.PlaceHolderText}
+                                    placeholder={Strings?.address}
+                                    onChangeText={handleChangeAddress}
+                                    style={[Styles.PlaceHolderText, Styles.addresPlaceHolder]}
                                 />
-                                <View style={Styles.CustomBottomBorder} />
+                                <TouchableOpacity
+                                    style={Styles.ChangeButton}
+                                    onPress={handlChangeAddress}
+                                >
+                                    <Text style={Styles.ChangeButtonText}>{Strings?.change.toUpperCase()} </Text>
+                                </TouchableOpacity>
                             </View>
-                            <View style={Styles.FlatNoContainer}>
-                                <TextInput
-                                    value={addressBox?.flatNo}
-                                    placeholder={Strings?.flatNo + '*'}
-                                    placeholderTextColor={Colors?.placeHoldertext}
-                                    onChangeText={handleChangeFlatNo}
-                                    style={Styles.PlaceHolderText}
-                                />
-                                <View style={Styles.CustomBottomBorder} />
+                            <View style={Styles.CustomBottomBorder} />
+                            <View style={Styles.BuildingAndFLat}>
+                                <View style={Styles.buildingNameContainer}>
+                                    <TextInput
+                                        value={addressBox?.buildingName}
+                                        placeholder={Strings?.buildingName + '*'}
+                                        placeholderTextColor={Colors?.placeHoldertext}
+                                        onChangeText={handleChangeBuildingName}
+                                        style={Styles.PlaceHolderText}
+                                    />
+                                    <View style={Styles.CustomBottomBorder} />
+                                </View>
+                                <View style={Styles.FlatNoContainer}>
+                                    <TextInput
+                                        value={addressBox?.flatNo}
+                                        placeholder={Strings?.flatNo + '*'}
+                                        placeholderTextColor={Colors?.placeHoldertext}
+                                        onChangeText={handleChangeFlatNo}
+                                        style={Styles.PlaceHolderText}
+                                    />
+                                    <View style={Styles.CustomBottomBorder} />
+                                </View>
+                            </View>
+                        </View>
+                        <View style={Styles.AddressTagsContainer}>
+                            <Text style={Styles.tagLocation}>{Strings?.tagLocation} :  </Text>
+                            <View style={Styles.TagsContainer}>
+                                <TouchableOpacity
+                                    onPress={() => { setTag(Strings?.home) }}
+                                >
+                                    <Text style={[Styles.Tag, (tag == Strings?.home) && Styles.ActiveTag]}>{Strings?.home.toUpperCase()} </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => { setTag(Strings?.office) }}
+                                >
+                                    <Text style={[Styles.Tag, (tag == Strings?.office) && Styles.ActiveTag]}>{Strings?.office.toUpperCase()} </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => { setTag(Strings?.hotel) }}
+                                >
+                                    <Text style={[Styles.Tag, (tag == Strings?.hotel) && Styles.ActiveTag]}>{Strings?.hotel.toUpperCase()} </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => { setTag(Strings?.other) }}
+                                >
+                                    <Text style={[Styles.Tag, (tag == Strings?.other) && Styles.ActiveTag]}>{Strings?.other.toUpperCase()} </Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
-                    <View style={Styles.AddressTagsContainer}>
-                        <Text style={Styles.tagLocation}>{Strings?.tagLocation} :  </Text>
-                        <View style={Styles.TagsContainer}>
-                            <TouchableOpacity
-                                onPress={() => { setTag(Strings?.home) }}
-                            >
-                                <Text style={[Styles.Tag, (tag == Strings?.home) && Styles.ActiveTag]}>{Strings?.home.toUpperCase()} </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => { setTag(Strings?.office) }}
-                            >
-                                <Text style={[Styles.Tag, (tag == Strings?.office) && Styles.ActiveTag]}>{Strings?.office.toUpperCase()} </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => { setTag(Strings?.hotel) }}
-                            >
-                                <Text style={[Styles.Tag, (tag == Strings?.hotel) && Styles.ActiveTag]}>{Strings?.hotel.toUpperCase()} </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => { setTag(Strings?.other) }}
-                            >
-                                <Text style={[Styles.Tag, (tag == Strings?.other) && Styles.ActiveTag]}>{Strings?.other.toUpperCase()} </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
+                {/* </ScrollView> */}
             </KeyboardAwareScrollView>
             <View style={[Styles.ButtonWrapper, { bottom: inset.bottom + 10 }]}>
                 <TouchableOpacity
@@ -324,14 +328,14 @@ export default function Maps() {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         NavWrapper: {
-            width:'100%',
+            width: '100%',
             backgroundColor: Colors?.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
-            paddingBottom: vh( 15),
+            paddingBottom: vh(15),
         },
         headerCountrySelection: {
             marginRight: vw(20),
@@ -375,7 +379,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(16),
             fontFamily: Fonts?.subHeader,
             fontWeight: 700,
-            width:'70%',
+            width: '70%',
             color: Colors?.textBlack
         },
         arrow: {
@@ -408,7 +412,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: vh(400),
         },
         MapContainer: {
-        
+
         },
         map: {
             height: vh(400),
@@ -462,7 +466,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors?.textBlack,
         },
         completeAddress: {
-            width:'90%',
+            width: '90%',
             alignSelf: 'center'
         },
         completeYourAddress: {
@@ -477,7 +481,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            width:'100%',
+            width: '100%',
             alignSelf: 'center',
         },
         PlaceHolderText: {
@@ -487,13 +491,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontWeight: 500,
         },
         addresPlaceHolder: {
-            width:'75%'
+            width: '75%'
         },
         ChangeButton: {
             borderWidth: normalize(1),
             borderColor: Colors?.KFC_red,
             borderRadius: normalize(2),
-            marginLeft:'auto'
+            marginLeft: 'auto'
         },
         ChangeButtonText: {
             fontSize: normalize(12),
@@ -503,7 +507,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginVertical: vh(4)
         },
         CustomBottomBorder: {
-            width:'100%',
+            width: '100%',
             marginTop: vh(10),
             borderBottomWidth: normalize(1),
             borderBottomColor: Colors?.fadeBorder
@@ -518,10 +522,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             gap: normalize(20),
         },
         buildingNameContainer: {
-            width:'55%',
+            width: '55%',
         },
         FlatNoContainer: {
-            width:'40%',
+            width: '40%',
         },
         AddressTagsContainer: {
             display: 'flex',
@@ -562,12 +566,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         ButtonWrapper: {
             backgroundColor: Colors?.bodyColor,
-            width:'100%',
+            width: '100%',
             position: 'absolute',
             left: 0
         },
         confirmLocationButton: {
-            width:'93%',
+            width: '93%',
             height: vh(50),
             alignSelf: 'center',
             backgroundColor: Colors?.timerFadeText,
@@ -586,15 +590,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             position: 'absolute',
             top: vh(0),
             left: vw(0),
-            height:'100%',
-            width:'100%',
+            height: '100%',
+            width: '100%',
             backgroundColor: Colors?.SemiTransparent,
             justifyContent: 'center',
             alignItems: 'center',
             zIndex: 999
         },
         popupBox: {
-            width:'80%',
+            width: '80%',
             backgroundColor: Colors.bodyColor,
             padding: normalize(20),
             borderRadius: normalize(10),

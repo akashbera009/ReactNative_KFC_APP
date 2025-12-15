@@ -1,4 +1,7 @@
 {
   "name": "KFC_App",
-  "displayName": "KFC_App"
+  "displayName": "KFC_App",
+  "androidStatusBar": {
+    "backgroundColor": "#000000"
+  }
 }

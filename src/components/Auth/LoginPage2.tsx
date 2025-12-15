@@ -253,7 +253,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
-            gap: 10,
+            gap: normalize(10),
         },
         LanguageButton: {
             width: '50%',

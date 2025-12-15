@@ -5,7 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // crop and picker 
 import { launchImageLibrary } from 'react-native-image-picker'
-import { CropView } from 'react-native-image-crop-tools';
+import ImagePicker, { openCropper } from "react-native-image-crop-picker";
+import { createThumbnail } from "react-native-create-thumbnail";
+import { DocumentPickerResponse, keepLocalCopy, pick, types } from '@react-native-documents/picker'
+import Pdf from 'react-native-pdf'
 // utils
 import Fonts from '../utils/Fonts';
 import Images from '../utils/LocalImages';
@@ -21,51 +24,108 @@ export default function ImagePickCropper() {
     const Styles = createDynamicStyles(Colors, Fonts);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [imageUri, setImageUri] = useState<string>('');
-    const cropViewRef = useRef<CropView>(null);
     const [videoUri, setVideoUri] = useState<string | undefined>('');
-    const [cropModalVisible, setCropModalVisible] = useState(false);
     const [viewOnlyModal, setViewOnlyModal] = useState(false)
+    const [selectedFile, setSelectedFile] = useState<DocumentPickerResponse>();
+    const [selectedLocalFile, setSelectedLocalFile] = useState({uri: ''});
+    const [pdfViewer,setPdfViewer] = useState(false);
+
     const pickImage = async () => {
-        const res = await launchImageLibrary({
+        launchImageLibrary({
             mediaType: 'photo',
             selectionLimit: 1,
             quality: 1,
         })
-        console.log(res)
-        if (!res || !res.assets || !res.assets.length) return;
-        if (res.assets[0]?.uri)
-            setImageUri(res.assets[0]?.uri)
-        setCropModalVisible(true)
-    };
+            .then((pickerResult) => {
+                if (pickerResult.didCancel) return;
+                console.log(pickerResult);
 
-    const onCropDone = (result: Partial<CropResult>) => {
-        console.log(result);
-        
-        setCropModalVisible(false);
-        if (result?.uri) {
-            if (Platform.OS == 'ios') {
-                setImageUri(result?.uri);
-            } else {
-                setImageUri(`file://${result?.uri}`)
-            }
+                const uri = pickerResult.assets?.[0]?.uri;
+                console.log('uri', uri);
+
+                if (!uri) return;
+                console.log('coming to this line ');
+                return ImagePicker.openCropper({
+                    path: uri,
+                    width: 300,
+                    height: 300,
+                    cropping: true,
+                    mediaType: 'photo',
+                    freeStyleCropEnabled: true,
+                    multiple: false,
+                    writeTempFile: false,
+                    cropperToolbarTitle: 'hii '
+                });
+            })
+            .then((croppedImage) => {
+                if (!croppedImage) return;
+
+                console.log('Final image:', croppedImage);
+                setImageUri(croppedImage?.path)
+
+            })
+            .catch((err) => {
+                console.log('Error:', err);
+            });
+    };
+    const pickVideo = async () => {
+        try {
+            const res = await launchImageLibrary({
+                mediaType: 'video',
+                selectionLimit: 1,
+                quality: 1,
+                videoQuality: 'high',
+            })
+            console.log(res);
+            if (!res || !res.assets || !res.assets.length) return;
+            const videoUriLocal = res.assets[0]?.uri;
+            setVideoUri(res?.assets[0]?.uri)
+
+            if (!videoUriLocal) return
+
+            const thumbnailData = await createThumbnail({
+                url: videoUriLocal,
+                timeStamp: 1000,
+                format: 'png'
+            })
+            console.log(thumbnailData);
+        } catch (e) {
+            console.log('error', e);
         }
     };
 
-    const cropImage = () => {
-        cropViewRef.current?.saveImage(true, 90);
-    };
+    const pickDocument = async () => {
+        try {
+            const [result] = await pick({
+                mode: 'open',
+                type: [types.pdf],
+                allowMultiSelection: false
+            })
+            console.log('document after picking ', result)
+            setSelectedFile(result)
+            // keep a local copy 
+            if (!selectedFile?.uri) return
+            const [copyResult] = await keepLocalCopy({
+                files: [
+                    {
+                        uri: selectedFile?.uri,
+                        fileName: selectedFile?.name ?? 'unknown name '
+                    }
+                ],
+                destination: 'documentDirectory',
+            })
+            if (copyResult?.status === 'success') {
+                console.log('local url is ', copyResult.localUri)
+                setSelectedLocalFile({uri : copyResult?.localUri})
+            }else{
+                console.log('local copying is failed ')
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
 
-    const pickVideo = async () => {
-        const res = await launchImageLibrary({
-            mediaType: 'video',
-            selectionLimit: 1,
-            quality: 1,
-            videoQuality: 'high',
-        })
-        console.log(res);
-        if (!res || !res.assets || !res.assets.length) return;
-        setVideoUri(res?.assets[0]?.uri)
-    };
     const handleSave = async () => {
 
     }
@@ -82,73 +142,61 @@ export default function ImagePickCropper() {
                 </View>
             </View>
             <View style={Styles.body}>
-                {cropModalVisible ? (
-                    <Modal
-                        visible={cropModalVisible}
-                        animationType="slide" >
-                        <View style={Styles.cropModalContainer}>
-                            <CropView
-                                ref={cropViewRef}
-                                sourceUrl={imageUri}
-                                style={{ flex: 1 }}
-                                onImageCrop={onCropDone}
-                            />
-                            <TouchableOpacity
-                                style={[Styles.closeIconButton, { top: inset.top }]}
-                                onPress={() => {
-                                    // setImageUri('')
-                                    setImageUri(imageUri)
-                                    setCropModalVisible(false)
-                                }}
-                            >
-                                <Image source={Images?.Cross_Icon} style={Styles.closeIcon} />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={cropImage}
-                                style={{
-                                    position: 'absolute',
-                                    bottom: 40,
-                                    right: 20,
-                                    backgroundColor: 'green',
-                                    padding: 15,
-                                    borderRadius: 40
-                                }}
-                            >
-                                <Text style={{ color: 'white', fontSize: 20 }}>✓</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </Modal>
+                {imageUri == '' ? (
+                    <TouchableOpacity style={Styles.field} onPress={pickImage}>
+                        <Text style={Styles.placeholder}>{Strings?.taptoPick}{Strings?.image}</Text>
+                    </TouchableOpacity>
                 ) : (
-                    <>
-                        {imageUri == '' ? (
-                            <TouchableOpacity style={Styles.field} onPress={pickImage}>
-                                <Text style={Styles.placeholder}>{Strings?.taptoPick}{Strings?.image}</Text>
-                            </TouchableOpacity>
-                        ) : (
-                            <TouchableOpacity
-                                onPress={() => setViewOnlyModal(true)}
-                                style={Styles.fieldFilled} >
-                                <Image source={{ uri: imageUri }} style={Styles.previewImage} />
-                                <TouchableOpacity
-                                    style={Styles?.editButtonContainer}
-                                    onPress={pickImage}>
-                                    <Image source={Images?.Edit_Icon} style={Styles.editButton} />
-                                </TouchableOpacity>
-                            </TouchableOpacity>
-                        )}
-                        <TouchableOpacity style={Styles.field} onPress={pickVideo}>
-                            {videoUri ? (
-                                <VideoPlayerComponent uri={videoUri} />
-                            ) : (
-                                <Text style={Styles.placeholder}>{Strings?.taptoPick}{Strings?.video}</Text>
-                            )}
-                        </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => setViewOnlyModal(true)}
+                        style={Styles.fieldFilled} >
+                        <Image source={{ uri: imageUri }} style={Styles.previewImage} />
                         <TouchableOpacity
-                            onPress={handleSave}
-                            style={Styles.saveBtn}>
-                            <Text style={Styles.saveText}>{Strings?.save}</Text>
+                            style={Styles?.editButtonContainer}
+                            onPress={pickImage}>
+                            <Image source={Images?.Edit_Icon} style={Styles.editButton} />
                         </TouchableOpacity>
-                    </>)}
+                    </TouchableOpacity>
+                )}
+                <TouchableOpacity style={Styles.field} onPress={pickVideo}>
+                    {videoUri ? (
+                        <VideoPlayerComponent uri={videoUri} />
+                    ) : (
+                        <Text style={Styles.placeholder}>{Strings?.taptoPick}{Strings?.video}</Text>
+                    )}
+                </TouchableOpacity>
+
+                <TouchableOpacity style={Styles.field} onPress={pickDocument}>
+                    {videoUri ? (
+                        <>
+                        </>
+                    ) : (
+                        <Text style={Styles.placeholder}>{Strings?.taptoPick}{Strings?.document}</Text>
+                    )}
+                </TouchableOpacity>
+                {selectedFile && (
+                    <View>
+                        <Text numberOfLines={1}>{selectedFile.name}</Text>
+                        <Text numberOfLines={1}>{selectedFile.uri}</Text>
+                        <TouchableOpacity
+                            onPress={() => setPdfViewer(true)}
+                        >
+                            <Text> preview</Text>
+                        </TouchableOpacity>
+                        {pdfViewer && (
+                                <Pdf 
+                                    source={selectedLocalFile}
+                                    style={{ flex: 1 }}
+                                />
+                        )}
+                    </View>
+                )}
+
+                <TouchableOpacity
+                    onPress={handleSave}
+                    style={Styles.saveBtn}>
+                    <Text style={Styles.saveText}>{Strings?.save}</Text>
+                </TouchableOpacity>
             </View >
             {viewOnlyModal && (
                 <Modal
@@ -230,13 +278,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             left: vw(20),
         },
         closeIcon: {
-            height: 20,
-            width: 20,
+            height: vh(20),
+            width: vw(20),
             tintColor: Colors?.constantWhite
         },
         closeIcon1: {
-            height: 20,
-            width: 20,
+            height: vh(20),
+            width: vw(20),
             tintColor: Colors?.textBlack
         },
         field: {

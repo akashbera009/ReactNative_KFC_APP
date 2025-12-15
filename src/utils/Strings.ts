@@ -14,8 +14,10 @@ const en = {
   DealsAndOfferScreen: 'DealsAndOfferScreen',
   CreateProfileScreen: 'CreateProfileScreen',
   CommonPopUpScreen: 'CommonPopUpScreen',
+  TermsAndConditionsScreen: 'TermsAndConditionsScreen',
   FontsScreen: 'FontsScreen',
   SplashScreen: 'SplashScreen',
+  KeyboardTestScreen: 'KeyboardTestScreen',
   ExploreMenuScreen: 'ExploreMenuScreen',
   MenuCategorizeScreen: 'MenuCategorizeScreen',
   FoodCustomizationScreen: 'FoodCustomizationScreen',
@@ -325,10 +327,11 @@ const en = {
   UserDeatailUpdatedHeader: 'Successful',
   UserDeatailUpdatedMessage: 'Your Details has been Updated!',
   loading: 'loading................',
-   userInfoHeader :'User Information',
+  userInfoHeader: 'User Information',
   taptoPick: 'Tap to pick ',
   image: 'Image',
-  video: 'video'
+  video: 'video',
+  document: 'document'
 } as const
 
 const ar = {
@@ -345,8 +348,10 @@ const ar = {
   DealsAndOfferScreen: 'DealsAndOfferScreen',
   CreateProfileScreen: 'CreateProfileScreen',
   CommonPopUpScreen: 'CommonPopUpScreen',
+  TermsAndConditionsScreen: 'TermsAndConditionsScreen',
   FontsScreen: 'FontsScreen',
   SplashScreen: 'SplashScreen',
+  KeyboardTestScreen: 'KeyboardTestScreen',
   ExploreMenuScreen: 'ExploreMenuScreen',
   MenuCategorizeScreen: 'MenuCategorizeScreen',
   FoodCustomizationScreen: 'FoodCustomizationScreen',
@@ -663,10 +668,11 @@ const ar = {
   UserDeatailUpdatedHeader: 'Successful',
   UserDeatailUpdatedMessage: 'Your Details has been Updated!',
   loading: 'loading................',
-  userInfoHeader :'User Information',
+  userInfoHeader: 'User Information',
   taptoPick: 'Tap to pick ',
   image: 'Image',
-  video: 'video'
+  video: 'video',
+  document: 'document'
 } as const
 
 export const useStrings = () => {

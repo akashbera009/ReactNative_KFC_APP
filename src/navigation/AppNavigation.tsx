@@ -37,6 +37,8 @@ import FoodCustomizationScreen from '../screens/FoodCustomizationScreen';
 import TrackOrderScreen from '../screens/TrackOrderScreen';
 import PaymentModalScreen from '../screens/PaymentModalScreen';
 import CommonPopUpScreen from '../screens/CommonPopUpScreen';
+import TermsAndConditionsScreen from '../screens/TermsAndConditionsScreen';
+import KeyboardTestScreen from '../CommonFunctions/KeyboardTestScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -44,10 +46,14 @@ const Drawer = createDrawerNavigator()
 function StackNavigator() {
     const Strings = useStrings()
     return (
-        <Stack.Navigator initialRouteName={Strings?.HomeScreen} screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName={Strings?.HelpScreen} screenOptions={{ headerShown: false }}>
             <Stack.Screen
                 name={Strings?.SplashScreen}
                 component={SplashScreen}
+            />
+            <Stack.Screen
+                name={Strings?.KeyboardTestScreen}
+                component={KeyboardTestScreen}
             />
             <Stack.Screen
                 name={Strings?.HomeScreen}
@@ -175,6 +181,10 @@ function StackNavigator() {
                 options={{
                     presentation: 'transparentModal'
                 }}
+            />
+            <Stack.Screen
+                name={Strings?.TermsAndConditionsScreen}
+                component={TermsAndConditionsScreen}
             />
             <Stack.Screen
                 name={Strings?.FontsScreen}

@@ -24,9 +24,11 @@ type RootStackParamList = {
   FontsScreen: undefined
   OfferAppliedScreen: undefined
   SplashScreen: undefined
- CommonPopUpScreen: {header: string , message: string }
+  CommonPopUpScreen: { header: string, message: string }
+  TermsAndConditionsScreen: undefined
   HelpScreen: undefined
   LoginPageCountryBottomSheetScreen: undefined
+  KeyboardTestScreen : undefined
 }
 type RootDrawerParamList = {
   Main: undefined;

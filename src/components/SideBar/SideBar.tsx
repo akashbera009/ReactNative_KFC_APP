@@ -211,14 +211,14 @@ const SideBar = () => {
               <Text style={Styles.BottomViewText}>{Strings?.faq.toUpperCase()} </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => { navigation.navigate(Strings?.FontsScreen) }}
+              onPress={() => { navigation.navigate(Strings?.TermsAndConditionsScreen) }}
             >
               <Text style={Styles.BottomViewText}>{Strings?.termsCondition} </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate(Strings?.HelpScreen)}
             >
-              <Text style={Styles.BottomViewText}>{Strings?.nutritionInfo} </Text>
+              <Text style={Styles.BottomViewText}>{Strings?.userInfoHeader} </Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
