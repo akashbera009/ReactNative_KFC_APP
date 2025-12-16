@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image, Modal, ScrollView, } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image, Modal, ScrollView, Platform, } from 'react-native';
 import React, { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +9,7 @@ import ImagePicker from "react-native-image-crop-picker";
 import { createThumbnail } from "react-native-create-thumbnail";
 import { DocumentPickerResponse, keepLocalCopy, pick, types } from '@react-native-documents/picker'
 import Pdf from 'react-native-pdf'
+import RNFS from 'react-native-fs';
 // utils
 import Fonts from '../utils/Fonts';
 import Images from '../utils/LocalImages';
@@ -67,23 +68,33 @@ export default function ImagePickCropper() {
             const res = await launchImageLibrary({
                 mediaType: 'video',
                 selectionLimit: 1,
-                quality: 1,
                 videoQuality: 'high',
-            })
-            console.log(res);
-            if (!res || !res.assets || !res.assets.length) return;
-            const videoUriLocal = res.assets[0]?.uri;
-            setVideoUri(res?.assets[0]?.uri)
-            if (!videoUriLocal) return
-            const thumbnailData = await createThumbnail({
-                url: videoUriLocal,
+            });
+            if (!res?.assets?.length) return;
+            let pickerUri = res.assets[0].uri;
+            if (!pickerUri) return;
+            let thumbnailSource: string;
+            let storedVideoUri: string;
+            if (Platform.OS === 'ios') {
+                const cleanPath = decodeURI(pickerUri.replace('file://', ''));
+                const fileName = `video_${Date.now()}.mp4`;
+                const destPath = `${RNFS.CachesDirectoryPath}/${fileName}`;
+                await RNFS.copyFile(cleanPath, destPath);
+                storedVideoUri = destPath;     
+                thumbnailSource = destPath;      
+            } else {
+                storedVideoUri = pickerUri;
+                thumbnailSource = pickerUri;
+            }
+            setVideoUri(storedVideoUri);
+            const thumbnail = await createThumbnail({
+                url: thumbnailSource,
                 timeStamp: 1000,
-                format: 'png'
-            })
-            console.log(thumbnailData);
-            setVideoThumbnail(thumbnailData?.path)
-        } catch (e) {
-            console.log('error', e);
+                format: 'png',
+            });
+            setVideoThumbnail(thumbnail.path);
+        } catch (error) {
+            console.log('Video pick error:', error);
         }
     };
 

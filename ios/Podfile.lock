@@ -40,7 +40,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - razorpay-core-pod (1.0.3)
+  - razorpay-core-pod (1.0.4)
   - razorpay-pod (1.5.0):
     - razorpay-core-pod
   - RCT-Folly (2024.11.18.00):
@@ -2693,6 +2693,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - RNFS (2.20.0):
+    - React-Core
   - RNGestureHandler (2.29.1):
     - boost
     - DoubleConversion
@@ -3198,6 +3200,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeGetLocation (from `../node_modules/react-native-get-location`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
@@ -3388,6 +3391,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-get-location"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNImageCropPicker:
@@ -3416,7 +3421,7 @@ SPEC CHECKSUMS:
   hermes-engine: e7491a2038f2618c8cd444ed411a6deb350a3742
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
   lottie-react-native: d849be4292d467c0e13fd4ca5042bb352b7d1a61
-  razorpay-core-pod: ef0309dbf8e3e5a1330f6cad89dcf9226d8ef758
+  razorpay-core-pod: a5ee92704a114e9468436dcba9d9b6222f6d9899
   razorpay-pod: f634f1b8397eb54d547f25d35291f679545ddf17
   RCT-Folly: 846fda9475e61ec7bcbf8a3fe81edfcaeb090669
   RCTDeprecation: 0735ab4f6b3ec93a7f98187b5da74d7916e2cf4c
@@ -3494,6 +3499,7 @@ SPEC CHECKSUMS:
   ReactCommon: c235ebd26d63fde9a2dfa72cee9f8294b910fee1
   ReactNativeGetLocation: 334401850ba596072056a5ece1f8ba1699d52b6b
   RNCAsyncStorage: 302f2fac014fd450046c120567ca364632da682b
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 606b85298c19d681ca076ca523dc23396120adab
   RNImageCropPicker: c456a5d12cfc902ec8865c79af97f6df137250ba
   RNPermissions: 7bbd23bc25023853211f2aad7a12a080a80f9b9f

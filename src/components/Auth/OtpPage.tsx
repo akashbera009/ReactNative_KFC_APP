@@ -11,9 +11,7 @@ import { useStrings } from '../../utils/Strings'
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages'
 import { useCountry } from '../../context/CountryContext';
-import { normalize, vh, vw } from '../../utils/Dimensions';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import { normalize, vh, vw } from '../../utils/Dimensions'; 
 
 export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   const [inputValue, setInputValue] = useState<string[]>(new Array(4).fill(''))
