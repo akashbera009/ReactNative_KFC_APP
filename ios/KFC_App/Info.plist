@@ -43,6 +43,18 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app needs permission to save photos.</string>
 
+	<key>GIDClientID</key>
+	<string>857311075920-em3gq4d9vhpjelvkq4plmgsv4e5oj617.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+			<string>com.googleusercontent.apps.857311075920-em3gq4d9vhpjelvkq4plmgsv4e5oj617</string>
+			</array>
+		</dict>
+	</array>
+
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

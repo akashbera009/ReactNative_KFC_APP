@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Share } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Share, ErrorUtils } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -23,7 +23,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
     // amount calculations  
-    const totalAmount: number = order?.Items.reduce((acc: number, i: any) => acc + (i?.quantity * i?.price), 0);
+    const totalAmount: number = order?.Items.reduce((acc: number, i: CartItemType) => acc + (i?.quantity * i?.price), 0);
     const vatAmount: number = Number((totalAmount * 5 / 100).toFixed(2))
     const beforeTax: number = totalAmount - vatAmount
     const DiscountPrice: number = Number((totalAmount * DeliveryDetails?.discountRate / 100).toFixed(2))
@@ -46,8 +46,8 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
             } else if (result.action === Share.dismissedAction) {
                 console.log('dismissed');
             }
-        } catch (error: any) {
-            console.log(error.message)
+        } catch (error: unknown) {
+            console.log(error)
         }
     }
     return (

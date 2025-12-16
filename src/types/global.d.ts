@@ -149,3 +149,8 @@ type CropResult = {
   height: number;
   target: number;
 };
+
+type Coordinate = {
+  latitude: number;
+  longitude: number;
+};

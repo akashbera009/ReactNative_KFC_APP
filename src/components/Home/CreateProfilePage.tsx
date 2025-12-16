@@ -43,7 +43,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     useEffect(() => {
         dispatch(fetctUserDeatails())
     }, [dispatch])
-    const userdata = useSelector((state: RootState) => state.users)
+    const userdata = useSelector((state: RootState) => state?.users)
     console.log(userdata);
     const currentUser = userdata?.userData.find((item) => item?.mobileNo == rawPhone)
     const [email, setEmail] = useState<string | undefined>(currentUser?.email)

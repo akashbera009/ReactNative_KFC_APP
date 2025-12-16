@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // maps import 
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker} from 'react-native-maps'
 import GetLocation from 'react-native-get-location'
 // utils
@@ -147,6 +147,7 @@ export default function Maps() {
                     <View style={[Styles.MapContainer, open ? { zIndex: -1 } : { zIndex: 0 }]}>
                         <MapView
                             style={Styles.map}
+                            provider={PROVIDER_GOOGLE}
                             initialRegion={
                                 {
                                     latitude: 26.9124,

@@ -32,7 +32,7 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
     latitudeDelta: 0.05,
     longitudeDelta: 0.05,
   };
-  const getArcCoordinates = (start: any, end: any) => {
+  const getArcCoordinates = (start: Coordinate, end: Coordinate): Coordinate[] => {
     const curveHeight = 0.015;
     const control = {
       latitude: (start.latitude + end.latitude) / 2 + curveHeight,

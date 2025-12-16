@@ -70,12 +70,10 @@ export default function OrderStatus({
             } else if (result.action === Share.dismissedAction) {
                 console.log('dismissed');
             }
-        } catch (error: any) {
-            console.log(error.message)
+        } catch (error: unknown) {
+            console.log(error)
         }
     }
-
-
     return (
         <View style={[Styles.Parent, { paddingTop: inset.top }]}>
             <View style={Styles.NavWrapper}>

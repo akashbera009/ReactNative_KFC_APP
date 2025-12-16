@@ -38,6 +38,7 @@ import TrackOrderScreen from '../screens/TrackOrderScreen';
 import PaymentModalScreen from '../screens/PaymentModalScreen';
 import CommonPopUpScreen from '../screens/CommonPopUpScreen';
 import TermsAndConditionsScreen from '../screens/TermsAndConditionsScreen';
+import GoogleLoginPage from '../components/Auth/GoogleLoginPage';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -77,7 +78,8 @@ function StackNavigator() {
             />
             <Stack.Screen
                 name={Strings.LoginScreen}
-                component={LoginScreen}
+                // component={LoginScreen}
+                component={GoogleLoginPage}
             />
             <Stack.Screen
                 name={Strings.LoginScreen2}

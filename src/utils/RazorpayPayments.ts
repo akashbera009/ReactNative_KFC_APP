@@ -30,8 +30,8 @@ export const useRazorpayPayment = () => {
             const data = await RazorpayCheckout.open(options);
             return { success: true, payment_id: data.razorpay_payment_id };
 
-        } catch (error: any) {
-            return { success: false, error: error.description };
+        } catch (error) {
+            return { success: false, error: error };
         }
     };
 
