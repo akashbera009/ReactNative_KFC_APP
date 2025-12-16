@@ -36,7 +36,7 @@
     "react-native-image-picker": "^8.2.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.8.3",
-    "react-native-maps": "^1.26.18",
+    "react-native-maps": "^1.26.20",
     "react-native-pdf": "^7.0.3",
     "react-native-permissions": "^5.4.4",
     "react-native-razorpay": "^2.3.1",

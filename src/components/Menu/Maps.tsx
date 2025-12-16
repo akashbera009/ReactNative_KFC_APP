@@ -4,8 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // maps import 
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Marker} from 'react-native-maps'
+import MapView, { PROVIDER_GOOGLE , Marker } from 'react-native-maps';
 import GetLocation from 'react-native-get-location'
 // utils
 import Fonts from '../../utils/Fonts';
