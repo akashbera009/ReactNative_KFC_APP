@@ -343,8 +343,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
@@ -369,15 +368,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         navHeaderText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack
         },
         noOfItemsText: {
             color: Colors.textBlack,
             fontSize: normalize(12),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             marginHorizontal: vw(10),
             marginVertical: vh(2)
         },
@@ -388,18 +385,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginHorizontal: vw(10),
         },
         editbuttonText: {
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font17,
             fontSize: normalize(12),
-            fontWeight: 700,
             color: Colors.KFC_red,
             marginHorizontal: vw(15),
             marginVertical: vh(5),
         },
         editbuttonFadeText: {
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             fontSize: normalize(12),
-            fontWeight: 700,
             marginHorizontal: vw(15),
             marginVertical: vh(5),
         },
@@ -461,14 +456,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         ExploreMenu: {
             marginVertical: vh(5),
             fontSize: normalize(18),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
         },
         moreItemsCart: {
             fontSize: normalize(14),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600,
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack,
         },
         GotoMoreMenu: {
@@ -500,15 +493,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         applyCoupon: {
             marginHorizontal: vw(15),
             fontSize: normalize(18),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
         },
         CouponAppliedText: {
             marginHorizontal: vw(12),
             fontSize: normalize(18),
-            fontFamily: Fonts.font17,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
         },
         changeButton: {
@@ -517,7 +508,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         changeButtonText: {
             fontSize: normalize(14),
             fontFamily: Fonts.font17,
-            fontWeight: 500,
             color: Colors.KFC_red,
         },
         AppliedOfferDetail: {
@@ -530,12 +520,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         offerAppliedGreenText: {
             fontSize: normalize(14),
             fontFamily: Fonts.font17,
-            fontWeight: 500,
             color: Colors.greenOk,
             letterSpacing: normalize(.5),
         },
         offerAppliedGreenTextCurrency: {
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
         },
         PricingTotalContainer: {
             paddingVertical: vh(20),
@@ -559,21 +548,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         PriceEntriesLeft: {
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack,
-            fontWeight: 500,
         },
         PriceEntriesRight: {
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font17,
             color: Colors.textBlack,
-            fontWeight: 500,
             marginLeft: 'auto'
         },
         discountAmount: {
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 500,
+            fontFamily: Fonts.font17,
             color: Colors.greenOk,
         },
         BottomCartContainer: {
@@ -632,7 +618,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         deleteButtonText: {
             fontSize: normalize(14),
             fontFamily: Fonts.font17,
-            fontWeight: 500,
             color: Colors.KFC_red,
         },
         discountImageTop: {
@@ -704,36 +689,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         EditingRightMainContainer: {
             width: '80%',
         },
-        Tags: {
-            position: 'absolute',
-            top: vh(5),
-            left: vw(5),
-            backgroundColor: Colors.activeBorder,
-            borderTopLeftRadius: normalize(2),
-            borderTopRightRadius: normalize(2),
-        },
-        TagText: {
-            fontSize: normalize(9),
-            marginLeft: vw(5),
-            marginRight: vw(14),
-            marginVertical: vh(3),
-            color: Colors.constantWhite,
-            fontWeight: 600
-        },
-        ribbonTriangle: {
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            width: vw(0),
-            height: vh(0),
-            borderTopWidth: normalize(10),
-            borderBottomWidth: normalize(10),
-            borderLeftWidth: normalize(8),
-            borderTopColor: 'transparent',
-            borderBottomColor: 'transparent',
-            borderLeftColor: Colors.bodyColor,
-            transform: [{ scaleX: -1 }]
-        },
         UpperContainer: {
             width: '100%',
             display: 'flex',
@@ -772,8 +727,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         FoodName: {
             fontSize: normalize(15),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             marginVertical: vh(10),
             color: Colors.textBlack
         },
@@ -806,8 +760,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.textFadeBlack,
         },
         DescriptioText: {
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.timerFadeText,
             fontSize: normalize(11),
             marginRight: vw(5),
@@ -845,13 +798,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         Price: {
             fontSize: normalize(15),
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             marginHorizontal: vw(2),
             color: Colors.textBlack,
         },
         OldPrice: {
             fontSize: normalize(13),
-            fontWeight: 700,
+            fontFamily: Fonts.font17,
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack,
         },
@@ -897,8 +850,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         counter: {
             marginHorizontal: vw(8),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             fontSize: normalize(16),
             color: Colors.textBlack
         },
@@ -932,14 +884,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderRadius: normalize(4),
             marginHorizontal: vw(14),
             marginVertical: vh(14)
-        },
-        AddToCartButtonText: {
-            color: Colors.constantWhite,
-            fontSize: normalize(10),
-            marginHorizontal: vw(14),
-            marginVertical: vh(10),
-            fontFamily: Fonts.headerRegular,
-            fontWeight: 700
         },
         Favourite_Icon: {
             height: vh(20),

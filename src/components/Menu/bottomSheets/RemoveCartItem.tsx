@@ -81,7 +81,7 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
                             <Text style={[Styles.DoneButtonText, Styles.ChangeButtonText]}>{Strings.cancel.toLocaleUpperCase()}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[Styles.Button]}
+                            style={Styles.Button}
                             onPress={handleConfirmDelete}>
                             <Text style={Styles.DoneButtonText}>{Strings.yesConfirm.toLocaleUpperCase()}</Text>
                         </TouchableOpacity>
@@ -142,8 +142,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: '75%',
             marginTop: vh(20),
             lineHeight: vh(40),
-            fontFamily: Fonts.font17,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             textAlign: 'center',
             alignSelf: 'center',
             fontSize: normalize(24),
@@ -176,8 +175,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         DoneButtonText: {
             fontSize: normalize(15),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.constantWhite,
             marginHorizontal: vw(20),
             marginVertical: vh(3)

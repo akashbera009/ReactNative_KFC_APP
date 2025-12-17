@@ -709,5 +709,50 @@
     "status": "Being Prepared",
     "paymentMode": "Online",
     "paymentId": "pay_RprWLaoUh4GNPN"
+  },
+  {
+    "id": 1765960955725,
+    "Items": [
+      {
+        "cartUid": 1765956491457,
+        "menuItemUid": "menu-2",
+        "name": "Mighty Twist",
+        "description": [
+          "Mighty Zinger",
+          "1 Twister - Org",
+          "Fries - Regular"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "image": "https://i.ibb.co/mCH5ZNcq/Chicken-Nuget.png",
+        "categories": [
+          "Deals",
+          "For One"
+        ],
+        "quantity": 1
+      },
+      {
+        "cartUid": 1765960950573,
+        "menuItemUid": "menu-3",
+        "name": "Super Mega Deal",
+        "description": [
+          "12 Chicken pcs",
+          "Family fries"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "image": "https://i.ibb.co/V0Qx3vcX/KFC-Combo-Pack.webp",
+        "categories": [
+          "Deals",
+          "For Sharing"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 17 2025",
+    "orderId": "ORD-VNOIA5b",
+    "status": "Being Prepared",
+    "paymentMode": "Cash On Delivery",
+    "paymentId": ""
   }
 ]

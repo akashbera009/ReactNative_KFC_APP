@@ -7,7 +7,6 @@ import Images from '../../utils/LocalImages'
 import { useStrings } from '../../utils/Strings'
 import { useThemeColors } from '../../utils/Colors'
 import { normalize, vh, vw } from '../../utils/Dimensions'
-
 export default function SplashPage() {
     const Colors = useThemeColors()
     const Strings = useStrings()
@@ -33,7 +32,6 @@ export default function SplashPage() {
         </View>
     )
 }
-
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         HomeScreen: {

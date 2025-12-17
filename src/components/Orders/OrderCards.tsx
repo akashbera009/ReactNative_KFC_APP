@@ -77,19 +77,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors.textFadeBlack2,
         },
         OrderId: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
-            fontWeight: 700,
         },
         orderDate: {
             fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
-            fontWeight: 700,
         },
         itemsTitle: {
             marginTop: vh(18),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             fontSize: normalize(15),
             color: Colors.textBlack,
         },
@@ -110,14 +107,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         priceText: {
             fontSize: normalize(17),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
-            fontWeight: 700
         },
         statusText: {
             fontSize: normalize(15),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700
+            fontFamily: Fonts.font18,
         },
         Delivered: {
             color: Colors.greenOk

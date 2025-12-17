@@ -1,19 +1,16 @@
-import { View, Text, StyleSheet, Animated, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { Text, StyleSheet, Animated, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
 // utils 
 import Fonts from '../../utils/Fonts';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export const CommonPopUp = ({ header, message }: CommonPopUpScreenProps) => {
     const Colors = useThemeColors();
     const Strings = useStrings();
-    const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors, Fonts);
     const opacity = useRef(new Animated.Value(0)).current;
@@ -71,8 +68,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         popupTitle: {
             fontSize: normalize(18),
-            fontWeight: 700,
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
             marginBottom: vh(10),
         },
@@ -95,9 +91,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         saveText: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             color: Colors.constantWhite,
-            fontWeight: 700
         }
     })
     return Styles;

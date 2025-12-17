@@ -139,15 +139,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(18),
             fontSize: normalize(15),
             color: Colors.textBlack,
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
         },
         offerAvailderText: {
             fontSize: normalize(13),
             marginTop: vh(12),
             color: Colors.textFadeBlack2,
             fontFamily: Fonts.font17,
-            fontWeight: 600,
             lineHeight: normalize(16),
         },
         gotItButton: {
@@ -162,8 +160,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginHorizontal: vw(15),
             marginVertical: vh(5),
             fontSize: normalize(11),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.KFC_red
         },
         closeButton: {

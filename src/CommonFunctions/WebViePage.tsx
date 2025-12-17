@@ -155,7 +155,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         headerText: {
             fontSize: normalize(20),
             fontFamily: Fonts.subHeader,
-            fontWeight: 700,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {

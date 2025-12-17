@@ -21,7 +21,7 @@ import Images from '../../utils/LocalImages';
 import { savedCards, otherPaymentOption } from '../../data/DeliveryDetails';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 
-export default function PaymentOptionsBottomSheet({ amount, orderId, onSuccess }: PaymentModalScreenProps) {
+export default function PaymentOptionsBottomSheet({ amount, onSuccess }: PaymentModalScreenProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
@@ -33,7 +33,7 @@ export default function PaymentOptionsBottomSheet({ amount, orderId, onSuccess }
     const [selectedMethod, setSelectedMethod] = useState<string>('');
     const [preferred, setPreferred] = useState<boolean>(false);
     const [paymentRes, setPaymentRes] = useState({})
-    const [openModal, setOpenModal] = useState(false)
+    const [openModal, setOpenModal] = useState<boolean>(false)
     const { handlePayment } = useRazorpayPayment();
     const initiatePayment = async () => {
         const result = await handlePayment(amount);
@@ -233,19 +233,17 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         title: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font17,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             textAlign: 'center',
             marginBottom: vh(25),
-            marginTop: vh(10) ,
+            marginTop: vh(10),
             color: Colors.textBlack
         },
         savedCardsLabel: {
             fontSize: normalize(13),
             color: Colors.textFadeBlack,
             marginBottom: vh(15),
-            fontFamily: Fonts.font17,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
         },
         cardsScroll: {
             paddingBottom: vh(20)
@@ -282,14 +280,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         bankName: {
             color: Colors.constantWhite,
             fontSize: normalize(14),
-            fontWeight: 600
+            fontFamily: Fonts.font17
         },
         cardNumber: {
             color: Colors.constantWhite,
             fontSize: normalize(14),
-            fontWeight: 700,
             marginTop: vh(10),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             letterSpacing: normalize(1.25)
         },
         cardFooter: {
@@ -304,17 +301,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         cardType: {
             color: Colors.constantWhite,
             fontSize: normalize(10),
-            fontWeight: 600,
             backgroundColor: Colors.HyperTransparent2,
             padding: normalize(8),
+            fontFamily: Fonts.font18
         },
         otherMethodLabel: {
             marginTop: vh(10),
             marginBottom: vh(10),
             fontSize: normalize(13),
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.font17,
-            fontWeight: 700
+            fontFamily: Fonts.font18,
         },
         methodRow: {
             flexDirection: 'row',
@@ -335,15 +331,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(17),
             color: Colors.textBlack,
             fontFamily: Fonts.font17,
-            fontWeight: 500,
             letterSpacing: normalize(.5),
         },
         methodOffer: {
             fontSize: normalize(12),
             color: Colors.orangeColorText,
-            marginTop: vh(2)
+            marginTop: vh(2),
+            fontFamily: Fonts.font17
         },
-        tc: {
+        tc:{
             color: Colors.ButtonTextBlueColor,
             fontSize: normalize(10)
         },
@@ -405,7 +401,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         preferredText: {
             color: Colors.textFadeBlack2,
             fontSize: normalize(12),
-            fontWeight: 600
+            fontFamily: Fonts.font17
         },
         buttonsRow: {
             flexDirection: 'row',
@@ -422,7 +418,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         cancelText: {
             color: Colors.textBlack,
             textAlign: 'center',
-            fontWeight: 700
+            fontFamily: Fonts.font18 
         },
         payBtn: {
             width: '45%',
@@ -433,7 +429,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         payText: {
             color: Colors.constantWhite,
             textAlign: 'center',
-            fontWeight: 700
+            fontFamily: Fonts.font18 
         }
     });
 };

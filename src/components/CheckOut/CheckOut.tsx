@@ -30,7 +30,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     const cartItem = cartData?.cartItems
     const totalItem = cartItem.length
     const [deliveryType, setDeliveryType] = useState<'now' | 'later'>('now');
-    const cartDescription = cartItem?.reduce((acc, item, idx) => {
+    const cartDescription = cartItem?.reduce((acc: string, item: CartItemType, idx: number) => {
         return (acc + item?.quantity + ' ' + item?.name + ((idx + 1 != cartItem.length) ? ', ' : ' '))
     }, '');
     const [paymentMethodOpen, setPaymentMethodOpen] = useState<boolean>(false)
@@ -131,7 +131,6 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             <Text style={Styles.changeText}>{Strings.change}</Text>
                         </TouchableOpacity>
                     </View>
-
                     <View style={Styles.card}>
                         <View style={Styles?.deliveryContainer}>
                             <Image
@@ -140,7 +139,6 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             />
                             <Text style={Styles.sectionTitle}>{Strings.wantOrder}</Text>
                         </View>
-
                         <TouchableOpacity
                             activeOpacity={.7}
                             style={Styles.radioRow}
@@ -162,7 +160,6 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             </View>
                         </TouchableOpacity>
                     </View>
-
                     <Text style={Styles.sectionLabel}>{Strings.deliveryAddress.toUpperCase()}</Text>
                     <View style={Styles.card}>
                         <View style={Styles.addressHeader}>
@@ -206,9 +203,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                                 <Text style={Styles.amountText}>{Strings.amountToBepaid}</Text>
                                 <View style={Styles.AmountWithButton}>
                                     <Text style={Styles.amountNumber}>{GrandTotal.toFixed(2)} {countrySelected?.code.toUpperCase()}</Text>
-                                    <View
-                                        style={Styles.PaymentMethodExpandButtonContainer}
-                                    >
+                                    <View style={Styles.PaymentMethodExpandButtonContainer}>
                                         <Image source={Images?.Arrow_down} style={[Styles.ArrowDown, paymentMethodOpen && Styles?.ArrowUp]} />
                                     </View>
                                 </View>
@@ -317,8 +312,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
@@ -373,17 +367,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         userName: {
             fontSize: normalize(18),
-            fontWeight: 700,
             color: Colors.textBlack,
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.font18
         },
         userPhone: {
             fontSize: normalize(14),
             opacity: 0.7,
             marginTop: vh(4),
-            fontWeight: 700,
             color: Colors.textFadeBlack2,
-            fontFamily: Fonts.subHeader
+            fontFamily: Fonts.font18
         },
         changeButton: {
             position: 'absolute',
@@ -395,7 +387,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         changeText: {
             color: Colors.activeBorder,
-            fontWeight: 500,
             fontFamily: Fonts.font17,
             fontSize: normalize(10),
             marginHorizontal: vw(12),
@@ -414,7 +405,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         sectionTitle: {
             fontSize: normalize(14),
             marginLeft: vw(8),
-            fontWeight: 700,
+            fontFamily: Fonts.font17,
             color: Colors.textBlack,
         },
         radioRow: {
@@ -426,8 +417,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginRight: vw(6),
         },
         radioText: {
-            fontSize: normalize(16),
-            fontWeight: 500,
+            fontSize: normalize(16),    
+            fontFamily: Fonts.font17 , 
             color: Colors.textFadeBlack2,
         },
         radioOuter: {
@@ -448,13 +439,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.KFC_red,
             borderRadius: normalize(6),
         },
-
         sectionLabel: {
             marginTop: vh(12),
             fontSize: normalize(13),
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18 ,
             width: '90%',
             alignSelf: 'center'
         },
@@ -473,21 +462,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         homeTagText: {
             color: Colors.constantWhite,
             fontSize: normalize(10),
-            fontWeight: 700,
             marginHorizontal: vw(4),
             marginVertical: vh(2),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
         },
         editText: {
             color: Colors.ButtonBlueColor,
-            fontWeight: 600,
             fontSize: normalize(12),
             fontFamily: Fonts.font17,
             marginRight: vw(6),
         },
         addressText: {
             fontSize: normalize(14),
-            fontWeight: 500,
             marginBottom: vh(10),
             marginLeft: vw(6),
             fontFamily: Fonts.font17,
@@ -519,6 +505,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(12),
             color: Colors.textFadeBlack,
             marginVertical: vh(10),
+            fontFamily: Fonts.font17
         },
         ItemsCard: {
             elevation: 3,
@@ -547,14 +534,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         itemCount: {
             fontSize: normalize(22),
-            fontWeight: 700,
+            fontFamily :Fonts.font18,
             color: Colors.textBlack
         },
         itemsLabel: {
             marginLeft: vw(6),
             fontSize: normalize(12),
             opacity: 0.7,
-            color: Colors.textBlack
+            color: Colors.textBlack,
+            fontFamily: Fonts.font17
         },
         ItemTextContainer: {
             width: '70%',
@@ -565,7 +553,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginBottom: vh(12),
             color: Colors.timerFadeText,
             fontFamily: Fonts.font17,
-            fontWeight: 600,
             lineHeight: 20
         },
         CustomVerticalBorder: {
@@ -593,7 +580,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         amountText: {
             fontSize: normalize(14),
-            fontWeight: '600'
+            fontFamily: Fonts.font17
         },
         AmountWithButton: {
             display: 'flex',
@@ -603,7 +590,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         amountNumber: {
             fontSize: normalize(16),
-            fontWeight: '700'
+            fontFamily: Fonts.font18
         },
         PaymentMethodExpandButtonContainer: {
             marginLeft: vw(8),
@@ -635,15 +622,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         PriceEntriesLeft: {
             fontSize: normalize(14),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack,
-            fontWeight: 500,
         },
         PriceEntriesRight: {
             fontSize: normalize(14),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
-            fontWeight: 500,
             marginLeft: 'auto'
         },
         discountPrice: {
@@ -695,8 +680,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         paymentText: {
             marginLeft: vw(15),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textFadeBlack2
         },
         ButtonWrapper: {
@@ -717,8 +701,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         bottomButtonText: {
             marginVertical: vh(10),
             color: Colors.constantWhite,
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             fontSize: normalize(18),
         },
     });

@@ -29,8 +29,8 @@ export default function Index() {
   const ordersArray = useSelector((state: RootState) => state.orders);
   const previousOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status === Strings.deliveredString || item?.status === Strings.cancelledString)
   const currentOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status !== Strings.deliveredString && item?.status !== Strings.cancelledString)
-  const sortedCrrentOrder = currentOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
-  const sortedPreviousOrder = previousOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
+  const sortedCrrentOrder : OrderHistory[]= currentOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
+  const sortedPreviousOrder : OrderHistory[]= previousOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
   return (
     <View style={Styles?.Parent}>
       <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -108,8 +108,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     headerText: {
       fontSize: normalize(20),
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
       color: Colors.textBlack
     },
     BackIconAndHeaderText: {
@@ -135,8 +134,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     sectionTitle: {
       marginTop: vh(0),
       fontSize: normalize(17),
-      fontFamily: Fonts.subHeader,
-      fontWeight: 600,
+      fontFamily: Fonts.font17,
       color: Colors.textBlack,
       marginBottom: vh(8),
     },
@@ -174,9 +172,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     NoOrdersYet: {
       fontSize: normalize(24),
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
       color: Colors.textBlack,
-      fontWeight: 700,
       marginTop: vh(30)
     },
     makeAorder: {
@@ -184,7 +181,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       color: Colors.timerFadeText,
       fontFamily: Fonts.font17,
       letterSpacing: normalize(1),
-      fontWeight: 500,
       marginTop: vh(20),
       marginBottom: vh(10)
     },
@@ -196,8 +192,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     ExploreMenu: {
       color: Colors.constantWhite,
       fontSize: normalize(16),
-      fontFamily: Fonts.font17,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
       marginHorizontal: vw(50),
       marginVertical: vh(15)
     },

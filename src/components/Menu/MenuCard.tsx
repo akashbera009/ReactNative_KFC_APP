@@ -6,7 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootState, useAppDispatch } from '../../store/store';
 import { toggleFavourite } from '../../features/favoriteSlice';
 import { useSelector } from 'react-redux';
-import { addToCart, increaseQuantity,decreaseQuantity, removeFromCart } from '../../features/cartSlice';
+import { addToCart, increaseQuantity, decreaseQuantity, removeFromCart } from '../../features/cartSlice';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -20,23 +20,23 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
     const Strings = useStrings();
     const Styles = createDynamicStyles(Colors, Fonts);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const cartItem = useSelector((state: RootState)=> state.cart)
-    const itemInCart = cartItem?.cartItems?.find(item => item?.menuItemUid == foodItem?.uid)
-    const quantity = itemInCart ? itemInCart?.quantity : 0;
+    const cartItem = useSelector((state: RootState) => state.cart)
+    const itemInCart: CartItemType | undefined = cartItem?.cartItems?.find((item: CartItemType) => item?.menuItemUid == foodItem?.uid)
+    const quantity: number = itemInCart ? itemInCart?.quantity : 0;
     const dispatch = useAppDispatch()
     const favouritelist = useSelector((state: RootState) => state.favourite)
     const handleCartAdding = () => {
-        if ( cartItem?.cartItems?.find((item) => item?.menuItemUid === foodItem?.uid )) return;
+        if (cartItem?.cartItems?.find((item: CartItemType) => item?.menuItemUid === foodItem?.uid)) return;
         const newItem: CartItemType = {
             cartUid: Date.now(),
-            menuItemUid:foodItem?.uid ,
+            menuItemUid: foodItem?.uid,
             name: foodItem?.name,
-            description: foodItem?.description ,
+            description: foodItem?.description,
             price: foodItem?.price,
             oldPrice: foodItem?.oldPrice,
-            image:  foodItem?.image ,
+            image: foodItem?.image,
             categories: foodItem?.categories,
-            quantity: 1 ,
+            quantity: 1,
         }
         dispatch(addToCart(newItem))
     }
@@ -50,10 +50,10 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
             dispatch(decreaseQuantity(uid))
         } else return;
     }
-    const handleRemoveItem = (uid: string) => { 
-        if( quantity === 1 ){
+    const handleRemoveItem = (uid: string) => {
+        if (quantity === 1) {
             dispatch(removeFromCart(uid))
-        }else return ;
+        } else return;
     }
     const handleToggleFavourite = (uid: string) => {
         dispatch(toggleFavourite(uid))
@@ -156,7 +156,7 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         CardContainer: {
-            width:'100%',
+            width: '100%',
             alignSelf: 'center',
             backgroundColor: Colors.bodyColor,
             marginVertical: vh(6),
@@ -180,7 +180,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginRight: vw(14),
             marginVertical: vh(3),
             color: Colors.constantWhite,
-            fontWeight: 600
+            fontFamily: Fonts.font17
         },
         ribbonTriangle: {
             position: 'absolute',
@@ -198,7 +198,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
 
         },
         UpperContainer: {
-            width:'100%',
+            width: '100%',
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
@@ -213,7 +213,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginLeft: vw(15)
         },
         RightContainer: {
-            width:'60%',
+            width: '60%',
             paddingTop: vh(5),
             marginLeft: vw(10),
         },
@@ -225,8 +225,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         FoodName: {
             fontSize: normalize(15),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18 ,
             marginVertical: vh(10),
             color: Colors.textBlack
         },
@@ -234,7 +233,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
-            width:'100%',
+            width: '100%',
             marginLeft: vw(1)
         },
         DotAndDescription: {
@@ -251,8 +250,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.textFadeBlack,
         },
         DescriptioText: {
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font17,
             color: Colors.timerFadeText,
             fontSize: normalize(11),
             marginRight: vw(5),
@@ -267,9 +265,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         customizeText: {
             fontSize: normalize(13),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             color: Colors.ButtonBlueColor,
-            fontWeight: 700,
         },
         backArrow: {
             height: vh(12),
@@ -284,7 +281,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
-            width:'100%',
+            width: '100%',
         },
         LowerLeftPriceContainer: {
             display: 'flex',
@@ -295,7 +292,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         Price: {
             fontSize: normalize(15),
-            fontWeight: 700,
+            fontFamily: Fonts.font18 , 
             marginHorizontal: vw(2),
             color: Colors.textBlack,
         },
@@ -306,12 +303,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         OldPrice: {
             fontSize: normalize(13),
-            fontWeight: 700,
+            fontFamily: Fonts.font17 ,
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack,
         },
         CrossBorder: {
-            width:'100%',
+            width: '100%',
             borderBottomColor: Colors.textFadeBlack,
             borderBottomWidth: normalize(2),
             position: 'absolute',
@@ -339,8 +336,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         counter: {
             marginHorizontal: vw(8),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             fontSize: normalize(16),
             color: Colors.textBlack
         },
@@ -380,8 +376,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(10),
             marginHorizontal: vw(14),
             marginVertical: vh(10),
-            fontFamily: Fonts.headerRegular,
-            fontWeight: 700
+            fontFamily: Fonts.font18,
         },
         Favourite_Icon: {
             height: vh(20),

@@ -26,7 +26,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
-    const rawPhone = phoneNo
+    const rawPhone = phoneNo ;
     let formattedText
     if (countrySelected?.code == 'uae')
         formattedText = phoneNo.replace(/(\d{3})(?=\d)/g, '$1 ');
@@ -44,7 +44,6 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         dispatch(fetctUserDeatails())
     }, [dispatch])
     const userdata = useSelector((state: RootState) => state?.users)
-    console.log(userdata);
     const currentUser = userdata?.userData.find((item) => item?.mobileNo == rawPhone)
     const [email, setEmail] = useState<string | undefined>(currentUser?.email)
     const [name, setName] = useState<string | undefined>(currentUser?.name)
@@ -54,9 +53,9 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const [showWarningName, setShowWarningName] = useState<boolean>(false)
     const [showTopEmail, setShowTopgEmail] = useState<boolean>(false)
     const [showTopName, setShowTopName] = useState<boolean>(false)
-    const [goodToLogin, setGoodToLogin] = useState(false)
+    const [goodToLogin, setGoodToLogin] = useState<boolean>(false)
     const [selectedImage, setSelectedImage] = useState<string | undefined>(currentUser?.avatar)
-    const [refreshing, setRefreshing] = React.useState(false);
+    const [refreshing, setRefreshing] = React.useState<boolean>(false);
     useEffect(() => {
         checkGoodToLogin();
         handleShowWarningEmail();
@@ -164,8 +163,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                     enableOnAndroid={true}
                      refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                }
-                >
+                } >
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                         <View >
                             <View style={Styles.enterCreateProfileHeaderContainer}>
@@ -296,14 +294,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.subHeader,
-            fontWeight: '700',
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
         },
         sectionTitle: {
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
-            fontWeight: '700',
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
             marginTop: vh(10),
             marginLeft: vw(20),
@@ -313,9 +309,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         enterCreateProfileHeader: {
             fontSize: normalize(18),
-            fontWeight: 600,
             marginTop: vh(30),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
         },
         CreateProfileRelatedContainer: {
             marginTop: vh(15),
@@ -347,8 +342,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         InputEntries: {
             marginRight: vw(10),
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600,
+            fontFamily: Fonts.font17,
             color: Colors.textBlack
         },
         WrapperPhoneNoContainer: {
@@ -373,7 +367,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         mobileCode: {
             marginBottom: vh(5),
             fontSize: normalize(16),
-            fontWeight: 600,
+            fontFamily: Fonts.font17 , 
             color: Colors.textBlack
         },
         arrowDown: {
@@ -388,23 +382,21 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginLeft: vw(10)
         },
         mobileNumberPlaceholder: {
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.timerFadeText,
             fontSize: normalize(10),
             marginLeft: vw(105),
         },
         mobileNo: {
             fontSize: normalize(16),
-            fontWeight: 600,
+            fontFamily: Fonts.font17 , 
             alignSelf: 'center',
             marginLeft: vw(5),
             color: Colors.textBlack
         },
-        placeHolderTopText: {
-            fontWeight: 800,
+        placeHolderTopText: {   
             fontSize: normalize(11),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             color: Colors.timerFadeText,
             marginBottom: vh(-15)
         },
@@ -433,7 +425,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(12),
             color: Colors.orangeColorText,
             marginLeft: vw(10),
-            fontWeight: 500,
+            fontFamily: Fonts.font17 , 
             marginTop: vh(8)
         },
         mobileAndImage: {
@@ -482,8 +474,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.KFC_red
         },
         VerifyBUttonText: {
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             fontSize: normalize(16),
             color: Colors.verifyText
         },

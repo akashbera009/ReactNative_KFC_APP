@@ -66,8 +66,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                             <Text
                                 style={{
                                     fontSize: normalize(16),
-                                    fontFamily: Fonts.subHeader,
-                                    fontWeight: '700',
+                                    fontFamily: Fonts.font18,
                                     marginHorizontal: vw(20),
                                     marginBottom: normalize(10),
                                 }}
@@ -94,7 +93,6 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                                 style={{
                                                     fontSize: normalize(15),
                                                     fontFamily: Fonts.font17,
-                                                    fontWeight: '600',
                                                     color: Colors.textBlack,
                                                 }}
                                             >
@@ -112,7 +110,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                                         alignItems: "center",
                                                     }}
                                                 >
-                                                    <Text style={{ fontSize: normalize(20) }}>−</Text>
+                                                    <Text style={{ fontSize: normalize(20), fontFamily: Fonts.font17 }}>−</Text>
                                                 </TouchableOpacity>
 
                                                 <Text
@@ -136,7 +134,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                                         alignItems: "center",
                                                     }}
                                                 >
-                                                    <Text style={{ color: "white", fontSize: normalize(20) }}>
+                                                    <Text style={{ color: Colors.constantWhite, fontSize: normalize(20), fontFamily: Fonts.font17 }}>
                                                         +
                                                     </Text>
                                                 </TouchableOpacity>
@@ -175,7 +173,6 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                                 style={{
                                                     fontSize: normalize(14),
                                                     fontFamily: Fonts.font17,
-                                                    fontWeight: '600',
                                                     color: Colors.textBlack,
                                                 }}
                                             >
@@ -261,12 +258,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
             paddingBottom: normalize(15),
         },
-        headerText: {
-            fontSize: normalize(20),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
-            color: Colors.textBlack
-        },
         BackIconAndHeaderText: {
             display: 'flex',
             flexDirection: 'row',
@@ -289,8 +280,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         navHeaderText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
         },
         ScrollContainer: {
             height: '92%',
@@ -340,10 +330,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         resetButtonText: {
             fontSize: normalize(12),
-            fontWeight: 700,
             paddingHorizontal: normalize(12),
             paddingVertical: normalize(6),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             color: Colors.textFadeBlack
         },
         BottomCartContainer: {

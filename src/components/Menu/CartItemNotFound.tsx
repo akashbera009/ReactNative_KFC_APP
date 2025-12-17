@@ -1,11 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, } from 'react-native';
 import React from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-//redux
-import { RootState } from '../../store/store';
-import { useSelector } from 'react-redux';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -70,24 +66,22 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             position: 'absolute',
             top: vh(30),
             right: vw(50),
-            color: Colors.constantBlack
+            color: Colors.constantBlack,
         },
         Opps: {
             marginTop: vh(50),
             alignSelf: 'center',
             fontSize: normalize(20),
-            fontWeight: 700,
             color: Colors.textBlack,
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.font18
         },
         NotFoundRes: {
             alignSelf: 'center',
             marginVertical: vh(10),
             fontSize: normalize(14),
-            fontWeight: 600,
             marginTop: vh(20),
             color: Colors.resendOtpText,
-            fontFamily: Fonts.subHeader
+            fontFamily: Fonts.font17
         },
         ExploreMoreButton: {
             backgroundColor: Colors.KFC_red,
@@ -97,11 +91,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         ExploreMoreButtonTxt: {
             color: Colors.constantWhite,
-            fontWeight: 600,
             fontSize: normalize(15),
             marginHorizontal: vw(35),
             marginVertical: vh(16),
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.font18
         },
     })
     return Styles;

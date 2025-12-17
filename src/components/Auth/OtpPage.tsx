@@ -22,8 +22,8 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { countrySelected } = useCountry()
-  const [timer, setTimer] = useState(90)
-  const [resendActive, setResendActive] = useState(false)
+  const [timer, setTimer] = useState<number>(90)
+  const [resendActive, setResendActive] = useState<boolean>(false)
 
   useEffect(() => {
     if (timer > 0) {
@@ -52,8 +52,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   }
 
   const handleVerify = () => {
-    // if(goodToLogin) 
-    // comment
+    if(goodToLogin) 
     navigation.push(Strings.CreateProfileScreen, {
       phoneNo: phoneNo1
     })
@@ -201,9 +200,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     headerText: {
       fontSize: normalize(20),
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
-      color: Colors.textBlack
+      fontFamily: Fonts.font18,
+      color: Colors.textBlack 
     },
     BackIconAndHeaderText: {
       display: 'flex',
@@ -220,8 +218,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     navHeaderText: {
       fontSize: normalize(20),
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
     },
     enterOtpHeaderContainer: {
       width: '90%',
@@ -229,15 +226,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     enterOtpHeader: {
       fontSize: normalize(18),
-      fontWeight: 600,
       marginTop: vh(30),
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
     },
     PhoneNo: {
       fontSize: normalize(17),
-      fontWeight: 600,
       marginTop: vh(10),
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
     },
     otpRelatedContainer: {
       marginTop: vh(15),
@@ -293,8 +288,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       backgroundColor: Colors.KFC_red
     },
     VerifyBUttonText: {
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
       fontSize: normalize(16),
       color: Colors.verifyText
     },
@@ -327,8 +321,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     resendRealtedText: {
       color: Colors.resendOtpText,
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
       margin: normalize(10)
     },
     activeResndText: {

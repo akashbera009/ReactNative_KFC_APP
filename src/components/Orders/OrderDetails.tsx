@@ -125,7 +125,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                     {order?.Items?.map((item, idx) => (
                         <View style={Styles.CardContainer} key={idx}>
                             <View style={Styles.UpperContainer}>
-                                <Image source={{uri:item?.image}} style={Styles.LeftfoodImage} />
+                                <Image source={{ uri: item?.image }} style={Styles.LeftfoodImage} />
                                 <View style={Styles.RightContainer}>
                                     <Text style={Styles.FoodName}>{item.name}</Text>
                                     <View style={Styles.DescriptionContainer}>
@@ -179,8 +179,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
@@ -220,19 +219,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(15),
             fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
-            fontWeight: 500
         },
         orderId: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
-            fontWeight: 700
         },
         date: {
             fontSize: normalize(14),
             fontFamily: Fonts.font17,
             color: Colors.timerFadeText,
-            fontWeight: 600,
             marginTop: vh(6)
         },
         TrackContainer: {
@@ -266,18 +262,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(14),
             fontFamily: Fonts.font17,
             color: Colors.timerFadeText,
-            fontWeight: 500,
         },
         GrandText: {
             fontSize: normalize(15),
             color: Colors.textFadeBlack2,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
         },
         PriceEntriesRight: {
             fontSize: normalize(14),
             fontFamily: Fonts.font17,
             color: Colors.textBlack,
-            fontWeight: 600,
             marginLeft: 'auto'
         },
         trackButton: {
@@ -294,9 +288,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors.constantWhite,
             paddingHorizontal: vw(10),
             paddingVertical: vh(6),
-            fontWeight: 700,
             fontSize: normalize(12),
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.font18
         },
         downloadContainer: {
             width: "95%",
@@ -322,7 +315,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             tintColor: Colors.textBlack
         },
         ShareText: {
-            marginHorizontal: vw(10),
+            marginHorizontal: vw(15),
             color: Colors.textFadeBlack2,
             fontSize: normalize(16),
             fontFamily: Fonts.font17,
@@ -353,14 +346,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             tintColor: Colors.textBlack
         },
         deliveryTo: {
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font17,
             fontSize: normalize(15),
             color: Colors.textFadeBlack2
         },
         Type: {
-            fontFamily: Fonts.font17,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             fontSize: normalize(15),
             color: Colors.textBlack
         },
@@ -370,13 +361,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(-5),
             marginBottom: vh(20),
             fontFamily: Fonts.font17,
-            fontWeight: 600,
             color: Colors.timerFadeText
         },
         TotalItems: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             fontSize: normalize(16),
-            fontWeight: 700,
             width: '95%',
             alignSelf: 'center',
             marginTop: vh(5),
@@ -414,8 +403,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         FoodName: {
             fontSize: normalize(15),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             marginVertical: vh(10),
             color: Colors.textBlack
         },
@@ -440,8 +428,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.textFadeBlack,
         },
         DescriptioText: {
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.timerFadeText,
             fontSize: normalize(11),
             marginRight: vw(5),
@@ -473,9 +460,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         Price: {
             fontSize: normalize(15),
-            fontWeight: 700,
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack2,
+            fontFamily: Fonts.font18
         },
         OldPriceContainer: {
             display: 'flex',
@@ -484,9 +471,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         OldPrice: {
             fontSize: normalize(13),
-            fontWeight: 700,
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack,
+            fontFamily: Fonts.font18
         },
         CrossBorder: {
             width: '100%',
@@ -506,13 +493,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         Qty: {
             fontFamily: Fonts.font17,
             fontSize: normalize(17),
-            fontWeight: 600,
             color: Colors.textFadeBlack,
         },
         QtyNumber: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             fontSize: normalize(18),
-            fontWeight: 700,
             color: Colors.textBlack,
         },
     });

@@ -49,7 +49,7 @@ export default function LoginPage() {
       <View style={[Styles.GradientOverlayBG,]}>
         <LinearGradient colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.25)', '#000000f3', '#000000ff']} style={[Styles.GradientOverlayBG,]} >
           <View style={Styles.MiddleContainer}>
-            <Text style={Styles.HeaderKFC}> {Strings.KFC}</Text>
+            <Image source={Images?.KfcTextLogo} style={Styles.kfclogoImage} />
             <Text style={Styles.LoginDescriptionText}> {Strings.loginToUlock}</Text>
             <Text style={Styles.LoginDescriptionText}> {Strings.awesomeNewFeature}</Text>
           </View>
@@ -115,11 +115,11 @@ export default function LoginPage() {
           </TouchableOpacity>
           <View style={[Styles.BottomTermsContainer, { marginBottom: inset.bottom + 10 }]}>
             <TouchableOpacity >
-              <Text style={[{ fontFamily: Fonts.subHeader, color: Colors.fadeWhiteText }]}>{Strings.termsCondition.toUpperCase()}</Text>
+              <Text style={Styles.termsAndCondition}>{Strings.termsCondition.toUpperCase()}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate(Strings.HomeScreen)}>
-              <Text style={[{ fontFamily: Fonts.subHeader, color: Colors.fadeWhiteText }]}>{Strings.skipLogin}</Text>
+              <Text style={Styles.termsAndCondition}>{Strings.skipLogin}</Text>
             </TouchableOpacity>
           </View>
         </LinearGradient>
@@ -173,15 +173,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     HeaderKFC: {
       fontSize: normalize(80),
-      fontWeight: 900,
       color: Colors.constantWhite,
-      fontFamily: Fonts.kfcLogoTextFont,
+      fontFamily: Fonts.font18
+    },
+    kfclogoImage: {
+      height: 50,
+      width: 170,
+      tintColor: Colors.constantWhite,
+      marginBottom: 10,
     },
     LoginDescriptionText: {
       fontSize: normalize(22),
-      fontWeight: 700,
       color: Colors.constantWhite,
-      fontFamily: Fonts.headerRegular
+      fontFamily: Fonts.font18
     },
     MiddleContainer: {
       marginTop: vh(100),
@@ -209,16 +213,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       tintColor: Colors.constantWhite
     },
     OfferDealsText: {
-      fontWeight: 800,
       marginBottom: vh(10),
       marginLeft: vw(8),
       fontSize: normalize(12),
       marginHorizontal: 'auto',
-      fontFamily: Fonts.headerRegular,
+      fontFamily: Fonts.font18,
       color: Colors.constantWhite
     },
     ChooseLangageText: {
       color: Colors.fadeWhiteText,
+      fontFamily: Fonts.font17 , 
       width: '90%',
       marginVertical: vh(10),
       marginHorizontal: 'auto'
@@ -289,14 +293,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginVertical: 'auto'
     },
     CountryName: {
-      fontWeight: 500,
-      fontFamily: Fonts.subHeader
+      fontFamily: Fonts.font17
     },
     changeText: {
       marginRight: vw(10),
       marginLeft: vw(15),
-      fontWeight: 700,
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font17,
       color: Colors.constantBlack
     },
     loginButton: {
@@ -312,8 +314,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     LoginButtonText: {
       fontSize: normalize(16),
-      fontWeight: 800,
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
       color: Colors.constantWhite
     },
     BottomTermsContainer: {
@@ -323,6 +324,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between'
+    },
+    termsAndCondition:{
+     fontFamily: Fonts.subHeader, 
+     color: Colors.fadeWhiteText 
     }
   })
   return Styles

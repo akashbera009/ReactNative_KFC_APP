@@ -1,19 +1,21 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, RefreshControl } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import MapView, { Marker, Polyline } from 'react-native-maps';
+//maps
+import MapView, { Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
 // data imports
 import { stores } from '../../data/StoresData';
 // util imports 
 import Fonts from '../../utils/Fonts'
+import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { useCountry } from '../../context/CountryContext';
-import Images from '../../utils/LocalImages';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackOrderScreenProps) {
+export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProps) {
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts);
@@ -21,11 +23,30 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
   const inset = useSafeAreaInsets()
   const { countrySelected } = useCountry()
   // maps 
-  const [location, setLocation] = useState(
-    {
-      latitude: 26.849658837614005,
-      longitude: 75.80045046009853,
-    });
+  const [location, setLocation] = useState<Coordinate>({
+    latitude: 0,
+    longitude: 0,
+  });
+  const getCurrentLocation = async () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        console.log('position', position)
+        setLocation({
+          latitude: position?.coords?.latitude,
+          longitude: position?.coords?.longitude
+        })
+      },
+      error => console.log('error', error),
+      {
+        enableHighAccuracy: true,
+        timeout: 15000
+      }
+    )
+  };
+  useEffect(() => {
+    getCurrentLocation()
+  }, [])
+
   const initialRegion = {
     latitude: (location.latitude + stores[0].latitude) / 2,
     longitude: (location.longitude + stores[0].longitude) / 2,
@@ -62,6 +83,7 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
+    getCurrentLocation();
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
@@ -94,13 +116,17 @@ export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackO
           <View style={Styles.MapContainer}>
             <MapView
               style={Styles.map}
-              initialRegion={initialRegion}>
-              <Marker coordinate={location} title={Strings.youreHere} />
+              initialRegion={initialRegion}
+              provider={PROVIDER_GOOGLE} >
+              <Marker 
+                coordinate={location} 
+                title={Strings.youreHere} />
               <Marker
                 coordinate={{
                   latitude: stores[0].latitude,
                   longitude: stores[0].longitude
                 }}
+                 description={Strings.partnerComing}
               >
                 <View style={Styles.kfcImageContainer}>
                   <Image
@@ -184,8 +210,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     headerText: {
       fontSize: normalize(20),
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
       color: Colors.textBlack
     },
     BackIconAndHeaderText: {
@@ -209,9 +234,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     editbuttonFadeText: {
       color: Colors.textBlack,
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.font18,
       fontSize: normalize(12),
-      fontWeight: 700,
       marginHorizontal: vw(10),
       marginVertical: vh(5),
     },
@@ -257,10 +281,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginRight: vw(12),
     },
     orderIdText: {
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font17,
       fontSize: normalize(14),
       color: Colors.textBlack,
-      fontWeight: 700,
     },
     codText: {
       fontFamily: Fonts.font17,
@@ -277,16 +300,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     detailsButtonText: {
       color: Colors.textBlack,
-      fontWeight: 600,
       fontFamily: Fonts.font17,
       fontSize: normalize(10),
     },
     currentStatusHeading: {
       marginTop: vh(20),
       marginLeft: vw(20),
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
       fontSize: normalize(10),
-      fontWeight: 700,
       color: Colors.KFC_red,
     },
     statusRow: {
@@ -313,10 +334,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       flex: 1,
     },
     statusTitle: {
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
       fontSize: normalize(16),
       color: Colors.textBlack,
-      fontWeight: 700,
     },
     statusSubtitle: {
       fontFamily: Fonts.font17,
@@ -336,7 +356,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       color: Colors.constantWhite,
       fontSize: normalize(12),
       fontFamily: Fonts.font17,
-      fontWeight: 700,
     },
     statusBadgeNext: {
       backgroundColor: Colors.blueShadows,
@@ -348,10 +367,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     statusBadgeNextText: {
       fontSize: normalize(12),
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
       color: Colors.constantWhite,
     },
-
   })
   return Styles
 }

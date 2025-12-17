@@ -1,5 +1,5 @@
 import { StyleSheet, View, FlatList, Platform } from 'react-native'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // component imports 
 import MenuCard from './MenuCard'
@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState} from '../../store/store';
 //util files 
 import { useThemeColors } from '../../utils/Colors'
-import { vh, vw, normalize } from '../../utils/Dimensions'
+import { vh} from '../../utils/Dimensions'
 
 export default function ExploreMenu({ activeCategory}: { activeCategory: string }) {
     const Colors = useThemeColors()
@@ -45,7 +45,6 @@ export default function ExploreMenu({ activeCategory}: { activeCategory: string 
         </View>
     )
 }
-
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         ScrollContainer: {

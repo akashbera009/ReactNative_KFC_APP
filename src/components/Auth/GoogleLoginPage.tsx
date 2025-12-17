@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
 import { GoogleSignin, statusCodes, isSuccessResponse, isErrorWithCode } from '@react-native-google-signin/google-signin';
 // util file 
-import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import Fonts from '../../utils/Fonts';
 
 export default function GoogleLoginPage() {
   const Colors = useThemeColors();
-  const Strings = useStrings();
   const Styles = createDynamicStyles(Colors, Fonts);
   const [userToken, setUserToken] = useState<string | null>(null);
 

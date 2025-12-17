@@ -153,8 +153,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize (20),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
@@ -214,10 +213,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontFamily: Fonts.font17,
             color: Colors.resendOtpText,
             fontSize: normalize(14),
-            fontWeight: 600,
         },
-        ActiveText: {
-            fontWeight: 700,
+        ActiveText: {   
+            fontFamily: Fonts.font18 , 
             color: Colors.textBlack,
         },
         BottomCartContainer: {

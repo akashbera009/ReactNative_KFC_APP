@@ -12,14 +12,13 @@ import { useStrings } from '../../utils/Strings';
 import { useSelector } from 'react-redux';
 import { selectCurrentOrder } from '../../features/getCurrentOrder';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-
 export default function orderQueueItem() {
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const currentOrder = useSelector(selectCurrentOrder)
-  const ItemNames = currentOrder?.Items.map((item) => item?.name).join(',')
+  const ItemNames = currentOrder?.Items.map((item:CartItemType) => item?.name).join(',')
   return (
     <View style={Styles.ParentDeliveryContainer} >
       <Text style={Styles.Header}>{Strings.CurrentOrder.toUpperCase()} </Text>
@@ -82,30 +81,26 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     orderIdText: {
       color: Colors.textFadeBlack2,
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font17,
       fontSize: normalize(13),
-      fontWeight: 600,
     },
     Header: {
       color: Colors.textBlack,
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
       fontSize: normalize(14),
       marginVertical: vw(10),
-      fontWeight: 700,
     },
     orderId: {
       fontSize: normalize(13),
       color: Colors.textBlack,
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
       letterSpacing: normalize(.1),
-      fontWeight: 700,
     },
     date: {
       fontSize: normalize(13),
       color: Colors.textBlack,
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font17,
       letterSpacing: normalize(.1),
-      fontWeight: 600,
     },
     VerticalBorder: {
       height: '80%',
@@ -118,12 +113,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     orderItem: {
       fontSize: normalize(12),
       color: Colors.timerFadeText,
-      fontWeight: 600,
+      fontFamily : Fonts.font17
     },
     beverages: {
       fontSize: normalize(12),
       color: Colors.timerFadeText,
-      fontWeight: 600,
+      fontFamily: Fonts.font17
     },
     trackButton: {
       backgroundColor: Colors.KFC_red,
@@ -137,8 +132,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       paddingHorizontal: vw(8),
       paddingVertical: vh(6),
       fontSize: normalize(13),
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
     }
   })
   return Styles

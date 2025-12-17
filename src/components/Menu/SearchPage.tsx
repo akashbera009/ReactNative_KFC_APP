@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Keyboard, FlatList } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Keyboard, FlatList, Animated, Platform } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -24,10 +24,50 @@ export default function SearchPage() {
     const [searchResult, setSearchResult] = useState<menuDataType[]>([])
     const menuData = useSelector((state: RootState) => state.menuData)
     const menuItem = menuData?.menuData
+    const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
+    const debounceChange = (text: string): void => {
+        setSearchTerm(text);
+        if (debounceTimeout.current) {
+            clearTimeout(debounceTimeout.current)
+        }
+        debounceTimeout.current = setTimeout(() => {
+            const result = menuItem?.filter(
+                (item: menuDataType) =>
+                    item?.name?.toLowerCase().includes(text.toLowerCase())
+            )
+            setSearchResult(result)
+        }, 500)
+    }
+    const distanceFromKeyboard = useRef(new Animated.Value(0)).current
+    const scaleRef = useRef(new Animated.Value(0)).current
+    const startAnimation = (value: number, scaleTo: number) => {
+        Animated.parallel([
+            Animated.timing(distanceFromKeyboard, {
+                toValue: value,
+                duration: 300,
+                useNativeDriver: true
+            }),
+            Animated.timing(scaleRef, {
+                toValue: scaleTo,
+                duration: 300,
+                useNativeDriver: true
+            })
+        ]).start()
+    }
+    const showEvent = Platform.OS == 'ios' ? 'keyboardWillShow' : 'keyboardDidShow'
+    const hideEvent = Platform.OS == 'ios' ? 'keyboardWillHide' : 'keyboardDidHide'
     useEffect(() => {
-        const result = menuItem?.filter((item) => item?.name?.toLowerCase().includes(searchTerm.toLowerCase()))
-        setSearchResult(result)
-    }, [searchTerm])
+        Keyboard.addListener(showEvent, (e) => {
+            startAnimation(-e?.endCoordinates?.height + 170, 1)
+        })
+        Keyboard.addListener(hideEvent, () => {
+            startAnimation(0, 0)
+        })
+        return (() => {
+            Keyboard.removeAllListeners(showEvent)
+            Keyboard.removeAllListeners(hideEvent)
+        })
+    }, [])
     return (
         <View style={Styles.parent}>
             <View style={[Styles.navigationContainer, {}]}>
@@ -38,7 +78,7 @@ export default function SearchPage() {
                     </TouchableOpacity>
                     <TextInput value={searchTerm}
                         style={Styles.SearchBar}
-                        onChangeText={setSearchTerm}
+                        onChangeText={debounceChange}
                         placeholder={Strings.search}
                         cursorColor={Colors.KFC_red}
                         selectionColor={Colors.KFC_red}
@@ -50,38 +90,65 @@ export default function SearchPage() {
                     </TouchableOpacity>
                 </View>
             </View>
-
             <View style={Styles.ContentContainer}>
-                {searchResult?.length === 0 && (
+                {searchTerm == '' ? (
                     <TouchableWithoutFeedback
-                        onPress={Keyboard.dismiss} accessible={false}>
-                        <View
-                            style={Styles.NotFoundContainer}>
-                            <View style={Styles.imageContaienr}>
-                                <Image source={Images?.CoffeeCup} style={Styles.ConfeeCupImage} />
-                                <Image source={Images?.SpilledWater} style={Styles.SplledWaterImage} />
-                            </View>
-                            <Text style={Styles.Opps}>{Strings.opps.toUpperCase()} </Text>
-                            <Text style={Styles.NotFoundRes}>{Strings.noResFound} </Text>
-                            <TouchableOpacity
-                                style={Styles.ExploreMoreButton}
-                                onPress={() => { navigation.pop() }}
-                            >
-                                <Text style={Styles.ExploreMoreButtonTxt}>{Strings.exploreKFCMenu.toUpperCase()} </Text>
-                            </TouchableOpacity>
-                        </View>
+                        onPress={Keyboard.dismiss}>
+                        <Animated.View style={[Styles.blankScreenContainer, {
+                            transform: [{
+                                translateY: distanceFromKeyboard
+                            }]
+                        }]}>
+                            <Animated.Text style={[Styles.trySearching, {
+                                transform: [
+                                    {
+                                        scale: scaleRef.interpolate({
+                                            inputRange: [0, 1],
+                                            outputRange: [1, 1.5]
+                                        })
+                                    }
+                                ]
+                            }]}>
+                                {Strings.trySearching}
+                            </Animated.Text>
+                        </Animated.View>
                     </TouchableWithoutFeedback>
+                ) : (
+                    <>
+                        {searchResult?.length === 0 && (
+                            <TouchableWithoutFeedback
+                                onPress={Keyboard.dismiss} accessible={false}>
+                                <Animated.View
+                                    style={[Styles.NotFoundContainer, {transform:[{
+                                        translateY: distanceFromKeyboard
+                                    }]}]}>
+                                    <View style={Styles.imageContaienr}>
+                                        <Image source={Images?.CoffeeCup} style={Styles.ConfeeCupImage} />
+                                        <Image source={Images?.SpilledWater} style={Styles.SplledWaterImage} />
+                                    </View>
+                                    <Text style={Styles.Opps}>{Strings.opps.toUpperCase()} </Text>
+                                    <Text style={Styles.NotFoundRes}>{Strings.noResFound} </Text>
+                                    <TouchableOpacity
+                                        style={Styles.ExploreMoreButton}
+                                        onPress={() => { navigation.pop() }}
+                                    >
+                                        <Text style={Styles.ExploreMoreButtonTxt}>{Strings.exploreKFCMenu.toUpperCase()} </Text>
+                                    </TouchableOpacity>
+                                </Animated.View>
+                            </TouchableWithoutFeedback>
+                        )}
+                        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                            <FlatList
+                                data={searchResult}
+                                keyExtractor={(item) => item.id.toString()}
+                                renderItem={({ item }) => <MenuCard foodItem={item} />}
+                                contentContainerStyle={[Styles.ScrollViewContainer, { paddingBottom: inset.bottom + 20 }]}
+                                keyboardShouldPersistTaps="handled"
+                                showsVerticalScrollIndicator={false}
+                            />
+                        </TouchableWithoutFeedback>
+                    </>
                 )}
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                    <FlatList
-                        data={searchResult}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={({ item }) => <MenuCard foodItem={item} />}
-                        contentContainerStyle={[Styles.ScrollViewContainer, { paddingBottom: inset.bottom + 20 }]}
-                        keyboardShouldPersistTaps="handled"
-                        showsVerticalScrollIndicator={false}
-                    />
-                </TouchableWithoutFeedback>
             </View>
         </View>
     );
@@ -93,7 +160,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flex: 1
         },
         navigationContainer: {
-            width:'100%',
+            width: '100%',
             display: 'flex',
             alignItems: 'flex-end',
             justifyContent: 'flex-end',
@@ -105,7 +172,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             elevation: 5,
         },
         innerNavigationContainer: {
-            width:'100%',
+            width: '100%',
             height: vh(60),
             display: 'flex',
             flexDirection: 'row',
@@ -118,13 +185,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: vw(18),
             marginLeft: vw(20),
         },
-
         SearchBar: {
-            width:'70%',
+            width: '70%',
             height: '90%',
             fontSize: normalize(14),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600,
+            fontFamily: Fonts.font17,
             color: Colors.textBlack,
             marginLeft: vw(20)
         },
@@ -138,13 +203,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(8),
             flex: 1,
         },
+        blankScreenContainer: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+        trySearching: {
+            fontFamily: Fonts.font18,
+            color: Colors.textBlack,
+            fontSize: normalize(18)
+        },
         NotFoundContainer: {
             marginTop: vh(100),
-            width:'100%',
+            width: '100%',
         },
         imageContaienr: {
             height: vh(200),
-            marginHorizontal:'auto',
+            marginHorizontal: 'auto',
             marginTop: vh(60),
         },
         ConfeeCupImage: {
@@ -171,31 +246,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(30),
             alignSelf: 'center',
             fontSize: normalize(24),
-            fontWeight: 700,
             color: Colors.textBlack,
-            fontFamily: Fonts.subHeader
+            fontFamily: Fonts.font18
         },
         NotFoundRes: {
             alignSelf: 'center',
             marginVertical: vh(10),
             fontSize: normalize(18),
-            fontWeight: 600,
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.subHeader
+            fontFamily: Fonts.font17
         },
         ExploreMoreButton: {
             backgroundColor: Colors.KFC_red,
-            marginHorizontal:'auto',
+            marginHorizontal: 'auto',
             marginTop: vh(15),
             borderRadius: normalize(2),
         },
         ExploreMoreButtonTxt: {
             color: Colors.constantWhite,
-            fontWeight: 700,
             fontSize: normalize(15),
             marginHorizontal: vw(35),
             marginVertical: vh(16),
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.font18
         },
         ScrollViewContainer: {
 

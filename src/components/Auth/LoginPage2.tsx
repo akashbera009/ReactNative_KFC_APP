@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
-
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+// google sign in 
+import { GoogleSignin, statusCodes, isSuccessResponse, isErrorWithCode } from '@react-native-google-signin/google-signin';
 // util import 
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
@@ -22,8 +23,8 @@ export default function LoginPage2() {
     const { countrySelected } = useCountry()
     const { language, setLanguage } = useLanguage()
     const [mobileNo, setMobileNo] = useState<string>('')
-    const [goodToLogin, setGoodToLogin] = useState(false)
-
+    const [goodToLogin, setGoodToLogin] = useState<boolean>(false)
+    const [userToken, setUserToken] = useState<string | null>(null);
     useEffect(() => {
         checkGoodToLogin()
     }, [mobileNo])
@@ -45,11 +46,39 @@ export default function LoginPage2() {
             setMobileNo(formattedText)
         }
     }
+    const signInWithGoogle = async () => {
+        try {
+            await GoogleSignin.hasPlayServices();
+            const response = await GoogleSignin.signIn();
+            console.log('Google Sign-In response:', response);
+            if (isSuccessResponse(response)) {
+                console.log('isSuccessResponse(response)', isSuccessResponse(response))
+                setUserToken(response?.data?.idToken)
+                Alert.alert('Success', 'Google Sign-In Successful! Check console for info.');
+            } else if (response.type == 'cancelled') {
+                console.log('sign in was calcelled by user ');
+                Alert.alert('Alert', 'Sigin in calcelled by user');
+            } else {
+                console.log('unknown action');
+            }
+        } catch (error) {
+            if (isErrorWithCode(error)) {
+                switch (error.code) {
+                    case statusCodes.IN_PROGRESS:
+                        console.log(statusCodes.IN_PROGRESS);
+                        break;
+                    case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+                        console.log(statusCodes.PLAY_SERVICES_NOT_AVAILABLE);
+                        break;
+                    default:
+                        console.log(error);
+                }
+            }
+        };
+    }
     const handleSubmit = async () => {
-        // if (mobileNo.length < countrySelected?.mobileNoLength)
-        //     return
-        // await Keyboard.dismiss()
-        // comment
+        if (mobileNo.length < countrySelected?.mobileNoLength) return
+        await Keyboard.dismiss()
         navigation.push(Strings.OTPScreen, {
             phoneNo: mobileNo
         })
@@ -132,19 +161,17 @@ export default function LoginPage2() {
                         </View>
                         <View style={Styles.SocialContainer}>
                             <Text style={Styles.chooseLangHeader}>{Strings.loginWithSocialHeader} </Text>
-
                             <View style={Styles.FaangContainer}>
-
                                 <TouchableOpacity
                                     style={Styles.faangButton}
-                                    onPress={handleSubmit}
+                                    onPress={signInWithGoogle}
                                 >
                                     <Image source={Images?.facebook} style={Styles.faangLogo} />
                                     <Text style={Styles.faangButtonText}>{Strings.facebook.toUpperCase()} </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={Styles.faangButton}
-                                    onPress={handleSubmit}
+                                    onPress={signInWithGoogle}
                                 >
                                     <Image source={Images?.google} style={Styles.faangLogo} />
                                     <Text style={Styles.faangButtonText}>{Strings.google.toUpperCase()} </Text>
@@ -201,8 +228,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         Welcome2: {
             fontSize: normalize(18),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             marginHorizontal: vw(5),
             alignSelf: 'center',
             letterSpacing: normalize(.2)
@@ -215,11 +241,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         SecondLineText: {
             fontSize: normalize(22),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             marginHorizontal: vw(4)
         },
-
         LowerContaienr: {
             width: '100%',
             height: '100%',
@@ -241,7 +265,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         chooseLangHeader: {
             color: Colors.timerFadeText,
-            fontWeight: 700,
+            fontFamily: Fonts.font17,
             fontSize: normalize(13),
             marginTop: vh(15),
             marginLeft: vw(15)
@@ -266,8 +290,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         chooseLangText: {
             fontSize: normalize(16),
-            fontWeight: 600,
-            fontFamily: Fonts.subHeader
+            fontFamily: Fonts.font17
         },
         TickMarkOuter: {
             width: vw(20),
@@ -297,7 +320,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         mobileNoHeader: {
             color: Colors.timerFadeText,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             fontSize: normalize(13),
             marginRight: vw(4)
         },
@@ -309,8 +332,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         MobileInputContainer: {
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600
+            fontFamily: Fonts.font18,
         },
         customBorder: {
             borderBottomWidth: normalize(1),
@@ -321,8 +343,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         CountryCode: {
             marginRight: vw(10),
             marginTop: vh(-8),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700
+            fontFamily: Fonts.font18,
         },
         centralMobileContainer: {
             width: vw(200),
@@ -353,12 +374,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         ActiveButtonText: {
             color: Colors.constantWhite,
-            fontWeight: 700,
+fontFamily: Fonts.font18
         },
         SubmitButtonText: {
             fontSize: normalize(13),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600,
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack,
             paddingHorizontal: vw(10),
         },
@@ -398,8 +418,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         faangButtonText: {
             fontSize: normalize(13),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600,
+            fontFamily: Fonts.font17,
             color: Colors.textBlack,
             paddingHorizontal: vw(10),
             marginLeft: vw(8)
@@ -423,7 +442,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         tcText: {
             color: Colors.ButtonBlueColor,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             fontSize: normalize(12)
         }
     })

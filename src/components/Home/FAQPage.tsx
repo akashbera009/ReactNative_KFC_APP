@@ -30,20 +30,17 @@ export default function FAQPage() {
         { question: Strings.deliveryChargesHigher, answer: Strings.deliveryChargesHigherA },
         { question: Strings.deliveryServiceCharge, answer: Strings.deliveryServiceChargeA },
     ];
-
     const RestaurantFAQ = [
         { question: Strings.faqQ1, answer: Strings.faqA1 },
         { question: Strings.faqQ2, answer: Strings.faqA2 },
         { question: Strings.faqQ3, answer: Strings.faqA3 },
     ];
-
     const EmploymentFAQ = [
         { question: Strings.faqQ4, answer: Strings.faqA4 },
         { question: Strings.faqQ9, answer: Strings.faqA9 },
         { question: Strings.faqQ10, answer: Strings.faqA10 },
         { question: Strings.faqQ11, answer: Strings.faqA11 },
     ];
-
     const getFaqData = () => {
         switch (selectedTab) {
             case 'online': return OnlineFAQ;
@@ -93,7 +90,6 @@ export default function FAQPage() {
                                 style={Styles.card}
                             >
                                 <Text style={Styles.cardText}>{item.question}</Text>
-
                                 <Image
                                     source={Images?.back_arrow}
                                     style={[
@@ -102,7 +98,6 @@ export default function FAQPage() {
                                     ]}
                                 />
                             </TouchableOpacity>
-
                             {isOpen && (
                                 <View style={Styles.answerBox}>
                                     <Text style={Styles.answerText}>{item.answer}</Text>
@@ -112,7 +107,6 @@ export default function FAQPage() {
                     );
                 })}
             </ScrollView>
-
         </View>
     );
 }
@@ -142,8 +136,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize: normalize(22),
-            fontFamily: Fonts.subHeader,
-            fontWeight: '700',
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
         },
         tabWrapper: {
@@ -155,8 +148,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         activeTab: {
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
-            fontWeight: '700',
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
             borderBottomColor: Colors.KFC_red,
             borderBottomWidth: normalize(2),
@@ -165,8 +157,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         inactiveTab: {
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
-            fontWeight: '600',
+            fontFamily: Fonts.font17,
             color: Colors.timerFadeText,
             marginRight: vw(20),
             paddingBottom: vh(6),
@@ -189,9 +180,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         cardText: {
             width: '80%',
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font17,
             color: Colors.textBlack,
-            fontWeight: '600',
             lineHeight: vh(25),
         },
         rightArrow: {

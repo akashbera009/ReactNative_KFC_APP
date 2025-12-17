@@ -78,8 +78,7 @@ function StackNavigator() {
             />
             <Stack.Screen
                 name={Strings.LoginScreen}
-                // component={LoginScreen}
-                component={GoogleLoginPage}
+                component={LoginScreen}
             />
             <Stack.Screen
                 name={Strings.LoginScreen2}

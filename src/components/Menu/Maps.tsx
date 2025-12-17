@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Animated, TouchableWithoutFeedback, Platform, ScrollView, KeyboardAvoidingView } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // maps import 
-import MapView, { PROVIDER_GOOGLE , Marker } from 'react-native-maps';
-import GetLocation from 'react-native-get-location'
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -35,9 +35,9 @@ export default function Maps() {
     })
     const [tag, setTag] = useState<string>('');
     const [showPopup, setShowPopup] = useState(false);
-    const [location, setLocation] = useState({
-        latitude: 26.9124,
-        longitude: 75.7873,
+    const [location, setLocation] = useState<Coordinate>({
+        latitude: 0,
+        longitude: 0,
     });
     const handleChangeAddress = (text: string) => {
         setAddress(prev => ({ ...prev, address: text }))
@@ -84,19 +84,24 @@ export default function Maps() {
         })
     }
     const getCurrentLocation = async () => {
-        GetLocation.getCurrentPosition({
-            enableHighAccuracy: true,
-            timeout: 60000,
-        })
-            .then(location => {
-                console.log(location?.latitude, location?.longitude);
-                setLocation({ latitude: location?.latitude, longitude: location?.longitude })
-            })
-            .catch(error => {
-                const { code, message } = error;
-                console.warn(code, message);
-            })
+        Geolocation.getCurrentPosition(
+            position => {
+                console.log('position', position)
+                setLocation({
+                    latitude: position?.coords?.latitude,
+                    longitude: position?.coords?.longitude
+                })
+            },
+            error => console.log('error', error),
+            {
+                enableHighAccuracy: true,
+                timeout: 15000
+            }
+        )
     };
+    useEffect(() => {
+        getCurrentLocation()
+    }, [])
 
     return (
         <View style={Styles.OuterContianer}>
@@ -149,24 +154,21 @@ export default function Maps() {
                             provider={PROVIDER_GOOGLE}
                             initialRegion={
                                 {
-                                    latitude: 26.9124,
-                                    longitude: 75.7873,
+                                    latitude: location.latitude || 26.9124,
+                                    longitude: location.longitude || 75.7873,
                                     latitudeDelta: 0.05,
                                     longitudeDelta: 0.05,
                                 }
                             }>
                             {location && (
                                 <Marker
+                                    draggable
                                     coordinate={location}
                                     title="You are here"
                                 />
                             )}
                         </MapView>
                     </View>
-                    <TouchableOpacity
-                        onPress={getCurrentLocation} >
-                        <Text>get locaiton </Text>
-                    </TouchableOpacity>
                     <View style={Styles.LowerContainer}>
                         <View style={Styles.locationTypeSelection}>
                             <Text style={Styles.iWant}>{Strings.iWant} : </Text>
@@ -286,7 +288,7 @@ export default function Maps() {
             {showPopup && (
                 <Animated.View style={[Styles.popupOverlay, { opacity }]}>
                     <Animated.View style={[Styles.popupBox, { opacity: opacity }]}>
-                        <Text style={Styles.popupTitle}>Confirm Location</Text>
+                        <Text style={Styles.popupTitle}>{Strings.consfirmLocation}</Text>
                         <Text style={Styles.popupMessage}>
                             {Strings.saveLocationConfirmation}
                         </Text>
@@ -368,14 +370,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         navHeaderText: {
             overflow: 'hidden',
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             width: '70%',
             color: Colors.textBlack
-        },
-        arrow: {
-            fontSize: normalize(18),
-            fontWeight: "700",
         },
         row: {
             flexDirection: "row",
@@ -391,7 +388,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         countryName: {
             fontSize: normalize(15),
             fontFamily: Fonts.font17,
-            fontWeight: "500",
             color: Colors.textBlack,
             marginLeft: vw(8)
         },
@@ -422,7 +418,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         iWant: {
             fontFamily: Fonts.font17,
-            fontWeight: 600,
             color: Colors.textBlack
         },
         selectionContainer: {
@@ -455,7 +450,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         checkBoxText: {
             fontFamily: Fonts.font17,
-            fontWeight: 600,
             color: Colors.textBlack,
         },
         completeAddress: {
@@ -466,9 +460,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginVertical: vh(20),
             marginTop: vh(30),
             color: Colors.textBlack,
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             fontSize: normalize(16),
-            fontWeight: 700,
         },
         adressAndChangeButton: {
             display: 'flex',
@@ -481,7 +474,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors.textBlack,
             fontFamily: Fonts.font17,
             fontSize: normalize(16),
-            fontWeight: 500,
         },
         addresPlaceHolder: {
             width: '75%'
@@ -531,7 +523,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         tagLocation: {
             fontSize: normalize(13),
             fontFamily: Fonts.font17,
-            fontWeight: 500,
             color: Colors.textBlack,
         },
         TagsContainer: {
@@ -551,7 +542,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             paddingVertical: vh(5),
             fontFamily: Fonts.font17,
             fontSize: normalize(11),
-            fontWeight: 500,
         },
         ActiveTag: {
             backgroundColor: Colors.blueShadows,
@@ -577,9 +567,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         confirmLocation: {
             color: Colors.constantWhite,
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             fontSize: normalize(17),
-            fontWeight: 700,
         },
         popupOverlay: {
             position: 'absolute',
@@ -601,8 +590,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         popupTitle: {
             fontSize: normalize(18),
-            fontWeight: 700,
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
             marginBottom: vh(10),
         },
@@ -634,11 +622,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors.textBlack
         },
         saveText: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             color: Colors.constantWhite,
-            fontWeight: 700
         }
-
     })
     return Styles;
 };

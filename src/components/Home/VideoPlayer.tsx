@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import React from 'react'
 import Video from 'react-native-video';
+// local video path imports
 import { localVideoPath } from '../../utils/VideoPaths';
 const VideoPlayerComponent = ({ uri }: { uri: string | undefined }) => {
     return (

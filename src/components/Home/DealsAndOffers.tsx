@@ -94,19 +94,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         headerText: {
             fontSize:  normalize(20),
-            fontFamily: Fonts.subHeader,
-            fontWeight: '700',
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
         },
         sectionTitle: {
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
-            fontWeight: '700',
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
             marginTop: vh(10),
             marginLeft: vw(20),
         },
-
         offerCard: {
             width: '92%',
             alignSelf: 'center',
@@ -126,8 +123,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         offerTitle: {
             fontSize: normalize(17),
-            fontFamily: Fonts.font17,
-            fontWeight: '700',
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
             marginBottom: vh(4),
         },
@@ -138,7 +134,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(10),
             lineHeight: vh(22),
         },
-
         downBlock: {
             flexDirection: 'row',
             alignItems: 'center',
@@ -156,7 +151,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(15),
             fontFamily: Fonts.font17,
             color: Colors.KFC_red,
-            fontWeight: 500,
         },
     })
     return Styles

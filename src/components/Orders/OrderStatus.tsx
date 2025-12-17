@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Animated, Easing, Share } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Animated, Easing, Share, Linking } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -114,7 +114,7 @@ export default function OrderStatus({
                                                     source={Images?.RoundLoader}
                                                 />
                                             </View>
-                                            <Text style={[Styles.WaitingText,]}>{Strings.waitingOrder}</Text>
+                                            <Text style={Styles.WaitingText}>{Strings.waitingOrder}</Text>
                                         </View>
                                     ) : (
                                         <View>
@@ -161,7 +161,6 @@ export default function OrderStatus({
                             )}
                         </>
                     )}
-
                     <View style={Styles.SummaryBox}>
                         {orderStatus ? (
                             <>
@@ -182,7 +181,7 @@ export default function OrderStatus({
                                         <Text style={Styles.InfoBold}>{paymentMode}</Text>
                                     </View>
                                     <View style={Styles.customBorder} />
-                                    <Text style={[Styles.items]}>{Strings.items}</Text>
+                                    <Text style={Styles.items}>{Strings.items}</Text>
                                     {currentOrder?.Items.map((item, idx) => (
                                         <View key={idx} style={Styles.ItemRow}>
                                             <View style={Styles.ItemRowQty}>
@@ -200,7 +199,7 @@ export default function OrderStatus({
                                         <View style={Styles.TotalLabelLeft}>
                                             <Text style={Styles.TotalLabel}>{Strings.grandTotal}</Text>
                                             <View style={Styles.ExpansionButton}>
-                                                <Image source={Images?.Arrow_down} style={[Styles.ArrowDown, openAmountDetails && Styles.rotateImage]} />
+                                                <Image source={Images.Arrow_down} style={[Styles.ArrowDown, openAmountDetails && Styles.rotateImage]} />
                                             </View>
                                         </View>
                                         <Text style={Styles.TotalAmount}>{GrandTotal.toFixed(2)} {countrySelected?.currencyCode}</Text>
@@ -250,12 +249,17 @@ export default function OrderStatus({
                                 </View>
                             </>
                         ) : (
-                            <View style={Styles.WriteBox}>
+                            <View>
                                 <Text style={Styles.WriteTitle}>{Strings.writeToUs}</Text>
                                 <Text style={Styles.WriteSub}>{Strings.writeMessage}</Text>
-                                <View style={Styles.EmailBox}>
-                                    <Text style={Styles.EmailText}>{DeliveryDetails?.supportMail}</Text>
-                                </View>
+                                <TouchableOpacity
+                                    onPress={() => Linking.openURL(`mailto:${DeliveryDetails?.supportMail}`)}
+                                    style={Styles.EmailBox}
+                                >
+                                    <Text style={Styles.EmailText}>
+                                        {DeliveryDetails?.supportMail}
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
                         )}
                     </View>
@@ -290,8 +294,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
         },
         ContentContainer: {
@@ -325,8 +328,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         OrderConfirmed: {
             fontSize: normalize(18),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
         },
         RoundLoader: {
@@ -340,13 +342,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
             marginTop: vh(3),
-            fontWeight: 600,
         },
         WaitingText: {
             maxWidth: '80%',
             marginTop: vh(5),
             fontFamily: Fonts.font17,
-            fontWeight: 500,
             color: Colors.timerFadeText,
             lineHeight: normalize(20),
             fontSize: normalize(12),
@@ -360,7 +360,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             fontSize: normalize(12),
             color: Colors.textBlack,
             fontFamily: Fonts.font17,
-            fontWeight: 600
         },
         TrackBox: {
             marginTop: vh(15),
@@ -396,7 +395,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             fontSize: normalize(15),
             fontFamily: Fonts.font17,
             marginLeft: vw(10),
-            fontWeight: 600,
             color: Colors.textBlack,
         },
         TrackArrow: {
@@ -429,8 +427,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         SummaryHeader: {
             fontSize: normalize(14),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
             marginVertical: vh(20),
         },
@@ -451,14 +448,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             marginTop: vh(10),
             fontSize: normalize(13),
             color: Colors.textBlack,
-            fontWeight: 600,
             fontFamily: Fonts.font17
         },
         AddressInfo: {
             marginTop: vh(10),
             marginBottom: vh(10),
             fontFamily: Fonts.font17,
-            fontWeight: 500,
             color: Colors.timerFadeText,
             lineHeight: normalize(20),
             fontSize: normalize(13),
@@ -485,19 +480,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             fontFamily: Fonts.font12,
             fontSize: normalize(13),
             color: Colors.timerFadeText,
-            fontWeight: 700,
         },
         InfoBold: {
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             fontSize: normalize(13),
-            fontWeight: 700,
             color: Colors.textFadeBlack2,
         },
         items: {
             marginTop: vh(10),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             fontSize: normalize(14),
-            fontWeight: 700,
             color: Colors.textBlack,
         },
         ItemRow: {
@@ -518,7 +510,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             fontFamily: Fonts.font12,
             color: Colors.timerFadeText,
             fontSize: normalize(14),
-            fontWeight: 500
         },
         ItemQty: {
             width: vw(30),
@@ -531,8 +522,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             color: Colors.textBlack,
             fontSize: normalize(13),
             marginTop: vh(8),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 500
+            fontFamily: Fonts.font17,
         },
 
         TotalRow: {
@@ -571,10 +561,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             transform: [{ rotate: '180deg' }]
         },
         TotalAmount: {
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             fontSize: normalize(16),
             color: Colors.textBlack,
-            fontWeight: 600,
         },
         amountOpenContainer: {
             marginTop: vh(12),
@@ -590,14 +579,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
             fontSize: normalize(14),
-            fontWeight: 500.
         },
         BillRow: {
             fontSize: normalize(14),
             marginTop: vh(8),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
-            fontWeight: 500
         },
         FailedContainer: {
             backgroundColor: Colors.bodyColor,
@@ -606,8 +593,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         FailedTitle: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font17,
-            fontWeight: '700',
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
             textAlign: 'center',
         },
@@ -622,8 +608,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             lineHeight: normalize(20),
         },
         PhoneNumber: {
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.textFadeBlack,
         },
         RefundBox: {
@@ -637,8 +622,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         RefundTitle: {
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600,
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
         },
         RefundInfo: {
@@ -646,21 +630,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             fontSize: normalize(15),
             fontFamily: Fonts.font17,
             color: Colors.timerFadeText,
-            fontWeight: 500,
             lineHeight: normalize(25),
         },
         failedTotalAmount: {
             fontSize: normalize(15),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600,
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
-        },
-        WriteBox: {
-        },
+        }, 
         WriteTitle: {
             fontSize: normalize(18),
             fontFamily: Fonts.font17,
-            fontWeight: 500,
             color: Colors.textFadeBlack2,
         },
         WriteSub: {
@@ -680,9 +659,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             borderRadius: normalize(1),
         },
         EmailText: {
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font17,
             fontSize: normalize(14),
-            fontWeight: 600,
             marginHorizontal: vw(10),
             color: Colors.textFadeBlack,
         },
@@ -701,9 +679,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         },
         RestaurantTitle: {
             fontSize: normalize(18),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
-            fontWeight: 700,
         },
         addressAndCall: {
             display: 'flex',
@@ -716,8 +693,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             color: Colors.timerFadeText,
             lineHeight: vh(20),
             fontSize: normalize(13),
-            fontWeight: 500,
-            maxWidth: '75%'
+            maxWidth: '75%',
+            fontFamily: Fonts.font17,
         },
         CallIcon: {
             height: vh(38),

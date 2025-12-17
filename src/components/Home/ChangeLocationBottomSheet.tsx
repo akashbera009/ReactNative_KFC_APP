@@ -33,7 +33,6 @@ export default function ChangeLocationBottomSheet() {
             })
         ]).start();
     };
-
     const slideDown = () => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -48,7 +47,6 @@ export default function ChangeLocationBottomSheet() {
             })
         ]).start();
     };
-
     const closeModal = () => {
         slideDown();
         setTimeout(() => {
@@ -92,7 +90,6 @@ export default function ChangeLocationBottomSheet() {
                     </View>
                 </View>
             </Animated.View>
-
         </Animated.View >
     )
 }
@@ -156,8 +153,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         ConfirmHeader: {
             fontSize:normalize(22),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             alignSelf: 'center',
             letterSpacing: normalize(1),
         },
@@ -166,18 +162,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
             fontFamily: Fonts.font17,
             fontSize: normalize(18),
-            fontWeight: 400,
             textAlign: 'center',
             color: Colors.blueShadows,
-            marginTop: vh(15)
-        },
-        countryDescription2: {
-            width: "90%",
-            alignSelf: 'center',
-            fontSize: normalize(18),
-            fontWeight: 400,
-            textAlign: 'center',
-            color: Colors.textFadeBlack,
             marginTop: vh(15)
         },
         LocationContainer: {
@@ -202,9 +188,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         Address: {
             width: '80%',
             fontSize: normalize(14),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font17,
             color: Colors.timerFadeText,
-            fontWeight: 700
         },
         DoneButtonContainer: {
             position: 'absolute',
@@ -231,8 +216,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         DoneButtonText: {
             fontSize: normalize(16),
-            fontFamily: Fonts.subHeader,
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.constantWhite,
             marginHorizontal: vw(50),
             marginVertical: vh(5)

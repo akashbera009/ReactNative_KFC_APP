@@ -359,10 +359,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       tintColor: Colors.textBlack,
       marginHorizontal: vw(5)
     },
-
     svgcashbackTextTop1: {
       fontSize: normalize(60),
-      fontWeight: 600,
       position: 'relative',
       left: vw(2),
       top: vh(-25),
@@ -376,7 +374,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     svgcashbackTextTop2: {
       fontSize: normalize(18),
-      fontWeight: 600,
       fontFamily: Fonts.expHead,
     },
     SvgOrderContainer3: {
@@ -386,7 +383,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     svgcashbackTextTop3: {
       fontSize: normalize(16),
-      fontWeight: 600,
       fontFamily: Fonts.expHead,
       width: vw(80)
     },
@@ -396,7 +392,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       flexDirection: 'row',
       position: 'relative',
       top: vh(-20),
-      right: vw(10),
+      right: vw(18),
       width: vw(100),
       transform: [{ rotate: '-5deg' }]
     },
@@ -407,26 +403,23 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       flexDirection: 'row',
       position: 'relative',
       top: vh(-20),
-      right: vw(5),
+      right: vw(8),
     },
     svgcashbackTextTop4Container: {
       transform: [{ rotate: '5deg' }]
     },
     svgcashbackTextTop4: {
       fontSize: normalize(45),
-      fontWeight: 600,
       fontFamily: Fonts.expHead,
       position: 'relative',
       left: vw(-40)
     },
     svgcashbackTextTop5: {
       fontSize: normalize(25),
-      fontWeight: 600,
       fontFamily: Fonts.expHead
     },
     svgcashbackTextTop6: {
       fontSize: normalize(18),
-      fontWeight: 600,
       fontFamily: Fonts.expHead
     },
     SVGContainerLeft: {
@@ -506,20 +499,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       flexDirection: 'row',
     },
     DeliveryTo: {
-      fontWeight: 700,
       color: Colors.textFadeBlack,
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font17,
     },
     DeliveryType: {
-      fontWeight: 700,
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
       color: Colors.textBlack,
     },
     DeliveryAddress: {
       width: vw(230),
       overflow: 'hidden',
       marginRight: vw(15),
-      fontWeight: 600,
+      fontFamily: Fonts.font17,
       color: Colors.textFadeBlack,
     },
     RightSideButton: {
@@ -530,8 +521,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       right: vw(15)
     },
     changeText: {
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
       fontSize: normalize(11),
       paddingHorizontal: vw(6),
       paddingVertical: vh(4),
@@ -554,14 +544,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     ExploreHeader: {
       color: Colors.textBlack,
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
       fontSize: normalize(14)
     },
     ExploreHeaderViewAll: {
       color: Colors.textFadeBlack,
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
       fontSize: normalize(12)
     },
     ExploreCardsContainer: {
@@ -676,7 +664,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontFamily: Fonts.font9,
       color: Colors.textFadeBlack2,
       fontSize: normalize(19),
-      fontWeight: 600,
       textAlign: 'right',
       margin: normalize(5),
     },
@@ -754,7 +741,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       width: '55%',
       fontFamily: Fonts.subHeader,
       fontSize: normalize(14),
-      fontWeight: 700
     },
     OrderNowButton: {
       borderWidth: normalize(2),
@@ -769,10 +755,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       margin: normalize(12)
     },
     orderNowButtonText: {
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
       color: Colors.constantWhite,
       fontSize: normalize(10),
-      fontWeight: 800,
     },
     BackArrow: {
       height: vh(10),
@@ -796,8 +781,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     WhatsNewHeader: {
       color: Colors.textBlack,
-      fontFamily: Fonts.subHeader,
-      fontWeight: 700,
+      fontFamily: Fonts.font18,
       fontSize: normalize(14)
     },
     CardsContainer: {
@@ -850,11 +834,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       margin: normalize(10),
       marginLeft: vw(10),
       fontSize: normalize(14),
-      fontWeight: 600,
       marginHorizontal: vw(4),
       color: Colors.textBlack,
       width: '80%',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      fontFamily: Fonts.font17,
     },
     OrderButton: {
       position: 'absolute',
@@ -868,11 +852,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     OrderText: {
       color: Colors.KFC_red,
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font18,
       fontSize: normalize(11),
       marginHorizontal: vw(15),
       marginVertical: vh(5),
-      fontWeight: 800
     },
     BottomView: {
       backgroundColor: Colors.bodyColor
@@ -935,10 +918,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginVertical: vh(2),
     },
     bottomKFCDescription: {
-      fontFamily: Fonts.subHeader,
+      fontFamily: Fonts.font17,
       fontSize: normalize(11),
       color: Colors.textBlack,
-      fontWeight: 700,
       alignSelf: 'center',
       position: 'relative',
       bottom: vh(10),

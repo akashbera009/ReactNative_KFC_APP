@@ -117,16 +117,27 @@ const SideBar = () => {
                 <Image source={Images?.Logout_Icon} style={Styles.ThemeIcon} />
                 <Text style={Styles.countryEntriesText}>{Strings.logout}</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                style={Styles.SettingsMenuEntries}
+                activeOpacity={.7}
+                onPress={() => {
+                  navigation.navigate(Strings.FontsScreen)
+                  setIsSettingsMenuOpen(false)
+                }}>
+                <Text>{Strings.FontsScreen}</Text>
+              </TouchableOpacity>
             </View>
           )}
         </View>
-
         <View style={Styles.LanguageCountryContainer}>
           <View style={Styles.LanguageContainer}>
             <Text style={Styles.Language}>{Strings.language} / {Strings.languageToggle}</Text>
             <TouchableOpacity
               style={Styles.LanguageChangeButton}
-              onPress={() => navigation.navigate(Strings.PopUpScreens)}
+              onPress={() => {
+                navigation.navigate(Strings.PopUpScreens);
+                setIsSettingsMenuOpen(false)
+              }}
             >
               <Text style={Styles.LanguageText}>{languae?.language == 'en' ? Strings.english : Strings.arabic} </Text>
             </TouchableOpacity>
@@ -163,29 +174,41 @@ const SideBar = () => {
         </View>
         <View style={Styles.MenuListContainer}>
           <TouchableOpacity
-            onPress={() => navigation.navigate(Strings.OrderDetailsScreen, {
-              order: currentOrder
-            })}
+            onPress={() => {
+              navigation.navigate(Strings.OrderDetailsScreen, {
+                order: currentOrder
+              });
+              setIsSettingsMenuOpen(false)
+            }}
             style={Styles.SingleEntry}>
             <Image source={Images?.Track_Order} style={[Styles.SideImageIcon, Styles.TrackOrderIcon]} />
             <Text style={Styles.singleEntryText}>{Strings.trackOrder} </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate(Strings.OrderHistoryScreens)}
+            onPress={() => {
+              navigation.navigate(Strings.OrderHistoryScreens)
+              setIsSettingsMenuOpen(false)
+            }}
             style={Styles.SingleEntry}>
             <Image source={Images?.menu} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings.orderHistory} </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate(Strings.DealsAndOfferScreen)}
+            onPress={() => {
+              navigation.navigate(Strings.DealsAndOfferScreen)
+              setIsSettingsMenuOpen(false)
+            }}
             style={Styles.SingleEntry}>
             <Image source={Images?.discount} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings.dealsAndOffer} </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate(Strings.ExploreMenuScreen, {
-              categoryType: Strings.dealsString
-            })}
+            onPress={() => {
+              navigation.navigate(Strings.ExploreMenuScreen, {
+                categoryType: Strings.dealsString
+              })
+              setIsSettingsMenuOpen(false)
+            }}
             style={Styles.SingleEntry}>
             <Image source={Images?.Great_Menu} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings.greatMenu} </Text>
@@ -197,7 +220,10 @@ const SideBar = () => {
                 discountPercentage: 0,
                 offerCode: ''
               })
-            }} style={Styles.SingleEntry}>
+              setIsSettingsMenuOpen(false)
+            }
+            }
+            style={Styles.SingleEntry}>
             <Image source={Images?.MyCart} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings.myCart} </Text>
           </TouchableOpacity>
@@ -206,18 +232,26 @@ const SideBar = () => {
         <View style={[Styles.LowerCallSupportContainer, { bottom: inset.bottom + 10 }]}>
           <View style={Styles.LowerFAQSection}>
             <TouchableOpacity
-              onPress={() => { navigation.navigate(Strings.FAQPageScreen) }}
+              onPress={() => {
+                navigation.navigate(Strings.FAQPageScreen)
+                setIsSettingsMenuOpen(false)
+              }}
             >
               <Text style={Styles.BottomViewText}>{Strings.faq.toUpperCase()} </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => { navigation.navigate(Strings.TermsAndConditionsScreen) }}
+              onPress={() => {
+                navigation.navigate(Strings.TermsAndConditionsScreen)
+                setIsSettingsMenuOpen(false)
+              }}
             >
               <Text style={Styles.BottomViewText}>{Strings.termsCondition} </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate(Strings.HelpScreen)}
-            >
+              onPress={() => {
+                navigation.navigate(Strings.HelpScreen)
+                setIsSettingsMenuOpen(false)
+              }}>
               <Text style={Styles.BottomViewText}>{Strings.userInfoHeader} </Text>
             </TouchableOpacity>
           </View>
@@ -276,14 +310,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontFamily: Fonts.headerRegular,
       fontSize: normalize(30),
       color: Colors.constantWhite,
-      fontWeight: 800,
       textAlign: 'center',
     },
     Name: {
-      fontFamily: Fonts.headerRegular,
+      fontFamily: Fonts.font18,
       fontSize: normalize(22),
       color: Colors.textBlack,
-      fontWeight: 600,
       textAlign: 'center',
       margin: normalize(15)
     },
@@ -338,7 +370,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     Language: {
       fontSize: normalize(15),
       color: Colors.textBlack,
-      fontWeight: 600,
       fontFamily: Fonts.font17
     },
     LanguageChangeButton: {
@@ -351,7 +382,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginHorizontal: vw(12),
       color: Colors.textBlack,
       marginVertical: vh(8),
-      fontWeight: 600,
       fontFamily: Fonts.font17
     },
     CountryContainer: {
@@ -376,7 +406,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     countryName: {
       fontSize: normalize(16),
-      fontWeight: 600,
+      fontFamily: Fonts.font17 ,
       color: Colors.textBlack,
     },
     Arrow: {
@@ -413,7 +443,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     countryEntriesText: {
       marginBottom: vh(4),
-      fontWeight: 600,
+      fontFamily: Fonts.font18 , 
       fontSize: normalize(16),
       color: Colors.textBlack,
       marginLeft: vw(4)
@@ -451,8 +481,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       margin: normalize(8)
     },
     singleEntryText: {
-      fontFamily: Fonts.headerRegular,
-      fontWeight: 600,
+      fontFamily: Fonts.font18,
       fontSize: normalize(17),
       margin: normalize(5),
       color: Colors.textBlack,
@@ -469,7 +498,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     BottomViewText: {
       fontFamily: Fonts.font17,
-      fontWeight: 600,
       fontSize: normalize(17),
       color: Colors.textBlack,
     },
@@ -499,11 +527,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       height: vh(18),
       width: vw(18),
       tintColor: Colors.constantWhite,
-
     },
     CallSupport: {
       fontFamily: Fonts.font9,
-      fontWeight: 600,
       fontSize: normalize(26),
       color: Colors.textBlack,
     }

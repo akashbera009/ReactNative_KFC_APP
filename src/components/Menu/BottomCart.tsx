@@ -21,10 +21,10 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const cartData = useSelector((state: RootState) => state.cart)
     const cartItem = cartData.cartItems
-    let totalPrice = cartItem.reduce((acc, item) => acc + item?.price * item?.quantity, 0).toFixed(2);
-    let discountPrice = cartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
+    let totalPrice: string = cartItem.reduce((acc, item) => acc + item?.price * item?.quantity, 0).toFixed(2);
+    let discountPrice: number = cartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
     discountPrice -= Number(totalPrice);
-    let formattedCounterText = cartItem?.length < 10 ? `0${cartItem?.length}` : cartItem?.length;
+    let formattedCounterText: string = cartItem?.length < 10 ? `0${cartItem?.length}` : `${cartItem?.length}`;
     // aimation 
     const slideIn = useRef(new Animated.Value(0)).current;
     const handleSlideIn = (easing: EasingFunction) => {
@@ -126,7 +126,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         CounterText: {
             fontSize: normalize(14),
-            fontWeight: 700,
+            fontFamily: Fonts.font18,
             color: Colors.constantWhite,
         },
         CartImage: {
@@ -145,15 +145,13 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         totalPrice: {
             fontSize: normalize(16),
-            fontWeight: 700,
-            marginBottom:vh(4),
-            fontFamily: Fonts.subHeader,
+            marginBottom: vh(4),
+            fontFamily: Fonts.font18,
             color: Colors.textBlack
         },
         discountPrice: {
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600
+            fontFamily: Fonts.font18,
         },
         DisctointContainer: {
             display: 'flex',
@@ -165,13 +163,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         countrycode: {
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600
+            fontFamily: Fonts.font18,
         },
         savedtext: {
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.subHeader,
-            fontWeight: 600
+            fontFamily: Fonts.font17,
         },
         ViewCart: {
             backgroundColor: Colors.KFC_red,
@@ -185,8 +181,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(13),
             marginHorizontal: vw(16),
             marginVertical: vh(10),
-            fontFamily: Fonts.font17,
-            fontWeight: 700
+            fontFamily: Fonts.font18,
         },
     });
     return Styles;

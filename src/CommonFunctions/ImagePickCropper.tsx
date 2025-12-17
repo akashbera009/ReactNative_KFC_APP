@@ -26,12 +26,12 @@ export default function ImagePickCropper() {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [imageUri, setImageUri] = useState<string>('');
     const [videoUri, setVideoUri] = useState<string | undefined>('');
-    const [viewOnlyModal, setViewOnlyModal] = useState(false)
+    const [viewOnlyModal, setViewOnlyModal] = useState<boolean>(false)
     const [selectedFile, setSelectedFile] = useState<DocumentPickerResponse>();
     const [selectedLocalFile, setSelectedLocalFile] = useState({ uri: '' });
-    const [pdfViewer, setPdfViewer] = useState(false);
-    const [videoModal, setVideoModal] = useState(false);
-    const [videoThumbnail, setVideoThumbnail] = useState('');
+    const [pdfViewer, setPdfViewer] = useState<boolean>(false);
+    const [videoModal, setVideoModal] = useState<boolean>(false);
+    const [videoThumbnail, setVideoThumbnail] = useState<string>('');
     const pickImage = async () => {
         try {
             const pickerResult = await launchImageLibrary({
@@ -311,7 +311,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         headerText: {
             fontSize: normalize(20),
             fontFamily: Fonts.subHeader,
-            fontWeight: 700,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
@@ -403,7 +402,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         placeholder: {
             fontSize: normalize(15),
-            fontFamily: Fonts.Medium,
+            fontFamily: Fonts.font17,
         },
         previewImage: {
             width: '100%',
@@ -440,7 +439,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         saveText: {
             color: Colors.constantWhite,
-            fontFamily: Fonts.Bold,
+            fontFamily: Fonts.font18,
             fontSize: normalize(16)
         },
         viewOnlyModalContainer: {
@@ -485,6 +484,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginLeft: vw(30),
             width: '80%',
             top: vh(25),
+            fontFamily: Fonts.font18,
             fontSize: normalize(18),
         },
         crossIconPDF: {

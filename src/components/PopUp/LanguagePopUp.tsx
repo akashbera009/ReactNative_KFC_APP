@@ -1,16 +1,14 @@
-import { StyleSheet, Text, View, Animated, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
-
+import { StyleSheet, Text, View, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
 // util imports 
 import { useThemeColors } from '../../utils/Colors';
 import Fonts from '../../utils/Fonts'
+import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useLanguage } from '../../context/LanguageContex';
-import Images from '../../utils/LocalImages';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function LanguagePopUp() { 
@@ -19,7 +17,7 @@ export default function LanguagePopUp() {
     const Styles = createDynamicStyles(Colors, Fonts)
     const inset = useSafeAreaInsets();
     const { language, setLanguage } = useLanguage()
-    const[tempLang , settempLang] = useState(language)
+    const[tempLang , settempLang] = useState<string>(language)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const handleSelectionLanguage =(lang: string )=>{
         settempLang(lang)
@@ -74,7 +72,6 @@ export default function LanguagePopUp() {
                                 <Text style={[Styles.LoginButtonText]}>{Strings.done}</Text>
                             </TouchableOpacity>
                         </View>
-
                     </TouchableWithoutFeedback>
                 </View>
             </TouchableWithoutFeedback>
@@ -107,8 +104,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         selectionLanguageHeader: {
             fontSize: normalize(20),
-            fontWeight: 600,
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
             alignSelf: 'center',
             marginVertical: vh(20),
@@ -160,8 +156,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         changeText: {
             marginRight: vw(10),
             marginLeft: vw(15),
-            fontWeight: 700,
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack
         },
         loginButton: {
@@ -180,8 +175,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         LoginButtonText: {
             fontSize: normalize(16),
-            fontWeight: 800,
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             color: Colors.constantWhite
         },
     })

@@ -28,10 +28,10 @@
 		39C8E9B4081A4FF8A8D25297 /* HelveticaNeueLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 462C869E31644DC89180AF3F /* HelveticaNeueLightItalic.otf */; };
 		43E01818D6524909A66C9F4E /* HelveticaNeueMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = F39D6188809F42B4A406D947 /* HelveticaNeueMedium.otf */; };
 		448AF55DB0A541BFAF99F233 /* TestNational2Condensed-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 662A76F68E544719BAF7D0CA /* TestNational2Condensed-Thin.otf */; };
+		45854F5D78D4E9E9D12B76BB /* libPods-KFC_App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D2CD0ADAD5D48F95B4BF84 /* libPods-KFC_App.a */; };
 		4595DC427F124D01A50FF2EF /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0BEAD26342C440E9A131378 /* RobotoSlab-Light.ttf */; };
 		47596C03EEA1450FBCCAA18C /* TestNational2Condensed-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 10E16140DA9046279B2FB343 /* TestNational2Condensed-RegularItalic.otf */; };
 		4CA0DA08569C428B985A51DB /* TestNational2Condensed-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = F50263BB632D4603AFD1C05B /* TestNational2Condensed-MediumItalic.otf */; };
-		4D77FDED10C9326C5D26C2ED /* libPods-KFC_App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5D3D8A7B32D8C99156FF7B4 /* libPods-KFC_App.a */; };
 		4EC46D708CCE44D0881E222D /* TestNational2Condensed-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2F0EB2F4C0DB49039F3675F8 /* TestNational2Condensed-BoldItalic.otf */; };
 		53C7A7FC13004AE29CFE2A5E /* friz-quadrata-regular-os-5870333951e7c.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E624D2931F346F5A33CC7FC /* friz-quadrata-regular-os-5870333951e7c.ttf */; };
 		555B0512BCDF4EC0822A0C17 /* ZalandoSansSemiExpanded-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B143FEA088D48AEB7745FF9 /* ZalandoSansSemiExpanded-Italic-VariableFont_wght.ttf */; };
@@ -81,7 +81,6 @@
 		2F3EE59D67194290B34CF9B7 /* TestNational2Condensed-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "TestNational2Condensed-Light.otf"; path = "../src/asstes/Fonts/TestNational2Condensed-Light.otf"; sourceTree = "<group>"; };
 		37C9DAD140C6488F9781F4DB /* TestNational2Condensed-ExtraboldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "TestNational2Condensed-ExtraboldItalic.otf"; path = "../src/asstes/Fonts/TestNational2Condensed-ExtraboldItalic.otf"; sourceTree = "<group>"; };
 		3B143FEA088D48AEB7745FF9 /* ZalandoSansSemiExpanded-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "ZalandoSansSemiExpanded-Italic-VariableFont_wght.ttf"; path = "../src/asstes/Fonts/ZalandoSansSemiExpanded-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-KFC_App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KFC_App.debug.xcconfig"; path = "Target Support Files/Pods-KFC_App/Pods-KFC_App.debug.xcconfig"; sourceTree = "<group>"; };
 		3DD154059EBA46CEAF02A2B7 /* HelveticaNeueLight.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueLight.otf; path = ../src/asstes/Fonts/HelveticaNeueLight.otf; sourceTree = "<group>"; };
 		3E6C66F154B9475E96794041 /* HelveticaNeueMediumItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueMediumItalic.otf; path = ../src/asstes/Fonts/HelveticaNeueMediumItalic.otf; sourceTree = "<group>"; };
 		417CC3C050714216AAD87DC8 /* Jersey20-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Jersey20-Regular.ttf"; path = "../src/asstes/Fonts/Jersey20-Regular.ttf"; sourceTree = "<group>"; };
@@ -91,7 +90,6 @@
 		4A056879E6324B459FD280DC /* RobotoSlab-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-ExtraBold.ttf"; path = "../src/asstes/Fonts/RobotoSlab-ExtraBold.ttf"; sourceTree = "<group>"; };
 		4CC22975E87D49908D5A6175 /* Rubik-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-VariableFont_wght.ttf"; path = "../src/asstes/Fonts/Rubik-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		4E81B42BE3394DBFB4356EFB /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Regular.ttf"; path = "../src/asstes/Fonts/RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-KFC_App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KFC_App.release.xcconfig"; path = "Target Support Files/Pods-KFC_App/Pods-KFC_App.release.xcconfig"; sourceTree = "<group>"; };
 		5D71FF4A8CF44B2F8143AF85 /* RobotoSlab-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Thin.ttf"; path = "../src/asstes/Fonts/RobotoSlab-Thin.ttf"; sourceTree = "<group>"; };
 		625D09292B1D47BF80352C45 /* TestNational2Condensed-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "TestNational2Condensed-Bold.otf"; path = "../src/asstes/Fonts/TestNational2Condensed-Bold.otf"; sourceTree = "<group>"; };
 		646EA36E550A4057A04ADD16 /* HelveticaNeueHeavyItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueHeavyItalic.otf; path = "../src/asstes/Fonts/helvetica-neue-5/HelveticaNeueHeavyItalic.otf"; sourceTree = "<group>"; };
@@ -104,6 +102,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = KFC_App/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8393C808C4284636BCD7C829 /* HelveticaNeueBoldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueBoldItalic.otf; path = ../src/asstes/Fonts/HelveticaNeueBoldItalic.otf; sourceTree = "<group>"; };
 		8BE92C0F2CA2427C968867DE /* friz-quadrata-bold-italic-os-5870341205e0f.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "friz-quadrata-bold-italic-os-5870341205e0f.ttf"; path = "../src/asstes/Fonts/friz-quadrata-bold-italic-os-5870341205e0f.ttf"; sourceTree = "<group>"; };
+		92D2CD0ADAD5D48F95B4BF84 /* libPods-KFC_App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KFC_App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B51EB2CBF5E48B2A5489EC8 /* OFL.txt */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = OFL.txt; path = ../src/asstes/Fonts/Jersey_20/OFL.txt; sourceTree = "<group>"; };
 		9EE43E0B0414415EBAA776EC /* RobotoSlab-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Black.ttf"; path = "../src/asstes/Fonts/RobotoSlab-Black.ttf"; sourceTree = "<group>"; };
 		9FA0EE84478345C78AECC74B /* Playball-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Playball-Regular.ttf"; path = "../src/asstes/Fonts/Playball-Regular.ttf"; sourceTree = "<group>"; };
@@ -115,6 +114,7 @@
 		B7A3F02AA3034675B7241CF3 /* RobotoSlab-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-VariableFont_wght.ttf"; path = "../src/asstes/Fonts/RobotoSlab-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		B80328371B234DBDA6B0E0A0 /* Friz Quadrata Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Friz Quadrata Bold.otf"; path = "../src/asstes/Fonts/Friz Quadrata Bold.otf"; sourceTree = "<group>"; };
 		C0718B6DF1F04CBAB03227E7 /* RobotoSlab-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-ExtraLight.ttf"; path = "../src/asstes/Fonts/RobotoSlab-ExtraLight.ttf"; sourceTree = "<group>"; };
+		C1C25EB51300281F6E44122F /* Pods-KFC_App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KFC_App.release.xcconfig"; path = "Target Support Files/Pods-KFC_App/Pods-KFC_App.release.xcconfig"; sourceTree = "<group>"; };
 		C46FB195DEBD45C8A574B9E4 /* TestNational2Condensed-LightItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "TestNational2Condensed-LightItalic.otf"; path = "../src/asstes/Fonts/TestNational2Condensed-LightItalic.otf"; sourceTree = "<group>"; };
 		C58FB6D3104F427F8A71C221 /* TestNational2Condensed-BlackItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "TestNational2Condensed-BlackItalic.otf"; path = "../src/asstes/Fonts/TestNational2Condensed-BlackItalic.otf"; sourceTree = "<group>"; };
 		CC455403B0434156B7313173 /* ZalandoSansSemiExpanded-VariableFont_wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "ZalandoSansSemiExpanded-VariableFont_wght.ttf"; path = "../src/asstes/Fonts/ZalandoSansSemiExpanded-VariableFont_wght.ttf"; sourceTree = "<group>"; };
@@ -122,12 +122,12 @@
 		D1D82FFAD9AA472B887EA160 /* TestNational2Condensed-ExtralightItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "TestNational2Condensed-ExtralightItalic.otf"; path = "../src/asstes/Fonts/TestNational2Condensed-ExtralightItalic.otf"; sourceTree = "<group>"; };
 		D2417EE60EFC42489C798DFC /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Bold.ttf"; path = "../src/asstes/Fonts/RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
 		DC4B9D9825B44D4BB1D7BC2E /* TestNational2Condensed-Extrabold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "TestNational2Condensed-Extrabold.otf"; path = "../src/asstes/Fonts/TestNational2Condensed-Extrabold.otf"; sourceTree = "<group>"; };
-		E5D3D8A7B32D8C99156FF7B4 /* libPods-KFC_App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KFC_App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EE2C514FA0044789AED7F1F9 /* HelveticaNeueBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueBold.otf; path = ../src/asstes/Fonts/HelveticaNeueBold.otf; sourceTree = "<group>"; };
 		F2161DDAAEB04F309F35634D /* HelveticaNeueUltraLight.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueUltraLight.otf; path = ../src/asstes/Fonts/HelveticaNeueUltraLight.otf; sourceTree = "<group>"; };
 		F39D6188809F42B4A406D947 /* HelveticaNeueMedium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueMedium.otf; path = ../src/asstes/Fonts/HelveticaNeueMedium.otf; sourceTree = "<group>"; };
 		F3FE8FEB6D7B43C8987B4089 /* HelveticaNeueThin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = HelveticaNeueThin.otf; path = ../src/asstes/Fonts/HelveticaNeueThin.otf; sourceTree = "<group>"; };
+		F4F7425DEDA5B11F11FB9BAA /* Pods-KFC_App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KFC_App.debug.xcconfig"; path = "Target Support Files/Pods-KFC_App/Pods-KFC_App.debug.xcconfig"; sourceTree = "<group>"; };
 		F50263BB632D4603AFD1C05B /* TestNational2Condensed-MediumItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "TestNational2Condensed-MediumItalic.otf"; path = "../src/asstes/Fonts/TestNational2Condensed-MediumItalic.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,7 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D77FDED10C9326C5D26C2ED /* libPods-KFC_App.a in Frameworks */,
+				45854F5D78D4E9E9D12B76BB /* libPods-KFC_App.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,7 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				E5D3D8A7B32D8C99156FF7B4 /* libPods-KFC_App.a */,
+				92D2CD0ADAD5D48F95B4BF84 /* libPods-KFC_App.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -257,8 +257,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-KFC_App.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-KFC_App.release.xcconfig */,
+				F4F7425DEDA5B11F11FB9BAA /* Pods-KFC_App.debug.xcconfig */,
+				C1C25EB51300281F6E44122F /* Pods-KFC_App.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -270,13 +270,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "KFC_App" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				198B1B8A483818B8AF0EFA8F /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				A27BA7D3BFB8627590FA4761 /* [CP] Embed Pods Frameworks */,
+				DA037A27790D6761849C162F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -400,24 +400,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KFC_App/Pods-KFC_App-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KFC_App/Pods-KFC_App-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KFC_App/Pods-KFC_App-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		198B1B8A483818B8AF0EFA8F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -439,7 +422,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
+		A27BA7D3BFB8627590FA4761 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KFC_App/Pods-KFC_App-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KFC_App/Pods-KFC_App-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KFC_App/Pods-KFC_App-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA037A27790D6761849C162F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -472,7 +472,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-KFC_App.debug.xcconfig */;
+			baseConfigurationReference = F4F7425DEDA5B11F11FB9BAA /* Pods-KFC_App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -500,7 +500,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-KFC_App.release.xcconfig */;
+			baseConfigurationReference = C1C25EB51300281F6E44122F /* Pods-KFC_App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

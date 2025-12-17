@@ -64,13 +64,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         BestSellerHeader: {
             color: Colors.textBlack,
             fontFamily: Fonts.subHeader,
-            fontWeight: 700,
             fontSize: normalize(14)
         },
         ExploreHeaderViewAll: {
             color: Colors.textFadeBlack,
             fontFamily: Fonts.subHeader,
-            fontWeight: 700,
             fontSize: normalize(12)
         },
         CardsContainer: {
@@ -118,9 +116,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         title: {
             fontSize: normalize(14),
-            fontWeight: 600,
             marginHorizontal: vw(4),
             color: Colors.textBlack,
+            fontFamily: Fonts.font17 , 
             width: '85%',
             overflow: 'hidden'
         },
@@ -129,8 +127,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: '40%',
             fontSize: normalize(11),
             color: Colors.timerFadeText,
+            fontFamily: Fonts.font17,
             margin: normalize(4),
-            fontWeight: 600
         },
         LowerContainer: {
             borderTopWidth: normalize(1),
@@ -152,9 +150,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginHorizontal: vw(20)
         },
         price: {
-            fontWeight: 800,
             fontSize: normalize(13),
-            color: Colors.textBlack
+            color: Colors.textBlack,
+            fontFamily: Fonts.font17
         },
         OrderButton: {
             borderWidth: normalize(2),
@@ -168,7 +166,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(11),
             marginHorizontal: vw(15),
             marginVertical: vh(5),
-            fontWeight: 800
         }
 
     })

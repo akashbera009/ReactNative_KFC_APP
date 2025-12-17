@@ -31,7 +31,6 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
             })
         ]).start();
     };
-
     const slideDown = () => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -46,14 +45,12 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
             })
         ]).start();
     };
-
     const closeModal = () => {
         slideDown();
         setTimeout(() => {
             navigation.pop();
         }, 400);
     };
-
     useEffect(() => {
         slideUp();
     }, []);
@@ -67,7 +64,6 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
                     <View style={Styles.InnerContainer}>
                         <View style={Styles.HeaderContainer}>
                             <View style={Styles.HeaderWrapper}>
-
                                 <Text style={Styles.Header} >{Strings.menuCategorizationHeader.toUpperCase()} </Text>
                                 <TouchableOpacity
                                     onPress={() => navigation.pop()}
@@ -93,14 +89,13 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
                                             style={Styles.ArrowContainer}
                                             onPress={() => { }}
                                         >
-                                            <Image source={Images?.Arrow_down} style={Styles.arrowRight} />
+                                            <Image source={Images.Arrow_down} style={Styles.arrowRight} />
                                         </TouchableOpacity>
                                         <View style={Styles.customBorder} />
                                     </TouchableOpacity>
                                 ))}
                             </ScrollView>
                         </View>
-
                     </View>
                 </View>
             </Animated.View>
@@ -143,8 +138,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         Header: {
             fontSize: normalize(18),
-            fontWeight: 700,
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack
         },
         crossIconContainer: {
@@ -181,8 +175,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         CategoryText: {
             fontSize: normalize(18),
-            fontWeight: 600,
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font17,
             color: Colors.textBlack,
         },
         ArrowContainer: {

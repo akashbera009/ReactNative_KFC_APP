@@ -1846,6 +1846,34 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - react-native-geolocation (3.4.0):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
   - react-native-geolocation-service (5.3.1):
     - React
   - react-native-image-picker (8.2.1):
@@ -2701,34 +2729,6 @@ PODS:
     - React-perflogger (= 0.81.0)
     - React-utils (= 0.81.0)
     - SocketRocket
-  - ReactNativeGetLocation (6.0.1):
-    - boost
-    - DoubleConversion
-    - fast_float
-    - fmt
-    - glog
-    - hermes-engine
-    - RCT-Folly
-    - RCT-Folly/Fabric
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - SocketRocket
-    - Yoga
   - RNCAsyncStorage (2.2.0):
     - boost
     - DoubleConversion
@@ -3253,6 +3253,7 @@ DEPENDENCIES:
   - react-native-blob-util (from `../node_modules/react-native-blob-util`)
   - react-native-create-thumbnail (from `../node_modules/react-native-create-thumbnail`)
   - "react-native-document-picker (from `../node_modules/@react-native-documents/picker`)"
+  - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps/Google (from `../node_modules/react-native-maps`)
@@ -3291,7 +3292,6 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - ReactNativeGetLocation (from `../node_modules/react-native-get-location`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -3414,6 +3414,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-create-thumbnail"
   react-native-document-picker:
     :path: "../node_modules/@react-native-documents/picker"
+  react-native-geolocation:
+    :path: "../node_modules/@react-native-community/geolocation"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-image-picker:
@@ -3490,8 +3492,6 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  ReactNativeGetLocation:
-    :path: "../node_modules/react-native-get-location"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNFS:
@@ -3573,6 +3573,7 @@ SPEC CHECKSUMS:
   react-native-blob-util: 58b28b93a139d27d820c942502e1523aee7e4071
   react-native-create-thumbnail: 4f175cf70f560b293694ea7260efe0a31683dbd1
   react-native-document-picker: 242069417dabbb9c9d6592e022768c210f595a9a
+  react-native-geolocation: c43df081568b7568b4d68240a03263037b2eb90f
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-image-picker: 43e6cd4231e670030fe09b079d696fa5a634ccfc
   react-native-maps: 9cc71a39c6935770047b4a92a35361c3a67c539f
@@ -3611,7 +3612,6 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 562d731311d0524a577cf8a01faa97874bacbdfe
   ReactCodegen: a5d5626f71299d374b87e9a7dc92f968a963b4ef
   ReactCommon: c235ebd26d63fde9a2dfa72cee9f8294b910fee1
-  ReactNativeGetLocation: 334401850ba596072056a5ece1f8ba1699d52b6b
   RNCAsyncStorage: 302f2fac014fd450046c120567ca364632da682b
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 606b85298c19d681ca076ca523dc23396120adab
@@ -3626,6 +3626,6 @@ SPEC CHECKSUMS:
   TOCropViewController: 797deaf39c90e6e9ddd848d88817f6b9a8a09888
   Yoga: b01392348aeea02064c21a2762a42893d82b60a7
 
-PODFILE CHECKSUM: ff9d0d4254fe961fe975897e53c7ed084795c577
+PODFILE CHECKSUM: 34ec217d618a85328eade6f6fa97ce0eef323614
 
 COCOAPODS: 1.15.2
