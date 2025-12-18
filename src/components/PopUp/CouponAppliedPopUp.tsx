@@ -66,7 +66,7 @@ export default function CouponAppliedPopUp() {
                         <View style={Styles.CoupoonAppliedContainer}>
                             <View >
                                 <View style={Styles.verticalStrap} />
-                                <Image source={Images?.Bow_Tie} style={Styles.bow_Tie} />
+                                <Image source={Images.Bow_Tie} style={Styles.bow_Tie} />
                             </View>
                             <View style={Styles.RightContainer}>
                                 <Text style={Styles.offerApplied}>{Strings.offerApplied.toUpperCase()} </Text>

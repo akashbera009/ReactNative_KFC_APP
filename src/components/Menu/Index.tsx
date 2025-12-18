@@ -67,14 +67,14 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                     <TouchableOpacity
                         onPress={() => navigation.pop()}
                     >
-                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
                     <Text style={Styles.headerText}>{Strings.exploreMenu} </Text>
                 </View>
                 <TouchableOpacity
                     onPress={() => navigation.navigate(Strings.SearchScreen)}
                 >
-                    <Image source={Images?.Search_Icon} style={Styles.SearchIcon} />
+                    <Image source={Images.Search_Icon} style={Styles.SearchIcon} />
                 </TouchableOpacity>
             </View>
             <View style={Styles.CategorySelector}>
@@ -88,7 +88,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                         })
                     }}
                 >
-                    <Image source={Images?.Foood_Menu_Icon} style={Styles.menuIcon} />
+                    <Image source={Images.Foood_Menu_Icon} style={Styles.menuIcon} />
                 </TouchableOpacity>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     {categorySet.map((category) => (

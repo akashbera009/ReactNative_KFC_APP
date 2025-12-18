@@ -76,7 +76,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                     <TouchableOpacity
                         onPress={() => navigation.pop()}
                     >
-                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
                     <View style={Styles.HeaderTextContainer}>
                         <Text style={Styles.navHeaderText} >{Strings.cart}</Text>
@@ -105,12 +105,12 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                     <View style={Styles.EditingButtonContainerWrapper}>
                                         <TouchableOpacity
                                             style={Styles.EditingButtonWrapper}>
-                                            <Image source={Images?.Edit_Icon} style={Styles.EditingIcons} />
+                                            <Image source={Images.Edit_Icon} style={Styles.EditingIcons} />
                                         </TouchableOpacity>
                                         <TouchableOpacity
                                             onPress={() => handleDelete(item?.menuItemUid, item?.image)}
                                             style={Styles.EditingButtonWrapper}>
-                                            <Image source={Images?.delete_Icon} style={Styles.EditingIcons} />
+                                            <Image source={Images.delete_Icon} style={Styles.EditingIcons} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -145,14 +145,14 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                                     style={Styles.deleteButtonContainer}
                                                     onPress={() => { handleDelete(item?.menuItemUid, item?.image) }}
                                                 >
-                                                    <Image source={Images?.Delete_Icon} style={Styles.deleteIcon} />
+                                                    <Image source={Images.Delete_Icon} style={Styles.deleteIcon} />
                                                 </TouchableOpacity>
                                                 :
                                                 <TouchableOpacity
                                                     style={Styles.deleteButtonContainer}
                                                     onPress={() => { handleDecreaseQuantity(item?.menuItemUid) }}
                                                 >
-                                                    <Image source={Images?.Minus} style={Styles.deleteIcon} />
+                                                    <Image source={Images.Minus} style={Styles.deleteIcon} />
                                                 </TouchableOpacity>
                                             }
 
@@ -161,7 +161,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                                 style={item?.quantity < 10 ? Styles.AddCounterButton : Styles.AddCounterButtonFade}
                                                 onPress={() => { handleIncreaseQuantity(item?.menuItemUid) }}
                                             >
-                                                <Image source={Images?.AddButton} style={Styles.AddButtonImage} />
+                                                <Image source={Images.AddButton} style={Styles.AddButtonImage} />
                                             </TouchableOpacity>
                                         </View>
                                     </View>
@@ -178,14 +178,14 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                 {topOfferAppliedIndicator && (
                                     <View style={Styles.OfferAppliedTopIndicator}>
                                         <View style={Styles.discountImageContainer}>
-                                            <Image source={Images?.discount} style={Styles.discountImageTop} />
+                                            <Image source={Images.discount} style={Styles.discountImageTop} />
                                         </View>
                                         <View style={Styles.GreenTextContainer}>
                                             <Text style={Styles.offerAppliedGreenText}>{Strings.offer} </Text>
                                             <Text style={Styles.offerAppliedGreenText}>{offerCode} </Text>
                                             <Text style={Styles.offerAppliedGreenText}>{Strings.applied} </Text>
                                         </View>
-                                        <Image source={Images?.Info_Button} style={Styles.InfoButton} />
+                                        <Image source={Images.Info_Button} style={Styles.InfoButton} />
                                         <TouchableOpacity
                                             style={Styles.deleteButton}
                                             onPress={() => setTopOfferAppliedIndicator(false)}
@@ -221,14 +221,14 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                                         style={Styles.deleteButtonContainer}
                                                         onPress={() => { handleDelete(item?.menuItemUid, item?.image) }}
                                                     >
-                                                        <Image source={Images?.Delete_Icon} style={Styles.deleteIcon} />
+                                                        <Image source={Images.Delete_Icon} style={Styles.deleteIcon} />
                                                     </TouchableOpacity>
                                                     :
                                                     <TouchableOpacity
                                                         style={Styles.deleteButtonContainer}
                                                         onPress={() => { handleDecreaseQuantity(item?.menuItemUid) }}
                                                     >
-                                                        <Image source={Images?.Minus} style={Styles.deleteIcon} />
+                                                        <Image source={Images.Minus} style={Styles.deleteIcon} />
                                                     </TouchableOpacity>
                                                 }
 
@@ -237,7 +237,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                                     style={item?.quantity < 10 ? Styles.AddCounterButton : Styles.AddCounterButtonFade}
                                                     onPress={() => { handleIncreaseQuantity(item?.menuItemUid) }}
                                                 >
-                                                    <Image source={Images?.AddButton} style={Styles.AddButtonImage} />
+                                                    <Image source={Images.AddButton} style={Styles.AddButtonImage} />
                                                 </TouchableOpacity>
                                             </View>
                                         </View>
@@ -251,7 +251,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                         <Text style={Styles.moreItemsCart}>{Strings.addMoreItemsToCart} </Text>
                                     </View>
                                     <View>
-                                        <Image source={Images?.back_arrow} style={Styles.GotoMoreMenu} />
+                                        <Image source={Images.back_arrow} style={Styles.GotoMoreMenu} />
                                     </View>
                                 </TouchableOpacity>
                                 {isOfferApplied ?
@@ -259,7 +259,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                         <View style={[Styles.CouponMenuContainer, Styles.GreenBorder]}>
                                             <View style={Styles.AboveCouponCOntainer}>
                                                 <View style={Styles.TopCouponCOntaienr}>
-                                                    <Image source={Images?.discount} style={Styles.discountImage} />
+                                                    <Image source={Images.discount} style={Styles.discountImage} />
                                                     <Text style={Styles.CouponAppliedText}>{Strings.couponApplied} </Text>
                                                 </View>
                                                 <TouchableOpacity
@@ -279,11 +279,11 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                             onPress={handleOfferApply}
                                             style={Styles.ExploreMenuContainer}>
                                             <View style={Styles.LeftCouponCOntaienr}>
-                                                <Image source={Images?.discount} style={Styles.discountImage} />
+                                                <Image source={Images.discount} style={Styles.discountImage} />
                                                 <Text style={Styles.applyCoupon}>{Strings.applyCoupon} </Text>
                                             </View>
                                             <View>
-                                                <Image source={Images?.back_arrow} style={Styles.GotoMoreMenu} />
+                                                <Image source={Images.back_arrow} style={Styles.GotoMoreMenu} />
                                             </View>
                                         </TouchableOpacity>
                                     )}

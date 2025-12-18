@@ -10,8 +10,19 @@ const VideoPlayerComponent = ({ uri }: { uri: string | undefined }) => {
                 (
                     <Video
                         source={localVideoPath}
+                        controlsStyles={
+                            {
+                                hideFullscreen: false,
+                                hideDuration: false,
+                                hideSeekBar : false,
+                                hideForward: false , 
+                                hideSettingButton : false 
+                            }
+                        }
                         style={{ width: '100%', aspectRatio: 16 / 9 }}
+                        fullscreen={false}
                         controls={true}
+                        repeat ={true}
                         paused={true}
                     />
                 ) : (

@@ -18,7 +18,7 @@ export const CartItemNotFound = () => {
     return (
         <View style={Styles.NotFoundContainer}>
             <View style={Styles.imageContaienr}>
-                <Image source={Images?.CartEmptyDustbin} style={Styles.ConfeeCupImage} />
+                <Image source={Images.CartEmptyDustbin} style={Styles.ConfeeCupImage} />
                 <Text style={Styles.questionMark}>? </Text>
             </View>
             <Text style={Styles.Opps}>{Strings.cartIsEmpty} </Text>

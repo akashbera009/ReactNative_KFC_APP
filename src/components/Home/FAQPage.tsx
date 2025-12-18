@@ -55,7 +55,7 @@ export default function FAQPage() {
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
                 <View style={Styles.rowCenter}>
                     <TouchableOpacity onPress={() => navigation.pop()}>
-                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
                     <Text style={Styles.headerText}>{Strings.faqs}</Text>
                 </View>
@@ -91,7 +91,7 @@ export default function FAQPage() {
                             >
                                 <Text style={Styles.cardText}>{item.question}</Text>
                                 <Image
-                                    source={Images?.back_arrow}
+                                    source={Images.back_arrow}
                                     style={[
                                         Styles.rightArrow,
                                         { transform: [{ rotate: isOpen ? '-90deg' : '180deg' }] }

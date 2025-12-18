@@ -93,7 +93,7 @@ export default function LoginPage2() {
                         <View style={[Styles.singleCOlumnStyle,]} />
                         <View style={[Styles.singleCOlumnStyle,]} />
                     </View>
-                    <Image source={Images?.KFC_Combo_Pack} style={[Styles.KFC_ComboImage, { marginTop: inset.top }]} />
+                    <Image source={Images.KFC_Combo_Pack} style={[Styles.KFC_ComboImage, { marginTop: inset.top }]} />
                     <Text style={Styles.Welcome2} >{Strings.welcome2.toUpperCase()}</Text>
                     <View style={Styles.SecondLine}>
                         <Text style={Styles.SecondLineText}>{Strings.KFC.toUpperCase()}</Text>
@@ -166,14 +166,14 @@ export default function LoginPage2() {
                                     style={Styles.faangButton}
                                     onPress={signInWithGoogle}
                                 >
-                                    <Image source={Images?.facebook} style={Styles.faangLogo} />
+                                    <Image source={Images.facebook} style={Styles.faangLogo} />
                                     <Text style={Styles.faangButtonText}>{Strings.facebook.toUpperCase()} </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={Styles.faangButton}
                                     onPress={signInWithGoogle}
                                 >
-                                    <Image source={Images?.google} style={Styles.faangLogo} />
+                                    <Image source={Images.google} style={Styles.faangLogo} />
                                     <Text style={Styles.faangButtonText}>{Strings.google.toUpperCase()} </Text>
                                 </TouchableOpacity>
                             </View>

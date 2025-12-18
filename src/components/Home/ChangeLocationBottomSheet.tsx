@@ -65,9 +65,9 @@ export default function ChangeLocationBottomSheet() {
                 <View >
                     <View style={Styles.InnerContainer}>
                         <View style={Styles.bottomSheeetContentContainer}>
-                            <Image source={Images?.Mao_Location} style={Styles.mapImage} />
-                            <Image source={Images?.Cloud} style={Styles.Cloud1} />
-                            <Image source={Images?.Cloud2} style={Styles.Cloud2} />
+                            <Image source={Images.Mao_Location} style={Styles.mapImage} />
+                            <Image source={Images.Cloud} style={Styles.Cloud1} />
+                            <Image source={Images.Cloud2} style={Styles.Cloud2} />
                             <Text style={Styles.ConfirmHeader}>{Strings.consfirmLocation}</Text>
                             <Text style={Styles.countryDescription} >{Strings.consfirmLocationDescription}</Text>
                             <View style={Styles.LocationContainer}>

@@ -28,42 +28,42 @@ export default function LoginPage() {
     <View style={[Styles.parentBackground, { backgroundColor: Colors.constantBlack }]}>
       <View style={Styles.backgroundThreeScreen}>
         <View style={Styles.TopImageLayer}>
-          <Image source={Images?.FoodImage1} style={Styles.TopImageGridElement} />
-          <Image source={Images?.FoodImage2} style={Styles.TopImageGridElement} />
-          <Image source={Images?.FoodImage3} style={Styles.TopImageGridElement} />
-          <Image source={Images?.FoodImage4} style={Styles.TopImageGridElement} />
-          <Image source={Images?.FoodImage5} style={Styles.TopImageGridElement} />
-          <Image source={Images?.FoodImage6} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage1} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage2} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage3} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage4} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage5} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage6} style={Styles.TopImageGridElement} />
         </View>
         <View style={Styles.middleColorLayer}>
         </View>
         <View style={Styles.TopImageLayer}>
-          <Image source={Images?.FoodImage1} style={Styles.TopImageGridElement} />
-          <Image source={Images?.FoodImage2} style={Styles.TopImageGridElement} />
-          <Image source={Images?.FoodImage3} style={Styles.TopImageGridElement} />
-          <Image source={Images?.FoodImage4} style={Styles.TopImageGridElement} />
-          <Image source={Images?.FoodImage5} style={Styles.TopImageGridElement} />
-          <Image source={Images?.FoodImage6} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage1} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage2} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage3} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage4} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage5} style={Styles.TopImageGridElement} />
+          <Image source={Images.FoodImage6} style={Styles.TopImageGridElement} />
         </View>
       </View>
       <View style={[Styles.GradientOverlayBG,]}>
         <LinearGradient colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.25)', '#000000f3', '#000000ff']} style={[Styles.GradientOverlayBG,]} >
           <View style={Styles.MiddleContainer}>
-            <Image source={Images?.KfcTextLogo} style={Styles.kfclogoImage} />
+            <Image source={Images.KfcTextLogo} style={Styles.kfclogoImage} />
             <Text style={Styles.LoginDescriptionText}> {Strings.loginToUlock}</Text>
             <Text style={Styles.LoginDescriptionText}> {Strings.awesomeNewFeature}</Text>
           </View>
           <View style={Styles.DealsAndOffersContainer}>
             <View style={Styles.DealsAndOffersInnerContainer} >
-              <Image source={Images?.burger_and_coke} style={Styles.middleSectionImagesIcon} />
+              <Image source={Images.burger_and_coke} style={Styles.middleSectionImagesIcon} />
               <Text style={Styles.OfferDealsText} >{Strings.fingerLicking}</Text>
             </View>
             <View style={Styles.DealsAndOffersInnerContainer} >
-              <Image source={Images?.discount} style={Styles.middleSectionImagesIcon} />
+              <Image source={Images.discount} style={Styles.middleSectionImagesIcon} />
               <Text style={Styles.OfferDealsText} numberOfLines={2}>{Strings.dealAndOfferTxt}</Text>
             </View>
             <View style={Styles.DealsAndOffersInnerContainer} >
-              <Image source={Images?.Easy_Order} style={Styles.middleSectionImagesIcon} />
+              <Image source={Images.Easy_Order} style={Styles.middleSectionImagesIcon} />
               <Text style={Styles.OfferDealsText} numberOfLines={2} >{Strings.easyOrdering}</Text>
             </View>
           </View>
@@ -78,7 +78,7 @@ export default function LoginPage() {
               >
                 {language == 'en' && (
                   <View style={Styles.TickMarkImageContainer}>
-                    <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
+                    <Image source={Images.Tick_Mark} style={[Styles.tickMark]} />
                   </View>
                 )}
               </TouchableOpacity>
@@ -92,7 +92,7 @@ export default function LoginPage() {
               >
                 {language == 'ar' && (
                   <View style={Styles.TickMarkImageContainer}>
-                    <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
+                    <Image source={Images.Tick_Mark} style={[Styles.tickMark]} />
                   </View>
                 )}
               </TouchableOpacity>

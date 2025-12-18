@@ -78,9 +78,9 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
                             onPress={() => { handleToggleFavourite(foodItem?.uid) }}
                         >
                             {favouritelist?.favorites?.includes(foodItem?.uid) ? (
-                                <Image source={Images?.Favourite_Icon} style={Styles.Favourite_Icon} />
+                                <Image source={Images.Favourite_Icon} style={Styles.Favourite_Icon} />
                             ) : (
-                                <Image source={Images?.Favourite_Icon_Empty} style={Styles.Favourite_Icon} />
+                                <Image source={Images.Favourite_Icon_Empty} style={Styles.Favourite_Icon} />
                             )}
                         </TouchableOpacity>
                     </View>
@@ -100,7 +100,7 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
                             })}
                         >
                             <Text style={Styles.customizeText}>{Strings.customize.toUpperCase()} </Text>
-                            <Image source={Images?.back_arrow} style={Styles.backArrow} />
+                            <Image source={Images.back_arrow} style={Styles.backArrow} />
                         </TouchableOpacity>
                     )}
                 </View>
@@ -129,14 +129,14 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
                                 style={Styles.deleteButtonContainer}
                                 onPress={() => { handleDecreaseQuantity(foodItem?.uid) }}
                             >
-                                <Image source={Images?.Minus} style={Styles.deleteIcon} />
+                                <Image source={Images.Minus} style={Styles.deleteIcon} />
                             </TouchableOpacity>
                             :
                             <TouchableOpacity
                                 style={Styles.deleteButtonContainer}
                                 onPress={() => { handleRemoveItem(foodItem?.uid) }}
                             >
-                                <Image source={Images?.Delete_Icon} style={Styles.deleteIcon} />
+                                <Image source={Images.Delete_Icon} style={Styles.deleteIcon} />
                             </TouchableOpacity>
                         }
                         <Text style={Styles.counter}>{formattedQuantity} </Text>
@@ -144,7 +144,7 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
                             style={quantity < 10 ? Styles.AddCounterButton : Styles.AddCounterButtonFade}
                             onPress={() => handleIncreaseQunatity(foodItem?.uid)}
                         >
-                            <Image source={Images?.AddButton} style={Styles.AddButtonImage} />
+                            <Image source={Images.AddButton} style={Styles.AddButtonImage} />
                         </TouchableOpacity>
                     </View>
                 )}

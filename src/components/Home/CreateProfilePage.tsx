@@ -4,8 +4,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-// image picker
-// import ImagePicker from 'react-native-image-crop-picker';
+// mage picker 
+import { launchImageLibrary } from 'react-native-image-picker';
+import ImagePicker from "react-native-image-crop-picker";
 // redux 
 import { useSelector } from "react-redux";
 import { addUserDetails, fetctUserDeatails, selectUserByMobile, updateUser } from '../../features/userSlice';
@@ -18,7 +19,6 @@ import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { uploadToImgBB } from '../../utils/uploadToImgBB';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-
 export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const Colors = useThemeColors()
     const Strings = useStrings()
@@ -26,7 +26,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
-    const rawPhone = phoneNo ;
+    const rawPhone = phoneNo;
     let formattedText
     if (countrySelected?.code == 'uae')
         formattedText = phoneNo.replace(/(\d{3})(?=\d)/g, '$1 ');
@@ -44,7 +44,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         dispatch(fetctUserDeatails())
     }, [dispatch])
     const userdata = useSelector((state: RootState) => state?.users)
-    const currentUser = userdata?.userData.find((item) => item?.mobileNo == rawPhone)
+    const currentUser = userdata?.userData.find((item: userDatailsType) => item?.mobileNo == rawPhone)
     const [email, setEmail] = useState<string | undefined>(currentUser?.email)
     const [name, setName] = useState<string | undefined>(currentUser?.name)
     const [isTouchedEmail, setIsTouchedEmail] = useState<boolean>(false)
@@ -137,7 +137,58 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         else
             setShowTopName(false)
     }
-    const openImagePicker = () => {
+    const openImagePicker = async () => {
+        try {
+            if (Platform.OS == 'android') {
+                const pickResult = await launchImageLibrary({
+                    mediaType: 'photo',
+                    selectionLimit: 1,
+                    quality: 1,
+                })
+                if (pickResult?.didCancel) return
+                const uri = pickResult?.assets?.at(0)?.uri;
+                if (!uri) return;
+                const cropResult = await ImagePicker.openCropper({
+                    path: uri,
+                    height: vh(300),
+                    width: vw(300),
+                    cropping: true,
+                    multiple: false,
+                    mediaType: 'photo',
+                    freeStyleCropEnabled: true,
+                    writeTempFile: true,
+                    cropperToolbarTitle: 'Crop Image',
+                })
+                const uploadedUrl = await uploadToImgBB({
+                    path: cropResult?.path,
+                    mime: cropResult?.mime,
+                    filename: cropResult?.filename
+                })
+                setSelectedImage(uploadedUrl)
+                setTimeout(() => {
+                    ImagePicker.cleanSingle(uri).catch(() => { });
+                }, 100);
+            } else {
+                const cropResult = await ImagePicker.openPicker({
+                    height: vh(300),
+                    width: vw(300),
+                    cropping: true,
+                    multiple: false,
+                    mediaType: 'photo',
+                    freeStyleCropEnabled: true,
+                    writeTempFile: true,
+                    cropperToolbarTitle: 'Crop Image',
+                })
+                const uploadedUrl = await uploadToImgBB({
+                    path: cropResult?.path,
+                    mime: cropResult?.mime,
+                    filename: cropResult?.filename
+                })
+                setSelectedImage(uploadedUrl)
+            }
+        } catch (e) {
+            console.log('Error:', e);
+        }
     }
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
@@ -151,119 +202,120 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
                 <View style={Styles.rowCenter}>
                     <TouchableOpacity onPress={() => navigation.pop()}>
-                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
                     <Text style={Styles.headerText} >{Strings.createProfileHeader}</Text>
                 </View>
-            </View> 
-                <KeyboardAwareScrollView
-                    extraScrollHeight={120}
-                    extraHeight={20}
-                    keyboardShouldPersistTaps='handled'
-                    enableOnAndroid={true}
-                     refreshControl={
+            </View>
+            <KeyboardAwareScrollView
+                style={Styles.body}
+                extraScrollHeight={120}
+                extraHeight={20}
+                keyboardShouldPersistTaps='handled'
+                enableOnAndroid={true}
+                refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                 } >
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                        <View >
-                            <View style={Styles.enterCreateProfileHeaderContainer}>
-                                <Text style={Styles.enterCreateProfileHeader}>{Strings.enterYourDetails}</Text>
-                            </View>
-                            <View
-                                style={[Styles.CreateProfileRelatedContainer]}
-                            >
-                                <View style={Styles.InputEntriesContainer}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                    <View  >
+                        <View style={Styles.enterCreateProfileHeaderContainer}>
+                            <Text style={Styles.enterCreateProfileHeader}>{Strings.enterYourDetails}</Text>
+                        </View>
+                        <View
+                            style={[Styles.CreateProfileRelatedContainer]}
+                        >
+                            <View style={Styles.InputEntriesContainer}>
+                                {userdata?.loading != 'success' ? (
+                                    <Text>{Strings.loading}</Text>
+                                ) : (
+                                    <TouchableOpacity
+                                        onPress={openImagePicker}
+                                        style={Styles.ImageContainer}>
+                                        {selectedImage != '' ? (
+                                            <Image source={{ uri: selectedImage }} style={Styles.profileImage} />
+                                        ) : (
+                                            <Image source={Images.Camera} style={Styles.CameraImage} />
+                                        )}
+                                    </TouchableOpacity>
+                                )}
+                                {showTopName && (
+                                    <Text style={Styles.placeHolderTopText}>{Strings.name.toUpperCase() + '*'} </Text>
+                                )}
+                                <View style={Styles.EmailAndWarning} >
                                     {userdata?.loading != 'success' ? (
                                         <Text>{Strings.loading}</Text>
                                     ) : (
-                                        <TouchableOpacity
-                                            onPress={openImagePicker}
-                                            style={Styles.ImageContainer}>
-                                            {selectedImage != '' ? (
-                                                <Image source={{ uri: selectedImage }} style={Styles.profileImage} />
-                                            ) : (
-                                                <Image source={Images?.Camera} style={Styles.CameraImage} />
-                                            )}
-                                        </TouchableOpacity>
+                                        <TextInput
+                                            value={name}
+                                            onChangeText={handleChangeName}
+                                            placeholder={Strings.name + '*'}
+                                            style={Styles.InputEntries} />
                                     )}
-                                    {showTopName && (
-                                        <Text style={Styles.placeHolderTopText}>{Strings.name.toUpperCase() + '*'} </Text>
+                                    {showWarningName && (
+                                        <Image source={Images.Orange_Warning} style={[Styles.tickMark, Styles.warningMark]} />
                                     )}
-                                    <View style={Styles.EmailAndWarning} >
-                                        {userdata?.loading != 'success' ? (
-                                            <Text>{Strings.loading}</Text>
-                                        ) : (
-                                            <TextInput
-                                                value={name}
-                                                onChangeText={handleChangeName}
-                                                placeholder={Strings.name + '*'}
-                                                style={Styles.InputEntries} />
-                                        )}
-                                        {showWarningName && (
-                                            <Image source={Images?.Orange_Warning} style={[Styles.tickMark, Styles.warningMark]} />
-                                        )}
-                                    </View>
-                                    <View style={[Styles.customBorder, showWarningName && Styles.OrangeBorder]} />
-                                    {showWarningName ? (
-                                        <Text style={Styles.orangeMandatoryField}>{Strings.fieldIsMandatory} </Text>
-                                    ) : (
-                                        <View style={Styles.BlankWarning} />
-                                    )}
-                                    <View style={Styles.WrapperPhoneNoContainer}>
-                                        <Text style={Styles.mobileNumberPlaceholder}>{Strings.mobileNumber.toUpperCase() + '*'} </Text>
-                                        <View style={Styles.PhoneNoContainer}>
-                                            <View style={Styles.leftMobileContainer}>
-                                                <View style={Styles.mobileCodeAndArrow}>
-                                                    <Text style={Styles.mobileCode}>{countrySelected?.mobileCode} </Text>
-                                                    <Image source={Images?.Arrow_down} style={Styles.arrowDown} />
-                                                </View>
-                                                <View style={Styles.customBorder} />
+                                </View>
+                                <View style={[Styles.customBorder, showWarningName && Styles.OrangeBorder]} />
+                                {showWarningName ? (
+                                    <Text style={Styles.orangeMandatoryField}>{Strings.fieldIsMandatory} </Text>
+                                ) : (
+                                    <View style={Styles.BlankWarning} />
+                                )}
+                                <View style={Styles.WrapperPhoneNoContainer}>
+                                    <Text style={Styles.mobileNumberPlaceholder}>{Strings.mobileNumber.toUpperCase() + '*'} </Text>
+                                    <View style={Styles.PhoneNoContainer}>
+                                        <View style={Styles.leftMobileContainer}>
+                                            <View style={Styles.mobileCodeAndArrow}>
+                                                <Text style={Styles.mobileCode}>{countrySelected?.mobileCode} </Text>
+                                                <Image source={Images.Arrow_down} style={Styles.arrowDown} />
                                             </View>
-                                            <View style={Styles.RightMobileContainer}>
-                                                <View style={Styles.mobileAndImage}>
-                                                    <Text style={Styles.mobileNo}>{phoneNo} </Text>
-                                                    <Image source={Images?.Green_Tick} style={[Styles.tickMark, Styles.tickMark_Green]} />
-                                                </View>
-                                                <View style={Styles.customBorder} />
+                                            <View style={Styles.customBorder} />
+                                        </View>
+                                        <View style={Styles.RightMobileContainer}>
+                                            <View style={Styles.mobileAndImage}>
+                                                <Text style={Styles.mobileNo}>{phoneNo} </Text>
+                                                <Image source={Images.Green_Tick} style={[Styles.tickMark, Styles.tickMark_Green]} />
                                             </View>
+                                            <View style={Styles.customBorder} />
                                         </View>
                                     </View>
-                                    {showTopEmail && (
-                                        <Text style={Styles.placeHolderTopText}>{Strings.email.toUpperCase() + '*'} </Text>
-                                    )}
-                                    <View style={Styles.EmailAndWarning} >
-                                        {userdata?.loading != 'success' ? (
-                                            <Text>{Strings.loading}</Text>
-                                        ) : (
-                                            <TextInput
-                                                value={email}
-                                                onChangeText={handleChangeEmail}
-                                                placeholder={Strings.email + '*'}
-                                                style={Styles.InputEntries} />
-                                        )}
-                                        {showWarningEmail && (
-                                            <Image source={Images?.Orange_Warning} style={[Styles.tickMark, Styles.warningMark]} />
-                                        )}
-                                    </View>
-                                    <View style={[Styles.customBorder, showWarningEmail && Styles.OrangeBorder]} />
-                                    {showWarningEmail ? (
-                                        <Text style={Styles.orangeMandatoryField}>{Strings.fieldIsMandatory} </Text>
+                                </View>
+                                {showTopEmail && (
+                                    <Text style={Styles.placeHolderTopText}>{Strings.email.toUpperCase() + '*'} </Text>
+                                )}
+                                <View style={Styles.EmailAndWarning} >
+                                    {userdata?.loading != 'success' ? (
+                                        <Text>{Strings.loading}</Text>
                                     ) : (
-                                        <View style={Styles.BlankWarning} />
+                                        <TextInput
+                                            value={email}
+                                            onChangeText={handleChangeEmail}
+                                            placeholder={Strings.email + '*'}
+                                            style={Styles.InputEntries} />
+                                    )}
+                                    {showWarningEmail && (
+                                        <Image source={Images.Orange_Warning} style={[Styles.tickMark, Styles.warningMark]} />
                                     )}
                                 </View>
-                                <View style={Styles.verifyButtonContainer}>
-                                    <TouchableOpacity
-                                        activeOpacity={.5}
-                                        onPress={handleSave}
-                                        style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
-                                        <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings.save.toUpperCase()}</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                <View style={[Styles.customBorder, showWarningEmail && Styles.OrangeBorder]} />
+                                {showWarningEmail ? (
+                                    <Text style={Styles.orangeMandatoryField}>{Strings.fieldIsMandatory} </Text>
+                                ) : (
+                                    <View style={Styles.BlankWarning} />
+                                )}
+                            </View>
+                            <View style={Styles.verifyButtonContainer}>
+                                <TouchableOpacity
+                                    activeOpacity={.5}
+                                    onPress={handleSave}
+                                    style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
+                                    <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings.save.toUpperCase()}</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                    </TouchableWithoutFeedback>
-                </KeyboardAwareScrollView>
+                    </View>
+                </TouchableWithoutFeedback>
+            </KeyboardAwareScrollView>
         </View>
     )
 }
@@ -272,7 +324,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parentBackground: {
             flex: 1,
-            backgroundColor: Colors.bodyLigheterColor,
+            backgroundColor: Colors.bodyColor,
+        },
+        body: {
+            backgroundColor: Colors.bodyLighterColor,
+            flex: 1,
         },
         NavWrapper: {
             width: '100%',
@@ -320,7 +376,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flexDirection: 'column',
             shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(5), height: vh(5) },
-            shadowOpacity:.25,
+            shadowOpacity: .25,
             shadowRadius: normalize(10),
             elevation: normalize(5),
         },
@@ -367,7 +423,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         mobileCode: {
             marginBottom: vh(5),
             fontSize: normalize(16),
-            fontFamily: Fonts.font17 , 
+            fontFamily: Fonts.font17,
             color: Colors.textBlack
         },
         arrowDown: {
@@ -389,12 +445,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         mobileNo: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17 , 
+            fontFamily: Fonts.font17,
             alignSelf: 'center',
             marginLeft: vw(5),
             color: Colors.textBlack
         },
-        placeHolderTopText: {   
+        placeHolderTopText: {
             fontSize: normalize(11),
             fontFamily: Fonts.font18,
             color: Colors.timerFadeText,
@@ -425,7 +481,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(12),
             color: Colors.orangeColorText,
             marginLeft: vw(10),
-            fontFamily: Fonts.font17 , 
+            fontFamily: Fonts.font17,
             marginTop: vh(8)
         },
         mobileAndImage: {

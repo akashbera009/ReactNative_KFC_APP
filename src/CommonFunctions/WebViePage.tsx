@@ -94,7 +94,7 @@ export default function WebViewPage() {
                     <TouchableOpacity
                         onPress={() => navigation.pop()}
                     >
-                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
                     <Text style={Styles.headerText}>{Strings.termsCondition}</Text>
                 </View>

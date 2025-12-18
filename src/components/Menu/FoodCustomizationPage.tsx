@@ -26,7 +26,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                     <TouchableOpacity
                         onPress={() => navigation.pop()}
                     >
-                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
                     <View style={Styles.HeaderTextContainer}>
                         <Text style={Styles.navHeaderText} >{foodItem?.name}</Text>
@@ -40,7 +40,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                 <ScrollView>
                     <View style={Styles.TopImageSlider}>
                         <Image
-                            source={foodItem.image}
+                            source={foodItem?.image}
                             style={Styles.foodImage}
                         />
                         <View style={Styles.DotsContainer}>
@@ -76,7 +76,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
 
                             {group.type === "quantity" ? (
                                 <View style={{ marginHorizontal: vw(20) }}>
-                                    {group.choices.map((choice, idx) => (
+                                    {group?.choices?.map((choice, idx) => (
                                         <View
                                             key={idx}
                                             style={{
@@ -158,7 +158,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                     >
                                         {choice.image && (
                                             <Image
-                                                source={choice.image}
+                                                source={choice?.image}
                                                 style={{
                                                     height: vh(45),
                                                     width: vw(45),

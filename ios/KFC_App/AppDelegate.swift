@@ -3,6 +3,7 @@ import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
 import GoogleMaps
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,9 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       in: window,
       launchOptions: launchOptions
     )
- printAllFonts()
+    printAllFonts()
     return true
   }
+  //  for google sign in 
+    func application(
+      _ app: UIApplication,
+      open url: URL,
+      options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    ) -> Bool {
+        print("🔔 App opened with URL:", url)
+      return GIDSignIn.sharedInstance.handle(url)
+    }
+    /// fonts printing 
    func printAllFonts() {
     for family in UIFont.familyNames.sorted() {
         print("👨‍🎨 Font family: \(family)")

@@ -50,7 +50,7 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
         }]}>
             <View style={Styles.DetailsContainer}>
                 <View style={Styles.ImageContainer}>
-                    <Image source={Images?.Chicken_Bucket} style={Styles.CartImage} />
+                    <Image source={Images.Chicken_Bucket} style={Styles.CartImage} />
                     <View style={Styles.ImageWrapper}>
                         <Text style={Styles.CounterText}>{formattedCounterText} </Text>
                     </View>

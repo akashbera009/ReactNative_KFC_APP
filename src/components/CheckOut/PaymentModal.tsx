@@ -119,7 +119,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
                                     ]}
                                     onPress={() => setSelectedCard(index)}
                                 >
-                                    <Image source={Images?.VisaPNG} style={Styles.VisaPNGFade} />
+                                    <Image source={Images.VisaPNG} style={Styles.VisaPNGFade} />
                                     <View style={Styles.HeaderAndButton}>
                                         <View >
                                             <Text style={Styles.bankName}>{card?.bank}</Text>
@@ -135,7 +135,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
                                     </View>
                                     <View style={Styles.cardFooter}>
                                         <Text style={Styles.cardType}>{card.type}</Text>
-                                        <Image source={Images?.VisaPNG} style={Styles.VisaPNG} />
+                                        <Image source={Images.VisaPNG} style={Styles.VisaPNG} />
                                     </View>
                                 </TouchableOpacity>
                             ))}
@@ -154,7 +154,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
                                 activeOpacity={0.6}
                             >
                                 <View style={Styles.methodLeft}>
-                                    <Image source={item.icon} style={Styles.methodIcon} />
+                                    <Image source={item?.icon} style={Styles.methodIcon} />
                                     <View>
                                         <Text style={Styles.methodText}>{item.label}</Text>
                                         {item.offer && (
@@ -177,7 +177,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
                             activeOpacity={0.7}
                         >
                             <View style={[Styles.checkboxOuter, preferred && Styles.checkboxSelected]}>
-                                {preferred && <Image source={Images?.Tick_Mark} style={Styles.tickMark} />}
+                                {preferred && <Image source={Images.Tick_Mark} style={Styles.tickMark} />}
                             </View>
                             <Text style={Styles.preferredText}>
                                 {Strings.makePreferredMode}

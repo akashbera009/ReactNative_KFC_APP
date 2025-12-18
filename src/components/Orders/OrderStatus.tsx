@@ -111,7 +111,7 @@ export default function OrderStatus({
                                                             })
                                                         }]
                                                     }]}
-                                                    source={Images?.RoundLoader}
+                                                    source={Images.RoundLoader}
                                                 />
                                             </View>
                                             <Text style={Styles.WaitingText}>{Strings.waitingOrder}</Text>

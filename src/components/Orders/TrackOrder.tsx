@@ -96,7 +96,7 @@ export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProp
           <TouchableOpacity
             onPress={() => navigation.pop()}
           >
-            <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+            <Image source={Images.back_arrow} style={Styles.BackIcon} />
           </TouchableOpacity>
           <Text style={Styles.headerText}>{Strings.trackOrder} </Text>
         </View>

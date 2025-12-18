@@ -111,7 +111,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                     <TouchableOpacity
                         onPress={() => navigation.pop()}
                     >
-                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
                     <Text style={Styles.headerText}>{Strings.checkOut} </Text>
                 </View>
@@ -134,7 +134,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                     <View style={Styles.card}>
                         <View style={Styles?.deliveryContainer}>
                             <Image
-                                source={Images?.DeliveryBike}
+                                source={Images.DeliveryBike}
                                 style={Styles.deliveryBike}
                             />
                             <Text style={Styles.sectionTitle}>{Strings.wantOrder}</Text>
@@ -176,7 +176,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                         </Text>
                         <View style={Styles.contactlessRow}>
                             <View style={Styles.checkboxRed} >
-                                <Image source={Images?.Tick_Mark} style={Styles.Tick_Mark} />
+                                <Image source={Images.Tick_Mark} style={Styles.Tick_Mark} />
                             </View>
                             <Text style={Styles.contactlessText}>{Strings.contactLessDelivery}</Text>
                         </View>
@@ -204,7 +204,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                                 <View style={Styles.AmountWithButton}>
                                     <Text style={Styles.amountNumber}>{GrandTotal.toFixed(2)} {countrySelected?.code.toUpperCase()}</Text>
                                     <View style={Styles.PaymentMethodExpandButtonContainer}>
-                                        <Image source={Images?.Arrow_down} style={[Styles.ArrowDown, paymentMethodOpen && Styles?.ArrowUp]} />
+                                        <Image source={Images.Arrow_down} style={[Styles.ArrowDown, paymentMethodOpen && Styles?.ArrowUp]} />
                                     </View>
                                 </View>
                             </TouchableOpacity>
@@ -239,7 +239,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             activeOpacity={.5}
                             style={Styles.PaymentMethodsEntries}>
                             <View style={Styles.PaymentTextLeft}>
-                                <Image source={Images?.COD_Cash} style={Styles.paymentImage} />
+                                <Image source={Images.COD_Cash} style={Styles.paymentImage} />
                                 <Text style={Styles.paymentText}>{Strings.cashOnDelivery} </Text>
                             </View>
                             <View style={Styles.radioRow}>
@@ -253,7 +253,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             onPress={() => setPaymentMethodSelected(Strings.creditCardString)}
                             style={Styles.PaymentMethodsEntries}>
                             <View style={Styles.PaymentTextLeft}>
-                                <Image source={Images?.CreditCard} style={Styles.paymentImage} />
+                                <Image source={Images.CreditCard} style={Styles.paymentImage} />
                                 <Text style={Styles.paymentText}>{Strings.creditDebitcards} </Text>
                             </View>
                             <View style={Styles.radioRow}>
@@ -268,7 +268,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                             style={Styles.PaymentMethodsEntries}>
                             <View style={Styles.PaymentTextLeft}>
                                 <View style={Styles.paymentImageVisaContainer}>
-                                    <Image source={Images?.Visa_Text} style={Styles.paymentImageVisa} />
+                                    <Image source={Images.Visa_Text} style={Styles.paymentImageVisa} />
                                 </View>
                                 <Text style={Styles.paymentText}>{Strings.visaCheckOut} </Text>
                             </View>

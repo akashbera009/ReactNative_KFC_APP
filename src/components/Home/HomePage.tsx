@@ -11,10 +11,12 @@ import { RadialGradient } from 'react-native-gradients';
 // custom component imports 
 import CurrentOrder from './CurrentOrder';
 import BestSeller from './BestSeller';
+import VideoPlayerComponent from './VideoPlayer';
 //redux 
 import { fetchMenu } from '../../features/menuSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
+import { fetctUserDeatails } from '../../features/userSlice';
 import { fetchOrders } from '../../features/orderSlice';
 // util imports
 import Fonts from '../../utils/Fonts'
@@ -23,7 +25,6 @@ import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { DeliveryDetails } from '../../data/DeliveryDetails';
 import { useCountry } from '../../context/CountryContext';
-import VideoPlayerComponent from './VideoPlayer';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function HomePage() {
@@ -38,6 +39,7 @@ export default function HomePage() {
   useEffect(() => {
     dispatch(fetchMenu())
     dispatch(fetchOrders())
+    dispatch(fetctUserDeatails())
   }, [dispatch])
   const menuData = useSelector((state: RootState) => state.menuData)
   const { countrySelected } = useCountry()
@@ -57,7 +59,7 @@ export default function HomePage() {
     }).start()
   }
   const [imageIndex, setImageIndex] = useState(0);
-  const imageSet = [Images?.Home_Page_Main_Image, Images?.ChickenBox, Images?.ChickenNuget, Images?.BurgerPNG]
+  const imageSet = [Images.Home_Page_Main_Image, Images.ChickenBox, Images.ChickenNuget, Images.BurgerPNG]
   useEffect(() => {
     const interval = setTimeout(() => {
       setImageIndex(prev => prev < 3 ? prev + 1 : 0)
@@ -82,7 +84,7 @@ export default function HomePage() {
           activeOpacity={.5}
           onPress={() => { drawerNavigation.toggleDrawer() }}
         >
-          <Image source={Images?.Menu} style={[Styles.menuIcon, { top: inset.top }, Platform.OS == 'android' && Styles.AndroidHeight]} />
+          <Image source={Images.Menu} style={[Styles.menuIcon, { top: inset.top }, Platform.OS == 'android' && Styles.AndroidHeight]} />
         </TouchableOpacity>
       </View>
       <ScrollView
@@ -97,7 +99,7 @@ export default function HomePage() {
           <TouchableOpacity
             onPress={() => navigation.navigate(Strings.SplashScreen)}
           >
-            <Image source={Images?.KfcTextLogo} style={[Styles.HeaderKFC, { marginTop: inset.top }]} />
+            <Image source={Images.KfcTextLogo} style={[Styles.HeaderKFC, { marginTop: inset.top }]} />
           </TouchableOpacity>
           <Animated.View style={{ opacity: fadeAnimation }}>
             <View style={Styles.SVGContainerLeft}>
@@ -179,7 +181,7 @@ export default function HomePage() {
                 })}
                 style={Styles.FirstCard}>
                 <Text style={[Styles.ExploreCardText, Styles.FirstCardtext]}>{Strings.deals.toUpperCase()} </Text>
-                <Image source={Images?.Chicken_Bucket} style={Styles.FirstCardImage} />
+                <Image source={Images.Chicken_Bucket} style={Styles.FirstCardImage} />
               </TouchableOpacity>
               <View style={Styles.SecondCardGroup}>
                 <TouchableOpacity
@@ -188,7 +190,7 @@ export default function HomePage() {
                   })}
                   style={Styles.SecondCardTop}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings.forOne.toUpperCase()} </Text>
-                  <Image source={Images?.Chicken_Nugedts} style={[Styles.SecondCardImage, Styles.RotateImage]} />
+                  <Image source={Images.Chicken_Nugedts} style={[Styles.SecondCardImage, Styles.RotateImage]} />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(Strings.ExploreMenuScreen, {
@@ -196,7 +198,7 @@ export default function HomePage() {
                   })}
                   style={Styles.SecondCardDown}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings.sideDeserts.toUpperCase()} </Text>
-                  <Image source={Images?.French_Fries_Coke} style={Styles.SecondCardImage} />
+                  <Image source={Images.French_Fries_Coke} style={Styles.SecondCardImage} />
                 </TouchableOpacity>
               </View>
               <View
@@ -207,7 +209,7 @@ export default function HomePage() {
                   })}
                   style={Styles.ThirdCardTop}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2} >{Strings.forSharing.toUpperCase()} </Text>
-                  <Image source={Images?.Chicken_Roll} style={[Styles.ThirdCardImage, Styles.ThirdCardTopExtra]} />
+                  <Image source={Images.Chicken_Roll} style={[Styles.ThirdCardImage, Styles.ThirdCardTopExtra]} />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(Strings.ExploreMenuScreen, {
@@ -215,7 +217,7 @@ export default function HomePage() {
                   })}
                   style={Styles.ThirdCardDown}>
                   <Text style={Styles.ExploreCardText} numberOfLines={2}>{Strings.beverages.toUpperCase()} </Text>
-                  <Image source={Images?.Pepsi_Double_Can} style={Styles.ThirdCardImage} />
+                  <Image source={Images.Pepsi_Double_Can} style={Styles.ThirdCardImage} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -236,10 +238,10 @@ export default function HomePage() {
                 onPress={() => { }}
               >
                 <Text style={Styles.orderNowButtonText}>{Strings.orderNow.toUpperCase()} </Text>
-                <Image source={Images?.back_arrow} style={Styles.BackArrow} />
+                <Image source={Images.back_arrow} style={Styles.BackArrow} />
               </TouchableOpacity>
             </View>
-            <Image source={Images?.Favourite_Combo_Pack} style={Styles.Favourite_Combo_Pack} />
+            <Image source={Images.Favourite_Combo_Pack} style={Styles.Favourite_Combo_Pack} />
           </View>
           <View style={Styles.ParentWhatsNewContainer}>
             <View style={Styles.headerExplore}>
@@ -282,13 +284,13 @@ export default function HomePage() {
                   <View style={Styles.line1} />
                 </View>
                 <Image
-                  source={Images?.laurel_leaves_Left}
+                  source={Images.laurel_leaves_Left}
                   style={[Styles.laurel, Styles.leftLaurel]}
                   resizeMode="contain"
                 />
-                <Image source={Images?.KfcTextLogo} style={[Styles.HeaderKFC2]} />
+                <Image source={Images.KfcTextLogo} style={[Styles.HeaderKFC2]} />
                 <Image
-                  source={Images?.laurel_leaves_Left}
+                  source={Images.laurel_leaves_Left}
                   style={[Styles.laurel, Styles.rightLaurel]}
                   resizeMode="contain"
                 />

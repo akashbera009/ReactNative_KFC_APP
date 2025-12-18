@@ -40,7 +40,7 @@ export default function DealsAndOffer() {
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
                 <View style={Styles.rowCenter}>
                     <TouchableOpacity onPress={() => navigation.pop()}>
-                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
                     <Text style={Styles.headerText}>{Strings.dealsAndOffer}</Text>
                 </View>

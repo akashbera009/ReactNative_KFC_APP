@@ -74,7 +74,7 @@ export default function SearchPage() {
                 <View style={[Styles.innerNavigationContainer, { marginTop: inset.top - 10 }]}>
                     <TouchableOpacity
                         onPress={() => navigation.pop()}>
-                        <Image source={Images?.back_arrow} style={Styles.BackBUtton} />
+                        <Image source={Images.back_arrow} style={Styles.BackBUtton} />
                     </TouchableOpacity>
                     <TextInput value={searchTerm}
                         style={Styles.SearchBar}
@@ -86,7 +86,7 @@ export default function SearchPage() {
                     <TouchableOpacity
                         onPress={() => setSearchTerm('')}
                     >
-                        <Image source={Images?.Cross_Icon} style={Styles.crossButton} />
+                        <Image source={Images.Cross_Icon} style={Styles.crossButton} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -123,8 +123,8 @@ export default function SearchPage() {
                                         translateY: distanceFromKeyboard
                                     }]}]}>
                                     <View style={Styles.imageContaienr}>
-                                        <Image source={Images?.CoffeeCup} style={Styles.ConfeeCupImage} />
-                                        <Image source={Images?.SpilledWater} style={Styles.SplledWaterImage} />
+                                        <Image source={Images.CoffeeCup} style={Styles.ConfeeCupImage} />
+                                        <Image source={Images.SpilledWater} style={Styles.SplledWaterImage} />
                                     </View>
                                     <Text style={Styles.Opps}>{Strings.opps.toUpperCase()} </Text>
                                     <Text style={Styles.NotFoundRes}>{Strings.noResFound} </Text>

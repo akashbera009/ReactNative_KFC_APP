@@ -34,30 +34,44 @@ export default function ImagePickCropper() {
     const [videoThumbnail, setVideoThumbnail] = useState<string>('');
     const pickImage = async () => {
         try {
-            const pickerResult = await launchImageLibrary({
-                mediaType: 'photo',
-                selectionLimit: 1,
-                quality: 1,
-            });
-            if (pickerResult.didCancel) return;
-            const uri = pickerResult.assets?.[0]?.uri;
-            if (!uri) return;
-            const croppedImage = await ImagePicker.openCropper({
-                path: uri,
-                width: vh(300),
-                height: vw(300),
-                cropping: true,
-                mediaType: 'photo',
-                freeStyleCropEnabled: true,
-                multiple: false,
-                writeTempFile: true,
-                cropperToolbarTitle: 'Crop Image',
-            });
-            console.log('Final image:', croppedImage);
-            setImageUri(croppedImage?.path);
-            setTimeout(() => {
-                ImagePicker.cleanSingle(uri).catch(() => { });
-            }, 100);
+            if (Platform.OS == 'ios') {
+                const croppedImage = await ImagePicker.openPicker({
+                    width: vh(300),
+                    height: vw(300),
+                    cropping: true,
+                    mediaType: 'photo',
+                    freeStyleCropEnabled: true,
+                    multiple: false,
+                    writeTempFile: true,
+                    cropperToolbarTitle: 'Crop Image',
+                });
+                setImageUri(croppedImage?.path);
+            } else {
+                const pickerResult = await launchImageLibrary({
+                    mediaType: 'photo',
+                    selectionLimit: 1,
+                    quality: 1,
+                });
+                if (pickerResult.didCancel) return;
+                const uri = pickerResult.assets?.[0]?.uri;
+                if (!uri) return;
+                const croppedImage = await ImagePicker.openCropper({
+                    path: uri,
+                    width: vh(300),
+                    height: vw(300),
+                    cropping: true,
+                    mediaType: 'photo',
+                    freeStyleCropEnabled: true,
+                    multiple: false,
+                    writeTempFile: true,
+                    cropperToolbarTitle: 'Crop Image',
+                });
+                console.log('Final image:', croppedImage);
+                setImageUri(croppedImage?.path);
+                setTimeout(() => {
+                    ImagePicker.cleanSingle(uri).catch(() => { });
+                }, 100);
+            }
         } catch (err) {
             console.log('Error:', err);
         }
@@ -80,8 +94,8 @@ export default function ImagePickCropper() {
                 const fileName = `video_${Date.now()}.mp4`;
                 const destPath = `${RNFS.CachesDirectoryPath}/${fileName}`;
                 await RNFS.copyFile(cleanPath, destPath);
-                storedVideoUri = destPath;     
-                thumbnailSource = destPath;      
+                storedVideoUri = destPath;
+                thumbnailSource = destPath;
             } else {
                 storedVideoUri = pickerUri;
                 thumbnailSource = pickerUri;
@@ -133,7 +147,7 @@ export default function ImagePickCropper() {
                     <TouchableOpacity
                         onPress={() => navigation.pop()}
                     >
-                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
                     <Text style={Styles.headerText}>{Strings.userInfoHeader}</Text>
                 </View>
@@ -155,7 +169,7 @@ export default function ImagePickCropper() {
                             <TouchableOpacity
                                 style={Styles?.editButtonContainer}
                                 onPress={pickImage}>
-                                <Image source={Images?.Edit_Icon} style={Styles.editButton} />
+                                <Image source={Images.Edit_Icon} style={Styles.editButton} />
                             </TouchableOpacity>
                         </TouchableOpacity>
                     )}
@@ -173,7 +187,7 @@ export default function ImagePickCropper() {
                             <TouchableOpacity
                                 style={Styles?.editButtonContainer}
                                 onPress={pickVideo}>
-                                <Image source={Images?.Edit_Icon} style={Styles.editButton} />
+                                <Image source={Images.Edit_Icon} style={Styles.editButton} />
                             </TouchableOpacity>
                         </TouchableOpacity>
                     )}
@@ -197,7 +211,7 @@ export default function ImagePickCropper() {
                             <TouchableOpacity
                                 style={Styles?.editButtonContainer}
                                 onPress={pickDocument}>
-                                <Image source={Images?.Edit_Icon} style={Styles.editButton} />
+                                <Image source={Images.Edit_Icon} style={Styles.editButton} />
                             </TouchableOpacity>
                         </View>
                     ) : (
@@ -225,7 +239,7 @@ export default function ImagePickCropper() {
                                 setViewOnlyModal(false)
                             }}
                         >
-                            <Image source={Images?.Cross_Icon} style={Styles.closeIcon1} />
+                            <Image source={Images.Cross_Icon} style={Styles.closeIcon1} />
                         </TouchableOpacity>
                         <Image source={{ uri: imageUri }} style={Styles.viewOnlyModalImage} />
                     </View>
@@ -245,7 +259,7 @@ export default function ImagePickCropper() {
                                 setVideoModal(false)
                             }}
                         >
-                            <Image source={Images?.Cross_Icon} style={Styles.closeIcon1} />
+                            <Image source={Images.Cross_Icon} style={Styles.closeIcon1} />
                         </TouchableOpacity>
                         <View style={Styles.videoPreviewContainer}>
                             <VideoPlayerComponent uri={videoUri} />

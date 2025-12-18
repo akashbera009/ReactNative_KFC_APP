@@ -57,7 +57,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                     <TouchableOpacity
                         onPress={() => navigation.pop()}
                     >
-                        <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
                     <Text style={Styles.headerText}>{Strings.OrderDetail} </Text>
                 </View>
@@ -111,11 +111,11 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                         onPress={handleShareInvoice}
                         style={Styles.downloadContainer}>
                         <Text style={Styles.ShareText}>{Strings.shareInvoive} </Text>
-                        <Image source={Images?.ShareIcon} style={Styles.ShareIcon} />
+                        <Image source={Images.ShareIcon} style={Styles.ShareIcon} />
                     </TouchableOpacity>
                     <View style={Styles.DeliveryAddressContainer}>
                         <View style={Styles.DeliveryUpperContainer}>
-                            <Image source={Images?.HomeIcon} style={Styles.HomeIcon} />
+                            <Image source={Images.HomeIcon} style={Styles.HomeIcon} />
                             <Text style={Styles.deliveryTo}>{Strings.deliveryTo.toUpperCase()} - </Text>
                             <Text style={Styles.Type}>{DeliveryDetails?.type.toUpperCase()} </Text>
                         </View>

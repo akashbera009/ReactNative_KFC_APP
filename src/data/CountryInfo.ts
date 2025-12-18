@@ -3,7 +3,7 @@ import Images from '../utils/LocalImages'
 export const CountryInfo: countryType[] = [
     {
         name: 'UAE',
-        flag: Images?.UAE_FLAG,
+        flag: Images.UAE_FLAG,
         code: 'uae',
         mobileCode: '+971',
         mobileNoLength: 9,
@@ -12,7 +12,7 @@ export const CountryInfo: countryType[] = [
     },
     {
         name: 'India',
-        flag: Images?.Indian_Flag,
+        flag: Images.Indian_Flag,
         code: 'in',
         mobileCode: '+91',
         mobileNoLength: 10,
@@ -21,7 +21,7 @@ export const CountryInfo: countryType[] = [
     },
     {
         name: 'Kuwait',
-        flag: Images?.Kuwait_Flag,
+        flag: Images.Kuwait_Flag,
         code: 'kw',
         mobileCode: '+965',
         mobileNoLength: 8,

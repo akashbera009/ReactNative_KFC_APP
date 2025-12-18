@@ -81,7 +81,7 @@ const SideBar = () => {
           <TouchableOpacity
             onPress={() => setIsSettingsMenuOpen(!isSettingsMenunOpen)}
           >
-            <Image source={Images?.setting} style={Styles.SettingsIcon} />
+            <Image source={Images.setting} style={Styles.SettingsIcon} />
           </TouchableOpacity>
           {isSettingsMenunOpen && (
             <View style={Styles.SettingOptionMenu}>
@@ -94,7 +94,7 @@ const SideBar = () => {
                   })
                   setIsSettingsMenuOpen(false)
                 }}>
-                <Image source={Images?.UserIcon} style={Styles.ThemeIcon} />
+                <Image source={Images.UserIcon} style={Styles.ThemeIcon} />
                 <Text style={Styles.countryEntriesText}>{Strings.profileSettings}</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -104,7 +104,7 @@ const SideBar = () => {
                   setIsDarkMode(!isDarkMode)
                   setIsSettingsMenuOpen(false)
                 }}>
-                <Image source={Images?.Theme_Icon} style={Styles.ThemeIcon} />
+                <Image source={Images.Theme_Icon} style={Styles.ThemeIcon} />
                 <Text style={Styles.countryEntriesText}>{Strings.ChangeTheme}</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -114,7 +114,7 @@ const SideBar = () => {
                   navigation.navigate(Strings.SplashScreen)
                   setIsSettingsMenuOpen(false)
                 }}>
-                <Image source={Images?.Logout_Icon} style={Styles.ThemeIcon} />
+                <Image source={Images.Logout_Icon} style={Styles.ThemeIcon} />
                 <Text style={Styles.countryEntriesText}>{Strings.logout}</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -125,6 +125,15 @@ const SideBar = () => {
                   setIsSettingsMenuOpen(false)
                 }}>
                 <Text>{Strings.FontsScreen}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={Styles.SettingsMenuEntries}
+                activeOpacity={.7}
+                onPress={() => {
+                  navigation.navigate(Strings?.KeyboardTestScreen)
+                  setIsSettingsMenuOpen(false)
+                }}>
+                <Text>{Strings.KeyboardTestScreen}</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -151,7 +160,7 @@ const SideBar = () => {
             >
               <Image source={countrySelected?.flag} style={Styles.Flag} />
               <Text style={Styles.countryName}>{countrySelected?.name.toUpperCase()}</Text>
-              <Image source={Images?.Down_Arrow_Thick} style={Styles.Arrow} />
+              <Image source={Images.Down_Arrow_Thick} style={Styles.Arrow} />
             </TouchableOpacity>
             {countryMenuOpen && (
               <View style={Styles.countrySelectorOption}>
@@ -181,7 +190,7 @@ const SideBar = () => {
               setIsSettingsMenuOpen(false)
             }}
             style={Styles.SingleEntry}>
-            <Image source={Images?.Track_Order} style={[Styles.SideImageIcon, Styles.TrackOrderIcon]} />
+            <Image source={Images.Track_Order} style={[Styles.SideImageIcon, Styles.TrackOrderIcon]} />
             <Text style={Styles.singleEntryText}>{Strings.trackOrder} </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -190,7 +199,7 @@ const SideBar = () => {
               setIsSettingsMenuOpen(false)
             }}
             style={Styles.SingleEntry}>
-            <Image source={Images?.menu} style={Styles.SideImageIcon} />
+            <Image source={Images.menu} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings.orderHistory} </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -199,7 +208,7 @@ const SideBar = () => {
               setIsSettingsMenuOpen(false)
             }}
             style={Styles.SingleEntry}>
-            <Image source={Images?.discount} style={Styles.SideImageIcon} />
+            <Image source={Images.discount} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings.dealsAndOffer} </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -210,7 +219,7 @@ const SideBar = () => {
               setIsSettingsMenuOpen(false)
             }}
             style={Styles.SingleEntry}>
-            <Image source={Images?.Great_Menu} style={Styles.SideImageIcon} />
+            <Image source={Images.Great_Menu} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings.greatMenu} </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -224,7 +233,7 @@ const SideBar = () => {
             }
             }
             style={Styles.SingleEntry}>
-            <Image source={Images?.MyCart} style={Styles.SideImageIcon} />
+            <Image source={Images.MyCart} style={Styles.SideImageIcon} />
             <Text style={Styles.singleEntryText}>{Strings.myCart} </Text>
           </TouchableOpacity>
         </View>
@@ -259,7 +268,7 @@ const SideBar = () => {
             onPress={handleOpenDialer}
             style={Styles.LowerCallWrappper}>
             <View style={Styles.CallImageContainer}>
-              <Image source={Images?.Fill_Call} style={Styles.CallImageContainerImage} />
+              <Image source={Images.Fill_Call} style={Styles.CallImageContainerImage} />
             </View>
             <Text style={Styles.CallSupport}>{Strings.callSupport.toUpperCase()} </Text>
           </TouchableOpacity>

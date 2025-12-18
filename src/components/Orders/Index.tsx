@@ -38,7 +38,7 @@ export default function Index() {
           <TouchableOpacity
             onPress={() => navigation.pop()}
           >
-            <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+            <Image source={Images.back_arrow} style={Styles.BackIcon} />
           </TouchableOpacity>
           <Text style={Styles.headerText}>{Strings.orderHistory} </Text>
         </View>
@@ -69,7 +69,7 @@ export default function Index() {
             {(sortedCrrentOrder?.length == 0 && sortedPreviousOrder?.length == 0) && (
               <View style={Styles.EmptyCartContainer}>
                 <View style={Styles.ImageContainer}>
-                  <Image source={Images?.EmptyBox} style={Styles.EmptyBox} />
+                  <Image source={Images.EmptyBox} style={Styles.EmptyBox} />
                 </View>
                 <Text style={Styles.NoOrdersYet}>{Strings.NoOrdersYet} </Text>
                 <Text style={Styles.makeAorder}>{Strings.makeAOrder} </Text>

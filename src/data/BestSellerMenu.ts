@@ -5,7 +5,7 @@ export const BestSellerMenu: BestSellerMenuType[] = [
     title: 'Super Mega Deal',
     description: 'BBQ Twister Sandwich, 1 Pc Chicken, Coleslaw, and drink.',
     price: 23,
-    image:Images?.KFC_Combo_Pack,
+    image:Images.KFC_Combo_Pack,
     category: 'bestSeller',
   },
   {
@@ -13,7 +13,7 @@ export const BestSellerMenu: BestSellerMenuType[] = [
     title: 'Super Dinner Meal',
     description: '2 Pc Chicken, Fries, Bun, Coleslaw, and a Pepsi.',
     price: 16,
-    image:Images?.Burger,
+    image:Images.Burger,
     category: 'bestSeller',
   },
   {
@@ -21,7 +21,7 @@ export const BestSellerMenu: BestSellerMenuType[] = [
     title: 'Zinger Box',
     description: 'Zinger Burger, Fries, Regular Drink, and Coleslaw.',
     price: 20,
-    image: Images?.Chicken_Nugedts,
+    image: Images.Chicken_Nugedts,
     category: 'bestSeller',
   },
   {
@@ -29,7 +29,7 @@ export const BestSellerMenu: BestSellerMenuType[] = [
     title: 'Mighty Zinger Combo',
     description: 'Mighty Zinger Burger, Fries, and a Pepsi.',
     price: 27,
-    image:Images?.French_Fries_Coke,
+    image:Images.French_Fries_Coke,
     category: 'bestSeller',
   },
   {
@@ -37,7 +37,7 @@ export const BestSellerMenu: BestSellerMenuType[] = [
     title: 'Family Bucket Meal',
     description: '9 Pc Chicken, 3 Fries, 3 Coleslaw, and a large Pepsi.',
     price: 65,
-    image: Images?.Chicken_Nugedts,
+    image: Images.Chicken_Nugedts,
     category: 'forSharing',
   },
   {
@@ -45,7 +45,7 @@ export const BestSellerMenu: BestSellerMenuType[] = [
     title: 'Crispy Strips Combo',
     description: '5 Crispy Strips, Fries, and a Regular Drink.',
     price: 21,
-    image:Images?.Burger,
+    image:Images.Burger,
     category: 'bestSeller',
   },
   {
@@ -53,7 +53,7 @@ export const BestSellerMenu: BestSellerMenuType[] = [
     title: 'Twister Wrap Combo',
     description: 'Twister Wrap, Fries, and a Pepsi.',
     price: 19,
-    image:Images?.KFC_Combo_Pack,
+    image:Images.KFC_Combo_Pack,
     category: 'forOne',
   },
   {
@@ -61,7 +61,7 @@ export const BestSellerMenu: BestSellerMenuType[] = [
     title: 'Snack Box',
     description: '1 Pc Chicken, Fries, and a Regular Drink.',
     price: 12,
-    image: Images?.Chicken_Bucket,
+    image: Images.Chicken_Bucket,
     category: 'sidesDeserts',
   },
 ];

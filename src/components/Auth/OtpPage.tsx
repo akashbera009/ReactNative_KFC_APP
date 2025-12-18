@@ -75,7 +75,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
           <TouchableOpacity
             onPress={() => navigation.pop()}
           >
-            <Image source={Images?.back_arrow} style={Styles.BackIcon} />
+            <Image source={Images.back_arrow} style={Styles.BackIcon} />
           </TouchableOpacity>
           <Text style={Styles.headerText}>{Strings.otpText}</Text>
         </View>
@@ -142,7 +142,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
                   style={Styles.LowerOtpContainerEntries}
                 >
                   <View style={Styles.LowerOtpContainerEntriesLeft}>
-                    <Image source={Images?.Messege} style={Styles.otpentriesIcon} />
+                    <Image source={Images.Messege} style={Styles.otpentriesIcon} />
                     <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>
                       {Strings.resendOtp.toUpperCase()}
                     </Text>
@@ -158,7 +158,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
                   style={Styles.LowerOtpContainerEntries}
                 >
                   <View style={Styles.LowerOtpContainerEntriesLeft}>
-                    <Image source={Images?.call} style={Styles.otpentriesIcon} />
+                    <Image source={Images.call} style={Styles.otpentriesIcon} />
                     <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>
                       {Strings.callMe.toLocaleUpperCase()}
                     </Text>

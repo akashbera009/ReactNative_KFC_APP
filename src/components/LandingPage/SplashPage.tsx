@@ -27,7 +27,7 @@ export default function SplashPage() {
                 </View>
             </View>
             <View style={Styles.logoImageContainer}>
-                <Image source={Images?.KFC_logo_image} style={Styles.LogoImage} />
+                <Image source={Images.KFC_logo_image} style={Styles.LogoImage} />
             </View>
         </View>
     )

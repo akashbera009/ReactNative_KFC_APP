@@ -16,6 +16,7 @@ import { useCountry } from '../../context/CountryContext';
 import { DeliveryDetails } from '../../data/DeliveryDetails';
 import { CountryInfo } from '../../data/CountryInfo';
 import { normalize, vh, vw } from '../../utils/Dimensions';
+
 export default function Maps() {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -23,7 +24,7 @@ export default function Maps() {
     const Styles = createDynamicStyles(Colors, Fonts);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected, setCountrySelected } = useCountry();
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
     const toggleOpen = () => {
         setOpen(!open);
     };
@@ -104,51 +105,49 @@ export default function Maps() {
     }, [])
 
     return (
-        <View style={Styles.OuterContianer}>
-            <TouchableWithoutFeedback
-                onPress={() => setOpen(false)}>
-                <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
-                    <View style={Styles.BackIconAndHeaderText}>
-                        <TouchableOpacity
-                            onPress={() => navigation.pop()}
-                        >
-                            <Image source={Images?.back_arrow} style={Styles.BackIcon} />
-                        </TouchableOpacity>
-                        <Text style={Styles.navHeaderText} numberOfLines={1} >{DeliveryDetails?.address}</Text>
-                    </View>
+        <View style={Styles.parent}>
+            <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
+                <View style={Styles.BackIconAndHeaderText}>
                     <TouchableOpacity
-                        style={Styles.headerCountrySelection}
-                        onPress={toggleOpen}>
-                        <Image source={countrySelected?.flag} style={Styles.flag} />
-                        <Image source={Images?.Arrow_down} style={Styles.arrowdonwn} />
+                        onPress={() => navigation.pop()}
+                    >
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
                     </TouchableOpacity>
-                    {open && (
-                        <View style={Styles.CountrySelectionContainer}>
-                            {CountryInfo.map((item, idx) =>
-                                <TouchableOpacity
-                                    key={idx}
-                                    onPress={() => {
-                                        setCountrySelected(item)
-                                        setOpen(false)
-                                    }}
-                                    style={[Styles.row, { borderBottomColor: Colors.fadeWhiteText }]}>
-                                    <Image style={Styles.flag} source={item?.flag} />
-                                    <Text style={[Styles.countryName, { color: Colors.textBlack }]}>
-                                        {item.name}
-                                    </Text>
-                                </TouchableOpacity>
-                            )}
-                        </View>
-                    )}
+                    <Text style={Styles.navHeaderText} numberOfLines={1} >{DeliveryDetails?.address}</Text>
                 </View>
-            </TouchableWithoutFeedback>
+                <TouchableOpacity
+                    style={Styles.headerCountrySelection}
+                    onPress={toggleOpen}
+                >
+                    <Image source={countrySelected?.flag} style={Styles.flag} />
+                    <Image source={Images.Arrow_down} style={Styles.arrowdonwn} />
+                </TouchableOpacity>
+                {open && (
+                    <View style={Styles.CountrySelectionContainer}>
+                        {CountryInfo.map((item, idx) =>
+                            <TouchableOpacity
+                                key={idx}
+                                onPress={() => {
+                                    setCountrySelected(item)
+                                    setOpen(false)
+                                }}
+                                style={[Styles.row, { borderBottomColor: Colors.fadeWhiteText }]}>
+                                <Image style={Styles.flag} source={item?.flag} />
+                                <Text style={[Styles.countryName, { color: Colors.textBlack }]}>
+                                    {item.name}
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+                    </View>
+                )}
+            </View>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 enabled
                 keyboardVerticalOffset={20}
                 style={[Styles.container]}>
                 <ScrollView >
-                    <View style={[Styles.MapContainer, open ? { zIndex: -1 } : { zIndex: 0 }]}>
+                    <View style={[Styles.MapContainer,]}>
                         <MapView
                             style={Styles.map}
                             provider={PROVIDER_GOOGLE}
@@ -320,6 +319,10 @@ export default function Maps() {
 
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
+        parent: {
+            height: '100%',
+            backgroundColor: Colors.bodyColor,
+        },
         NavWrapper: {
             width: '100%',
             backgroundColor: Colors.bodyColor,
@@ -329,6 +332,24 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             alignSelf: 'center',
             paddingBottom: vh(15),
+        },
+        headerText: {
+            fontSize: normalize(20),
+            fontFamily: Fonts.font18,
+            color: Colors.textBlack
+        },
+        BackIconAndHeaderText: {
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            alignSelf: 'center',
+        },
+        BackIcon: {
+            tintColor: Colors.textBlack,
+            height: vh(18),
+            width: vw(18),
+            alignSelf: 'flex-start',
+            marginHorizontal: vw(18),
         },
         headerCountrySelection: {
             marginRight: vw(20),
@@ -345,27 +366,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         CountrySelectionContainer: {
             position: 'absolute',
-            zIndex: 5,
-            right: vw(0),
+            zIndex: 999,
+            elevation: 999,
+            right: vw(15),
             top: vh(30),
             width: vw(120),
             backgroundColor: Colors.bodyColor,
             borderWidth: normalize(1),
             borderColor: Colors.fadeBorder,
             borderRadius: normalize(4),
-        },
-        BackIconAndHeaderText: {
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            alignSelf: 'center',
-        },
-        BackIcon: {
-            tintColor: Colors.textBlack,
-            height: vh(18),
-            width: vw(18),
-            alignSelf: 'flex-start',
-            marginHorizontal: vw(18),
         },
         navHeaderText: {
             overflow: 'hidden',
@@ -401,13 +410,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         MapContainer: {
+            height: vh(360),
+            width: '100%',
+            position: 'relative',
+            top: 0,
+            left: 0,
+            zIndex: 1,
         },
         map: {
-            height: vh(360),
-            width: '100%'
+            height: '100%',
+            width: '100%',
         },
         LowerContainer: {
-            marginHorizontal: vw(5)
+            // width: '100%',
+            marginHorizontal: vw(0),
         },
         locationTypeSelection: {
             display: 'flex',
@@ -554,7 +570,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             left: vw(0)
         },
         confirmLocationButton: {
-            width: '93%',
+            width: '100%',
             height: vh(50),
             alignSelf: 'center',
             backgroundColor: Colors.timerFadeText,

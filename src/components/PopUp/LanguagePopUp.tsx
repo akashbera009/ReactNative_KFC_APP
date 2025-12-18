@@ -44,7 +44,7 @@ export default function LanguagePopUp() {
                                     >
                                         {tempLang == 'en' && (
                                             <View style={Styles.TickMarkImageContainer}>
-                                                <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
+                                                <Image source={Images.Tick_Mark} style={[Styles.tickMark]} />
                                             </View>
                                         )}
                                     </View>
@@ -58,7 +58,7 @@ export default function LanguagePopUp() {
                                     >
                                         {tempLang == 'ar' && (
                                             <View style={Styles.TickMarkImageContainer}>
-                                                <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
+                                                <Image source={Images.Tick_Mark} style={[Styles.tickMark]} />
                                             </View>
                                         )}
                                     </View>
