@@ -15,8 +15,12 @@ export default function OrderCards({ order }: { order: OrderHistory }) {
     const Styles = createDynamicStyles(Colors, Fonts);
     const { countrySelected } = useCountry();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const itemNames: string = order?.Items?.map((i: CartItemType) => `${i?.quantity} ${i?.name}`).join(', ');
-    const totalPrice: number = order?.Items.reduce((acc: number, i: CartItemType) => acc + (i?.quantity * i?.price), 0);
+    const itemNames: string = order?.Items
+        ? order?.Items?.map((i: CartItemType) => `${i?.quantity} ${i?.name}`).join(', ')
+        : '';
+    const totalPrice: number = order?.Items
+        ? order?.Items.reduce((acc: number, i: CartItemType) => acc + (i?.quantity * i?.price), 0)
+        : 0;
     return (
         <TouchableOpacity
             activeOpacity={.7}

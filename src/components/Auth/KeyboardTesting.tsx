@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // maps import 
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
@@ -26,10 +26,10 @@ export default function KeyboardTesting() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [open, setOpen] = useState<boolean>(false);
   const [tag, setTag] = useState<string>('');
-  const [goodToSave, setGoodToSave] = useState(false)
-  const [deliveryType, setDeliveryType] = useState<string>(Strings.delivery)
-  const [showPopup, setShowPopup] = useState(false);
-  const [addressBox, setAddress] = useState({
+  const [goodToSave, setGoodToSave] = useState<boolean>(false);
+  const [deliveryType, setDeliveryType] = useState<string>(Strings.delivery ?? '')
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [addressBox, setAddress] = useState<AddressBox>({
     address: '',
     buildingName: '',
     flatNo: ''
@@ -38,37 +38,36 @@ export default function KeyboardTesting() {
     latitude: 0,
     longitude: 0,
   });
-  const toggleOpen = () => {
+  const toggleOpen = (): void => {
     setOpen(!open);
   };
-  const handleChangeAddress = (text: string) => {
+  const handleChangeAddress = (text: string): void => {
     setAddress(prev => ({ ...prev, address: text }))
   }
-  const handleChangeBuildingName = (text: string) => {
+  const handleChangeBuildingName = (text: string): void => {
     setAddress(prev => ({ ...prev, buildingName: text }))
   }
-  const handleChangeFlatNo = (text: string) => {
+  const handleChangeFlatNo = (text: string): void => {
     setAddress(prev => ({ ...prev, flatNo: text }))
   }
-  const handlChangeAddress = () => {
+  const handlChangeAddress = (): void => {
     setAddress({
       address: '',
       buildingName: '',
       flatNo: ''
     })
   }
-
-  useEffect(() => {
+  useEffect((): void => {
     const isValid =
       addressBox.address.trim() !== '' &&
       addressBox.buildingName.trim() !== '' &&
       addressBox.flatNo.trim() !== '' &&
       tag.trim() !== ''
     setGoodToSave(isValid);
-  }, [addressBox, tag, location])
-  const getCurrentLocation = async () => {
+  }, [addressBox, tag])
+  const getCurrentLocation = async (): Promise<void> => {
     Geolocation.getCurrentPosition(
-      position => {
+      (position: GeolocationResponse) => {
         console.log('position', position)
         setLocation({
           latitude: position?.coords?.latitude,
@@ -82,7 +81,7 @@ export default function KeyboardTesting() {
       }
     )
   };
-  useEffect(() => {
+  useEffect(() : void => {
     getCurrentLocation()
   }, [])
 

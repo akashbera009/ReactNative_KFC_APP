@@ -13,15 +13,14 @@ export const CommonPopUp = ({ header, message }: CommonPopUpScreenProps) => {
     const Strings = useStrings();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors, Fonts);
-    const opacity = useRef(new Animated.Value(0)).current;
-    useEffect(() => {
+    const opacity = useRef<Animated.Value>(new Animated.Value(0)).current;
+    useEffect((): void => {
         Animated.timing(opacity, {
             toValue: 1,
             duration: 200,
             useNativeDriver: true
         }).start();
-    }
-        , []);
+    }, []);
     return (
         <TouchableWithoutFeedback
             onPress={() => navigation.pop()}>

@@ -20,11 +20,13 @@ export default function DealsAndOffer() {
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors, Fonts);
-    const cartData  = useSelector((state: RootState)=> state.cart)
-    const cartItem = cartData.cartItems
-    const handleApplyOffer = (discount: number, discountPercentage: number , offerCode: string) => {
+    const cartData = useSelector((state: RootState) => state.cart)
+    const cartItem: CartItemType[] = cartData.cartItems
+    const handleApplyOffer = (
+        discount: number, discountPercentage: number, offerCode: string
+    ): void => {
         navigation.navigate(Strings.OfferAppliedScreen)
-        if(cartItem.length  !== 0 ){
+        if (cartItem.length !== 0) {
             setTimeout(() => {
                 navigation.pop(1)
                 navigation.replace(Strings.CartScreen, {
@@ -58,7 +60,7 @@ export default function DealsAndOffer() {
                                 <Text style={Styles.tncText}>{Strings.termsCondition}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                onPress={() => handleApplyOffer(item?.discount, item?.discountPercentage , item?.offerCode)}>
+                                onPress={() => handleApplyOffer(item?.discount, item?.discountPercentage, item?.offerCode)}>
                                 <Text style={Styles.applyText}>{Strings.apply.toUpperCase()}</Text>
                             </TouchableOpacity>
                         </View>
@@ -93,7 +95,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginRight: vw(18),
         },
         headerText: {
-            fontSize:  normalize(20),
+            fontSize: normalize(20),
             fontFamily: Fonts.font18,
             color: Colors.textBlack,
         },

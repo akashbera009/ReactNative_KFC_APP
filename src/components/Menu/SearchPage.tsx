@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Keyboard, FlatList, Animated, Platform } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, TouchableWithoutFeedback, Keyboard, FlatList, Animated, Platform } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -14,33 +14,42 @@ import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-export default function SearchPage() {
+export default function SearchPage({ searchTerm }: SearchPageProps) {
     const Colors = useThemeColors();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors, Fonts);
     const Strings = useStrings()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const [searchTerm, setSearchTerm] = useState<string>('')
     const [searchResult, setSearchResult] = useState<menuDataType[]>([])
     const menuData = useSelector((state: RootState) => state.menuData)
-    const menuItem = menuData?.menuData
-    const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
-    const debounceChange = (text: string): void => {
-        setSearchTerm(text);
-        if (debounceTimeout.current) {
-            clearTimeout(debounceTimeout.current)
+    const menuItems = menuData?.menuData ?? []
+    const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+    useEffect(() => {
+        if (debounceRef.current) {
+            clearTimeout(debounceRef.current)
         }
-        debounceTimeout.current = setTimeout(() => {
-            const result = menuItem?.filter(
-                (item: menuDataType) =>
-                    item?.name?.toLowerCase().includes(text.toLowerCase())
+        if (searchTerm.trim() === '') {
+            setSearchResult([])
+            return
+        }
+        debounceRef.current = setTimeout(() => {
+            const lowerSearch = searchTerm.toLowerCase()
+            const result = menuItems.filter((item: menuDataType) =>
+                item?.name?.toLowerCase()?.includes(lowerSearch) ||
+                (item.description ?? []).some(desc => desc?.toLowerCase()?.includes(lowerSearch)) ||
+                (item.categories ?? []).some(cat => cat?.toLowerCase()?.includes(lowerSearch))
             )
             setSearchResult(result)
-        }, 500)
-    }
-    const distanceFromKeyboard = useRef(new Animated.Value(0)).current
-    const scaleRef = useRef(new Animated.Value(0)).current
-    const startAnimation = (value: number, scaleTo: number) => {
+        }, 400)
+        return () => {
+            if (debounceRef.current) {
+                clearTimeout(debounceRef.current)
+            }
+        }
+    }, [searchTerm, menuItems])
+    const distanceFromKeyboard = useRef<Animated.Value>(new Animated.Value(0)).current
+    const scaleRef = useRef<Animated.Value>(new Animated.Value(0)).current
+    const startAnimation = (value: number, scaleTo: number): void => {
         Animated.parallel([
             Animated.timing(distanceFromKeyboard, {
                 toValue: value,
@@ -56,42 +65,23 @@ export default function SearchPage() {
     }
     const showEvent = Platform.OS == 'ios' ? 'keyboardWillShow' : 'keyboardDidShow'
     const hideEvent = Platform.OS == 'ios' ? 'keyboardWillHide' : 'keyboardDidHide'
-    useEffect(() => {
-        Keyboard.addListener(showEvent, (e) => {
-            startAnimation(-e?.endCoordinates?.height + 170, 1)
+    useEffect((): (() => void) | void => {
+        const showSub = Keyboard.addListener(showEvent, e => {
+            startAnimation(-e.endCoordinates.height + 170, 1)
         })
-        Keyboard.addListener(hideEvent, () => {
+        const hideSub = Keyboard.addListener(hideEvent, () => {
             startAnimation(0, 0)
         })
-        return (() => {
-            Keyboard.removeAllListeners(showEvent)
-            Keyboard.removeAllListeners(hideEvent)
-        })
+        return () => {
+            showSub.remove()
+            hideSub.remove()
+        }
     }, [])
+
     return (
         <View style={Styles.parent}>
-            <View style={[Styles.navigationContainer, {}]}>
-                <View style={[Styles.innerNavigationContainer, { marginTop: inset.top - 10 }]}>
-                    <TouchableOpacity
-                        onPress={() => navigation.pop()}>
-                        <Image source={Images.back_arrow} style={Styles.BackBUtton} />
-                    </TouchableOpacity>
-                    <TextInput value={searchTerm}
-                        style={Styles.SearchBar}
-                        onChangeText={debounceChange}
-                        placeholder={Strings.search}
-                        cursorColor={Colors.KFC_red}
-                        selectionColor={Colors.KFC_red}
-                    />
-                    <TouchableOpacity
-                        onPress={() => setSearchTerm('')}
-                    >
-                        <Image source={Images.Cross_Icon} style={Styles.crossButton} />
-                    </TouchableOpacity>
-                </View>
-            </View>
             <View style={Styles.ContentContainer}>
-                {searchTerm == '' ? (
+                {searchTerm === '' ? (
                     <TouchableWithoutFeedback
                         onPress={Keyboard.dismiss}>
                         <Animated.View style={[Styles.blankScreenContainer, {
@@ -119,9 +109,11 @@ export default function SearchPage() {
                             <TouchableWithoutFeedback
                                 onPress={Keyboard.dismiss} accessible={false}>
                                 <Animated.View
-                                    style={[Styles.NotFoundContainer, {transform:[{
-                                        translateY: distanceFromKeyboard
-                                    }]}]}>
+                                    style={[Styles.NotFoundContainer, {
+                                        transform: [{
+                                            translateY: distanceFromKeyboard
+                                        }]
+                                    }]}>
                                     <View style={Styles.imageContaienr}>
                                         <Image source={Images.CoffeeCup} style={Styles.ConfeeCupImage} />
                                         <Image source={Images.SpilledWater} style={Styles.SplledWaterImage} />
@@ -159,49 +151,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         parent: {
             flex: 1
         },
-        navigationContainer: {
-            width: '100%',
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'flex-end',
-            backgroundColor: Colors.bodyColor,
-            shadowColor: Colors.blueShadows,
-            shadowOffset: { width: vw(0), height: vh(0) },
-            shadowOpacity: 0.25,
-            shadowRadius: normalize(3.84),
-            elevation: 5,
-        },
-        innerNavigationContainer: {
-            width: '100%',
-            height: vh(60),
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            backgroundColor: Colors.bodyColor,
-        },
-        BackBUtton: {
-            height: vh(18),
-            width: vw(18),
-            marginLeft: vw(20),
-        },
-        SearchBar: {
-            width: '70%',
-            height: '90%',
-            fontSize: normalize(14),
-            fontFamily: Fonts.font17,
-            color: Colors.textBlack,
-            marginLeft: vw(20)
-        },
-        crossButton: {
-            height: vh(14),
-            width: vw(14),
-            color: Colors.textBlack,
-            marginRight: vw(40),
-        },
+
         ContentContainer: {
-            marginTop: vh(8),
             flex: 1,
+            backgroundColor: Colors.bodyLigheterColor,
         },
         blankScreenContainer: {
             flex: 1,

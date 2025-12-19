@@ -18,10 +18,10 @@ export default function FAQPage() {
     const Styles = createDynamicStyles(Colors, Fonts);
     const [selectedTab, setSelectedTab] = useState<'online' | 'restaurants' | 'employment'>('online');
     const [openIndex, setOpenIndex] = useState<number | null>(null);
-    const toggleFAQ = (index: number) => {
+    const toggleFAQ = (index: number): void => {
         setOpenIndex(prev => (prev === index ? null : index));
     };
-    const OnlineFAQ = [
+    const OnlineFAQ: FaqItem[] = [
         { question: Strings.resetPassword, answer: Strings.resetPasswordA },
         { question: Strings.restaurantReceive, answer: Strings.restaurantReceiveA },
         { question: Strings.paymentOptions, answer: Strings.paymentOptionsA },
@@ -41,7 +41,7 @@ export default function FAQPage() {
         { question: Strings.faqQ10, answer: Strings.faqA10 },
         { question: Strings.faqQ11, answer: Strings.faqA11 },
     ];
-    const getFaqData = () => {
+    const getFaqData = (): FaqItem[] => {
         switch (selectedTab) {
             case 'online': return OnlineFAQ;
             case 'restaurants': return RestaurantFAQ;
@@ -163,7 +163,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             paddingBottom: vh(6),
         },
         listContainer: {
-            marginTop:vh(10),
+            marginTop: vh(10),
         },
         card: {
             width: '92%',
@@ -203,7 +203,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         answerText: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17 ,
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack,
             lineHeight: vh(22),
             marginTop: vh(8),

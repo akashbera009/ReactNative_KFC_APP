@@ -11,18 +11,18 @@ import { useStrings } from '../../utils/Strings';
 import { useLanguage } from '../../context/LanguageContex';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 
-export default function LanguagePopUp() { 
+export default function LanguagePopUp() {
     const Colors = useThemeColors()
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors, Fonts)
     const inset = useSafeAreaInsets();
     const { language, setLanguage } = useLanguage()
-    const[tempLang , settempLang] = useState<string>(language)
+    const [tempLang, settempLang] = useState<string>(language)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const handleSelectionLanguage =(lang: string )=>{
+    const handleSelectionLanguage = (lang: string): void => {
         settempLang(lang)
-    } 
-    const handleSetLanguage =()=>{
+    }
+    const handleSetLanguage = (): void => {
         setLanguage(tempLang);
         navigation.pop()
     }
@@ -36,13 +36,13 @@ export default function LanguagePopUp() {
                             <View style={[Styles.LanguageChangeContainer,]}>
                                 < TouchableOpacity
                                     activeOpacity={.7}
-                                    onPress={() => handleSelectionLanguage('en') }
+                                    onPress={() => handleSelectionLanguage('en')}
                                     style={[Styles.languageContainer]}>
                                     <Text style={Styles.changeText}>{Strings.english}</Text>
                                     <View
                                         style={[Styles.checkBox]}
                                     >
-                                        {tempLang == 'en' && (
+                                        {tempLang === 'en' && (
                                             <View style={Styles.TickMarkImageContainer}>
                                                 <Image source={Images.Tick_Mark} style={[Styles.tickMark]} />
                                             </View>
@@ -50,13 +50,13 @@ export default function LanguagePopUp() {
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={() => handleSelectionLanguage('ar') }
+                                    onPress={() => handleSelectionLanguage('ar')}
                                     style={[Styles.languageContainer,]}>
                                     <Text style={Styles.changeText}>{Strings.arabic}</Text>
                                     <View
                                         style={[Styles.checkBox]}
                                     >
-                                        {tempLang == 'ar' && (
+                                        {tempLang === 'ar' && (
                                             <View style={Styles.TickMarkImageContainer}>
                                                 <Image source={Images.Tick_Mark} style={[Styles.tickMark]} />
                                             </View>
@@ -64,7 +64,6 @@ export default function LanguagePopUp() {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-
                             <TouchableOpacity
                                 activeOpacity={.5}
                                 style={[Styles.loginButton, {}]}
@@ -84,11 +83,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         backDrop: {
             backgroundColor: Colors.SemiTransparent,
             width: '100%',
-            height:'100%',
+            height: '100%',
             justifyContent: 'flex-end'
         },
         Wrapper: {
-            height:'100%',
+            height: '100%',
             width: '100%',
             display: 'flex',
             flexDirection: 'row',

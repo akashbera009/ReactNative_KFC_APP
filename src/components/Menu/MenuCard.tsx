@@ -40,25 +40,26 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
         }
         dispatch(addToCart(newItem))
     }
-    const handleIncreaseQunatity = (uid: string) => {
+    const handleIncreaseQunatity = (uid: string): void => {
         if (quantity < 10) {
             dispatch(increaseQuantity(uid))
         } else return;
     }
-    const handleDecreaseQuantity = (uid: string) => {
+    const handleDecreaseQuantity = (uid: string): void => {
         if (quantity >= 1) {
             dispatch(decreaseQuantity(uid))
         } else return;
     }
-    const handleRemoveItem = (uid: string) => {
+    const handleRemoveItem = (uid: string): void => {
         if (quantity === 1) {
             dispatch(removeFromCart(uid))
         } else return;
     }
-    const handleToggleFavourite = (uid: string) => {
+    const handleToggleFavourite = (uid: string): void => {
         dispatch(toggleFavourite(uid))
     }
-    let formattedQuantity = quantity <= 9 ? `0${quantity}` : quantity;
+    const formattedQuantity: string = quantity <= 9 ? `0${quantity}` : `${quantity}`;
+
     return (
         <View style={Styles.CardContainer}>
             <View style={Styles.UpperContainer}>
@@ -225,7 +226,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         FoodName: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18 ,
+            fontFamily: Fonts.font18,
             marginVertical: vh(10),
             color: Colors.textBlack
         },
@@ -292,7 +293,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         Price: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18 , 
+            fontFamily: Fonts.font18,
             marginHorizontal: vw(2),
             color: Colors.textBlack,
         },
@@ -303,7 +304,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         OldPrice: {
             fontSize: normalize(13),
-            fontFamily: Fonts.font17 ,
+            fontFamily: Fonts.font17,
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack,
         },

@@ -27,12 +27,12 @@ export default function ImagePickCropper() {
     const [imageUri, setImageUri] = useState<string>('');
     const [videoUri, setVideoUri] = useState<string | undefined>('');
     const [viewOnlyModal, setViewOnlyModal] = useState<boolean>(false)
-    const [selectedFile, setSelectedFile] = useState<DocumentPickerResponse>();
+    const [selectedFile, setSelectedFile] = useState<DocumentPickerResponse | undefined>();
     const [selectedLocalFile, setSelectedLocalFile] = useState({ uri: '' });
     const [pdfViewer, setPdfViewer] = useState<boolean>(false);
     const [videoModal, setVideoModal] = useState<boolean>(false);
     const [videoThumbnail, setVideoThumbnail] = useState<string>('');
-    const pickImage = async () => {
+    const pickImage = async (): Promise<void> => {
         try {
             if (Platform.OS == 'ios') {
                 const croppedImage = await ImagePicker.openPicker({
@@ -77,7 +77,7 @@ export default function ImagePickCropper() {
         }
     };
 
-    const pickVideo = async () => {
+    const pickVideo = async (): Promise<void> => {
         try {
             const res = await launchImageLibrary({
                 mediaType: 'video',
@@ -112,7 +112,7 @@ export default function ImagePickCropper() {
         }
     };
 
-    const pickDocument = async () => {
+    const pickDocument = async (): Promise<void> => {
         try {
             const [result] = await pick({
                 mode: 'open',
@@ -137,7 +137,7 @@ export default function ImagePickCropper() {
             console.log(e);
         }
     };
-    const handleSave = async () => {
+    const handleSave = async (): Promise<void> => {
 
     }
     return (

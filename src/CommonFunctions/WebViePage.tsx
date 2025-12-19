@@ -22,7 +22,7 @@ export default function WebViewPage() {
     const Styles = createDynamicStyles(Colors, Fonts);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const INJECTED_JAVASCRIPT = `
+    const INJECTED_JAVASCRIPT: string = `
     window.onload = function() {
         setTimeout(() => {
             try {
@@ -68,19 +68,17 @@ export default function WebViewPage() {
         }, 200);
     };
 `;
-    const onMessage = (event: WebViewMessageEvent) => {
+    const onMessage = (event: WebViewMessageEvent): void => {
         const messageData = event.nativeEvent.data;
         console.log('Raw message:', messageData);
-
         try {
             if (messageData === 'NO_DATA') {
                 console.log('No injected data found');
                 return;
             }
-
-            const parsedData = JSON.parse(messageData);
+            const parsedData: unknown = JSON.parse(messageData);
             console.log('Parsed message:', parsedData);
-        } catch (error) {
+        } catch (error: unknown) {
             console.log('Message (not JSON):', messageData);
         }
     };
@@ -124,7 +122,7 @@ export default function WebViewPage() {
                         userName: DeliveryDetails?.personName,
                         phoneNo: DeliveryDetails?.mobileNumber
                     }}
-                    pullToRefreshEnabled ={true}
+                    pullToRefreshEnabled={true}
                     style={Styles.firstWeb1} />
             </View>
         </View>

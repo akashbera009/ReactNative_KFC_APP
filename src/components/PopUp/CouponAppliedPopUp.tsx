@@ -17,7 +17,7 @@ export default function CouponAppliedPopUp() {
     const slide = useRef(new Animated.Value(500)).current;
     const fade = useRef(new Animated.Value(0)).current;
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const slideUp = () => {
+    const slideUp = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -31,7 +31,7 @@ export default function CouponAppliedPopUp() {
             })
         ]).start();
     };
-    const slideDown = () => {
+    const slideDown = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 500,
@@ -45,14 +45,14 @@ export default function CouponAppliedPopUp() {
             })
         ]).start();
     };
-    const closeModal = () => {
+    const closeModal = (): void => {
         slideDown();
         setTimeout(() => {
             navigation.pop();
         }, 400);
     };
-    setTimeout(() => { navigation.pop() }, 1500);
-    useEffect(() => {
+    setTimeout((): void => { navigation.pop() }, 1500);
+    useEffect((): void => {
         slideUp();
     }, []);
     return (

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Image, TouchableWithoutFeedback, Keyboard, TouchableOpacity, KeyboardAvoidingView, Platform, Alert, ScrollView } from 'react-native'
 import React, { useRef, useState, useEffect } from 'react'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -11,7 +11,7 @@ import { useStrings } from '../../utils/Strings'
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages'
 import { useCountry } from '../../context/CountryContext';
-import { normalize, vh, vw } from '../../utils/Dimensions'; 
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   const [inputValue, setInputValue] = useState<string[]>(new Array(4).fill(''))
@@ -24,50 +24,46 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   const { countrySelected } = useCountry()
   const [timer, setTimer] = useState<number>(90)
   const [resendActive, setResendActive] = useState<boolean>(false)
-
-  useEffect(() => {
+  useEffect((): (() => void) | void => {
     if (timer > 0) {
-      const interval = setInterval(() => {
+      const intervalId: number = setInterval(() => {
         setTimer((prevTimer) => prevTimer - 1);
       }, 1000);
-      return () => clearInterval(interval);
+      return () => clearInterval(intervalId);
     }
-    if (timer == 0) {
+    if (timer === 0) {
       setResendActive(true)
     }
   }, [timer]);
   const minutes = Math.floor(timer / 60);
   const seconds = timer % 60;
-  let formattedTime = `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-
-  const [goodToLogin, setGoodToLogin] = useState(false)
-  useEffect(() => {
+  const formattedTime: string = `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+  const [goodToLogin, setGoodToLogin] = useState<boolean>(false)
+  useEffect((): void => {
     checkGoodToLogin()
   }, [inputValue])
-  const checkGoodToLogin = () => {
+  const checkGoodToLogin = (): void => {
     if (inputValue.includes('')) {
       setGoodToLogin(false)
     } else
       setGoodToLogin(true)
   }
-
-  const handleVerify = () => {
-    if(goodToLogin) 
-    navigation.push(Strings.CreateProfileScreen, {
-      phoneNo: phoneNo1
-    })
+  const handleVerify = (): void => {
+    if (goodToLogin)
+      navigation.push(Strings.CreateProfileScreen, {
+        phoneNo: phoneNo1
+      })
   }
-  const handleResendOtp = () => {
+  const handleResendOtp = (): void => {
     setTimer(60)
     setResendActive(false)
     Alert.alert('OTP sent Successfully')
   }
-  const handleCalling = () => {
+  const handleCalling = (): void => {
     setTimer(60)
     setResendActive(false)
     Alert.alert('Calliing please wait ')
   }
-
   return (
     <View style={Styles.parentBackground}>
       <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -80,98 +76,88 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
           <Text style={Styles.headerText}>{Strings.otpText}</Text>
         </View>
       </View>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+      <View style={Styles.enterOtpHeaderContainer}>
+        <Text style={Styles.enterOtpHeader}>{Strings.enterOtpHeader}</Text>
+        <Text style={Styles.PhoneNo}>{countrySelected?.mobileCode} {phoneNo1}</Text>
+      </View>
+      <KeyboardAwareScrollView
+        enableOnAndroid
+        keyboardShouldPersistTaps="handled"
+        extraScrollHeight={180}
+        contentContainerStyle={{ paddingBottom: 50 }}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <ScrollView
-            contentContainerStyle={{ flexGrow: 1, paddingBottom: 50 }}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
+        <View style={Styles.otpRelatedContainer}>
+          <View style={Styles.innerOtpContainer}>
+            {inputValue.map((item, idx) => (
+              <View key={idx} style={[Styles.SingleOtp, (inputValue[idx] != '') ? Styles.ActiveBorder : Styles.NonActiveBorder]}>
+                <TextInput
+                  ref={element => { inputRef.current[idx] = element }}
+                  keyboardType='numeric'
+                  maxLength={1}
+                  autoFocus={idx == 0}
+                  style={[Styles.OtpInputText]}
+                  onChangeText={(text) => {
+                    let newArray = [...inputValue];
+                    newArray[idx] = text;
+                    setInputValue(newArray)
+                    if (text && idx < inputValue.length - 1) {
+                      let c = idx + 1;
+                      inputRef.current[c]?.focus()
+                    }
+                  }}
+                  onKeyPress={(event) => {
+                    if (event.nativeEvent.key == 'Backspace' && !inputValue[idx] && idx > 0) {
+                      inputRef.current[idx - 1]?.focus()
+                    }
+                  }}
+                />
+              </View>
+            ))}
+          </View>
+          <TouchableOpacity
+            onPress={handleVerify}
+            style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}
           >
-            <View style={Styles.enterOtpHeaderContainer}>
-              <Text style={Styles.enterOtpHeader}>{Strings.enterOtpHeader}</Text>
-              <Text style={Styles.PhoneNo}>{countrySelected?.mobileCode} {phoneNo1}</Text>
-            </View>
-            <View style={Styles.otpRelatedContainer}>
-              <View style={Styles.innerOtpContainer}>
-                {inputValue.map((item, idx) => (
-                  <View key={idx} style={[Styles.SingleOtp, (inputValue[idx] != '') ? Styles.ActiveBorder : Styles.NonActiveBorder]}>
-                    <TextInput
-                      ref={element => { inputRef.current[idx] = element }}
-                      keyboardType='numeric'
-                      maxLength={1}
-                      autoFocus={idx == 0}
-                      style={[Styles.OtpInputText]}
-                      onChangeText={(text) => {
-                        let newArray = [...inputValue];
-                        newArray[idx] = text;
-                        setInputValue(newArray)
-                        if (text && idx < inputValue.length - 1) {
-                          let c = idx + 1;
-                          inputRef.current[c]?.focus()
-                        }
-                      }}
-                      onKeyPress={(event) => {
-                        if (event.nativeEvent.key == 'Backspace' && !inputValue[idx] && idx > 0) {
-                          inputRef.current[idx - 1]?.focus()
-                        }
-                      }}
-                    />
-                  </View>
-                ))}
-              </View>
+            <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]}>
+              {Strings.verifyText}
+            </Text>
+          </TouchableOpacity>
 
-              <View style={Styles.verifyButtonContainer}>
-                <TouchableOpacity
-                  onPress={handleVerify}
-                  style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}
-                >
-                  <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]}>
-                    {Strings.verifyText}
-                  </Text>
-                </TouchableOpacity>
+          <View style={Styles.LowerOtpContainer}>
+            <TouchableOpacity
+              disabled={resendActive == false}
+              onPress={() => handleResendOtp()}
+              style={Styles.LowerOtpContainerEntries}
+            >
+              <View style={Styles.LowerOtpContainerEntriesLeft}>
+                <Image source={Images.Messege} style={Styles.otpentriesIcon} />
+                <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>
+                  {Strings.resendOtp.toUpperCase()}
+                </Text>
               </View>
+              {resendActive == false && (
+                <Text style={[Styles.resendRealtedText, Styles.timerText]}>{formattedTime}</Text>
+              )}
+            </TouchableOpacity>
 
-              <View style={Styles.LowerOtpContainer}>
-                <TouchableOpacity
-                  disabled={resendActive == false}
-                  onPress={() => handleResendOtp()}
-                  style={Styles.LowerOtpContainerEntries}
-                >
-                  <View style={Styles.LowerOtpContainerEntriesLeft}>
-                    <Image source={Images.Messege} style={Styles.otpentriesIcon} />
-                    <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>
-                      {Strings.resendOtp.toUpperCase()}
-                    </Text>
-                  </View>
-                  {resendActive == false && (
-                    <Text style={[Styles.resendRealtedText, Styles.timerText]}>{formattedTime}</Text>
-                  )}
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  disabled={resendActive == false}
-                  onPress={() => handleCalling()}
-                  style={Styles.LowerOtpContainerEntries}
-                >
-                  <View style={Styles.LowerOtpContainerEntriesLeft}>
-                    <Image source={Images.call} style={Styles.otpentriesIcon} />
-                    <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>
-                      {Strings.callMe.toLocaleUpperCase()}
-                    </Text>
-                  </View>
-                  {resendActive == false && (
-                    <Text style={[Styles.resendRealtedText, Styles.timerText]}>{formattedTime}</Text>
-                  )}
-                </TouchableOpacity>
+            <TouchableOpacity
+              disabled={resendActive == false}
+              onPress={() => handleCalling()}
+              style={Styles.LowerOtpContainerEntries}
+            >
+              <View style={Styles.LowerOtpContainerEntriesLeft}>
+                <Image source={Images.call} style={Styles.otpentriesIcon} />
+                <Text style={[Styles.resendRealtedText, resendActive ? Styles.activeResndText : null]}>
+                  {Strings.callMe.toLocaleUpperCase()}
+                </Text>
               </View>
-            </View>
-          </ScrollView>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+              {resendActive == false && (
+                <Text style={[Styles.resendRealtedText, Styles.timerText]}>{formattedTime}</Text>
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
+      </KeyboardAwareScrollView>
     </View>
   )
 }
@@ -201,7 +187,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     headerText: {
       fontSize: normalize(20),
       fontFamily: Fonts.font18,
-      color: Colors.textBlack 
+      color: Colors.textBlack
     },
     BackIconAndHeaderText: {
       display: 'flex',
@@ -228,14 +214,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontSize: normalize(18),
       marginTop: vh(30),
       fontFamily: Fonts.font18,
+      color: Colors.textBlack
     },
     PhoneNo: {
       fontSize: normalize(17),
       marginTop: vh(10),
       fontFamily: Fonts.font18,
+      color: Colors.textBlack
     },
     otpRelatedContainer: {
-      marginTop: vh(15),
+      marginTop: vh(100),
       height: vh(320),
       width: '90%',
       alignSelf: 'center',
@@ -268,13 +256,15 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontSize: normalize(24),
       height: '100%',
       width: '100%',
-      textAlign: 'center'
+      textAlign: 'center',
+      color: Colors.textBlack
     },
     verifyButtonContainer: {
       width: '90%',
       alignSelf: 'center',
     },
     VerifyBUtton: {
+      marginRight: vw(20),
       height: vh(40),
       paddingVertical: vh(10),
       paddingHorizontal: vw(20),

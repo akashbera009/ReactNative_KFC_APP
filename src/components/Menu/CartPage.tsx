@@ -29,34 +29,32 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
     const cartData = useSelector((state: RootState) => state.cart)
     const cartItem = cartData?.cartItems
     const { countrySelected } = useCountry();
-    const isOfferApplied = discount != 0 || discountPercentage != 0;
-    const [topOfferAppliedIndicator, setTopOfferAppliedIndicator] = useState(false);
+    const isOfferApplied: boolean = discount != 0 || discountPercentage != 0;
+    const [topOfferAppliedIndicator, setTopOfferAppliedIndicator] = useState<boolean>(false);
     const dispatch = useAppDispatch()
-    useEffect(() => {
-        if (isOfferApplied)
-            setTopOfferAppliedIndicator(true)
+    useEffect((): void => {
+        setTopOfferAppliedIndicator(isOfferApplied);
     }, [isOfferApplied])
-    const handleIncreaseQuantity = (uid: string) => {
+    const handleIncreaseQuantity = (uid: string): void => {
         dispatch(increaseQuantity(uid))
     }
-    const handleDelete = (uid: string, image: string) => {
+    const handleDelete = (uid: string, image: string): void => {
         navigation.push(Strings.RemoveCartItemBottomSheetScreen, {
             imageLink: image,
             uid: uid,
         })
     }
-    const handleDecreaseQuantity = (uid: string) => {
+    const handleDecreaseQuantity = (uid: string): void => {
         dispatch(decreaseQuantity(uid))
     }
-    const [editingMode, seteditingMode] = useState(false)
-    const handleOfferApply = () => {
+    const [editingMode, seteditingMode] = useState<boolean>(false)
+    const handleOfferApply = (): void => {
         navigation.navigate(Strings.DealsAndOfferScreen)
-        let success = 0
-        if (success)
-            navigation.navigate(Strings.OfferAppliedScreen)
+        const success: boolean = false;
+        if (success) navigation.navigate(Strings.OfferAppliedScreen);
     }
-    let totalAmount = cartItem.reduce((acc, item) => acc + item.price * item?.quantity, 0)
-    let discountAmount = isOfferApplied
+    let totalAmount: number = cartItem.reduce((acc, item) => acc + item.price * item?.quantity, 0)
+    let discountAmount: number = isOfferApplied
         ? (discount > 0
             ? (discount)
             : (discountPercentage > 0
@@ -66,9 +64,9 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
         0;
     discountAmount = Number(discountAmount.toFixed(2))
     totalAmount = totalAmount - Math.abs(Number(discountAmount))
-    let beforeTax = (totalAmount - totalAmount * 5 / 100).toFixed(2)
-    const vatAmount = (totalAmount * 5 / 100).toFixed(2);
-    let GrandAmount = (totalAmount + DeliveryDetails?.charges).toFixed(2);
+    let beforeTax: string = (totalAmount - totalAmount * 5 / 100).toFixed(2)
+    const vatAmount: string = (totalAmount * 5 / 100).toFixed(2);
+    let GrandAmount: string = (totalAmount + DeliveryDetails?.charges).toFixed(2);
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>

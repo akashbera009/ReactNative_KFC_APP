@@ -33,9 +33,9 @@ export default function OrderStatus({
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
     const [openAmountDetails, setOpenAmountDetails] = useState<boolean>(false)
-    const [pending, setPending] = useState(true)
+    const [pending, setPending] = useState<boolean>(true)
     let currentOrder: OrderHistory | null = useSelector(selectCurrentOrder)
-    useEffect(() => {
+    useEffect((): (() => void) | void => {
         const timeOut = setTimeout(() => {
             setPending(false)
         }, 4000);
@@ -44,7 +44,7 @@ export default function OrderStatus({
         };
     }, [])
     const rotate = useRef(new Animated.Value(0)).current
-    useEffect(() => {
+    useEffect((): void => {
         Animated.loop(
             Animated.timing(rotate, {
                 toValue: 1,
@@ -54,8 +54,8 @@ export default function OrderStatus({
             })
         ).start()
     }, [])
-    const handleShareInvoice = async () => {
-        const pdfUrl = DeliveryDetails?.demoPDFurl
+    const handleShareInvoice = async (): Promise<void> => {
+        const pdfUrl: string = DeliveryDetails?.demoPDFurl
         try {
             const result = await Share.share({
                 message:
@@ -636,7 +636,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
             fontSize: normalize(15),
             fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
-        }, 
+        },
         WriteTitle: {
             fontSize: normalize(18),
             fontFamily: Fonts.font17,

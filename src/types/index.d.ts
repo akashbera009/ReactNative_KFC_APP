@@ -28,7 +28,6 @@ type RootStackParamList = {
   TermsAndConditionsScreen: undefined
   HelpScreen: undefined
   LoginPageCountryBottomSheetScreen: undefined
-  KeyboardTestScreen : undefined
 }
 type RootDrawerParamList = {
   Main: undefined;

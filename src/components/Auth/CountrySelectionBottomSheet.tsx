@@ -12,16 +12,15 @@ import { useCountry } from '../../context/CountryContext';
 import { normalize, vh, vw } from '../../utils/Dimensions'
 
 export default function CountrySelectionBottomSheet() {
-  const slide = useRef(new Animated.Value(500)).current;
-  const fade = useRef(new Animated.Value(0)).current;
+  const slide = useRef<Animated.Value>(new Animated.Value(500)).current;
+  const fade = useRef<Animated.Value>(new Animated.Value(0)).current;
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts)
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { countrySelected, setCountrySelected } = useCountry();
-
-  const slideUp = () => {
+  const slideUp = (): void => {
     Animated.parallel([
       Animated.timing(slide, {
         toValue: 0,
@@ -35,8 +34,7 @@ export default function CountrySelectionBottomSheet() {
       })
     ]).start();
   };
-
-  const slideDown = () => {
+  const slideDown = (): void => {
     Animated.parallel([
       Animated.timing(slide, {
         toValue: 500,
@@ -50,14 +48,12 @@ export default function CountrySelectionBottomSheet() {
       })
     ]).start();
   };
-
-  const closeModal = () => {
+  const closeModal = (): void => {
     slideDown();
     setTimeout(() => {
       navigation.pop();
     }, 400);
   };
-
   useEffect(() => {
     slideUp();
   }, []);
@@ -67,55 +63,49 @@ export default function CountrySelectionBottomSheet() {
         <View style={StyleSheet.absoluteFillObject} />
       </TouchableWithoutFeedback>
       <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
-          <View style={Styles.InnerContainer}>
-            <View style={Styles.ThreeColumnStyle}>
-              <View style={[Styles.singleCOlumnStyle,]} />
-              <View style={[Styles.singleCOlumnStyle,]} />
-              <View style={[Styles.singleCOlumnStyle,]} />
-            </View>
-            <View style={Styles.bottomSheeetContentContainer}>
-              <Text style={Styles.WelcomeHeader}>{Strings.welcome}</Text>
-              <Text style={Styles.countryDescription} numberOfLines={3} >{Strings.countryDescription}</Text>
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                style={Styles.CountryContainer}>
-                {CountryInfo.map((country, idx) => (
-                  <TouchableOpacity
-                    activeOpacity={.5}
-                    onPress={() => {
-                      setCountrySelected(country)
-                    }}
-                    key={idx} style={Styles.CountryEntries}>
-                    <View style={Styles.CountryEntriesLeft}>
-                      <Image source={country?.flag} style={Styles.FlagIcon} />
-                      <View style={Styles.CountryEntriesRight}>
-                        <Text style={Styles.CountryName}>{country?.name}</Text>
-                        {countrySelected?.code == country?.code && (
-                          <Text style={Styles.needToHaveLocalNumber}>{Strings.needToHaveLocalNumber}</Text>
-                        )}
-                      </View>
-                    </View>
-                    <View
-
-                      style={Styles.CheckBox}
-                    >
-                      {countrySelected?.code == country?.code && (
-                        <View
-                          style={Styles.CheckBoxSelected}
-                        />
-                      )
-                      }
-                    </View>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
-              <TouchableOpacity
-                style={[Styles.DoneButtonContainer, { bottom: inset.bottom + 30 }]}
-                onPress={() => navigation.pop()}>
-                <Text style={Styles.DoneButtonText}>{Strings.done.toLocaleUpperCase()}</Text>
-              </TouchableOpacity>
-            </View>
+        <View style={Styles.InnerContainer}>
+          <View style={Styles.ThreeColumnStyle}>
+            <View style={[Styles.singleCOlumnStyle,]} />
+            <View style={[Styles.singleCOlumnStyle,]} />
+            <View style={[Styles.singleCOlumnStyle,]} />
           </View>
+          <View style={Styles.bottomSheeetContentContainer}>
+            <Text style={Styles.WelcomeHeader}>{Strings.welcome}</Text>
+            <Text style={Styles.countryDescription} numberOfLines={3} >{Strings.countryDescription}</Text>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              style={Styles.CountryContainer}>
+              {CountryInfo.map((country, idx) => (
+                <TouchableOpacity
+                  activeOpacity={.5}
+                  onPress={() => {
+                    setCountrySelected(country)
+                  }}
+                  key={idx} style={Styles.CountryEntries}>
+                  <View style={Styles.CountryEntriesLeft}>
+                    <Image source={country?.flag} style={Styles.FlagIcon} />
+                    <View style={Styles.CountryEntriesRight}>
+                      <Text style={Styles.CountryName}>{country?.name}</Text>
+                      {countrySelected?.code == country?.code && (
+                        <Text style={Styles.needToHaveLocalNumber}>{Strings.needToHaveLocalNumber}</Text>
+                      )}
+                    </View>
+                  </View>
+                  <View style={Styles.CheckBox}>
+                    {countrySelected?.code == country?.code && (
+                      <View style={Styles.CheckBoxSelected} />
+                    )}
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+            <TouchableOpacity
+              style={[Styles.DoneButtonContainer, { bottom: inset.bottom + vh(30) }]}
+              onPress={() => navigation.pop()}>
+              <Text style={Styles.DoneButtonText}>{Strings.done.toLocaleUpperCase()}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </Animated.View>
     </Animated.View >
   )
@@ -135,11 +125,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     bottomSheet: {
       width: '100%',
       height: vh(500),
-    }, 
+    },
     InnerContainer: {
       height: '100%',
       backgroundColor: Colors.bodyColor,
-      borderTopRightRadius:normalize(40),
+      borderTopRightRadius: normalize(40),
       borderTopLeftRadius: normalize(40),
       position: 'relative',
     },
@@ -175,7 +165,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       fontFamily: Fonts.font17,
       alignSelf: 'center',
       letterSpacing: normalize(1),
-      marginTop: vh(40)
+      marginTop: vh(40),
+      color: Colors.textBlack
     },
     countryDescription: {
       width: "90%",
@@ -185,15 +176,16 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       textAlign: 'center',
       color: Colors.textFadeBlack,
       marginTop: vh(15),
-      lineHeight: vh(27) ,
+      lineHeight: vh(27),
     },
     CountryContainer: {
       maxHeight: vh(230),
-      marginTop: vh(10) , 
+      marginTop: vh(10),
       width: '100%',
       alignSelf: 'center',
       display: 'flex',
       flexDirection: 'column',
+      paddingBottom: vh(10)
     },
     CountryEntries: {
       display: 'flex',
@@ -229,7 +221,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     CountryName: {
       fontSize: normalize(14),
-      fontFamily: Fonts.font17
+      fontFamily: Fonts.font17,
+      color: Colors.textFadeBlack2
     },
     needToHaveLocalNumber: {
       fontSize: normalize(12),

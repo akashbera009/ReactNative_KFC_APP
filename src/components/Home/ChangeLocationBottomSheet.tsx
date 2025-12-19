@@ -4,13 +4,13 @@ import React, { useEffect, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { normalize , vh , vw } from '../../utils/Dimensions';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 // util imports 
 import { useThemeColors } from '../../utils/Colors';
 import Fonts from '../../utils/Fonts'
 import { useStrings } from '../../utils/Strings';
 import Images from '../../utils/LocalImages';
-import{DeliveryDetails}from '../../data/DeliveryDetails';
+import { DeliveryDetails } from '../../data/DeliveryDetails';
 export default function ChangeLocationBottomSheet() {
     const slide = useRef(new Animated.Value(500)).current;
     const fade = useRef(new Animated.Value(0)).current;
@@ -19,7 +19,7 @@ export default function ChangeLocationBottomSheet() {
     const Styles = createDynamicStyles(Colors, Fonts)
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const slideUp = () => {
+    const slideUp = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -33,7 +33,7 @@ export default function ChangeLocationBottomSheet() {
             })
         ]).start();
     };
-    const slideDown = () => {
+    const slideDown = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 450,
@@ -47,13 +47,13 @@ export default function ChangeLocationBottomSheet() {
             })
         ]).start();
     };
-    const closeModal = () => {
+    const closeModal = (): void => {
         slideDown();
         setTimeout(() => {
             navigation.pop();
         }, 400);
     };
-    useEffect(() => {
+    useEffect((): void => {
         slideUp();
     }, []);
     return (
@@ -105,7 +105,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         bottomSheet: {
             width: '100%',
             height: vh(450),
-        }, 
+        },
         InnerContainer: {
             height: '100%',
             backgroundColor: Colors.bodyColor,
@@ -119,7 +119,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginHorizontal: 'auto',
             height: vh(40),
             width: vw(40),
-            borderRadius:  normalize(100),
+            borderRadius: normalize(100),
             backgroundColor: Colors.textBlack,
             display: 'flex',
             justifyContent: 'center',
@@ -152,7 +152,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             tintColor: Colors.CloudBorder,
         },
         ConfirmHeader: {
-            fontSize:normalize(22),
+            fontSize: normalize(22),
             fontFamily: Fonts.font18,
             alignSelf: 'center',
             letterSpacing: normalize(1),

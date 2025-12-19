@@ -33,7 +33,7 @@ const SideBar = () => {
   const [isSettingsMenunOpen, setIsSettingsMenuOpen] = useState<boolean>(false)
   const currentOrder: OrderHistory | null = useSelector(selectCurrentOrder)
   // customer support linking 
-  const handleOpenDialer = () => {
+  const handleOpenDialer = (): void => {
     const phone = DeliveryDetails?.supprotMobile;
     let phoneNumber = phone;
     if (Platform.OS === 'ios') {
@@ -54,7 +54,7 @@ const SideBar = () => {
       .catch((err) => console.error(err));
   }
   const dispatch = useAppDispatch();
-  useEffect(() => {
+  useEffect((): void => {
     dispatch(fetctUserDeatails())
   }, [])
   const userdata = useSelector((state: RootState) => state?.users)
@@ -125,15 +125,6 @@ const SideBar = () => {
                   setIsSettingsMenuOpen(false)
                 }}>
                 <Text>{Strings.FontsScreen}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={Styles.SettingsMenuEntries}
-                activeOpacity={.7}
-                onPress={() => {
-                  navigation.navigate(Strings?.KeyboardTestScreen)
-                  setIsSettingsMenuOpen(false)
-                }}>
-                <Text>{Strings.KeyboardTestScreen}</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -415,7 +406,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     countryName: {
       fontSize: normalize(16),
-      fontFamily: Fonts.font17 ,
+      fontFamily: Fonts.font17,
       color: Colors.textBlack,
     },
     Arrow: {
@@ -452,7 +443,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     countryEntriesText: {
       marginBottom: vh(4),
-      fontFamily: Fonts.font18 , 
+      fontFamily: Fonts.font18,
       fontSize: normalize(16),
       color: Colors.textBlack,
       marginLeft: vw(4)

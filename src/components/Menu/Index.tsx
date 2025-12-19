@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, Text, TouchableOpacity, ScrollView, Animated } from 'react-native'
+import { View, StyleSheet, Image, Text, TouchableOpacity, ScrollView, Animated, Keyboard, BackHandler } from 'react-native'
 import React, { useRef, useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +16,8 @@ import Images from '../../utils/LocalImages'
 import { useStrings } from '../../utils/Strings'
 import { useThemeColors } from '../../utils/Colors'
 import { normalize, vh, vw } from '../../utils/Dimensions';
+import { TextInput } from 'react-native-gesture-handler';
+import SearchPage from './SearchPage';
 
 const Index = ({ categoryType }: { categoryType: string }) => {
     const Colors = useThemeColors()
@@ -24,19 +26,23 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const Styles = createDynamicStyles(Colors, Fonts)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const dispatch = useAppDispatch()
-    useEffect(() => {
+    useEffect((): void => {
         dispatch(fetchMenu())
     }, [])
-    const cartData = useSelector((state: RootState)=> state.cart)
-    const cartItem  = cartData?.cartItems
+    const cartData = useSelector((state: RootState) => state.cart)
     const menuData = useSelector((state: RootState) => state.menuData)
-    const menuItem = menuData?.menuData
+    const iSFavouriteMenuData = useSelector((state: RootState) => state.favourite)
+    const cartItem: CartItemType[] = cartData?.cartItems
+    const menuItem: menuDataType[] = menuData?.menuData
+    const iSFavouriteMenuArray: string[] = iSFavouriteMenuData?.favorites
     const category: string[] = [...(menuItem.map((item) => item.categories).flat(1))].sort()
-    const iSFavouriteMenuData = useSelector((state: RootState)=> state.favourite)
-    const iSFavouriteMenuArray = iSFavouriteMenuData?.favorites
     const categorySet: string[] = [...new Set<string>([...category])];
-    const [activeCategory, setActiveCategory] = useState<string>(categoryType);
     const frequencyMap: Map<string, number> = new Map();
+    const [activeCategory, setActiveCategory] = useState<string>(categoryType);
+    //search
+    const [searchTerm, setSearchTerm] = useState<string>('')
+    const [searchActive, setSearchActive] = useState<boolean>(false)
+    const inputRef = useRef<TextInput>(null)
     if (iSFavouriteMenuArray?.length > 0) {
         categorySet.splice(1, 0, 'Favourites')
         frequencyMap.set('Favourites', iSFavouriteMenuArray?.length)
@@ -45,20 +51,59 @@ const Index = ({ categoryType }: { categoryType: string }) => {
         frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
     }
     const frequencyArray: CategoryFrequency[] = Array.from(frequencyMap, ([category, count]) => ({ category, count }));
-    // animation
-    const slideIn = useRef(new Animated.Value(0)).current;
-    const handleSlideIn = () => {
-        Animated.timing(slideIn, {
+    const slideUp = useRef<Animated.Value>(new Animated.Value(0)).current;
+    const handleslideUp = (): void => {
+        Animated.timing(slideUp, {
             toValue: 1,
             duration: 200,
             useNativeDriver: true
         }).start()
     }
-    useEffect(() => {
+    useEffect((): void => {
         if (cartItem.length > 0) {
-            handleSlideIn();
+            handleslideUp();
         }
     }, [cartItem.length])
+    const slideInRef = useRef<Animated.Value>(new Animated.Value(0)).current
+    const searchBarSlideDown = (): void => {
+        Animated.timing(slideInRef, {
+            toValue: 1,
+            duration: 250,
+            useNativeDriver: true
+        }).start()
+    }
+    const searchBarSlideUp = (): void => {
+        Animated.timing(slideInRef, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true
+        }).start()
+    }
+    const toggleSearch = async (): Promise<void> => {
+        if (searchActive) {
+            searchBarSlideUp()
+            await Keyboard.dismiss()
+        }
+        else
+            searchBarSlideDown()
+        setSearchActive(!searchActive)
+    }
+    useEffect((): (() => void) => {
+        const backAction = () => {
+            if (searchActive) {
+                setSearchActive(false)
+                searchBarSlideUp()
+                setSearchTerm('')
+                return true;
+            }
+            return false
+        };
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+        return () => backHandler.remove();
+    }, [searchActive]);
 
     return (
         <View style={Styles.ParentContaienr}>
@@ -72,65 +117,110 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                     <Text style={Styles.headerText}>{Strings.exploreMenu} </Text>
                 </View>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate(Strings.SearchScreen)}
+                    onPress={() => {
+                        toggleSearch()
+                        inputRef?.current?.focus()
+                    }}
                 >
                     <Image source={Images.Search_Icon} style={Styles.SearchIcon} />
                 </TouchableOpacity>
-            </View>
-            <View style={Styles.CategorySelector}>
-                <TouchableOpacity
-                    style={Styles.menuIconContainer}
-                    onPress={() => {
-                        navigation.navigate(Strings.MenuCategorizeScreen, {
-                            activeCategory: activeCategory,
-                            setActiveCategory: setActiveCategory,
-                            frequencyArray: frequencyArray
+
+                <Animated.View style={[Styles.searchBarActiveContainer, {
+                    transform: [{
+                        translateY: slideInRef.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [-100, 0]
                         })
-                    }}
-                >
-                    <Image source={Images.Foood_Menu_Icon} style={Styles.menuIcon} />
-                </TouchableOpacity>
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    {categorySet.map((category) => (
-                        <TouchableOpacity
-                            key={category}
-                            style={[
-                                Styles.categoryContainer,
-                                activeCategory === category && Styles.ActiveBorder
-                            ]}
-                            onPress={() => setActiveCategory(category)}
-                        >
-                            <Text
-                                style={[
-                                    Styles.categoryContainerText,
-                                    activeCategory === category && Styles.ActiveText
-                                ]}
-                            >
-                                {category}
-                            </Text>
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView>
-            </View>
-            <ExploreMenu activeCategory={activeCategory} />
-            {cartItem.length > 0 && (
-                <Animated.View style={[Styles.BottomCartContainer, { bottom: inset.bottom - 10 }, {
-                    opacity: slideIn.interpolate({
+                    }],
+                    opacity: slideInRef.interpolate({
                         inputRange: [0, 1],
                         outputRange: [0, 1]
-                    }),
-                    transform: [
-                        {
-                            translateY: slideIn.interpolate({
+                    })
+                },]}>
+                    <TouchableOpacity
+                        onPress={toggleSearch}>
+                        <Image source={Images.back_arrow} style={Styles.BackBUtton} />
+                    </TouchableOpacity>
+                    <TextInput value={searchTerm}
+                        ref={inputRef}
+                        style={Styles.SearchBar}
+                        onChangeText={setSearchTerm}
+                        placeholder={Strings.search}
+                        placeholderTextColor={Colors.textFadeBlack2}
+                        cursorColor={Colors.KFC_red}
+                        selectionColor={Colors.KFC_red}
+                    />
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (searchTerm != '')
+                                setSearchTerm('')
+                            else
+                                toggleSearch()
+                        }}
+                    >
+                        <Image source={Images.Cross_Icon} style={Styles.crossButton} />
+                    </TouchableOpacity>
+                </Animated.View >
+            </View>
+            {searchActive ? (
+                <SearchPage searchTerm={searchTerm} />
+            ) : (
+                <>
+                    <View style={Styles.CategorySelector}>
+                        <TouchableOpacity
+                            style={Styles.menuIconContainer}
+                            onPress={() => {
+                                navigation.navigate(Strings.MenuCategorizeScreen, {
+                                    activeCategory: activeCategory,
+                                    setActiveCategory: setActiveCategory,
+                                    frequencyArray: frequencyArray
+                                })
+                            }}
+                        >
+                            <Image source={Images.Foood_Menu_Icon} style={Styles.menuIcon} />
+                        </TouchableOpacity>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                            {categorySet.map((category) => (
+                                <TouchableOpacity
+                                    key={category}
+                                    style={[
+                                        Styles.categoryContainer,
+                                        activeCategory === category && Styles.ActiveBorder
+                                    ]}
+                                    onPress={() => setActiveCategory(category)}
+                                >
+                                    <Text
+                                        style={[
+                                            Styles.categoryContainerText,
+                                            activeCategory === category && Styles.ActiveText
+                                        ]}
+                                    >
+                                        {category}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+                    </View>
+                    <ExploreMenu activeCategory={activeCategory} />
+                    {cartItem.length > 0 && (
+                        <Animated.View style={[Styles.BottomCartContainer, { bottom: inset.bottom - 10 }, {
+                            opacity: slideUp.interpolate({
                                 inputRange: [0, 1],
-                                outputRange: [80, 0]
-                            })
-                        }
-                    ]
-                }]}>
-                    <BottomCart ButtonType={Strings.viewCart} navLink={Strings.CartScreen} totalAmount={0} discount={0} />
-                </Animated.View>
-            )}
+                                outputRange: [0, 1]
+                            }),
+                            transform: [
+                                {
+                                    translateY: slideUp.interpolate({
+                                        inputRange: [0, 1],
+                                        outputRange: [80, 0]
+                                    })
+                                }
+                            ]
+                        }]}>
+                            <BottomCart ButtonType={Strings.viewCart} navLink={Strings.CartScreen} totalAmount={0} discount={0} />
+                        </Animated.View>
+                    )}
+                </>)}
         </View>
     )
 }
@@ -142,17 +232,17 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flex: 1
         },
         NavWrapper: {
-            width:'100%',
+            width: '100%',
             backgroundColor: Colors.bodyColor,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
-            paddingBottom: vh( 15),
+            paddingBottom: vh(15),
         },
         headerText: {
-            fontSize: normalize (20),
+            fontSize: normalize(20),
             fontFamily: Fonts.font18,
             color: Colors.textBlack
         },
@@ -174,10 +264,41 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             width: vw(26),
             alignSelf: 'flex-end',
             marginHorizontal: vw(30),
+            tintColor: Colors.textBlack
+        },
+        searchBarActiveContainer: {
+            width: '100%',
+            height: vh(40),
+            backgroundColor: Colors?.bodyColor,
+            position: 'absolute',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        BackBUtton: {
+            height: vh(18),
+            width: vw(18),
+            marginLeft: vw(20),
+            tintColor: Colors.textBlack
+        },
+        SearchBar: {
+            width: '70%',
+            height: '90%',
+            fontSize: normalize(14),
+            fontFamily: Fonts.font17,
+            color: Colors.textBlack,
+            marginLeft: vw(20)
+        },
+        crossButton: {
+            height: vh(14),
+            width: vw(14),
+            marginRight: vw(40),
+            tintColor: Colors.textBlack,
         },
         CategorySelector: {
             height: vh(45),
-            width:'100%',
+            width: '100%',
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'flex-end',
@@ -185,7 +306,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderColor: Colors.fadeWhiteText,
         },
         menuIconContainer: {
-            height:'100%',
+            height: '100%',
             width: vw(65),
             backgroundColor: Colors.KFC_red,
             display: 'flex',
@@ -214,12 +335,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors.resendOtpText,
             fontSize: normalize(14),
         },
-        ActiveText: {   
-            fontFamily: Fonts.font18 , 
+        ActiveText: {
+            fontFamily: Fonts.font18,
             color: Colors.textBlack,
         },
         BottomCartContainer: {
-            width:'100%',
+            width: '100%',
             height: vh(70),
             backgroundColor: Colors.bodyColor,
             position: 'absolute',

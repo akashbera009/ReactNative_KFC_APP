@@ -20,14 +20,14 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
     const { countrySelected } = useCountry()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const cartData = useSelector((state: RootState) => state.cart)
-    const cartItem = cartData.cartItems
+    const cartItem: CartItemType[] = cartData.cartItems
     let totalPrice: string = cartItem.reduce((acc, item) => acc + item?.price * item?.quantity, 0).toFixed(2);
     let discountPrice: number = cartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
     discountPrice -= Number(totalPrice);
     let formattedCounterText: string = cartItem?.length < 10 ? `0${cartItem?.length}` : `${cartItem?.length}`;
     // aimation 
-    const slideIn = useRef(new Animated.Value(0)).current;
-    const handleSlideIn = (easing: EasingFunction) => {
+    const slideIn = useRef<Animated.Value>(new Animated.Value(0)).current;
+    const handleSlideIn = (easing: EasingFunction): void => {
         Animated.timing(slideIn, {
             toValue: 1,
             duration: 200,
@@ -35,7 +35,7 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
             useNativeDriver: true
         }).start()
     }
-    useEffect(() => {
+    useEffect((): void => {
         handleSlideIn(Easing.in(Easing.quad))
     }, [slideIn])
 

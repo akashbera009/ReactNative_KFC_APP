@@ -11,7 +11,7 @@ export const CountryProvider = ({ children }: { children: ReactNode }) => {
         const getCountryInfo = async () => {
             const countryCode = await AsyncStorage.getItem('countryCode') // only storing countryCOde
             if (countryCode != null) {
-                const currentCountry = CountryInfo.find(item => item.code === countryCode)
+                const currentCountry = CountryInfo.find(item => item?.code === countryCode)
                 if(currentCountry)
                     setCountrySelected(currentCountry)
             }

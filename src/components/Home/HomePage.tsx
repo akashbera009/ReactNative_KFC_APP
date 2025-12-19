@@ -1,7 +1,6 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Platform, Animated, RefreshControl } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Platform, Animated, RefreshControl, BackHandler, Alert } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import Svg, { Polygon } from 'react-native-svg';
-
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -43,14 +42,14 @@ export default function HomePage() {
   }, [dispatch])
   const menuData = useSelector((state: RootState) => state.menuData)
   const { countrySelected } = useCountry()
-  const colorList: { offset: string, color: string, opacity: string }[] = [
+  const colorList: GradientStop[] = [
     { offset: '0%', color: Colors.orangeColorText, opacity: '1' },
     { offset: '40%', color: Colors.orangeColorText, opacity: '1' },
     { offset: '100%', color: Colors.KFC_red, opacity: '1' },
   ]
   // fade animation 
-  const fadeAnimation = useRef(new Animated.Value(0)).current
-  const FadeIn = () => {
+  const fadeAnimation = useRef<Animated.Value>(new Animated.Value(0)).current
+  const FadeIn = (): void => {
     fadeAnimation.setValue(0);
     Animated.timing(fadeAnimation, {
       toValue: 1,
@@ -58,10 +57,10 @@ export default function HomePage() {
       useNativeDriver: true
     }).start()
   }
-  const [imageIndex, setImageIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState<number>(0);
   const imageSet = [Images.Home_Page_Main_Image, Images.ChickenBox, Images.ChickenNuget, Images.BurgerPNG]
-  useEffect(() => {
-    const interval = setTimeout(() => {
+  useEffect((): (() => void | void) => {
+    const interval = setTimeout((): void => {
       setImageIndex(prev => prev < 3 ? prev + 1 : 0)
     }, 2500);
     FadeIn()
@@ -77,6 +76,23 @@ export default function HomePage() {
       setRefreshing(false);
     }, 1000);
   }, []);
+  useEffect(() => {
+    const backAction = (): boolean => {
+      Alert.alert('Confirm Exit?', 'Are you sure you want to exit?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        { text: 'YES', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction)
+    return () => subscription.remove()
+  }, [])
   return (
     <View style={Styles.ParentContaine}>
       <View style={Styles.menuButtonContainer}>
@@ -441,11 +457,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       position: 'absolute',
       top: vh(80),
       left: vw(20)
-    },
-    SvgTextContainer2: {
-      position: 'absolute',
-      top: vh(60),
-      right: vw(20)
     },
     HomePageMainImage: {
       height: vh(220),
@@ -885,12 +896,6 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       transform: [{ scaleX: -1 }],
       position: 'relative',
       left: vw(18),
-    },
-    centerText: {
-      fontSize: normalize(28),
-      fontFamily: Fonts.exp,
-      marginHorizontal: vw(8),
-      color: Colors.textBlack
     },
     linesContainer: {
       flexDirection: 'column',

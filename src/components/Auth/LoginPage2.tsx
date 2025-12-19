@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // google sign in 
 import { GoogleSignin, statusCodes, isSuccessResponse, isErrorWithCode } from '@react-native-google-signin/google-signin';
 // util import 
@@ -25,16 +26,16 @@ export default function LoginPage2() {
     const [mobileNo, setMobileNo] = useState<string>('')
     const [goodToLogin, setGoodToLogin] = useState<boolean>(false)
     const [userToken, setUserToken] = useState<string | null>(null);
-    useEffect(() => {
+    useEffect((): void => {
         checkGoodToLogin()
     }, [mobileNo])
-    const checkGoodToLogin = () => {
+    const checkGoodToLogin = (): void => {
         if (mobileNo.length === countrySelected.mobileNoLength) {
             setGoodToLogin(false)
         } else
             setGoodToLogin(true)
     }
-    const handleMobileNoInput = (text: string) => {
+    const handleMobileNoInput = (text: string): void => {
         if (text.length <= countrySelected.mobileNoLength) {
             let formattedText
             if (countrySelected?.code == 'uae')
@@ -46,7 +47,7 @@ export default function LoginPage2() {
             setMobileNo(formattedText)
         }
     }
-    const signInWithGoogle = async () => {
+    const signInWithGoogle = async (): Promise<void> => {
         try {
             await GoogleSignin.hasPlayServices();
             const response = await GoogleSignin.signIn();
@@ -61,7 +62,7 @@ export default function LoginPage2() {
             } else {
                 console.log('unknown action');
             }
-        } catch (error) {
+        } catch (error: unknown) {
             if (isErrorWithCode(error)) {
                 switch (error.code) {
                     case statusCodes.IN_PROGRESS:
@@ -76,7 +77,7 @@ export default function LoginPage2() {
             }
         };
     }
-    const handleSubmit = async () => {
+    const handleSubmit = async (): Promise<void> => {
         if (mobileNo.length < countrySelected?.mobileNoLength) return
         await Keyboard.dismiss()
         navigation.push(Strings.OTPScreen, {
@@ -87,18 +88,25 @@ export default function LoginPage2() {
     return (
         <View style={Styles.ParentContainer}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                <View>
-                    <View style={Styles.ThreeColumnStyle}>
-                        <View style={[Styles.singleCOlumnStyle,]} />
-                        <View style={[Styles.singleCOlumnStyle,]} />
-                        <View style={[Styles.singleCOlumnStyle,]} />
-                    </View>
-                    <Image source={Images.KFC_Combo_Pack} style={[Styles.KFC_ComboImage, { marginTop: inset.top }]} />
-                    <Text style={Styles.Welcome2} >{Strings.welcome2.toUpperCase()}</Text>
-                    <View style={Styles.SecondLine}>
-                        <Text style={Styles.SecondLineText}>{Strings.KFC.toUpperCase()}</Text>
-                        <Text style={Styles.SecondLineText}>{countrySelected.name.toUpperCase()}</Text>
-                        <Text style={Styles.SecondLineText}>{Strings.app.toUpperCase()}</Text>
+                <KeyboardAwareScrollView
+                    enableOnAndroid
+                    keyboardShouldPersistTaps="handled"
+                    extraScrollHeight={150}
+                    contentContainerStyle={{ paddingBottom: 50 }}
+                >
+                    <View style={Styles.UpperCOntainer}>
+                        <View style={Styles.ThreeColumnStyle}>
+                            <View style={[Styles.singleCOlumnStyle,]} />
+                            <View style={[Styles.singleCOlumnStyle,]} />
+                            <View style={[Styles.singleCOlumnStyle,]} />
+                        </View>
+                        <Image source={Images.KFC_Combo_Pack} style={[Styles.KFC_ComboImage, { marginTop: inset.top }]} />
+                        <Text style={Styles.Welcome2} >{Strings.welcome2.toUpperCase()}</Text>
+                        <View style={Styles.SecondLine}>
+                            <Text style={Styles.SecondLineText}>{Strings.KFC.toUpperCase()}</Text>
+                            <Text style={Styles.SecondLineText}>{countrySelected.name.toUpperCase()}</Text>
+                            <Text style={Styles.SecondLineText}>{Strings.app.toUpperCase()}</Text>
+                        </View>
                     </View>
                     <View style={Styles.LowerContaienr}>
                         <View style={Styles.ChooseLanguageContainer}>
@@ -146,6 +154,7 @@ export default function LoginPage2() {
                                         onChangeText={handleMobileNoInput}
                                         placeholder={Strings.enterNumberPlaceHoler.toUpperCase()}
                                         keyboardType='numeric'
+                                        placeholderTextColor={Colors.textFadeBlack}
                                         style={Styles.MobileInputContainer}
                                     />
                                     <View style={Styles.customBorder} />
@@ -179,7 +188,7 @@ export default function LoginPage2() {
                             </View>
                         </View>
                     </View>
-                </View>
+                </KeyboardAwareScrollView>
             </TouchableWithoutFeedback>
             <View style={[Styles.TcContainer, { bottom: inset.bottom }]}>
                 <View style={Styles.TcInnerContainer}>
@@ -200,6 +209,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const styles = StyleSheet.create({
         ParentContainer: {
             height: '100%'
+        },
+        UpperCOntainer: {
+            backgroundColor: Colors.bodyColor,
         },
         ThreeColumnStyle: {
             alignSelf: 'center',
@@ -231,7 +243,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontFamily: Fonts.font18,
             marginHorizontal: vw(5),
             alignSelf: 'center',
-            letterSpacing: normalize(.2)
+            letterSpacing: normalize(.2),
+            color: Colors.textBlack
         },
         SecondLine: {
             display: 'flex',
@@ -242,7 +255,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         SecondLineText: {
             fontSize: normalize(22),
             fontFamily: Fonts.font18,
-            marginHorizontal: vw(4)
+            marginHorizontal: vw(4),
+            color: Colors.textBlack
         },
         LowerContaienr: {
             width: '100%',
@@ -290,7 +304,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         chooseLangText: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.font17,
+            color: Colors.textBlack
         },
         TickMarkOuter: {
             width: vw(20),
@@ -333,6 +348,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         MobileInputContainer: {
             fontFamily: Fonts.font18,
+            color: Colors.textBlack
         },
         customBorder: {
             borderBottomWidth: normalize(1),
@@ -344,6 +360,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginRight: vw(10),
             marginTop: vh(-8),
             fontFamily: Fonts.font18,
+            color: Colors.textFadeBlack2
         },
         centralMobileContainer: {
             width: vw(200),
@@ -374,7 +391,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         ActiveButtonText: {
             color: Colors.constantWhite,
-fontFamily: Fonts.font18
+            fontFamily: Fonts.font18
         },
         SubmitButtonText: {
             fontSize: normalize(13),

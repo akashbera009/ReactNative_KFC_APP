@@ -1,13 +1,11 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-
 // navigation 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLanguage } from '../../context/LanguageContex'
 import LinearGradient from 'react-native-linear-gradient';
-
 // util file 
 import { useStrings } from '../../utils/Strings'
 import { useThemeColors } from '../../utils/Colors'

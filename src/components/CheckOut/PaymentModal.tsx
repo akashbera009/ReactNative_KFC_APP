@@ -32,23 +32,22 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
     const [selectedCard, setSelectedCard] = useState<number | null>(0);
     const [selectedMethod, setSelectedMethod] = useState<string>('');
     const [preferred, setPreferred] = useState<boolean>(false);
-    const [paymentRes, setPaymentRes] = useState({})
+    const [paymentRes, setPaymentRes] = useState<PaymentResult | null>(null)
     const [openModal, setOpenModal] = useState<boolean>(false)
     const { handlePayment } = useRazorpayPayment();
-    const initiatePayment = async () => {
-        const result = await handlePayment(amount);
+    const initiatePayment = async (): Promise<void> => {
+        const result: PaymentResult = await handlePayment(amount);
         setPaymentRes(result);
         openResponseModal(result.success, result.payment_id)
     };
-    const openResponseModal = (success: boolean, payment_id: string | undefined) => {
+    const openResponseModal = (
+        success: boolean,
+        payment_id: string | undefined
+    ): void => {
         setOpenModal(true);
-        if (success) {
-            onSuccess?.(payment_id, true);
-        } else {
-            onSuccess?.(payment_id, false);
-        }
+        onSuccess?.(payment_id, success);
     }
-    const slideUp = () => {
+    const slideUp = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -62,8 +61,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
             })
         ]).start();
     };
-
-    const slideDown = () => {
+    const slideDown = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 500,
@@ -77,13 +75,13 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
             })
         ]).start();
     };
-
-    const closeModal = () => {
+    const closeModal = (): void => {
         slideDown();
-        setTimeout(() => navigation.pop(), 350);
+        const timeoutId: number = setTimeout(() => {
+            navigation.pop();
+        }, 350);
     };
-
-    useEffect(() => {
+    useEffect((): void => {
         slideUp();
     }, []);
 
@@ -92,9 +90,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
             <TouchableWithoutFeedback onPress={closeModal}>
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
-            <Animated.View
-                style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}
-            >
+            <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
                 <View style={Styles.InnerContainer}>
                     <View style={Styles.ThreeColumnStyle}>
                         <View style={[Styles.singleCOlumnStyle,]} />
@@ -339,7 +335,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(2),
             fontFamily: Fonts.font17
         },
-        tc:{
+        tc: {
             color: Colors.ButtonTextBlueColor,
             fontSize: normalize(10)
         },
@@ -418,7 +414,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         cancelText: {
             color: Colors.textBlack,
             textAlign: 'center',
-            fontFamily: Fonts.font18 
+            fontFamily: Fonts.font18
         },
         payBtn: {
             width: '45%',
@@ -429,7 +425,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         payText: {
             color: Colors.constantWhite,
             textAlign: 'center',
-            fontFamily: Fonts.font18 
+            fontFamily: Fonts.font18
         }
     });
 };

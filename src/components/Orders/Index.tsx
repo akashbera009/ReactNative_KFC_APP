@@ -27,10 +27,10 @@ export default function Index() {
     dispatch(fetchOrders())
   }, [dispatch])
   const ordersArray = useSelector((state: RootState) => state.orders);
-  const previousOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status === Strings.deliveredString || item?.status === Strings.cancelledString)
-  const currentOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status !== Strings.deliveredString && item?.status !== Strings.cancelledString)
-  const sortedCrrentOrder : OrderHistory[]= currentOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
-  const sortedPreviousOrder : OrderHistory[]= previousOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
+  const previousOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status === Strings.deliveredString || item?.status === Strings.cancelledString) ?? []
+  const currentOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status !== Strings.deliveredString && item?.status !== Strings.cancelledString) ?? []
+  const sortedCrrentOrder: OrderHistory[] = currentOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
+  const sortedPreviousOrder: OrderHistory[] = previousOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
   return (
     <View style={Styles?.Parent}>
       <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>

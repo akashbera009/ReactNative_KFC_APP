@@ -154,3 +154,24 @@ type Coordinate = {
   latitude: number;
   longitude: number;
 };
+type SearchPageProps = {
+  searchTerm: string
+}
+interface AddressBox {
+  address: string;
+  buildingName: string;
+  flatNo: string;
+}
+interface PaymentResult {
+  success: boolean;
+  payment_id?: string;
+}
+type FaqItem = {
+  question: string;
+  answer: string;
+};
+type GradientStop = {
+  offset: string;
+  color: string;
+  opacity: string
+};

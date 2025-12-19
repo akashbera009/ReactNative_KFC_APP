@@ -42,7 +42,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandTotal: number = AfterDiscount + DeliveryDetails?.charges
     const dispatch = useAppDispatch()
-    const openPaymentModal = () => {
+    const openPaymentModal = (): void => {
         let TempOrderDate = new Date().toDateString().split(' ').slice(1)
         const OrderDate = TempOrderDate.join(' ')
         const OrderTime = new Date().toTimeString().split(' ')[0]
@@ -58,7 +58,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
             })
         }
     }
-    const onPaymentSuccess = (paymentId: string | undefined, orderId: string, isSuccess: boolean, OrderDate: string, OrderTime: string, paymentMode: string) => {
+    const onPaymentSuccess = (paymentId: string | undefined, orderId: string, isSuccess: boolean, OrderDate: string, OrderTime: string, paymentMode: string): void => {
         const newOrder: OrderHistory = {
             id: Date.now(),
             Items: cartItem,
@@ -89,20 +89,19 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
             })
         }, 1000);
     }
-    useEffect(() => {
+    useEffect((): (() => void) | void => {
         if (paymentMethodOpen) {
-            setTimeout(() => {
-                scrollToPosition();
-            }, 100);
+            const timeoutId: number = setTimeout(scrollToPosition, 100);
+            return () => clearTimeout(timeoutId);
         }
     }, [paymentMethodOpen]);
     const scrollViewRef = useRef<ScrollView>(null)
-    const scrollToPosition = () => {
+    const scrollToPosition = (): void => {
         scrollViewRef.current?.scrollToEnd({ animated: true });
     };
-    const HandleAmountBoxToggle = () => {
+    const HandleAmountBoxToggle = (): void => {
         setPaymentMethodOpen(!paymentMethodOpen)
-        paymentMethodOpen == true && scrollToPosition()
+        paymentMethodOpen === true && scrollToPosition()
     }
     return (
         <View style={Styles.parent}>
@@ -417,8 +416,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginRight: vw(6),
         },
         radioText: {
-            fontSize: normalize(16),    
-            fontFamily: Fonts.font17 , 
+            fontSize: normalize(16),
+            fontFamily: Fonts.font17,
             color: Colors.textFadeBlack2,
         },
         radioOuter: {
@@ -443,7 +442,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginTop: vh(12),
             fontSize: normalize(13),
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.font18 ,
+            fontFamily: Fonts.font18,
             width: '90%',
             alignSelf: 'center'
         },
@@ -534,7 +533,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         itemCount: {
             fontSize: normalize(22),
-            fontFamily :Fonts.font18,
+            fontFamily: Fonts.font18,
             color: Colors.textBlack
         },
         itemsLabel: {

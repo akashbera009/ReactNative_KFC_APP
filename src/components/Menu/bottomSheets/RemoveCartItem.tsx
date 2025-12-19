@@ -18,10 +18,10 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors, Fonts);
-    const slide = useRef(new Animated.Value(500)).current;
-    const fade = useRef(new Animated.Value(0)).current;
+    const slide = useRef<Animated.Value>(new Animated.Value(500)).current;
+    const fade = useRef<Animated.Value>(new Animated.Value(0)).current;
     const dispatch = useAppDispatch()
-    const slideUp = () => {
+    const slideUp = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -35,8 +35,7 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
             })
         ]).start();
     };
-
-    const slideDown = () => {
+    const slideDown = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 500,
@@ -50,18 +49,18 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
             })
         ]).start();
     };
-    const handleConfirmDelete = () => {
+    const handleConfirmDelete = (): void => {
         dispatch(removeFromCart(uid))
         navigation.pop()
     }
-    const closeModal = () => {
+    const closeModal = (): void => {
         slideDown();
-        setTimeout(() => {
+        setTimeout((): void => {
             navigation.pop();
         }, 400);
     };
 
-    useEffect(() => {
+    useEffect((): void => {
         slideUp();
     }, []);
     return (

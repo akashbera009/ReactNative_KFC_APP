@@ -23,15 +23,17 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
     // amount calculations  
-    const totalAmount: number = order?.Items.reduce((acc: number, i: CartItemType) => acc + (i?.quantity * i?.price), 0);
+    const totalAmount: number = order?.Items
+        ? order?.Items.reduce((acc: number, i: CartItemType) => acc + (i?.quantity * i?.price), 0)
+        : 0;
     const vatAmount: number = Number((totalAmount * 5 / 100).toFixed(2))
     const beforeTax: number = totalAmount - vatAmount
     const DiscountPrice: number = Number((totalAmount * DeliveryDetails?.discountRate / 100).toFixed(2))
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandAmount: number = AfterDiscount + DeliveryDetails?.charges
     const currentOrder: OrderHistory | null = useSelector(selectCurrentOrder)
-    const handleShareInvoice = async () => {
-        const pdfUrl = DeliveryDetails?.demoPDFurl
+    const handleShareInvoice = async (): Promise<void> => {
+        const pdfUrl: string = DeliveryDetails?.demoPDFurl
         try {
             const result = await Share.share({
                 message:

@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 //maps
-import MapView, { Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 // data imports
 import { stores } from '../../data/StoresData';
@@ -27,7 +27,7 @@ export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProp
     latitude: 0,
     longitude: 0,
   });
-  const getCurrentLocation = async () => {
+  const getCurrentLocation = async (): Promise<void> => {
     Geolocation.getCurrentPosition(
       position => {
         console.log('position', position)
@@ -43,11 +43,14 @@ export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProp
       }
     )
   };
-  useEffect(() => {
+  useEffect((): void => {
     getCurrentLocation()
   }, [])
 
-  const initialRegion = {
+  const initialRegion: Coordinate & {
+    latitudeDelta: number;
+    longitudeDelta: number;
+  } = {
     latitude: (location.latitude + stores[0].latitude) / 2,
     longitude: (location.longitude + stores[0].longitude) / 2,
     latitudeDelta: 0.05,
@@ -76,7 +79,7 @@ export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProp
     return points;
   };
 
-  const curvePoints = getArcCoordinates(
+  const curvePoints: Coordinate[] = getArcCoordinates(
     { latitude: stores[0].latitude, longitude: stores[0].longitude },
     { latitude: location.latitude, longitude: location.longitude }
   );
@@ -118,15 +121,15 @@ export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProp
               style={Styles.map}
               initialRegion={initialRegion}
               provider={PROVIDER_GOOGLE} >
-              <Marker 
-                coordinate={location} 
+              <Marker
+                coordinate={location}
                 title={Strings.youreHere} />
               <Marker
                 coordinate={{
                   latitude: stores[0].latitude,
                   longitude: stores[0].longitude
                 }}
-                 description={Strings.partnerComing}
+                description={Strings.partnerComing}
               >
                 <View style={Styles.kfcImageContainer}>
                   <Image

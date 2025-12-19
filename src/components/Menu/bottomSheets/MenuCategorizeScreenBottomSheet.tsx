@@ -17,7 +17,7 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors, Fonts)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const slideUp = () => {
+    const slideUp = () :void=> {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -31,7 +31,7 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
             })
         ]).start();
     };
-    const slideDown = () => {
+    const slideDown = ():void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 450,
@@ -45,13 +45,13 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
             })
         ]).start();
     };
-    const closeModal = () => {
+    const closeModal = ():void => {
         slideDown();
-        setTimeout(() => {
+        setTimeout(() :void=> {
             navigation.pop();
         }, 400);
     };
-    useEffect(() => {
+    useEffect(():void => {
         slideUp();
     }, []);
     return (

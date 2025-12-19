@@ -38,7 +38,6 @@ import TrackOrderScreen from '../screens/TrackOrderScreen';
 import PaymentModalScreen from '../screens/PaymentModalScreen';
 import CommonPopUpScreen from '../screens/CommonPopUpScreen';
 import TermsAndConditionsScreen from '../screens/TermsAndConditionsScreen';
-import KeyboardTesting from '../components/Auth/KeyboardTesting';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -54,10 +53,6 @@ function StackNavigator() {
             <Stack.Screen
                 name={Strings.HomeScreen}
                 component={HomeScreen}
-            />
-            <Stack.Screen
-                name={Strings.KeyboardTestScreen}
-                component={KeyboardTesting}
             />
             <Stack.Screen
                 name={Strings.ChangeLocationBottomSheetScreen}

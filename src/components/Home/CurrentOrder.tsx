@@ -10,6 +10,8 @@ import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 // redux 
 import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+// utils
 import { selectCurrentOrder } from '../../features/getCurrentOrder';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function orderQueueItem() {
@@ -17,8 +19,8 @@ export default function orderQueueItem() {
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors, Fonts);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const currentOrder = useSelector(selectCurrentOrder)
-  const ItemNames = currentOrder?.Items.map((item:CartItemType) => item?.name).join(',')
+  const currentOrder = useSelector<RootState, OrderHistory | null>(selectCurrentOrder)
+  const ItemNames = currentOrder?.Items.map((item: CartItemType) => item?.name).join(',') ?? ''
   return (
     <View style={Styles.ParentDeliveryContainer} >
       <Text style={Styles.Header}>{Strings.CurrentOrder.toUpperCase()} </Text>
@@ -70,7 +72,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       display: 'flex',
       flexDirection: 'column',
       marginLeft: vw(15),
-      width : vw(240),
+      width: vw(240),
       height: vh(70),
       marginTop: vh(0),
       justifyContent: 'space-around',
@@ -113,7 +115,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     orderItem: {
       fontSize: normalize(12),
       color: Colors.timerFadeText,
-      fontFamily : Fonts.font17
+      fontFamily: Fonts.font17
     },
     beverages: {
       fontSize: normalize(12),

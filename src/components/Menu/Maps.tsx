@@ -1,8 +1,9 @@
-import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Animated, TouchableWithoutFeedback, Platform, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Animated } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // maps import 
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
@@ -25,32 +26,32 @@ export default function Maps() {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected, setCountrySelected } = useCountry();
     const [open, setOpen] = useState<boolean>(false);
-    const toggleOpen = () => {
+    const toggleOpen = (): void => {
         setOpen(!open);
     };
     const [deliveryType, setDeliveryType] = useState<string>(Strings.delivery)
-    const [addressBox, setAddress] = useState({
+    const [addressBox, setAddress] = useState<AddressBox>({
         address: '',
         buildingName: '',
         flatNo: ''
     })
     const [tag, setTag] = useState<string>('');
-    const [showPopup, setShowPopup] = useState(false);
+    const [showPopup, setShowPopup] = useState<boolean>(false);
     const [location, setLocation] = useState<Coordinate>({
         latitude: 0,
         longitude: 0,
     });
-    const handleChangeAddress = (text: string) => {
+    const handleChangeAddress = (text: string): void => {
         setAddress(prev => ({ ...prev, address: text }))
     }
-    const handleChangeBuildingName = (text: string) => {
+    const handleChangeBuildingName = (text: string): void => {
         setAddress(prev => ({ ...prev, buildingName: text }))
     }
-    const handleChangeFlatNo = (text: string) => {
+    const handleChangeFlatNo = (text: string): void => {
         setAddress(prev => ({ ...prev, flatNo: text }))
     }
-    const opacity = useRef(new Animated.Value(0)).current;
-    useEffect(() => {
+    const opacity = useRef<Animated.Value>(new Animated.Value(0)).current;
+    useEffect((): void => {
         if (showPopup) {
             Animated.timing(opacity, {
                 toValue: 1,
@@ -62,7 +63,7 @@ export default function Maps() {
         }
     }, [showPopup]);
 
-    useEffect(() => {
+    useEffect((): void => {
         const isValid =
             addressBox.address.trim() !== '' &&
             addressBox.buildingName.trim() !== '' &&
@@ -71,20 +72,20 @@ export default function Maps() {
         setGoodToSave(isValid);
     }, [addressBox, tag, location]);
 
-    const [goodToSave, setGoodToSave] = useState(false)
-    const saveLocationInfo = () => {
+    const [goodToSave, setGoodToSave] = useState<boolean>(false)
+    const saveLocationInfo = (): void => {
         if (!goodToSave) return;
         navigation.pop();
     };
 
-    const handlChangeAddress = () => {
+    const handlChangeAddress = (): void => {
         setAddress({
             address: '',
             buildingName: '',
             flatNo: ''
         })
     }
-    const getCurrentLocation = async () => {
+    const getCurrentLocation = async (): Promise<void> => {
         Geolocation.getCurrentPosition(
             position => {
                 console.log('position', position)
@@ -100,7 +101,7 @@ export default function Maps() {
             }
         )
     };
-    useEffect(() => {
+    useEffect((): void => {
         getCurrentLocation()
     }, [])
 
@@ -141,13 +142,14 @@ export default function Maps() {
                     </View>
                 )}
             </View>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                enabled
-                keyboardVerticalOffset={20}
-                style={[Styles.container]}>
-                <ScrollView >
-                    <View style={[Styles.MapContainer,]}>
+            <View style={Styles.body}>
+                <KeyboardAwareScrollView
+                    enableOnAndroid
+                    keyboardShouldPersistTaps="handled"
+                    extraScrollHeight={150}
+                    contentContainerStyle={{ paddingBottom: 50 }}
+                >
+                    <View style={[Styles.MapContainer]}>
                         <MapView
                             style={Styles.map}
                             provider={PROVIDER_GOOGLE}
@@ -198,7 +200,6 @@ export default function Maps() {
                                 <Text style={Styles.checkBoxText}>{Strings.pickup.toUpperCase()} </Text>
                             </TouchableOpacity>
                         </View>
-
                         <View style={Styles.completeAddress}>
                             <Text style={Styles.completeYourAddress}>{Strings.completeYourAddress} </Text>
                             <View style={Styles.adressAndChangeButton} >
@@ -282,43 +283,14 @@ export default function Maps() {
                             </Text>
                         </TouchableOpacity>
                     </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-            {showPopup && (
-                <Animated.View style={[Styles.popupOverlay, { opacity }]}>
-                    <Animated.View style={[Styles.popupBox, { opacity: opacity }]}>
-                        <Text style={Styles.popupTitle}>{Strings.consfirmLocation}</Text>
-                        <Text style={Styles.popupMessage}>
-                            {Strings.saveLocationConfirmation}
-                        </Text>
-
-                        <View style={Styles.popupButtons}>
-                            <TouchableOpacity
-                                style={[Styles.popupButton, Styles.cancelButton]}
-                                onPress={() => setShowPopup(false)}
-                            >
-                                <Text style={Styles.cancelText}>{Strings.cancel}</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
-                                style={[Styles.popupButton, Styles.saveButton]}
-                                onPress={() => {
-                                    setShowPopup(false);
-                                    saveLocationInfo();
-                                }}
-                            >
-                                <Text style={Styles.saveText}>{Strings.save}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </Animated.View>
-                </Animated.View>
-            )}
+                </KeyboardAwareScrollView>
+            </View>
         </View>
     );
 }
 
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
-    const Styles = StyleSheet.create({
+    return StyleSheet.create({
         parent: {
             height: '100%',
             backgroundColor: Colors.bodyColor,
@@ -409,6 +381,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             display: 'flex',
             alignItems: 'center',
         },
+        body: {
+            flex: 1,
+        },
         MapContainer: {
             height: vh(360),
             width: '100%',
@@ -418,12 +393,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             zIndex: 1,
         },
         map: {
-            height: '100%',
+            height: vh(360),
             width: '100%',
         },
         LowerContainer: {
-            // width: '100%',
-            marginHorizontal: vw(0),
+            flex: 1,
+            marginHorizontal: vw(10),
         },
         locationTypeSelection: {
             display: 'flex',
@@ -586,61 +561,5 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontFamily: Fonts.font18,
             fontSize: normalize(17),
         },
-        popupOverlay: {
-            position: 'absolute',
-            top: vh(0),
-            left: vw(0),
-            height: '100%',
-            width: '100%',
-            backgroundColor: Colors.SemiTransparent,
-            justifyContent: 'center',
-            alignItems: 'center',
-            zIndex: 999
-        },
-        popupBox: {
-            width: '80%',
-            backgroundColor: Colors.bodyColor,
-            padding: normalize(20),
-            borderRadius: normalize(10),
-            elevation: 10
-        },
-        popupTitle: {
-            fontSize: normalize(18),
-            fontFamily: Fonts.font18,
-            color: Colors.textBlack,
-            marginBottom: vh(10),
-        },
-        popupMessage: {
-            fontSize: normalize(14),
-            fontFamily: Fonts.font17,
-            color: Colors.textFadeBlack,
-            marginBottom: vh(20)
-        },
-        popupButtons: {
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            marginTop: vh(10)
-        },
-        popupButton: {
-            paddingHorizontal: vw(15),
-            paddingVertical: 8,
-            borderRadius: normalize(5),
-            marginLeft: vw(10)
-        },
-        cancelButton: {
-            backgroundColor: Colors.blueLightBG
-        },
-        saveButton: {
-            backgroundColor: Colors.KFC_red
-        },
-        cancelText: {
-            fontFamily: Fonts.font17,
-            color: Colors.textBlack
-        },
-        saveText: {
-            fontFamily: Fonts.font18,
-            color: Colors.constantWhite,
-        }
-    })
-    return Styles;
+    });
 };
