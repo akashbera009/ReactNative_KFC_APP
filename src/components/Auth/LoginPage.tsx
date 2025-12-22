@@ -45,7 +45,7 @@ export default function LoginPage() {
         </View>
       </View>
       <View style={[Styles.GradientOverlayBG,]}>
-        <LinearGradient colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.25)', '#000000f3', '#000000ff']} style={[Styles.GradientOverlayBG,]} >
+        <LinearGradient colors={[Colors.gradiendCol1, Colors.gradiendCol2, Colors.gradiendCol3, Colors.gradiendCol4]} style={[Styles.GradientOverlayBG,]} >
           <View style={Styles.MiddleContainer}>
             <Image source={Images.KfcTextLogo} style={Styles.kfclogoImage} />
             <Text style={Styles.LoginDescriptionText}> {Strings.loginToUlock}</Text>
@@ -220,7 +220,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     },
     ChooseLangageText: {
       color: Colors.fadeWhiteText,
-      fontFamily: Fonts.font17 , 
+      fontFamily: Fonts.font17,
       width: '90%',
       marginVertical: vh(10),
       marginHorizontal: 'auto'
@@ -323,9 +323,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       flexDirection: 'row',
       justifyContent: 'space-between'
     },
-    termsAndCondition:{
-     fontFamily: Fonts.subHeader, 
-     color: Colors.fadeWhiteText 
+    termsAndCondition: {
+      fontFamily: Fonts.subHeader,
+      color: Colors.fadeWhiteText
     }
   })
   return Styles

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Alert, Platform } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { nanoid } from 'nanoid/non-secure';
 // data imports 
 import { DeliveryDetails } from '../../data/DeliveryDetails';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 // redux 
 import { addAsyncOrder } from '../../features/orderSlice';
 import { RootState, useAppDispatch } from '../../store/store';
@@ -18,7 +19,6 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-
 export default function CheckOut({ totalAmount, discount }: { totalAmount: number, discount: number }) {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -35,6 +35,9 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     }, '');
     const [paymentMethodOpen, setPaymentMethodOpen] = useState<boolean>(false)
     const [paymentMethodSelected, setPaymentMethodSelected] = useState<string>('')
+    const [laterDate, setLaterDate] = useState<Date>(new Date())
+    const [showTime, setShowTime] = useState<boolean>(false);
+    const [showDate, setShowDate] = useState< boolean>(false);
     // amount calculations  
     const vatAmount: number = Number((totalAmount * 5 / 100).toFixed(2))
     const beforeTax: number = totalAmount - DeliveryDetails?.charges - vatAmount
@@ -103,6 +106,10 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
         setPaymentMethodOpen(!paymentMethodOpen)
         paymentMethodOpen === true && scrollToPosition()
     }
+    const handelDeliverlater = async () => {
+        setShowDate(true)
+        setDeliveryType('later')
+    }
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -141,7 +148,11 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                         <TouchableOpacity
                             activeOpacity={.7}
                             style={Styles.radioRow}
-                            onPress={() => setDeliveryType('now')}
+                            onPress={() => {
+                                setDeliveryType('now')
+                                setShowDate(false)
+                                setLaterDate(new Date())
+                            }}
                         >
                             <Text style={Styles.radioText}>{Strings.deliverNow}</Text>
                             <View style={[Styles.radioOuter, deliveryType === 'now' && Styles.radioActiveOuter]}>
@@ -151,13 +162,54 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                         <TouchableOpacity
                             activeOpacity={.7}
                             style={Styles.radioRow}
-                            onPress={() => setDeliveryType('later')}
+                            onPress={handelDeliverlater}
                         >
                             <Text style={Styles.radioText}>{Strings.deliveryLater}</Text>
                             <View style={[Styles.radioOuter, deliveryType === 'later' && Styles.radioActiveOuter]}>
                                 {deliveryType === 'later' && <View style={Styles.radioInner} />}
                             </View>
                         </TouchableOpacity>
+                        { new Date().toLocaleString().slice(0, 17) != laterDate.toLocaleString().slice(0, 17) && (
+                            <Text style={Styles.dateBadge}> {Strings.willBeDeliveredOn} :  {laterDate.toLocaleString().slice(0, 16)}</Text>
+                        )}
+                        {showDate && (
+                            <RNDateTimePicker 
+                                value={laterDate}
+                                mode="date"
+                                display={Platform.OS === 'ios' ? 'inline' : 'default'}
+                                minimumDate={new Date()}
+                                onChange={(event, selectedDate) => {
+                                    setShowDate(false);
+                                    if (event.type === 'set' && selectedDate) {
+                                        setLaterDate(selectedDate);
+                                        setTimeout(() => {
+                                            setShowTime(true);
+                                        }, 300);
+                                    }
+                                }}
+                            />
+                        )}
+                        {showTime && (
+                            <RNDateTimePicker
+                                value={laterDate}
+                                mode="time"
+                                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                                minuteInterval={10}
+                                onChange={(event, selectedTime) => {
+                                    setShowTime(false);
+                                    if (event.type === 'set' && selectedTime) {
+                                        const updatedDate = new Date(laterDate);
+                                        updatedDate.setHours(selectedTime.getHours());
+                                        updatedDate.setMinutes(selectedTime.getMinutes());
+                                        setTimeout(() => {
+                                            setLaterDate(updatedDate);
+                                        }, 500);
+                                    } else if (event.type == 'dismissed') {
+                                        setLaterDate(new Date())
+                                    }
+                                }}
+                            />
+                        )}
                     </View>
                     <Text style={Styles.sectionLabel}>{Strings.deliveryAddress.toUpperCase()}</Text>
                     <View style={Styles.card}>
@@ -437,6 +489,30 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: vh(10),
             backgroundColor: Colors.KFC_red,
             borderRadius: normalize(6),
+        },
+        dateBadge:{
+            marginTop : vh(10),
+            borderRadius : normalize(15),
+            backgroundColor : Colors.blueLightBG,
+            marginHorizontal : 'auto',
+            paddingVertical : vh(8),
+            paddingHorizontal : vh(8),
+            fontFamily :Fonts.font18 , 
+            color : Colors.textBlack
+        },
+        DateFixingButton: {
+            backgroundColor: Colors.activeBorder,
+            width: '100%',
+            height: vh(30),
+            borderRadius: normalize(10),
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        DateFixingButtonTxt: {
+            color: Colors.constantWhite,
+            fontFamily: Fonts.font18,
+            fontSize: normalize(16)
         },
         sectionLabel: {
             marginTop: vh(12),

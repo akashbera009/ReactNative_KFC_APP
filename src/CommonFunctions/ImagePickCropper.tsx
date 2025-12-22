@@ -16,7 +16,7 @@ import Images from '../utils/LocalImages';
 import { useStrings } from '../utils/Strings';
 import { useThemeColors } from '../utils/Colors';
 import { normalize, vh, vw } from '../utils/Dimensions';
-import VideoPlayerComponent from '../components/Home/VideoPlayer';
+import VideoPlayerComponent from './VideoPlayer';
 
 export default function ImagePickCropper() {
     const Colors = useThemeColors();
@@ -252,18 +252,16 @@ export default function ImagePickCropper() {
                     animationType="slide"
                     visible={videoModal}
                 >
-                    <View style={Styles.videoModalContainer}>
-                        <TouchableOpacity
-                            style={[Styles.closeIconButton, { top: inset.top }]}
-                            onPress={() => {
-                                setVideoModal(false)
-                            }}
-                        >
-                            <Image source={Images.Cross_Icon} style={Styles.closeIcon1} />
-                        </TouchableOpacity>
-                        <View style={Styles.videoPreviewContainer}>
-                            <VideoPlayerComponent uri={videoUri} />
-                        </View>
+                    <TouchableOpacity
+                        style={[Styles.closeIconButtonVideo, { top: inset.top }]}
+                        onPress={() => {
+                            setVideoModal(false)
+                        }}
+                    >
+                        <Image source={Images.Cross_Icon} style={Styles.closeIcon1} />
+                    </TouchableOpacity>
+                    <View style={[Styles.videoModalContainer, { marginTop: inset.top + vh(40) }]}>
+                        <VideoPlayerComponent uri={videoUri} />
                     </View>
                 </Modal>
             )}
@@ -350,7 +348,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.constantBlack
         },
         closeIconButton: {
-            position: 'absolute',
+            // position: 'absolute',
             left: vw(20),
             zIndex: 999
         },
@@ -441,7 +439,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            height: '100%',
+            height: vh(400),
             width: '100%',
         },
         saveBtn: {
@@ -464,8 +462,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.bodyColor,
         },
         videoModalContainer: {
-            flex: 1,
-            display: 'flex',
+        },
+        closeIconButtonVideo: {
+            height: vh(40),
+            width: vw(40),
+            position: 'absolute',
+            left: vw(20),
         },
         viewOnlyModalImage: {
             marginTop: vh(50),

@@ -10,7 +10,12 @@ import { RadialGradient } from 'react-native-gradients';
 // custom component imports 
 import CurrentOrder from './CurrentOrder';
 import BestSeller from './BestSeller';
-import VideoPlayerComponent from './VideoPlayer';
+import VideoPlayerComponent from '../../CommonFunctions/VideoPlayer';
+// biometric authentication 
+import {
+  checkBiometricSupport,
+  authenticateWithBiometrics,
+} from '../../utils/BiometricAuth';
 //redux 
 import { fetchMenu } from '../../features/menuSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -251,7 +256,11 @@ export default function HomePage() {
               <Text style={Styles.OrderFromList} numberOfLines={2}>{Strings.orderFromList} </Text>
               <TouchableOpacity
                 style={Styles.OrderNowButton}
-                onPress={() => { }}
+                onPress={() => {
+                  navigation.navigate(Strings.ExploreMenuScreen, {
+                    categoryType: Strings.dealsString
+                  })
+                }}
               >
                 <Text style={Styles.orderNowButtonText}>{Strings.orderNow.toUpperCase()} </Text>
                 <Image source={Images.back_arrow} style={Styles.BackArrow} />
@@ -279,7 +288,11 @@ export default function HomePage() {
                           </View>
                           <TouchableOpacity
                             style={Styles.OrderButton}
-                            onPress={() => { }}
+                            onPress={() => {
+                              navigation.navigate(Strings.ExploreMenuScreen, {
+                                categoryType: Strings.dealsString
+                              })
+                            }}
                           >
                             <Text style={Styles.OrderText}>{Strings.order.toUpperCase()} </Text>
                           </TouchableOpacity>
@@ -318,7 +331,9 @@ export default function HomePage() {
               </View>
               <Text style={Styles.bottomKFCDescription}>{Strings.bottomKFCDescription.toUpperCase()} </Text>
             </View>
-            <VideoPlayerComponent uri={''} />
+            <View style={Styles.videoComponentContainer}>
+              <VideoPlayerComponent uri={''} />
+            </View>
           </View>
         </View>
       </ScrollView >
@@ -931,6 +946,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignSelf: 'center',
       position: 'relative',
       bottom: vh(10),
+    },
+    videoComponentContainer: {
+      width: '95%',
+      alignSelf: 'center'
     }
   })
   return Styles

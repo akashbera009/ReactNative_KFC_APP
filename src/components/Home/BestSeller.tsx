@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // data imports 
 import { BestSellerMenu } from '../../data/BestSellerMenu'
 // util imports
@@ -9,11 +11,13 @@ import { useStrings } from '../../utils/Strings';
 import { useCountry } from '../../context/CountryContext';
 import { normalize, vh , vw} from '../../utils/Dimensions';
 
+
 export default function BestSeller() {
     const Colors = useThemeColors()
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors, Fonts);
     const Country = useCountry()
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     return (
         <View style={Styles.ParentBestSellerContainer}>
             <View style={Styles.headerExplore}>
@@ -37,7 +41,9 @@ export default function BestSeller() {
                             </View>
                             <TouchableOpacity
                                 style={Styles.OrderButton}
-                                onPress={() => { }}
+                                onPress={() => {navigation.navigate(Strings.ExploreMenuScreen,{
+                                    categoryType : Strings.dealsString
+                                })}}
                             >
                                 <Text style={Styles.OrderText}>{Strings.order.toUpperCase()} </Text>
                             </TouchableOpacity>

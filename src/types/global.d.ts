@@ -74,12 +74,18 @@ type MenuOptionGroup = {
   id: string;
   title: string;
   type: "single" | "multiple" | "quantity";
+  tabname: string;
   required?: boolean;
+  styleBox?: 'vertical' | 'horizontal';
   min?: number;
   max?: number;
   choices: MenuOptionChoice[];
 };
 
+interface imageSetType {
+  image: Image[];
+  video: string
+}
 type menuDataType = {
   uid: string
   id: number,
@@ -90,6 +96,7 @@ type menuDataType = {
   currency: string,
   tag: string,
   image: Image | string,
+  imageSet?: imageSetType,
   isFavorite: boolean,
   customizable: boolean,
   customization?: MenuOptionGroup[];
@@ -175,3 +182,10 @@ type GradientStop = {
   color: string;
   opacity: string
 };
+interface AuthState {
+  isAuthenticated: boolean;
+  biometricEnabled: boolean;
+  biometricSupported: boolean;
+  loading: string;
+  error?: string;
+}

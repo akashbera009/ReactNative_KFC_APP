@@ -1,16 +1,18 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // custom component
 import BottomCart from './BottomCart';
+import MediaSkeleton from '../../Loaders/MediaShimmer';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
-import { vh, vw, normalize } from '../../utils/Dimensions'
+import { vh, vw, normalize, screenWidth } from '../../utils/Dimensions'
+import VideoPlayerComponent from '../../CommonFunctions/VideoPlayer';
 
 export default function FoodCustomizationPage({ foodItem }: { foodItem: menuDataType }) {
     const Colors = useThemeColors();
@@ -19,6 +21,21 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
     const Styles = createDynamicStyles(Colors, Fonts);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [active, setActive] = React.useState(0);
+    const [activeDotIdx, setActiveDotIdx] = useState<number>(0)
+    const [loadingIdx, setLoadingIdx] = React.useState<number | null>(0);
+    const [tabBarIdx, setTabBarIdx] = React.useState<number | null>(0);
+    const media = [
+        {
+            type: 'video',
+            uri: foodItem?.imageSet?.video,
+        },
+        foodItem?.imageSet?.image?.map(img => ({
+            type: 'image',
+            uri: img,
+        }))
+        ,
+    ].flat(2);
+
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -38,28 +55,73 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
             </View>
             <View style={Styles.ScrollContainer}>
                 <ScrollView>
-                    <View style={Styles.TopImageSlider}>
-                        <Image
-                            source={foodItem?.image}
-                            style={Styles.foodImage}
-                        />
-                        <View style={Styles.DotsContainer}>
-                            <View style={Styles.Dots} />
-                        </View>
-                    </View>
-                    <View style={Styles.groupContainer}>
-                        {foodItem?.customization && (
-                            foodItem?.customization?.map((g, idx) => (
-                                <TouchableOpacity
-                                    key={g.id}
-                                    onPress={() => setActive(idx)}
-                                    style={Styles.groupButton}
-                                >
-                                    <Text style={Styles.groupText}> {g.title} </Text>
-                                </TouchableOpacity>
-                            )
+                    <View style={Styles.TopContentSlider}>
+                        <ScrollView
+                            horizontal
+                            pagingEnabled
+                            showsHorizontalScrollIndicator={false}
+                            onScroll={(e) => {
+                                const idx = Math.round(e.nativeEvent.contentOffset.x / screenWidth)
+                                setActiveDotIdx(idx)
+                            }}
+                            scrollEventThrottle={16}
+                        >
+                            {media?.map((content, idx) => (
+                                <View key={idx} style={Styles.horizontalScrollview}>
+                                    {content?.type == 'image' ?
+                                        (
+                                            <View style={Styles.MediaImageContainer}>
+                                                <Image
+                                                    key={idx}
+                                                    source={{ uri: content?.uri }}
+                                                    style={Styles.foodImage}
+                                                />
+                                            </View>
+                                        ) : (
+                                            <View style={Styles.MediavideoPlayer}>
+                                                {loadingIdx === idx && (
+                                                    <View style={StyleSheet.absoluteFill}>
+                                                        <MediaSkeleton />
+                                                    </View>
+                                                )}
+                                                <VideoPlayerComponent
+                                                    uri={content?.uri}
+                                                    paused={activeDotIdx !== idx}
+                                                    onLoad={() => setLoadingIdx(null)}
+                                                    onLoadStart={() => setLoadingIdx(idx)}
+                                                    muted={true}
+                                                    repeat={true}
+                                                />
+                                            </View>
+                                        )}
+                                </View>
                             ))}
+                        </ScrollView>
+                        <View style={Styles.DotsContainer}>
+                            {media?.map((_, idx) => (
+                                <View key={idx} style={[Styles.Dots, activeDotIdx == idx && Styles.ActiveDot]} />
+                            ))}
+                        </View>
+                        <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            style={Styles.groupContainer}>
+                            {foodItem?.customization && (
+                                foodItem?.customization?.map((g, idx) => (
+                                    <TouchableOpacity
+                                        key={g.id}
+                                        onPress={() => setTabBarIdx(idx)}
+                                        style={Styles.groupButton}
+                                    >
+                                        <Text style={[Styles.groupText, tabBarIdx === idx && Styles.ActiveTab]}> {g.title} </Text>
+                                        {tabBarIdx === idx && <View style={Styles.activetabUnderLine} />}
+                                    </TouchableOpacity>
+                                )
+                                ))}
+                        </ScrollView>
                     </View>
+
+
                     {foodItem.customization?.map((group, idx) => (
                         <View key={idx}
                             style={{ marginVertical: normalize(10) }}>
@@ -73,87 +135,27 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                             >
                                 {group.title}
                             </Text>
-
-                            {group.type === "quantity" ? (
-                                <View style={{ marginHorizontal: vw(20) }}>
-                                    {group?.choices?.map((choice, idx) => (
-                                        <View
-                                            key={idx}
-                                            style={{
-                                                flexDirection: "row",
-                                                justifyContent: "space-between",
-                                                alignItems: "center",
-                                                backgroundColor: Colors.bodyColor,
-                                                padding: normalize(12),
-                                                borderRadius: normalize(6),
-                                                marginBottom: normalize(8),
-                                            }}
-                                        >
-                                            <Text
-                                                style={{
-                                                    fontSize: normalize(15),
-                                                    fontFamily: Fonts.font17,
-                                                    color: Colors.textBlack,
-                                                }}
-                                            >
-                                                {choice.name}
-                                            </Text>
-
-                                            <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                                <TouchableOpacity
-                                                    style={{
-                                                        height: vh(28),
-                                                        width: vw(28),
-                                                        borderRadius: vw(4),
-                                                        backgroundColor: Colors.fadeBorder,
-                                                        justifyContent: "center",
-                                                        alignItems: "center",
-                                                    }}
-                                                >
-                                                    <Text style={{ fontSize: normalize(20), fontFamily: Fonts.font17 }}>−</Text>
-                                                </TouchableOpacity>
-
-                                                <Text
-                                                    style={{
-                                                        width: vw(40),
-                                                        textAlign: "center",
-                                                        fontSize: normalize(16),
-                                                        fontFamily: Fonts.subHeader,
-                                                    }}
-                                                >
-                                                    {choice.default || 0}
+                            {group?.styleBox === "horizontal" ? (
+                                <View style={Styles.horizontalBoxContainer}>
+                                    <ScrollView
+                                        horizontal
+                                        showsHorizontalScrollIndicator={false}>
+                                        {group?.choices?.map((choice, idx) => (
+                                            <View key={idx} style={Styles.customizationGropContajiner}>
+                                                <Text style={Styles.customizationText}>
+                                                    {choice.name}
                                                 </Text>
-
                                                 <TouchableOpacity
-                                                    style={{
-                                                        height: vh(28),
-                                                        width: vw(28),
-                                                        borderRadius: vw(4),
-                                                        backgroundColor: Colors.bodyColor,
-                                                        justifyContent: "center",
-                                                        alignItems: "center",
-                                                    }}
-                                                >
-                                                    <Text style={{ color: Colors.constantWhite, fontSize: normalize(20), fontFamily: Fonts.font17 }}>
-                                                        +
-                                                    </Text>
+                                                    style={Styles.radioButton}>
                                                 </TouchableOpacity>
                                             </View>
-                                        </View>
-                                    ))}
+                                        ))}
+                                    </ScrollView>
                                 </View>
                             ) : (
                                 group.choices.map(choice => (
                                     <TouchableOpacity
-                                        style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            padding: normalize(12),
-                                            backgroundColor: Colors.bodyColor,
-                                            marginBottom: normalize(8),
-                                            marginHorizontal: vw(20),
-                                            borderRadius: normalize(6),
-                                        }}
+                                        style={Styles.verticalContainer}
                                         key={choice?.id}
                                     >
                                         {choice.image && (
@@ -257,6 +259,12 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             alignSelf: 'center',
             paddingBottom: normalize(15),
+            shadowColor: Colors.blueShadows,
+            shadowOffset: { width: 0, height: vh(5) },
+            shadowOpacity: 0.25,
+            shadowRadius: normalize(3.84),
+            elevation: 5,
+            zIndex: 999
         },
         BackIconAndHeaderText: {
             display: 'flex',
@@ -281,34 +289,72 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         navHeaderText: {
             fontSize: normalize(20),
             fontFamily: Fonts.font18,
+            color: Colors.textBlack
         },
         ScrollContainer: {
             height: '92%',
             backgroundColor: Colors.bodyLigheterColor,
         },
-        TopImageSlider: {
+        horizontalScrollview: {
+            height: vh(180),
+            width: screenWidth,
+            alignItems: 'center',
+        },
+        TopContentSlider: {
+            height: vh(300),
             width: "100%",
-            alignItems: "center",
             backgroundColor: Colors.bodyColor,
-            paddingVertical: normalize(20),
+            display: 'flex',
+            alignItems: "center",
+            justifyContent: 'center',
+            shadowColor: Colors.blueShadows,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: normalize(3.84),
+            elevation: 5,
+        },
+        MediaImageContainer: {
+            width: '100%',
+            height: vh(230),
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
         },
         foodImage: {
-            width: vw(250),
-            height: vh(200),
+            width: vw(200),
+            height: vw(200),
             resizeMode: "contain",
+            objectFit: 'cover',
+            shadowColor: Colors.textBlack,
+            shadowOffset: { width: 0, height: vh(15) },
+            shadowOpacity: .25,
+            shadowRadius: normalize(4),
+            elevation: 5,
+        },
+        MediavideoPlayer: {
+            height: vh(230),
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
         },
         DotsContainer: {
             flexDirection: "row",
-            marginTop: normalize(10)
+            marginVertical: vh(5),
+            alignSelf: 'center',
         },
         Dots: {
             width: vw(8),
             height: vh(8),
             borderRadius: normalize(4),
-            backgroundColor: Colors.bodyColor,
-            marginHorizontal: vw(4)
+            marginHorizontal: vw(4),
+            borderWidth: 1,
+            borderColor: Colors.timerFadeText,
+        },
+        ActiveDot: {
+            backgroundColor: Colors.KFC_red,
         },
         groupContainer: {
+            maxHeight: vh(50),
             flexDirection: "row",
             backgroundColor: Colors.bodyColor,
             borderBottomWidth: normalize(1),
@@ -321,7 +367,19 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         groupText: {
             fontSize: normalize(14),
-            fontFamily: Fonts.subHeader,
+            fontFamily: Fonts.font18,
+            color: Colors.timerFadeText
+        },
+        ActiveTab: {
+            fontSize: normalize(15),
+            fontFamily: Fonts.font18,
+            color: Colors.textBlack,
+        },
+        activetabUnderLine: {
+            width: '100%',
+            borderBottomColor: Colors.KFC_red,
+            borderBottomWidth: normalize(5),
+            top: vh(15),
         },
         resetButton: {
             marginRight: vw(20),
@@ -334,6 +392,53 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             paddingVertical: normalize(6),
             fontFamily: Fonts.font18,
             color: Colors.textFadeBlack
+        },
+        horizontalBoxContainer: {
+            marginHorizontal: vw(20),
+            width: '100%',
+        },
+        customizationGropContajiner: {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            backgroundColor: Colors.bodyColor,
+            padding: normalize(12),
+            borderRadius: normalize(6),
+            marginBottom: normalize(8),
+            height: vh(150),
+            width: vw(110),
+            marginHorizontal: vw(5),
+            shadowColor: Colors.blueShadows,
+            shadowOffset: { width: 0, height: vh(2) },
+            shadowOpacity: 0.25,
+            shadowRadius: normalize(3.84),
+            elevation: 5,
+        },
+        customizationText: {
+            fontSize: normalize(15),
+            fontFamily: Fonts.font17,
+            color: Colors.textBlack,
+        },
+        radioButton: {
+            position: 'absolute',
+            right: vw(10),
+            top: vh(10),
+            height: vh(20),
+            width: vw(20),
+            borderRadius: normalize(50),
+            borderColor: Colors.fadeBorder,
+            borderWidth: normalize(2),
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        verticalContainer: {
+            flexDirection: "row",
+            alignItems: "center",
+            padding: normalize(12),
+            backgroundColor: Colors.bodyColor,
+            marginBottom: normalize(8),
+            marginHorizontal: vw(20),
+            borderRadius: normalize(6),
         },
         BottomCartContainer: {
             width: '100%',

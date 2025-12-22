@@ -9,6 +9,13 @@
       "Paper Jack Cheese Tomato",
       "Fries - Regular"
     ],
+    "imageSet": {
+      "image": [
+        "https://i.ibb.co/3mQBDRrr/French-Fries-Coke.png",
+        "https://i.ibb.co/mCH5ZNcq/Chicken-Nuget.png"
+      ],
+      "video": "https://res.cloudinary.com/dilxiy8fa/video/upload/q_auto,f_auto/Fry_Video_m9amem.mp4"
+    },
     "price": 22.3,
     "oldPrice": 24.7,
     "image": "https://i.ibb.co/3mQBDRrr/French-Fries-Coke.png",
@@ -27,8 +34,10 @@
         "uid": "cust-1-box-size",
         "id": "box_size",
         "title": "Choose your Box Size",
+        "tabname": "Box Size",
         "type": "single",
         "required": true,
+        "styleBox": "vertical",
         "choices": [
           {
             "uid": "choice-1-medium",
@@ -48,8 +57,10 @@
         "uid": "cust-2-chicken-flavour",
         "id": "chicken_flavour",
         "title": "Chicken Flavour",
+        "tabname": "Chicken Flavour",
         "type": "single",
         "required": true,
+        "styleBox": "horizontal",
         "choices": [
           {
             "uid": "choice-2-original",
@@ -73,7 +84,9 @@
         "uid": "cust-3-twister-flavour",
         "id": "twister_flavour",
         "title": "Twister Flavour",
+        "tabname": " Twister Flavour",
         "type": "single",
+        "styleBox": "vertical",
         "choices": [
           {
             "uid": "choice-3-tw-org",
@@ -102,6 +115,7 @@
         "uid": "cust-4-condiments",
         "id": "condiments",
         "title": "Customize your Condiments",
+        "tabname": "Condiments",
         "type": "multiple",
         "min": 0,
         "max": 5,
@@ -142,7 +156,9 @@
         "uid": "cust-5-sides",
         "id": "sides",
         "title": "Select one of your Favorite Sides",
+        "tabname": "Favourite Sides",
         "type": "single",
+        "styleBox": "vertical",
         "required": true,
         "choices": [
           {
@@ -174,8 +190,10 @@
         "uid": "cust-6-beverage",
         "id": "beverage",
         "title": "Select Your Favorite Beverage",
+        "tabname": "Beverages",
         "type": "single",
         "required": true,
+        "styleBox": "vertical",
         "choices": [
           {
             "uid": "choice-6-pepsi",
@@ -211,6 +229,13 @@
       "1 Twister - Org",
       "Fries - Regular"
     ],
+    "imageSet": {
+      "image": [
+        "https://i.ibb.co/mCH5ZNcq/Chicken-Nuget.png",
+        "https://i.ibb.co/3mQBDRrr/French-Fries-Coke.png"
+      ],
+      "video": "https://res.cloudinary.com/dilxiy8fa/video/upload/q_auto,f_auto/chicken_video_ieqjbv.mp4"
+    },
     "price": 24.0,
     "oldPrice": 24.7,
     "currency": "AED",
@@ -227,7 +252,10 @@
         "uid": "cust-2-heat",
         "id": "heat_level",
         "title": "Heat Level",
+        "tabname": "Heat Level",
         "type": "single",
+        "required": false,
+        "styleBox": "vertical",
         "choices": [
           {
             "uid": "choice-2-h1",
@@ -257,6 +285,13 @@
       "12 Chicken pcs",
       "Family fries"
     ],
+    "imageSet": {
+      "image": [
+        "https://i.ibb.co/V0Qx3vcX/KFC-Combo-Pack.webp",
+        "https://i.ibb.co/3mQBDRrr/French-Fries-Coke.png"
+      ],
+      "video": "https://res.cloudinary.com/dilxiy8fa/video/upload/q_auto,f_auto/Fry_Video_m9amem.mp4"
+    },
     "price": 24.0,
     "oldPrice": 24.7,
     "currency": "AED",
@@ -273,7 +308,10 @@
         "uid": "cust-3-bucket",
         "id": "bucket_type",
         "title": "Bucket Type",
+        "tabname": "Bucket Type",
         "type": "single",
+        "required": false,
+        "styleBox": "vertical",
         "choices": [
           {
             "uid": "choice-3-b1",
@@ -301,6 +339,13 @@
       "Bun",
       "Pepsi - Regular"
     ],
+    "imageSet": {
+      "image": [
+        "https://i.ibb.co/ZpWbpv9n/Chicken-Roll.png",
+        "https://i.ibb.co/3mQBDRrr/French-Fries-Coke.png"
+      ],
+      "video": "https://res.cloudinary.com/dilxiy8fa/video/upload/q_auto,f_auto/chicken_video_ieqjbv.mp4"
+    },
     "price": 24.0,
     "oldPrice": 24.7,
     "currency": "AED",
@@ -316,7 +361,10 @@
         "uid": "cust-4-drink",
         "id": "meal_drink",
         "title": "Choose Drink",
+        "tabname": "Drink",
         "type": "single",
+        "required": false,
+        "styleBox": "vertical",
         "choices": [
           {
             "uid": "choice-4-d1",
@@ -343,6 +391,13 @@
       "1 Pepsi - Regular",
       "Fries - Regular"
     ],
+    "imageSet": {
+      "image": [
+        "https://i.ibb.co/MDB9YcMw/Favourite-Combo-Pack.webp",
+        "https://i.ibb.co/mCH5ZNcq/Chicken-Nuget.png"
+      ],
+      "video": "https://res.cloudinary.com/dilxiy8fa/video/upload/q_auto,f_auto/Fry_Video_m9amem.mp4"
+    },
     "price": 30.4,
     "oldPrice": 24.7,
     "currency": "AED",
@@ -361,7 +416,10 @@
         "uid": "cust-5-buns",
         "id": "bun_type",
         "title": "Choose Your Bun",
+        "tabname": "Bun",
         "type": "single",
+        "required": false,
+        "styleBox": "vertical",
         "choices": [
           {
             "uid": "choice-5-b1",
@@ -387,6 +445,13 @@
       "1 Fries - Regular",
       "1 Pepsi - Regular"
     ],
+    "imageSet": {
+      "image": [
+        "https://i.ibb.co/xKTsXDwH/Pepsi-Double-Can.png",
+        "https://i.ibb.co/3mQBDRrr/French-Fries-Coke.png"
+      ],
+      "video": "https://res.cloudinary.com/dilxiy8fa/video/upload/q_auto,f_auto/chicken_video_ieqjbv.mp4"
+    },
     "price": 19.54,
     "oldPrice": 24.7,
     "currency": "AED",
@@ -404,7 +469,10 @@
         "uid": "cust-6-cheese",
         "id": "cheese_level",
         "title": "Cheese Level",
+        "tabname": "Cheese",
         "type": "single",
+        "required": false,
+        "styleBox": "vertical",
         "choices": [
           {
             "uid": "choice-61",
@@ -436,6 +504,13 @@
       "1 Fries - Regular",
       "1 Pepsi - Regular"
     ],
+    "imageSet": {
+      "image": [
+        "https://i.ibb.co/3mQBDRrr/French-Fries-Coke.png",
+        "https://i.ibb.co/V0Qx3vcX/KFC-Combo-Pack.webp"
+      ],
+      "video": "https://res.cloudinary.com/dilxiy8fa/video/upload/q_auto,f_auto/Fry_Video_m9amem.mp4"
+    },
     "price": 44.6,
     "oldPrice": 54.7,
     "currency": "AED",
@@ -453,7 +528,10 @@
         "uid": "cust-10-pieces",
         "id": "pieces",
         "title": "Total Pieces : 15 Pieces",
+        "tabname": "Pieces",
         "type": "quantity",
+        "required": true,
+        "styleBox": "vertical",
         "min": 15,
         "max": 15,
         "choices": [
@@ -481,6 +559,13 @@
       "1 Bun",
       "1 Pepsi - Medium"
     ],
+    "imageSet": {
+      "image": [
+        "https://i.ibb.co/S73PQLnC/Home-Page-Main-Image.png",
+        "https://i.ibb.co/mCH5ZNcq/Chicken-Nuget.png"
+      ],
+      "video": "https://res.cloudinary.com/dilxiy8fa/video/upload/q_auto,f_auto/chicken_video_ieqjbv.mp4"
+    },
     "price": 27.9,
     "oldPrice": 31.0,
     "currency": "AED",

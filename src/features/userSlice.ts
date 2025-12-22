@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 import { RootState } from "../store/store";
-import {BACKEND_SERVER} from './backendLink'
+import {BACKEND_SERVER} from '../utils/backendLink'
 
 interface userfetchedType {
     userData: userDatailsType[],

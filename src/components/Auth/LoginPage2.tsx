@@ -193,7 +193,7 @@ export default function LoginPage2() {
             <View style={[Styles.TcContainer, { bottom: inset.bottom }]}>
                 <View style={Styles.TcInnerContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.pop()}>
+                        onPress={() => navigation.navigate(Strings.TermsAndConditionsScreen)}>
                         <Text style={Styles.tcText}>{Strings.tc.toUpperCase()} </Text>
                     </TouchableOpacity>
                     <TouchableOpacity

@@ -1,3 +1,0 @@
-export const BACKEND_SERVER = "http://192.168.29.216:3000";
-// export const BACKEND_SERVER = "http://10.159.237.111:3000";
-// export const BACKEND_SERVER = "http://192.168.29.221:3000";

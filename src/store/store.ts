@@ -6,6 +6,7 @@ import cartReducer from '../features/cartSlice'
 import orderReducer from '../features/orderSlice'
 import favouriteReducer from '../features/favoriteSlice'
 import userReducer from '../features/userSlice'
+import BiometricAuthSlice from '../features/biometricSlice'
 // persist 
 import { persistReducer} from 'redux-persist'
 // storage 
@@ -14,16 +15,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 let persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['cart','favourite' ,'orders'  ]
+    whitelist: ['cart','favourite' ,'orders'  ],
+    blacklist: ['bioAuth']
 }
-let roorReducer = combineReducers({
+let rootReducer = combineReducers({
     cart: cartReducer,
     menuData: menuReducer,
     orders: orderReducer,
     favourite: favouriteReducer,
-    users: userReducer
+    users: userReducer, 
+    bioAuth : BiometricAuthSlice
 })
-let persistedReducer = persistReducer(persistConfig, roorReducer)
+let persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
     reducer: persistedReducer,

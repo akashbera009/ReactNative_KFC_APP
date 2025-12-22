@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import {BACKEND_SERVER} from './backendLink'
+import {BACKEND_SERVER} from '../utils/backendLink'
 
 interface orderFetchedType {
   orders: OrderHistory[],
