@@ -11,11 +11,6 @@ import { RadialGradient } from 'react-native-gradients';
 import CurrentOrder from './CurrentOrder';
 import BestSeller from './BestSeller';
 import VideoPlayerComponent from '../../CommonFunctions/VideoPlayer';
-// biometric authentication 
-import {
-  checkBiometricSupport,
-  authenticateWithBiometrics,
-} from '../../utils/BiometricAuth';
 //redux 
 import { fetchMenu } from '../../features/menuSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -83,9 +78,9 @@ export default function HomePage() {
   }, []);
   useEffect(() => {
     const backAction = (): boolean => {
-      Alert.alert('Confirm Exit?', 'Are you sure you want to exit?', [
+      Alert.alert(Strings.confirmToExitApp, Strings.confirmToExtDescription, [
         {
-          text: 'Cancel',
+          text: Strings.cancel.toUpperCase(),
           onPress: () => null,
           style: 'cancel',
         },
@@ -127,7 +122,7 @@ export default function HomePage() {
               <Svg width={vw(200)} height={vh(200)}>
                 <Polygon
                   points="99,30 100,50 100,55 0,72 11,49 0,24"
-                  fill="white"
+                  fill={Colors.constantWhite}
                   transform="scale(2, 2)"
                 />
                 <View style={Styles.SvgTextContainer1}>
@@ -143,7 +138,7 @@ export default function HomePage() {
               <Svg width={vw(200)} height={vh(200)}>
                 <Polygon
                   points="100,25 90,45 100,70 0,65 0,45 0,33"
-                  fill="white"
+                  fill={Colors.constantWhite}
                   transform="scale(2, 2)"
                 />
                 <View style={Styles.SvgOrderContainer3}>

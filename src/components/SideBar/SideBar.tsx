@@ -56,7 +56,7 @@ const SideBar = () => {
   const dispatch = useAppDispatch();
   useEffect((): void => {
     dispatch(fetctUserDeatails())
-  }, [])
+  }, [dispatch])
   const userdata = useSelector((state: RootState) => state?.users)
   const currentUser = userdata?.userData?.find((item) => item?.mobileNo == '9876543210')
   return (
@@ -125,6 +125,15 @@ const SideBar = () => {
                   setIsSettingsMenuOpen(false)
                 }}>
                 <Text>{Strings.FontsScreen}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={Styles.SettingsMenuEntries}
+                activeOpacity={.7}
+                onPress={() => {
+                  navigation.navigate(Strings.ReAnimatedScreen)
+                  setIsSettingsMenuOpen(false)
+                }}>
+                <Text>{Strings.ReAnimatedScreen}</Text>
               </TouchableOpacity>
             </View>
           )}

@@ -13,6 +13,7 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { vh, vw, normalize, screenWidth } from '../../utils/Dimensions'
 import VideoPlayerComponent from '../../CommonFunctions/VideoPlayer';
+import CarouselWithLeftRightPartialVisible from './ProductCursol';
 
 export default function FoodCustomizationPage({ foodItem }: { foodItem: menuDataType }) {
     const Colors = useThemeColors();
@@ -120,8 +121,9 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                 ))}
                         </ScrollView>
                     </View>
-
-
+                    <View style={Styles.cursolContainer}>
+                        <CarouselWithLeftRightPartialVisible />
+                    </View>
                     {foodItem.customization?.map((group, idx) => (
                         <View key={idx}
                             style={{ marginVertical: normalize(10) }}>
@@ -146,8 +148,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                                     {choice.name}
                                                 </Text>
                                                 <TouchableOpacity
-                                                    style={Styles.radioButton}>
-                                                </TouchableOpacity>
+                                                    style={Styles.radioButton} />
                                             </View>
                                         ))}
                                     </ScrollView>
@@ -369,6 +370,11 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontSize: normalize(14),
             fontFamily: Fonts.font18,
             color: Colors.timerFadeText
+        },
+        cursolContainer: {
+            marginTop : vh(30),
+            height: vh(400),
+            width: '100%'
         },
         ActiveTab: {
             fontSize: normalize(15),

@@ -2,7 +2,7 @@ import ReactNativeBiometrics, {
   BiometryTypes,
 } from 'react-native-biometrics';
 const rnBiometrics = new ReactNativeBiometrics();
-rnBiometrics.createKeys().then(resObj => console.log(resObj))
+// rnBiometrics.createKeys().then(resObj => console.log(resObj))
 export const checkBiometricSupport = async (): Promise<boolean> => {
   const { available, biometryType } = await rnBiometrics.isSensorAvailable();
   if (!available) return false;

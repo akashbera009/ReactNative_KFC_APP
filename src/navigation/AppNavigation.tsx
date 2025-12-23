@@ -38,6 +38,8 @@ import TrackOrderScreen from '../screens/TrackOrderScreen';
 import PaymentModalScreen from '../screens/PaymentModalScreen';
 import CommonPopUpScreen from '../screens/CommonPopUpScreen';
 import TermsAndConditionsScreen from '../screens/TermsAndConditionsScreen';
+import ReAnimatedScreen from '../screens/ReAnimatedScreen';
+import GestureScreen from '../screens/GestureScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -45,7 +47,7 @@ const Drawer = createDrawerNavigator()
 function StackNavigator() {
     const Strings = useStrings()
     return (
-        <Stack.Navigator initialRouteName={Strings.HomeScreen} screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName={Strings.ReAnimatedScreen} screenOptions={{ headerShown: false }}>
             <Stack.Screen
                 name={Strings.SplashScreen}
                 component={SplashScreen}
@@ -189,6 +191,14 @@ function StackNavigator() {
                 name={Strings.HelpScreen}
                 component={HelpScreen}
             />
+            <Stack.Screen
+                name={Strings.ReAnimatedScreen}
+                component={ReAnimatedScreen}
+            />
+            <Stack.Screen
+                name={Strings.GestureScreen}
+                component={GestureScreen}
+            />
         </Stack.Navigator>
     )
 }
@@ -199,7 +209,7 @@ export default function AppNavigation() {
             <NavigationContainer>
                 <Drawer.Navigator
                     screenOptions={{ headerShown: false, drawerPosition: 'left', }}
-                    drawerContent={(props) => <SideBarScreen{...props} />}
+                    drawerContent={(props) => <SideBarScreen />}
                 >
                     <Drawer.Screen name='Main' component={StackNavigator} />
                 </Drawer.Navigator>

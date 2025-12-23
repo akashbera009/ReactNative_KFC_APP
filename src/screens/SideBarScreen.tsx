@@ -1,9 +1,7 @@
-import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import SideBar from '../components/SideBar/SideBar'
-
-const SideBarScreen = ({ navigation }: DrawerContentComponentProps) => {
+const SideBarScreen = () => {
   return (
-   <SideBar />
+    <SideBar />
   )
 }
 export default SideBarScreen

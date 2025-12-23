@@ -1,4 +1,3 @@
-import { StyleSheet, } from 'react-native'
 import React from 'react'
 
 // custom component import 
@@ -18,5 +17,3 @@ export default function SplashScreen() {
         <SplashPage />
     )
 }
-
-const styles = StyleSheet.create({})

@@ -1,5 +1,4 @@
 import Images from "../utils/LocalImages";
-import { useStrings } from "../utils/Strings";
 const DeliveryDetails: DeliveryDetailsType = {
     address: 'H1-H2, Second floor, Malviya Nagar, SL Marg, Lal Bahadur Nagar, Jaipur, Rajasthan 302018',
     type: 'work',

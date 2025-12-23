@@ -32,6 +32,8 @@ const en = {
   OrderDetailsScreen: 'OrderDetailsScreen',
   OfferAppliedScreen: "OfferAppliedScreen",
   HelpScreen: 'HelpScreen',
+  ReAnimatedScreen: 'ReAnimatedScreen',
+  GestureScreen: 'GestureScreen',
   Main: 'Main',
   Help: 'Help',
 
@@ -207,7 +209,7 @@ const en = {
   wantOrder: 'I want my order:',
   deliverNow: 'Deliver Now',
   deliveryLater: 'Deliver Later',
-  willBeDeliveredOn : 'Will Be Delivered On',
+  willBeDeliveredOn: 'Will Be Delivered On',
   deliveryAddress: 'Delivery Address',
   contactLessDelivery: '100% contactless delivery',
   amountToBepaid: 'Amount to be paid',
@@ -334,7 +336,9 @@ const en = {
   taptoPick: 'Tap to pick ',
   image: 'Image',
   video: 'video',
-  document: 'document'
+  document: 'document',
+  confirmToExitApp: 'Confirm Exit?',
+  confirmToExtDescription: 'Are you sure you want to exit?'
 } as const
 
 const ar = {
@@ -369,6 +373,8 @@ const ar = {
   OrderDetailsScreen: 'OrderDetailsScreen',
   OfferAppliedScreen: "OfferAppliedScreen",
   HelpScreen: 'HelpScreen',
+  ReAnimatedScreen: 'ReAnimatedScreen',
+  GestureScreen: 'GestureScreen',
   Main: 'Main',
   Help: 'Help',
 
@@ -543,7 +549,7 @@ const ar = {
   wantOrder: 'أريد طلبي:',
   deliverNow: 'التوصيل الآن',
   deliveryLater: 'التوصيل لاحقًا',
-  willBeDeliveredOn : 'Will Be Delivered On',
+  willBeDeliveredOn: 'Will Be Delivered On',
   deliveryAddress: 'عنوان التوصيل',
   contactLessDelivery: 'توصيل بدون تلامس 100%',
   amountToBepaid: 'المبلغ المستحق',
@@ -678,7 +684,9 @@ const ar = {
   taptoPick: 'Tap to pick ',
   image: 'Image',
   video: 'video',
-  document: 'document'
+  document: 'document',
+  confirmToExitApp: 'Confirm Exit?',
+  confirmToExtDescription: 'Are you sure you want to exit?'
 } as const
 
 export const useStrings = () => {

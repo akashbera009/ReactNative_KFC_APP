@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import AppNavigation from './src/navigation/AppNavigation';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
     authenticateWithBiometricsThunk,
     checkBiometricSupportThunk,
@@ -21,7 +22,11 @@ const AppRoot = () => {
         dispatch(authenticateWithBiometricsThunk());
     }, [dispatch]);
 
-    return <AppNavigation />;
+    return (
+        <GestureHandlerRootView>
+            <AppNavigation />
+        </GestureHandlerRootView>
+    );
 };
 
 export default AppRoot;

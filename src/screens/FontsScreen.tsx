@@ -1,5 +1,5 @@
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { } from 'react'
 // util files 
 import Fonts from '../utils/Fonts'
 import { SafeAreaView } from 'react-native-safe-area-context'

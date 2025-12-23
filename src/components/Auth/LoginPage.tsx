@@ -33,8 +33,7 @@ export default function LoginPage() {
           <Image source={Images.FoodImage5} style={Styles.TopImageGridElement} />
           <Image source={Images.FoodImage6} style={Styles.TopImageGridElement} />
         </View>
-        <View style={Styles.middleColorLayer}>
-        </View>
+        <View style={Styles.middleColorLayer} />
         <View style={Styles.TopImageLayer}>
           <Image source={Images.FoodImage1} style={Styles.TopImageGridElement} />
           <Image source={Images.FoodImage2} style={Styles.TopImageGridElement} />

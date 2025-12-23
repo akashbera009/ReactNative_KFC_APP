@@ -28,7 +28,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const dispatch = useAppDispatch()
     useEffect((): void => {
         dispatch(fetchMenu())
-    }, [])
+    }, [dispatch])
     const cartData = useSelector((state: RootState) => state.cart)
     const menuData = useSelector((state: RootState) => state.menuData)
     const iSFavouriteMenuData = useSelector((state: RootState) => state.favourite)
