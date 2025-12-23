@@ -22,7 +22,7 @@ export default function ImagePickCropper() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [imageUri, setImageUri] = useState<string>('');
     const [videoUri, setVideoUri] = useState<string | undefined>('');
@@ -34,7 +34,7 @@ export default function ImagePickCropper() {
     const [videoThumbnail, setVideoThumbnail] = useState<string>('');
     const pickImage = async (): Promise<void> => {
         try {
-            if (Platform.OS == 'ios') {
+            if (Platform.OS === 'ios') {
                 const croppedImage = await ImagePicker.openPicker({
                     width: vh(300),
                     height: vw(300),
@@ -157,7 +157,7 @@ export default function ImagePickCropper() {
                     showsVerticalScrollIndicator={false}
                 >
                     {/* image section  */}
-                    {imageUri == '' ? (
+                    {imageUri === '' ? (
                         <TouchableOpacity style={Styles.field} onPress={pickImage}>
                             <Text style={Styles.placeholder}>{Strings.taptoPick}{Strings.image}</Text>
                         </TouchableOpacity>
@@ -175,7 +175,7 @@ export default function ImagePickCropper() {
                     )}
 
                     {/* video section  */}
-                    {videoUri == '' ? (
+                    {videoUri === '' ? (
                         <TouchableOpacity style={Styles.field} onPress={pickVideo}>
                             <Text style={Styles.placeholder}>{Strings.taptoPick}{Strings.video}</Text>
                         </TouchableOpacity>
@@ -295,7 +295,7 @@ export default function ImagePickCropper() {
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         demoImage: {
             height: vh(100),
@@ -348,12 +348,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.constantBlack
         },
         closeIconButton: {
-            // position: 'absolute',
             left: vw(20),
             zIndex: 999
         },
         closeIconButtonImage: {
-            // position: 'absolute',
             left: vw(20),
             zIndex: 999
         },
@@ -432,7 +430,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         videoLabel: {
             fontSize: normalize(16),
-            fontFamily: Fonts.Medium,
+            fontFamily: Fonts.font17,
         },
         videoPreviewContainer: {
             display: 'flex',

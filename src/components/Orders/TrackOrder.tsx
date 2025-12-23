@@ -18,7 +18,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProps) {
   const Colors = useThemeColors()
   const Strings = useStrings()
-  const Styles = createDynamicStyles(Colors, Fonts);
+  const Styles = createDynamicStyles(Colors);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const inset = useSafeAreaInsets()
   const { countrySelected } = useCountry()
@@ -196,7 +196,7 @@ export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProp
     </View>
   )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
   const Styles = StyleSheet.create({
     Parent: {
       backgroundColor: Colors.bodyColor,

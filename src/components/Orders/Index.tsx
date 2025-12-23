@@ -20,7 +20,7 @@ export default function Index() {
   const Colors = useThemeColors();
   const Strings = useStrings();
   const inset = useSafeAreaInsets();
-  const Styles = createDynamicStyles(Colors, Fonts);
+  const Styles = createDynamicStyles(Colors);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function Index() {
                 ))}
               </>
             )}
-            {(sortedCrrentOrder?.length == 0 && sortedPreviousOrder?.length == 0) && (
+            {(sortedCrrentOrder?.length === 0 && sortedPreviousOrder?.length === 0) && (
               <View style={Styles.EmptyCartContainer}>
                 <View style={Styles.ImageContainer}>
                   <Image source={Images.EmptyBox} style={Styles.EmptyBox} />
@@ -91,7 +91,7 @@ export default function Index() {
     </View>
   );
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
   const Styles = StyleSheet.create({
     Parent: {
       backgroundColor: Colors.bodyColor,

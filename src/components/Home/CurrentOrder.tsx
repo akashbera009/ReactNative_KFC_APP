@@ -14,10 +14,10 @@ import { RootState } from '../../store/store';
 // utils
 import { selectCurrentOrder } from '../../features/getCurrentOrder';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-export default function orderQueueItem() {
+export default function CurrentOrder() {
   const Colors = useThemeColors()
   const Strings = useStrings()
-  const Styles = createDynamicStyles(Colors, Fonts);
+  const Styles = createDynamicStyles(Colors);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const currentOrder = useSelector<RootState, OrderHistory | null>(selectCurrentOrder)
   const ItemNames = currentOrder?.Items.map((item: CartItemType) => item?.name).join(',') ?? ''
@@ -46,7 +46,7 @@ export default function orderQueueItem() {
     </View>
   )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
   const Styles = StyleSheet.create({
     ParentDeliveryContainer: {
       marginHorizontal: vw(15),

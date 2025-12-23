@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Animated, TouchableOpacity, Image, TouchableWithoutFeedback } from 'react-native';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -17,11 +17,11 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const slide = useRef<Animated.Value>(new Animated.Value(500)).current;
     const fade = useRef<Animated.Value>(new Animated.Value(0)).current;
     const dispatch = useAppDispatch()
-    const slideUp = (): void => {
+    const slideUp = useCallback((): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -34,7 +34,7 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
                 useNativeDriver: true,
             })
         ]).start();
-    };
+    }, [slide, fade])
     const slideDown = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -62,7 +62,7 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
 
     useEffect((): void => {
         slideUp();
-    }, []);
+    }, [slideUp]);
     return (
         <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
             <TouchableWithoutFeedback onPress={closeModal}>
@@ -91,7 +91,7 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
     )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         backDrop: {
             backgroundColor: Colors.SemiTransparent,

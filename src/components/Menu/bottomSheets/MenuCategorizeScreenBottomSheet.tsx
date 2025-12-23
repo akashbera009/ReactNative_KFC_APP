@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Animated, TouchableOpacity, Image, TouchableWithoutFeedback, ScrollView } from 'react-native'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -15,9 +15,9 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
     const fade = useRef(new Animated.Value(0)).current;
     const Colors = useThemeColors()
     const Strings = useStrings()
-    const Styles = createDynamicStyles(Colors, Fonts)
+    const Styles = createDynamicStyles(Colors)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const slideUp = () :void=> {
+    const slideUp = useCallback(() :void=> {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -30,7 +30,7 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
                 useNativeDriver: true,
             })
         ]).start();
-    };
+    },[slide , fade])
     const slideDown = ():void => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -53,7 +53,7 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
     };
     useEffect(():void => {
         slideUp();
-    }, []);
+    }, [slideUp]);
     return (
         <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
             <TouchableWithoutFeedback onPress={closeModal}>
@@ -103,7 +103,7 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
     )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         backDrop: {
             backgroundColor: Colors.SemiTransparent,

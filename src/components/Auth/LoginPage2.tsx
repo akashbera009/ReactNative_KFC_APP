@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -20,27 +20,27 @@ export default function LoginPage2() {
     const Strings = useStrings();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts)
+    const Styles = createDynamicStyles(Colors)
     const { countrySelected } = useCountry()
     const { language, setLanguage } = useLanguage()
     const [mobileNo, setMobileNo] = useState<string>('')
     const [goodToLogin, setGoodToLogin] = useState<boolean>(false)
     const [userToken, setUserToken] = useState<string | null>(null);
-    useEffect((): void => {
-        checkGoodToLogin()
-    }, [mobileNo])
-    const checkGoodToLogin = (): void => {
+    const checkGoodToLogin = useCallback((): void => {
         if (mobileNo.length === countrySelected.mobileNoLength) {
             setGoodToLogin(false)
         } else
             setGoodToLogin(true)
-    }
+    }, [mobileNo, countrySelected.mobileNoLength])
+    useEffect((): void => {
+        checkGoodToLogin()
+    }, [checkGoodToLogin, mobileNo])
     const handleMobileNoInput = (text: string): void => {
         if (text.length <= countrySelected.mobileNoLength) {
             let formattedText
-            if (countrySelected?.code == 'uae')
+            if (countrySelected?.code === 'uae')
                 formattedText = text.replace(/(\d{3})(?=\d)/g, '$1 ');
-            else if (countrySelected?.code == 'in')
+            else if (countrySelected?.code === 'in')
                 formattedText = text.replace(/(\d{5})(?=\d)/g, '$1 ');
             else
                 formattedText = text.replace(/(\d{4})(?=\d)/g, '$1 ');
@@ -55,8 +55,8 @@ export default function LoginPage2() {
             if (isSuccessResponse(response)) {
                 console.log('isSuccessResponse(response)', isSuccessResponse(response))
                 setUserToken(response?.data?.idToken)
-                Alert.alert('Success', 'Google Sign-In Successful! Check console for info.');
-            } else if (response.type == 'cancelled') {
+                Alert.alert('Success', `Google Sign-In Successful! token is ${userToken}`);
+            } else if (response.type === 'cancelled') {
                 console.log('sign in was calcelled by user ');
                 Alert.alert('Alert', 'Sigin in calcelled by user');
             } else {
@@ -92,7 +92,7 @@ export default function LoginPage2() {
                     enableOnAndroid
                     keyboardShouldPersistTaps="handled"
                     extraScrollHeight={150}
-                    contentContainerStyle={{ paddingBottom: 50 }}
+                    contentContainerStyle={Styles.scrollviewBottom}
                 >
                     <View style={Styles.UpperCOntainer}>
                         <View style={Styles.ThreeColumnStyle}>
@@ -118,8 +118,8 @@ export default function LoginPage2() {
                                     activeOpacity={.3}
                                 >
                                     <Text style={Styles.chooseLangText}>{Strings.english} </Text>
-                                    <View style={[Styles.TickMarkOuter, language == 'en' ? Styles.ActiveBorder : null]} >
-                                        {language == 'en' && (
+                                    <View style={[Styles.TickMarkOuter, language === 'en' ? Styles.ActiveBorder : null]} >
+                                        {language === 'en' && (
                                             <View style={Styles.CheckBox} />
                                         )}
                                     </View>
@@ -130,8 +130,8 @@ export default function LoginPage2() {
                                     activeOpacity={.3}
                                 >
                                     <Text style={Styles.chooseLangText}>{Strings.arabic} </Text>
-                                    <View style={[Styles.TickMarkOuter, language == 'ar' ? Styles.ActiveBorder : null]} >
-                                        {language == 'ar' && (
+                                    <View style={[Styles.TickMarkOuter, language === 'ar' ? Styles.ActiveBorder : null]} >
+                                        {language === 'ar' && (
                                             <View style={Styles.CheckBox} />
                                         )}
                                     </View>
@@ -205,10 +205,13 @@ export default function LoginPage2() {
         </View>
     )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const styles = StyleSheet.create({
         ParentContainer: {
             height: '100%'
+        },
+        scrollviewBottom: {
+            paddingBottom: 50
         },
         UpperCOntainer: {
             backgroundColor: Colors.bodyColor,

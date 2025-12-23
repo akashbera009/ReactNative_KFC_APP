@@ -19,10 +19,10 @@ const SPACING = width * 0.025;
 const SNAP_INTERVAL = ITEM_WIDTH + SPACING * 2;
 
 export default function ImageCarousel() {
-    const scrollRef = useRef<ScrollView | null>(null);
     const [index, setIndex] = useState(0);
     const Colors = useThemeColors();
     const styles = createDynamicStyles(Colors);
+    const scrollRef = useRef<ScrollView | null>(null);
     const images: ImageSourcePropType[] = [
         Images.FoodImage1,
         Images.FoodImage3,
@@ -42,7 +42,7 @@ export default function ImageCarousel() {
         }, 2000);
 
         return () => clearInterval(timer);
-    }, [index]);
+    }, [index , images.length]);
     const scrollX = useRef<Animated.Value>(new Animated.Value(0)).current;
     return (
         <View>

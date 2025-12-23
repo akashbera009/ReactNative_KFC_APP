@@ -16,18 +16,18 @@ const cartSlice = createSlice({
         },
         removeFromCart: (state, action) => {
             const removeid = action.payload
-            state.cartItems = state.cartItems.filter((item: CartItemType) => item?.menuItemUid !== removeid)
+            state.cartItems = state.cartItems.filter((i: CartItemType) => i?.menuItemUid !== removeid)
         },
         increaseQuantity: (state, action) => {
             const increaseId = action.payload;
-            const item = state.cartItems.find((item: CartItemType) => item.menuItemUid === increaseId);
+            const item = state.cartItems.find((i: CartItemType) => i.menuItemUid === increaseId);
             if (item) {
                 item.quantity += 1;
             }
         },
         decreaseQuantity: (state, action) => {
             const decreaseId = action.payload
-            const item = state.cartItems.find((item: CartItemType) => item.menuItemUid === decreaseId);
+            const item = state.cartItems.find((i: CartItemType) => i.menuItemUid === decreaseId);
             if (item) {
                 item.quantity -= 1;
             }

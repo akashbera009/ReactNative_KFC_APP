@@ -23,7 +23,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
     const cartData = useSelector((state: RootState) => state.cart)
@@ -31,7 +31,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     const totalItem = cartItem.length
     const [deliveryType, setDeliveryType] = useState<'now' | 'later'>('now');
     const cartDescription = cartItem?.reduce((acc: string, item: CartItemType, idx: number) => {
-        return (acc + item?.quantity + ' ' + item?.name + ((idx + 1 != cartItem.length) ? ', ' : ' '))
+        return (acc + item?.quantity + ' ' + item?.name + ((idx + 1 !== cartItem.length) ? ', ' : ' '))
     }, '');
     const [paymentMethodOpen, setPaymentMethodOpen] = useState<boolean>(false)
     const [paymentMethodSelected, setPaymentMethodSelected] = useState<string>('')
@@ -50,7 +50,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
         const OrderDate = TempOrderDate.join(' ')
         const OrderTime = new Date().toTimeString().split(' ')[0]
         const OrderId = `ORD-${nanoid(7)}`
-        if (paymentMethodSelected == Strings.cashOnDeliveryString) {
+        if (paymentMethodSelected === Strings.cashOnDeliveryString) {
             onPaymentSuccess('', OrderId, true, OrderDate, OrderTime, Strings.cashOnDeliveryString)
         } else {
             navigation.navigate(Strings.PaymentModalScreen, {
@@ -76,7 +76,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
             navigation.pop(2);
             if (isSuccess) {
                 dispatch(addAsyncOrder(newOrder))
-                dispatch(clearCart)
+                dispatch(clearCart())
             }
             navigation.navigate(Strings.OrderStatusScreen, {
                 currentOrders: cartItem,
@@ -169,7 +169,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                                 {deliveryType === 'later' && <View style={Styles.radioInner} />}
                             </View>
                         </TouchableOpacity>
-                        { new Date().toLocaleString().slice(0, 17) != laterDate.toLocaleString().slice(0, 17) && (
+                        { new Date().toLocaleString().slice(0, 17) !== laterDate.toLocaleString().slice(0, 17) && (
                             <Text style={Styles.dateBadge}> {Strings.willBeDeliveredOn} :  {laterDate.toLocaleString().slice(0, 16)}</Text>
                         )}
                         {showDate && (
@@ -204,7 +204,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                                         setTimeout(() => {
                                             setLaterDate(updatedDate);
                                         }, 500);
-                                    } else if (event.type == 'dismissed') {
+                                    } else if (event.type === 'dismissed') {
                                         setLaterDate(new Date())
                                     }
                                 }}
@@ -265,7 +265,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                                         <Text style={Styles.PriceEntriesLeft}>{Strings.SubTotal} </Text>
                                         <Text style={Styles.PriceEntriesRight}>{AfterDiscount} {countrySelected?.currencyCode} </Text>
                                     </View>
-                                    {DiscountPrice != 0 && (
+                                    {DiscountPrice !== 0 && (
                                         <View style={Styles.PriceEntries}>
                                             <Text style={Styles.PriceEntriesLeft}>{Strings.discount} </Text>
                                             <Text style={[Styles.PriceEntriesRight, Styles?.discountPrice]}>- {DiscountPrice} {countrySelected?.currencyCode} </Text>
@@ -346,7 +346,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
             backgroundColor: Colors.bodyColor,

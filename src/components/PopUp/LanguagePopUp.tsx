@@ -14,7 +14,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function LanguagePopUp() {
     const Colors = useThemeColors()
     const Strings = useStrings()
-    const Styles = createDynamicStyles(Colors, Fonts)
+    const Styles = createDynamicStyles(Colors)
     const inset = useSafeAreaInsets();
     const { language, setLanguage } = useLanguage()
     const [tempLang, settempLang] = useState<string>(language)
@@ -78,7 +78,7 @@ export default function LanguagePopUp() {
     )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         backDrop: {
             backgroundColor: Colors.SemiTransparent,

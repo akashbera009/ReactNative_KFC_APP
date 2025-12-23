@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View, TextInput, Image, TouchableWithoutFeedback, Keyboard, TouchableOpacity, KeyboardAvoidingView, Platform, Alert, ScrollView } from 'react-native'
-import React, { useRef, useState, useEffect } from 'react'
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Alert } from 'react-native'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
 // util  imports 
 import { useThemeColors } from '../../utils/Colors'
 import { useStrings } from '../../utils/Strings'
@@ -18,7 +17,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   const inputRef = useRef<Array<TextInput | null>>([])
   const Colors = useThemeColors()
   const Strings = useStrings()
-  const Styles = createDynamicStyles(Colors, Fonts);
+  const Styles = createDynamicStyles(Colors);
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { countrySelected } = useCountry()
@@ -39,15 +38,15 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   const seconds = timer % 60;
   const formattedTime: string = `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
   const [goodToLogin, setGoodToLogin] = useState<boolean>(false)
-  useEffect((): void => {
-    checkGoodToLogin()
-  }, [inputValue])
-  const checkGoodToLogin = (): void => {
+  const checkGoodToLogin = useCallback((): void => {
     if (inputValue.includes('')) {
       setGoodToLogin(false)
     } else
       setGoodToLogin(true)
-  }
+  }, [inputValue])
+  useEffect((): void => {
+    checkGoodToLogin()
+  }, [inputValue, checkGoodToLogin])
   const handleVerify = (): void => {
     if (goodToLogin)
       navigation.push(Strings.CreateProfileScreen, {
@@ -84,17 +83,17 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
         enableOnAndroid
         keyboardShouldPersistTaps="handled"
         extraScrollHeight={180}
-        contentContainerStyle={{ paddingBottom: 50 }}
+        contentContainerStyle={Styles.scrollviewBottom}
       >
         <View style={Styles.otpRelatedContainer}>
           <View style={Styles.innerOtpContainer}>
             {inputValue.map((item, idx) => (
-              <View key={idx} style={[Styles.SingleOtp, (inputValue[idx] != '') ? Styles.ActiveBorder : Styles.NonActiveBorder]}>
+              <View key={idx} style={[Styles.SingleOtp, (inputValue[idx] !== '') ? Styles.ActiveBorder : Styles.NonActiveBorder]}>
                 <TextInput
                   ref={element => { inputRef.current[idx] = element }}
                   keyboardType='numeric'
                   maxLength={1}
-                  autoFocus={idx == 0}
+                  autoFocus={idx === 0}
                   style={[Styles.OtpInputText]}
                   onChangeText={(text) => {
                     let newArray = [...inputValue];
@@ -106,7 +105,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
                     }
                   }}
                   onKeyPress={(event) => {
-                    if (event.nativeEvent.key == 'Backspace' && !inputValue[idx] && idx > 0) {
+                    if (event.nativeEvent.key === 'Backspace' && !inputValue[idx] && idx > 0) {
                       inputRef.current[idx - 1]?.focus()
                     }
                   }}
@@ -125,7 +124,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
 
           <View style={Styles.LowerOtpContainer}>
             <TouchableOpacity
-              disabled={resendActive == false}
+              disabled={resendActive === false}
               onPress={() => handleResendOtp()}
               style={Styles.LowerOtpContainerEntries}
             >
@@ -135,13 +134,13 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
                   {Strings.resendOtp.toUpperCase()}
                 </Text>
               </View>
-              {resendActive == false && (
+              {resendActive === false && (
                 <Text style={[Styles.resendRealtedText, Styles.timerText]}>{formattedTime}</Text>
               )}
             </TouchableOpacity>
 
             <TouchableOpacity
-              disabled={resendActive == false}
+              disabled={resendActive === false}
               onPress={() => handleCalling()}
               style={Styles.LowerOtpContainerEntries}
             >
@@ -151,7 +150,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
                   {Strings.callMe.toLocaleUpperCase()}
                 </Text>
               </View>
-              {resendActive == false && (
+              {resendActive === false && (
                 <Text style={[Styles.resendRealtedText, Styles.timerText]}>{formattedTime}</Text>
               )}
             </TouchableOpacity>
@@ -162,7 +161,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
   const Styles = StyleSheet.create({
     parentBackground: {
       height: '100%',
@@ -221,6 +220,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       marginTop: vh(10),
       fontFamily: Fonts.font18,
       color: Colors.textBlack
+    },
+    scrollviewBottom: {
+      paddingBottom: 50
     },
     otpRelatedContainer: {
       marginTop: vh(100),

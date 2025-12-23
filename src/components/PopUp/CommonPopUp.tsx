@@ -12,15 +12,17 @@ export const CommonPopUp = ({ header, message }: CommonPopUpScreenProps) => {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const opacity = useRef<Animated.Value>(new Animated.Value(0)).current;
-    useEffect((): void => {
-        Animated.timing(opacity, {
+    useEffect((): () => void | void => {
+        const animation = Animated.timing(opacity, {
             toValue: 1,
             duration: 200,
             useNativeDriver: true
-        }).start();
-    }, []);
+        })
+        animation.start();
+        return () => animation.stop()
+    }, [opacity]);
     return (
         <TouchableWithoutFeedback
             onPress={() => navigation.pop()}>
@@ -45,7 +47,7 @@ export const CommonPopUp = ({ header, message }: CommonPopUpScreenProps) => {
         </TouchableWithoutFeedback>
     )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         popupOverlay: {
             position: 'absolute',

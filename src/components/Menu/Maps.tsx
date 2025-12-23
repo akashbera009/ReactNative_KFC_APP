@@ -22,7 +22,7 @@ export default function Maps() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected, setCountrySelected } = useCountry();
     const [open, setOpen] = useState<boolean>(false);
@@ -61,7 +61,7 @@ export default function Maps() {
         } else {
             opacity.setValue(0);
         }
-    }, [showPopup]);
+    }, [showPopup, opacity]);
 
     useEffect((): void => {
         const isValid =
@@ -73,11 +73,6 @@ export default function Maps() {
     }, [addressBox, tag, location]);
 
     const [goodToSave, setGoodToSave] = useState<boolean>(false)
-    const saveLocationInfo = (): void => {
-        if (!goodToSave) return;
-        navigation.pop();
-    };
-
     const handlChangeAddress = (): void => {
         setAddress({
             address: '',
@@ -147,7 +142,7 @@ export default function Maps() {
                     enableOnAndroid
                     keyboardShouldPersistTaps="handled"
                     extraScrollHeight={150}
-                    contentContainerStyle={{ paddingBottom: 50 }}
+                    contentContainerStyle={Styles.contentContainerStyle}
                 >
                     <View style={[Styles.MapContainer]}>
                         <MapView
@@ -177,7 +172,7 @@ export default function Maps() {
                                 onPress={() => setDeliveryType(Strings.delivery)}
                                 activeOpacity={.5}
                                 style={Styles.selectionContainer}>
-                                <View style={[Styles.CheckBoxContainer, (deliveryType == Strings.delivery) && Styles.ActiveBorder]}>
+                                <View style={[Styles.CheckBoxContainer, (deliveryType === Strings.delivery) && Styles.ActiveBorder]}>
                                     {(deliveryType === Strings.delivery) &&
                                         <View
                                             style={Styles.CheckBoxSelected}
@@ -190,8 +185,8 @@ export default function Maps() {
                                 onPress={() => setDeliveryType(Strings.pickup)}
                                 activeOpacity={.5}
                                 style={Styles.selectionContainer}>
-                                <View style={[Styles.CheckBoxContainer, (deliveryType == Strings.pickup) && Styles.ActiveBorder]}>
-                                    {(deliveryType == Strings.pickup) &&
+                                <View style={[Styles.CheckBoxContainer, (deliveryType === Strings.pickup) && Styles.ActiveBorder]}>
+                                    {(deliveryType === Strings.pickup) &&
                                         <View
                                             style={Styles.CheckBoxSelected}
                                         />
@@ -247,22 +242,22 @@ export default function Maps() {
                                 <TouchableOpacity
                                     onPress={() => { setTag(Strings.home) }}
                                 >
-                                    <Text style={[Styles.Tag, (tag == Strings.home) && Styles.ActiveTag]}>{Strings.home.toUpperCase()} </Text>
+                                    <Text style={[Styles.Tag, (tag === Strings.home) && Styles.ActiveTag]}>{Strings.home.toUpperCase()} </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => { setTag(Strings.office) }}
                                 >
-                                    <Text style={[Styles.Tag, (tag == Strings.office) && Styles.ActiveTag]}>{Strings.office.toUpperCase()} </Text>
+                                    <Text style={[Styles.Tag, (tag === Strings.office) && Styles.ActiveTag]}>{Strings.office.toUpperCase()} </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => { setTag(Strings.hotel) }}
                                 >
-                                    <Text style={[Styles.Tag, (tag == Strings.hotel) && Styles.ActiveTag]}>{Strings.hotel.toUpperCase()} </Text>
+                                    <Text style={[Styles.Tag, (tag === Strings.hotel) && Styles.ActiveTag]}>{Strings.hotel.toUpperCase()} </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => { setTag(Strings.other) }}
                                 >
-                                    <Text style={[Styles.Tag, (tag == Strings.other) && Styles.ActiveTag]}>{Strings.other.toUpperCase()} </Text>
+                                    <Text style={[Styles.Tag, (tag === Strings.other) && Styles.ActiveTag]}>{Strings.other.toUpperCase()} </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -289,7 +284,7 @@ export default function Maps() {
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     return StyleSheet.create({
         parent: {
             height: '100%',
@@ -380,6 +375,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: '100%',
             display: 'flex',
             alignItems: 'center',
+        },
+        contentContainerStyle:{ 
+            paddingBottom: 50 
         },
         body: {
             flex: 1,

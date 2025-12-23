@@ -24,12 +24,12 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const cartData = useSelector((state: RootState) => state.cart)
     const cartItem = cartData?.cartItems
     const { countrySelected } = useCountry();
-    const isOfferApplied: boolean = discount != 0 || discountPercentage != 0;
+    const isOfferApplied: boolean = discount !== 0 || discountPercentage !== 0;
     const [topOfferAppliedIndicator, setTopOfferAppliedIndicator] = useState<boolean>(false);
     const dispatch = useAppDispatch()
     useEffect((): void => {
@@ -78,12 +78,12 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                     </TouchableOpacity>
                     <View style={Styles.HeaderTextContainer}>
                         <Text style={Styles.navHeaderText} >{Strings.cart}</Text>
-                        {cartItem?.length != 0 && (
+                        {cartItem?.length !== 0 && (
                             <Text style={Styles.noOfItemsText} >({cartItem?.length} {Strings.items.toUpperCase()})</Text>
                         )}
                     </View>
                 </View>
-                {cartItem?.length != 0 && (
+                {cartItem?.length !== 0 && (
 
                     <TouchableOpacity
                         onPress={() => seteditingMode(!editingMode)}
@@ -118,8 +118,8 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                         <View style={Styles.EditRightContainer}>
                                             <Text style={Styles.FoodName}>{item?.name}</Text>
                                             <View style={Styles.EditModeDescriptionContainer}>
-                                                {item?.description.map((item1, idx) => (
-                                                    <View key={idx} style={Styles.DotAndDescription}>
+                                                {item?.description.map((item1, i) => (
+                                                    <View key={i} style={Styles.DotAndDescription}>
                                                         <View style={Styles.dot} />
                                                         <Text style={Styles.DescriptioText}>{item1}</Text>
                                                     </View>
@@ -138,7 +138,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                             </View>
                                         </View>
                                         <View style={Styles.EditModeAddedCartButtonContainer}>
-                                            {(item?.quantity == 1) ?
+                                            {(item?.quantity === 1) ?
                                                 <TouchableOpacity
                                                     style={Styles.deleteButtonContainer}
                                                     onPress={() => { handleDelete(item?.menuItemUid, item?.image) }}
@@ -169,7 +169,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                     </ScrollView>
                 </View>
             ) : (<>
-                {cartItem?.length != 0 ?
+                {cartItem?.length !== 0 ?
                     (<>
                         <View style={Styles.scrollContainer}>
                             <ScrollView showsVerticalScrollIndicator={false} >
@@ -199,8 +199,8 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                             <View style={Styles.RightContainer}>
                                                 <Text style={Styles.FoodName}>{item?.name}</Text>
                                                 <View style={Styles.DescriptionContainer}>
-                                                    {item?.description.map((item1, idx) => (
-                                                        <View key={idx} style={Styles.DotAndDescription}>
+                                                    {item?.description.map((item1, id) => (
+                                                        <View key={id} style={Styles.DotAndDescription}>
                                                             <View style={Styles.dot} />
                                                             <Text style={Styles.DescriptioText}>{item1}</Text>
                                                         </View>
@@ -214,7 +214,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                                 <Text style={Styles.Price}>{countrySelected.currencyCode}</Text>
                                             </View>
                                             <View style={Styles.AddedCartButtonContainer}>
-                                                {(item?.quantity == 1) ?
+                                                {(item?.quantity === 1) ?
                                                     <TouchableOpacity
                                                         style={Styles.deleteButtonContainer}
                                                         onPress={() => { handleDelete(item?.menuItemUid, item?.image) }}
@@ -311,7 +311,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                 </View>
                             </ScrollView>
                         </View>
-                        <View style={[Styles.BottomCartContainer, { bottom: 0 }]}>
+                        <View style={Styles.BottomCartContainer}>
                             <BottomCart ButtonType={Strings.placeOrder} navLink={Strings.CheckOutScreen} totalAmount={Number(GrandAmount)} discount={discount} />
                         </View>
                     </>
@@ -323,7 +323,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
             height: '100%',
@@ -566,6 +566,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.bodyColor,
             position: 'absolute',
             left: 0,
+            bottom : 0 , 
             zIndex: 2,
             shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(0) },

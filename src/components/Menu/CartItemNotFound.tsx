@@ -13,7 +13,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 export const CartItemNotFound = () => {
     const Colors = useThemeColors();
     const Strings = useStrings();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     return (
         <View style={Styles.NotFoundContainer}>
@@ -36,7 +36,7 @@ export const CartItemNotFound = () => {
         </View>
     )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         NotFoundContainer: {
             display: 'flex',

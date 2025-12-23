@@ -1,14 +1,11 @@
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 import React, { useEffect, useRef } from 'react';
 // utils
-import Fonts from '../utils/Fonts';
 import { useThemeColors } from '../utils/Colors';
 import { normalize, screenWidth, vh, vw } from '../utils/Dimensions';
-
 export default function Shimer() {
     const Colors = useThemeColors();
-    const Styles = createDynamicStyles(Colors, Fonts);
-
+    const Styles = createDynamicStyles(Colors);
     const translateRef = useRef<Animated.Value>(new Animated.Value(-screenWidth)).current
     useEffect((): void => {
         Animated.loop(
@@ -18,8 +15,7 @@ export default function Shimer() {
                 useNativeDriver : true
             })
         ).start()
-    }, [])
-
+    }, [translateRef])
     return (
         <View style={Styles.container}>
             <View style={Styles.card}>
@@ -35,7 +31,7 @@ export default function Shimer() {
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         container: {
             flex: 1,

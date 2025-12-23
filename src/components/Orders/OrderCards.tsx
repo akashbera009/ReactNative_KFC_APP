@@ -12,7 +12,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function OrderCards({ order }: { order: OrderHistory }) {
     const Colors = useThemeColors();
     const Strings = useStrings();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const { countrySelected } = useCountry();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const itemNames: string = order?.Items
@@ -46,7 +46,7 @@ export default function OrderCards({ order }: { order: OrderHistory }) {
     )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         wrapper: {
             marginBottom: vh(12),

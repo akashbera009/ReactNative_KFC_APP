@@ -15,7 +15,7 @@ export default function FAQPage() {
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const [selectedTab, setSelectedTab] = useState<'online' | 'restaurants' | 'employment'>('online');
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const toggleFAQ = (index: number): void => {
@@ -110,7 +110,7 @@ export default function FAQPage() {
         </View>
     );
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
             flex: 1,

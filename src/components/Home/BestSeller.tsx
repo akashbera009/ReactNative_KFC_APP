@@ -15,7 +15,7 @@ import { normalize, vh , vw} from '../../utils/Dimensions';
 export default function BestSeller() {
     const Colors = useThemeColors()
     const Strings = useStrings()
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const Country = useCountry()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     return (
@@ -55,7 +55,7 @@ export default function BestSeller() {
     )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         ParentBestSellerContainer: {
             width: '93%',

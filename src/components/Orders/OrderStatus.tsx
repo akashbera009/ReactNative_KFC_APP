@@ -28,7 +28,7 @@ export default function OrderStatus({
 }: OrderStatusPageProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
@@ -44,16 +44,18 @@ export default function OrderStatus({
         };
     }, [])
     const rotate = useRef(new Animated.Value(0)).current
-    useEffect((): void => {
-        Animated.loop(
+    useEffect((): () => void | void => {
+        const animation = Animated.loop(
             Animated.timing(rotate, {
                 toValue: 1,
                 duration: 3000,
                 easing: Easing.linear,
                 useNativeDriver: true
             })
-        ).start()
-    }, [])
+        )
+        animation.start()
+        return () => animation.stop()
+    }, [rotate])
     const handleShareInvoice = async (): Promise<void> => {
         const pdfUrl: string = DeliveryDetails?.demoPDFurl
         try {
@@ -269,7 +271,7 @@ export default function OrderStatus({
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
+const createDynamicStyles = (Colors: ColorType) =>
     StyleSheet.create({
         Parent: {
             flex: 1,
@@ -514,7 +516,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) =>
         ItemQty: {
             width: vw(30),
             textAlign: 'center',
-            fontFamily: Fonts.regular,
+            fontFamily: Fonts.font17,
             color: Colors.textGrey,
             fontSize: normalize(14),
         },

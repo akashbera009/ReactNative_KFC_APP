@@ -754,5 +754,35 @@
     "status": "Being Prepared",
     "paymentMode": "Cash On Delivery",
     "paymentId": ""
+  },
+  {
+    "id": 1766468389155,
+    "Items": [
+      {
+        "cartUid": 1766037931546,
+        "menuItemUid": "menu-8",
+        "name": "Crispy Duo Combo",
+        "description": [
+          "2 Crispy Chicken Fillets",
+          "1 Regular Fries",
+          "1 Bun",
+          "1 Pepsi - Medium"
+        ],
+        "price": 27.9,
+        "oldPrice": 31,
+        "image": "https://i.ibb.co/S73PQLnC/Home-Page-Main-Image.png",
+        "categories": [
+          "Deals",
+          "For One",
+          "Chicken Meals"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 23 2025",
+    "orderId": "ORD-PUvjmh-",
+    "status": "Being Prepared",
+    "paymentMode": "Cash On Delivery",
+    "paymentId": ""
   }
 ]

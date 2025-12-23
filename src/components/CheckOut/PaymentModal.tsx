@@ -8,7 +8,7 @@ import {
     TouchableWithoutFeedback,
     ScrollView,
 } from 'react-native';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -26,28 +26,24 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const slide = useRef(new Animated.Value(500)).current;
     const fade = useRef(new Animated.Value(0)).current;
     const [selectedCard, setSelectedCard] = useState<number | null>(0);
     const [selectedMethod, setSelectedMethod] = useState<string>('');
     const [preferred, setPreferred] = useState<boolean>(false);
-    const [paymentRes, setPaymentRes] = useState<PaymentResult | null>(null)
-    const [openModal, setOpenModal] = useState<boolean>(false)
     const { handlePayment } = useRazorpayPayment();
     const initiatePayment = async (): Promise<void> => {
         const result: PaymentResult = await handlePayment(amount);
-        setPaymentRes(result);
         openResponseModal(result.success, result.payment_id)
     };
     const openResponseModal = (
         success: boolean,
         payment_id: string | undefined
     ): void => {
-        setOpenModal(true);
         onSuccess?.(payment_id, success);
     }
-    const slideUp = (): void => {
+    const slideUp = useCallback((): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -60,7 +56,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
                 useNativeDriver: true
             })
         ]).start();
-    };
+    },[slide , fade])
     const slideDown = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -75,15 +71,16 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
             })
         ]).start();
     };
-    const closeModal = (): void => {
+    const closeModal = (): () => void | void => {
         slideDown();
         const timeoutId: number = setTimeout(() => {
             navigation.pop();
         }, 350);
+        return () => clearTimeout(timeoutId)
     };
     useEffect((): void => {
         slideUp();
-    }, []);
+    }, [slideUp]);
 
     return (
         <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
@@ -195,7 +192,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
         </Animated.View>
     );
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     return StyleSheet.create({
         backDrop: {
             backgroundColor: Colors.SemiTransparent,

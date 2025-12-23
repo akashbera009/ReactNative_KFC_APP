@@ -23,7 +23,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 const SideBar = () => {
   const Colors = useThemeColors()
   const Strings = useStrings()
-  const Styles = createDynamicStyles(Colors, Fonts);
+  const Styles = createDynamicStyles(Colors);
   const inset = useSafeAreaInsets();
   const languae = useLanguage()
   const { countrySelected, setCountrySelected } = useCountry()
@@ -58,7 +58,7 @@ const SideBar = () => {
     dispatch(fetctUserDeatails())
   }, [dispatch])
   const userdata = useSelector((state: RootState) => state?.users)
-  const currentUser = userdata?.userData?.find((item) => item?.mobileNo == '9876543210')
+  const currentUser = userdata?.userData?.find((item) => item?.mobileNo === '9876543210')
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -69,7 +69,7 @@ const SideBar = () => {
         <View style={[Styles.TopNameContainer, { marginTop: inset.top }]}>
           <View style={Styles.NameContainer}>
             <View style={Styles.PersonImageContainer}>
-              {userdata?.loading == 'success' ? (
+              {userdata?.loading === 'success' ? (
                 <Image source={{ uri: currentUser?.avatar }}
                   style={Styles.avatarImage} />
               ) : (
@@ -148,7 +148,7 @@ const SideBar = () => {
                 setIsSettingsMenuOpen(false)
               }}
             >
-              <Text style={Styles.LanguageText}>{languae?.language == 'en' ? Strings.english : Strings.arabic} </Text>
+              <Text style={Styles.LanguageText}>{languae?.language === 'en' ? Strings.english : Strings.arabic} </Text>
             </TouchableOpacity>
           </View>
           <View style={Styles.CountryContainer}>
@@ -277,7 +277,7 @@ const SideBar = () => {
     </TouchableWithoutFeedback>
   )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
   const Styles = StyleSheet.create({
     ParentContainer: {
       height: '100%',

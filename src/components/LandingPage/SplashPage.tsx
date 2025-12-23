@@ -11,7 +11,7 @@ export default function SplashPage() {
     const Colors = useThemeColors()
     const Strings = useStrings()
     const inset = useSafeAreaInsets()
-    const Styles = createDynamicStyles(Colors, Fonts)
+    const Styles = createDynamicStyles(Colors)
     return (
         <View style={Styles.HomeScreen}>
             <View style={Styles.backGroundContainer}>
@@ -32,7 +32,7 @@ export default function SplashPage() {
         </View>
     )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         HomeScreen: {
             width: '100%',

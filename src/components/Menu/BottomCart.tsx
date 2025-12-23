@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, Animated, Easing, type EasingFunction } from 'react-native';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 //redux
@@ -16,7 +16,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function BottomCart({ ButtonType, navLink, totalAmount, discount }: BottomCartProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const { countrySelected } = useCountry()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const cartData = useSelector((state: RootState) => state.cart)
@@ -27,17 +27,17 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
     let formattedCounterText: string = cartItem?.length < 10 ? `0${cartItem?.length}` : `${cartItem?.length}`;
     // aimation 
     const slideIn = useRef<Animated.Value>(new Animated.Value(0)).current;
-    const handleSlideIn = (easing: EasingFunction): void => {
+    const handleSlideIn = useCallback((easing: EasingFunction): void => {
         Animated.timing(slideIn, {
             toValue: 1,
             duration: 200,
             easing,
             useNativeDriver: true
         }).start()
-    }
+    },[slideIn])
     useEffect((): void => {
         handleSlideIn(Easing.in(Easing.quad))
-    }, [slideIn])
+    }, [handleSlideIn])
 
     return (
         <Animated.View style={[Styles.ViewCartWrapper, {
@@ -86,7 +86,7 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
         </Animated.View >
     );
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         ViewCartWrapper: {
             width: '93%',

@@ -19,7 +19,7 @@ export default function DealsAndOffer() {
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const cartData = useSelector((state: RootState) => state.cart)
     const cartItem: CartItemType[] = cartData.cartItems
     const handleApplyOffer = (
@@ -70,7 +70,7 @@ export default function DealsAndOffer() {
         </View>
     );
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
             flex: 1,

@@ -20,7 +20,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 export default function KeyboardTesting() {
   const Colors = useThemeColors();
   const Strings = useStrings();
-  const Styles = createDynamicStyles(Colors, Fonts);
+  const Styles = createDynamicStyles(Colors);
   const inset = useSafeAreaInsets();
   const { countrySelected, setCountrySelected } = useCountry();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -28,7 +28,6 @@ export default function KeyboardTesting() {
   const [tag, setTag] = useState<string>('');
   const [goodToSave, setGoodToSave] = useState<boolean>(false);
   const [deliveryType, setDeliveryType] = useState<string>(Strings.delivery ?? '')
-  const [showPopup, setShowPopup] = useState<boolean>(false);
   const [addressBox, setAddress] = useState<AddressBox>({
     address: '',
     buildingName: '',
@@ -123,12 +122,11 @@ export default function KeyboardTesting() {
         )}
       </View>
       <View style={Styles.body}>
-
         <KeyboardAwareScrollView
           enableOnAndroid
           keyboardShouldPersistTaps="handled"
           extraScrollHeight={150}
-          contentContainerStyle={{ paddingBottom: 50 }}
+          contentContainerStyle={Styles.contentContainerStyle}
         >
           <View style={[Styles.MapContainer]}>
             <MapView
@@ -158,7 +156,7 @@ export default function KeyboardTesting() {
                 onPress={() => setDeliveryType(Strings.delivery)}
                 activeOpacity={.5}
                 style={Styles.selectionContainer}>
-                <View style={[Styles.CheckBoxContainer, (deliveryType == Strings.delivery) && Styles.ActiveBorder]}>
+                <View style={[Styles.CheckBoxContainer, (deliveryType === Strings.delivery) && Styles.ActiveBorder]}>
                   {(deliveryType === Strings.delivery) &&
                     <View
                       style={Styles.CheckBoxSelected}
@@ -171,8 +169,8 @@ export default function KeyboardTesting() {
                 onPress={() => setDeliveryType(Strings.pickup)}
                 activeOpacity={.5}
                 style={Styles.selectionContainer}>
-                <View style={[Styles.CheckBoxContainer, (deliveryType == Strings.pickup) && Styles.ActiveBorder]}>
-                  {(deliveryType == Strings.pickup) &&
+                <View style={[Styles.CheckBoxContainer, (deliveryType === Strings.pickup) && Styles.ActiveBorder]}>
+                  {(deliveryType === Strings.pickup) &&
                     <View
                       style={Styles.CheckBoxSelected}
                     />
@@ -228,22 +226,22 @@ export default function KeyboardTesting() {
                 <TouchableOpacity
                   onPress={() => { setTag(Strings.home) }}
                 >
-                  <Text style={[Styles.Tag, (tag == Strings.home) && Styles.ActiveTag]}>{Strings.home.toUpperCase()} </Text>
+                  <Text style={[Styles.Tag, (tag === Strings.home) && Styles.ActiveTag]}>{Strings.home.toUpperCase()} </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => { setTag(Strings.office) }}
                 >
-                  <Text style={[Styles.Tag, (tag == Strings.office) && Styles.ActiveTag]}>{Strings.office.toUpperCase()} </Text>
+                  <Text style={[Styles.Tag, (tag === Strings.office) && Styles.ActiveTag]}>{Strings.office.toUpperCase()} </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => { setTag(Strings.hotel) }}
                 >
-                  <Text style={[Styles.Tag, (tag == Strings.hotel) && Styles.ActiveTag]}>{Strings.hotel.toUpperCase()} </Text>
+                  <Text style={[Styles.Tag, (tag === Strings.hotel) && Styles.ActiveTag]}>{Strings.hotel.toUpperCase()} </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => { setTag(Strings.other) }}
                 >
-                  <Text style={[Styles.Tag, (tag == Strings.other) && Styles.ActiveTag]}>{Strings.other.toUpperCase()} </Text>
+                  <Text style={[Styles.Tag, (tag === Strings.other) && Styles.ActiveTag]}>{Strings.other.toUpperCase()} </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -253,11 +251,6 @@ export default function KeyboardTesting() {
                 Styles.confirmLocationButton,
                 { backgroundColor: goodToSave ? Colors.KFC_red : Colors.timerFadeText }
               ]}
-              onPress={() => {
-                if (goodToSave) {
-                  setShowPopup(true);
-                }
-              }}
             >
               <Text style={Styles.confirmLocation}>
                 {Strings.confirmLocation.toUpperCase()}
@@ -270,7 +263,7 @@ export default function KeyboardTesting() {
   );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
   return StyleSheet.create({
     parent: {
       height: '100%',
@@ -365,6 +358,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     body: {
       flex: 1,
     },
+      contentContainerStyle:{ 
+            paddingBottom: 50 
+        },
     MapContainer: {
       height: vh(360),
       width: '100%',

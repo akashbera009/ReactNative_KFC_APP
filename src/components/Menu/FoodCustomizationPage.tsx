@@ -19,9 +19,8 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const [active, setActive] = React.useState(0);
     const [activeDotIdx, setActiveDotIdx] = useState<number>(0)
     const [loadingIdx, setLoadingIdx] = React.useState<number | null>(0);
     const [tabBarIdx, setTabBarIdx] = React.useState<number | null>(0);
@@ -69,7 +68,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                         >
                             {media?.map((content, idx) => (
                                 <View key={idx} style={Styles.horizontalScrollview}>
-                                    {content?.type == 'image' ?
+                                    {content?.type === 'image' ?
                                         (
                                             <View style={Styles.MediaImageContainer}>
                                                 <Image
@@ -100,7 +99,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                         </ScrollView>
                         <View style={Styles.DotsContainer}>
                             {media?.map((_, idx) => (
-                                <View key={idx} style={[Styles.Dots, activeDotIdx == idx && Styles.ActiveDot]} />
+                                <View key={idx} style={[Styles.Dots, activeDotIdx === idx && Styles.ActiveDot]} />
                             ))}
                         </View>
                         <ScrollView
@@ -128,12 +127,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                         <View key={idx}
                             style={{ marginVertical: normalize(10) }}>
                             <Text
-                                style={{
-                                    fontSize: normalize(16),
-                                    fontFamily: Fonts.font18,
-                                    marginHorizontal: vw(20),
-                                    marginBottom: normalize(10),
-                                }}
+                                style={Styles.choiceText3}
                             >
                                 {group.title}
                             </Text>
@@ -142,8 +136,8 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                     <ScrollView
                                         horizontal
                                         showsHorizontalScrollIndicator={false}>
-                                        {group?.choices?.map((choice, idx) => (
-                                            <View key={idx} style={Styles.customizationGropContajiner}>
+                                        {group?.choices?.map((choice, i) => (
+                                            <View key={i} style={Styles.customizationGropContajiner}>
                                                 <Text style={Styles.customizationText}>
                                                     {choice.name}
                                                 </Text>
@@ -171,25 +165,16 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                             />
                                         )}
 
-                                        <View style={{ flex: 1 }}>
+                                        <View style={Styles.choiceFlex}>
                                             <Text
-                                                style={{
-                                                    fontSize: normalize(14),
-                                                    fontFamily: Fonts.font17,
-                                                    color: Colors.textBlack,
-                                                }}
+                                                style={Styles.choiceText}
                                             >
                                                 {choice.name}
                                             </Text>
 
                                             {choice.price ? (
                                                 <Text
-                                                    style={{
-                                                        fontSize: normalize(12),
-                                                        fontFamily: Fonts.font17,
-                                                        color: Colors.textFadeBlack,
-                                                        marginTop: normalize(2),
-                                                    }}
+                                                    style={Styles.choiceText2}
                                                 >
                                                     + {choice.price} AED
                                                 </Text>
@@ -197,39 +182,20 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                         </View>
                                         {group.type === "single" ? (
                                             <View
-                                                style={{
-                                                    height: vh(20),
-                                                    width: vw(20),
-                                                    borderRadius: vw(10),
-                                                    borderWidth: normalize(2),
-                                                    borderColor: Colors.fadeBorder,
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                }}
+                                                style={Styles.groupContainerSingle}
                                             >
                                                 {choice.default && (
                                                     <View
-                                                        style={{
-                                                            height: vh(12),
-                                                            width: vw(12),
-                                                            borderRadius: vw(6),
-                                                            backgroundColor: Colors.bodyColor,
-                                                        }}
+                                                        style={Styles.choiceContainer}
                                                     />
                                                 )}
                                             </View>
                                         ) : (
-                                            <View
-                                                style={{
-                                                    height: vh(20),
-                                                    width: vw(20),
-                                                    borderWidth: normalize(2),
-                                                    borderColor: Colors.fadeBorder,
-                                                    backgroundColor: choice.default
-                                                        ? Colors.bodyColor
-                                                        : Colors.bodyColor,
-                                                }}
-                                            />
+                                            <View style={[Styles.groupContainerBox, {
+                                                backgroundColor: choice.default
+                                                    ? Colors.bodyColor
+                                                    : Colors.bodyColor,
+                                            }]} />
                                         )}
                                     </TouchableOpacity>
                                 ))
@@ -237,7 +203,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                         </View>
                     ))}
                 </ScrollView>
-                <View style={[Styles.BottomCartContainer, { bottom: 0 }]}>
+                <View style={Styles.BottomCartContainer}>
                     <BottomCart ButtonType={Strings.AddToCart.toUpperCase()} navLink={Strings.CartScreen} totalAmount={0} discount={0} />
                 </View>
             </View>
@@ -245,7 +211,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
             height: '100%',
@@ -361,6 +327,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             borderBottomWidth: normalize(1),
             borderColor: Colors.fadeBorder,
         },
+        groupContainerSingle: {
+            height: vh(20),
+            width: vw(20),
+            borderRadius: vw(10),
+            borderWidth: normalize(2),
+            borderColor: Colors.fadeBorder,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        groupContainerBox: {
+            height: vh(20),
+            width: vw(20),
+            borderWidth: normalize(2),
+            borderColor: Colors.fadeBorder,
+
+        },
+        choiceContainer: {
+            height: vh(12),
+            width: vw(12),
+            borderRadius: vw(6),
+            backgroundColor: Colors.bodyColor,
+        },
         groupButton: {
             paddingVertical: normalize(14),
             paddingHorizontal: vw(20),
@@ -372,7 +360,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             color: Colors.timerFadeText
         },
         cursolContainer: {
-            marginTop : vh(30),
+            marginTop: vh(30),
             height: vh(400),
             width: '100%'
         },
@@ -446,12 +434,33 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             marginHorizontal: vw(20),
             borderRadius: normalize(6),
         },
+        choiceFlex: {
+            flex: 1
+        },
+        choiceText: {
+            fontSize: normalize(14),
+            fontFamily: Fonts.font17,
+            color: Colors.textBlack,
+        },
+        choiceText2: {
+            fontSize: normalize(12),
+            fontFamily: Fonts.font17,
+            color: Colors.textFadeBlack,
+            marginTop: normalize(2),
+        },
+        choiceText3: {
+            fontSize: normalize(16),
+            fontFamily: Fonts.font18,
+            marginHorizontal: vw(20),
+            marginBottom: normalize(10),
+        },
         BottomCartContainer: {
             width: '100%',
             height: vh(110),
             backgroundColor: Colors.bodyColor,
             position: 'absolute',
             left: 0,
+            bottom : 0 , 
             zIndex: 2,
             shadowColor: Colors.blueShadows,
             shadowOffset: { width: 0, height: vh(0) },

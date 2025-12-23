@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TouchableWithoutFeedback, Keyboard, FlatList, Animated, Platform } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -17,14 +17,15 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function SearchPage({ searchTerm }: SearchPageProps) {
     const Colors = useThemeColors();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const Strings = useStrings()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [searchResult, setSearchResult] = useState<menuDataType[]>([])
     const menuData = useSelector((state: RootState) => state.menuData)
-    const menuItems = menuData?.menuData ?? []
+    const menuItems = useMemo(() => menuData?.menuData ?? [], [menuData])
     const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
     useEffect(() => {
+
         if (debounceRef.current) {
             clearTimeout(debounceRef.current)
         }
@@ -49,7 +50,7 @@ export default function SearchPage({ searchTerm }: SearchPageProps) {
     }, [searchTerm, menuItems])
     const distanceFromKeyboard = useRef<Animated.Value>(new Animated.Value(0)).current
     const scaleRef = useRef<Animated.Value>(new Animated.Value(0)).current
-    const startAnimation = (value: number, scaleTo: number): void => {
+    const startAnimation = useCallback((value: number, scaleTo: number): void => {
         Animated.parallel([
             Animated.timing(distanceFromKeyboard, {
                 toValue: value,
@@ -62,9 +63,9 @@ export default function SearchPage({ searchTerm }: SearchPageProps) {
                 useNativeDriver: true
             })
         ]).start()
-    }
-    const showEvent = Platform.OS == 'ios' ? 'keyboardWillShow' : 'keyboardDidShow'
-    const hideEvent = Platform.OS == 'ios' ? 'keyboardWillHide' : 'keyboardDidHide'
+    },[scaleRef , distanceFromKeyboard])
+    const showEvent = Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow'
+    const hideEvent = Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide'
     useEffect((): (() => void) | void => {
         const showSub = Keyboard.addListener(showEvent, e => {
             startAnimation(-e.endCoordinates.height + 170, 1)
@@ -76,7 +77,7 @@ export default function SearchPage({ searchTerm }: SearchPageProps) {
             showSub.remove()
             hideSub.remove()
         }
-    }, [])
+    }, [showEvent, hideEvent, startAnimation])
 
     return (
         <View style={Styles.parent}>
@@ -146,7 +147,7 @@ export default function SearchPage({ searchTerm }: SearchPageProps) {
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
             flex: 1

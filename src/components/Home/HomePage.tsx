@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Platform, Animated, RefreshControl, BackHandler, Alert } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Svg, { Polygon } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -30,7 +30,7 @@ export default function HomePage() {
   const [refreshing, setRefreshing] = React.useState(false);
   const Colors = useThemeColors()
   const Strings = useStrings()
-  const Styles = createDynamicStyles(Colors, Fonts);
+  const Styles = createDynamicStyles(Colors);
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const drawerNavigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
@@ -49,25 +49,25 @@ export default function HomePage() {
   ]
   // fade animation 
   const fadeAnimation = useRef<Animated.Value>(new Animated.Value(0)).current
-  const FadeIn = (): void => {
+  const FadeIn = useCallback((): void => {
     fadeAnimation.setValue(0);
     Animated.timing(fadeAnimation, {
       toValue: 1,
       duration: 600,
       useNativeDriver: true
     }).start()
-  }
+  }, [fadeAnimation])
   const [imageIndex, setImageIndex] = useState<number>(0);
   const imageSet = [Images.Home_Page_Main_Image, Images.ChickenBox, Images.ChickenNuget, Images.BurgerPNG]
   useEffect((): (() => void | void) => {
     const interval = setTimeout((): void => {
-      setImageIndex(prev => prev < 3 ? prev + 1 : 0)
+      setImageIndex(prev => prev < imageSet.length ? prev + 1 : 0)
     }, 2500);
     FadeIn()
     return () => {
       clearTimeout(interval)
     }
-  }, [imageIndex])
+  }, [imageIndex, FadeIn , imageSet.length])
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     dispatch(fetchMenu())
@@ -75,7 +75,7 @@ export default function HomePage() {
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     const backAction = (): boolean => {
       Alert.alert(Strings.confirmToExitApp, Strings.confirmToExtDescription, [
@@ -92,7 +92,7 @@ export default function HomePage() {
       'hardwareBackPress',
       backAction)
     return () => subscription.remove()
-  }, [])
+  }, [Strings.cancel, Strings.confirmToExitApp, Strings.confirmToExtDescription])
   return (
     <View style={Styles.ParentContaine}>
       <View style={Styles.menuButtonContainer}>
@@ -100,7 +100,7 @@ export default function HomePage() {
           activeOpacity={.5}
           onPress={() => { drawerNavigation.toggleDrawer() }}
         >
-          <Image source={Images.Menu} style={[Styles.menuIcon, { top: inset.top }, Platform.OS == 'android' && Styles.AndroidHeight]} />
+          <Image source={Images.Menu} style={[Styles.menuIcon, { top: inset.top }, Platform.OS === 'android' && Styles.AndroidHeight]} />
         </TouchableOpacity>
       </View>
       <ScrollView
@@ -111,7 +111,7 @@ export default function HomePage() {
         <View style={Styles.gradientBg}>
           <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} />
         </View>
-        <View style={[Styles.ImagesAndAddressContainer, Platform.OS == 'android' && Styles.AndroidHeight]}>
+        <View style={[Styles.ImagesAndAddressContainer, Platform.OS === 'android' && Styles.AndroidHeight]}>
           <TouchableOpacity
             onPress={() => navigation.navigate(Strings.SplashScreen)}
           >
@@ -159,7 +159,7 @@ export default function HomePage() {
           <View style={Styles.IndexContainer}>
             {imageSet.map((_, idx) => (
               <View key={idx}
-                style={[Styles.Index, idx == imageIndex && Styles.fillIndex]} />
+                style={[Styles.Index, idx === imageIndex && Styles.fillIndex]} />
             ))}
           </View>
           <View style={Styles.AddressContainer}>
@@ -269,7 +269,7 @@ export default function HomePage() {
               <Text style={Styles.ExploreHeaderViewAll}>{Strings.viewAll.toUpperCase()} </Text>
             </View>
             <ScrollView style={Styles.CardsContainer} horizontal showsHorizontalScrollIndicator={false}>
-              {menuData?.loading != 'Success' ? (
+              {menuData?.loading !== 'Success' ? (
                 <Text>{Strings.loading}</Text>
               ) : (
                 <>
@@ -335,7 +335,7 @@ export default function HomePage() {
     </View>
   )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
   const Styles = StyleSheet.create({
     ParentContaine: {
       backgroundColor: Colors.bodyColor,

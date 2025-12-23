@@ -1,5 +1,4 @@
 import React from 'react'
-
 // navigation
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
@@ -47,7 +46,7 @@ const Drawer = createDrawerNavigator()
 function StackNavigator() {
     const Strings = useStrings()
     return (
-        <Stack.Navigator initialRouteName={Strings.ReAnimatedScreen} screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName={Strings.HomeScreen} screenOptions={{ headerShown: false }}>
             <Stack.Screen
                 name={Strings.SplashScreen}
                 component={SplashScreen}
@@ -202,14 +201,14 @@ function StackNavigator() {
         </Stack.Navigator>
     )
 }
-
+const DrawerContent = () => <SideBarScreen />;
 export default function AppNavigation() {
     return (
         <GestureHandlerRootView>
             <NavigationContainer>
                 <Drawer.Navigator
                     screenOptions={{ headerShown: false, drawerPosition: 'left', }}
-                    drawerContent={(props) => <SideBarScreen />}
+                    drawerContent={DrawerContent}
                 >
                     <Drawer.Screen name='Main' component={StackNavigator} />
                 </Drawer.Navigator>

@@ -12,154 +12,154 @@ const FontsScreen = () => {
     return (
         <SafeAreaView >
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.headerRegular }}>
+                style={[Styles.text, { fontFamily: Fonts.headerRegular }]}>
                 Login to unlock 10 , 100 (header Regular)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.exp }}>
+                style={[Styles.text, { fontFamily: Fonts.exp }]}>
                 KFC   10 , 100  (exp )
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.firstPageCUrsuve }}>
+                style={[Styles.text, { fontFamily: Fonts.firstPageCUrsuve }]}>
                 It's finger likin' good  10 , 100
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.subHeader }}>
+                style={[Styles.text, { fontFamily: Fonts.subHeader }]}>
                 CUSTOMIZED  10 , 100  (subHeader)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.bodyBoldFot }}>
+                style={[Styles.text, { fontFamily: Fonts.bodyBoldFot }]}>
                 Twister BBQ Box  10 , 100 (bodyBoldFot)
             </Text>
             <Text
-                style={{ fontSize: 20, }}>
+                style={Styles.text}>
                 Twister BBQ Box  10 , 100 (no font)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font1 }}>
+                style={[Styles.text, { fontFamily: Fonts.font1 }]}>
                 Twister BBQ Box  10 , 100 (font1)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font2 }}>
+                style={[Styles.text, { fontFamily: Fonts.font2 }]}>
                 Twister BBQ Box  10 , 100 (font2)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font3 }}>
+                style={[Styles.text, { fontFamily: Fonts.font3 }]}>
                 Twister BBQ Box  10 , 100 (font3)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font4 }}>
+                style={[Styles.text, { fontFamily: Fonts.font4 }]}>
                 Twister BBQ Box  10 , 100 (font4)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.expHead }}>
+                style={[Styles.text, { fontFamily: Fonts.expHead }]}>
                 KFC  10 , 100 (expHead)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font6 }}>
+                style={[Styles.text, { fontFamily: Fonts.font6 }]}>
                 Twister BBQ Box  10 , 100 (font6)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font7 }}>
+                style={[Styles.text, { fontFamily: Fonts.font7 }]}>
                 Twister BBQ Box  10 , 100 (font7)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font9, fontWeight: 700 }}>
+                style={[Styles.text, { fontFamily: Fonts.font9, }]}>
                 Finger Licling  10 , 100 (font9)
             </Text>
             <Text
-                style={{ fontSize: 20, }}>
+                style={Styles.text}>
                 Finger Licling  10 , 100 (no font)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font10, fontWeight: 600 }}>
+                style={[Styles.text, { fontFamily: Fonts.font10 }]}>
                 FOR SHARING  10 , 100 (font10)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font11 }}>
+                style={[Styles.text, { fontFamily: Fonts.font11 }]}>
                 Twister BBQ Box  10 , 100 (font11)
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font8 }}>
+                style={[Styles.text, { fontFamily: Fonts.font8 }]}>
                 Twister BBQ Box  10 , 100 (font8)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20, }}>
+                style={{}}>
                 Twister BBQ Box  10 , 100 (no fonts)
             </Text>
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font12 }}>
+                style={[Styles.text, { fontFamily: Fonts.font12 }]}>
                 Twister BBQ Box  10 , 100 (font12)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font13 }}>
+                style={[Styles.text, { fontFamily: Fonts.font13 }]}>
                 Twister BBQ Box  10 , 100 (font13)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font14 }}>
+                style={[Styles.text, { fontFamily: Fonts.font14 }]}>
                 Twister BBQ Box  10 , 100 (font14)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font15 }}>
+                style={[Styles.text, { fontFamily: Fonts.font15 }]}>
                 Twister BBQ Box  10 , 100 (font15)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font16 }}>
+                style={[Styles.text, { fontFamily: Fonts.font16 }]}>
                 Twister BBQ Box  10 , 100 (font16)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font17 }}>
+                style={[Styles.text, { fontFamily: Fonts.font17 }]}>
                 Twister BBQ Box  10 , 100 (font17)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font18 }}>
+                style={[Styles.text, { fontFamily: Fonts.font18 }]}>
                 Twister BBQ Box  10 , 100 (font18)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font19 }}>
+                style={[Styles.text, { fontFamily: Fonts.font19 }]}>
                 Twister BBQ Box  10 , 100 (font19)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font20 }}>
+                style={[Styles.text, { fontFamily: Fonts.font20 }]}>
                 Twister BBQ Box  10 , 100 (font20)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontSize: 20, fontFamily: Fonts.font21 }}>
+                style={{ fontFamily: Fonts.font21 }}>
                 Twister BBQ Box  10 , 100 (font21)
             </Text>
             <View style={Styles.divider} />
@@ -186,6 +186,9 @@ const Styles = StyleSheet.create({
         height: vh(1),
         borderTopColor: '#000000',
         borderTopWidth: normalize(1)
+    },
+    text: {
+        fontSize: normalize(20),
     }
 })
 export default FontsScreen

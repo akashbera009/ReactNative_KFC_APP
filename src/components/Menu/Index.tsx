@@ -1,5 +1,5 @@
 import { View, StyleSheet, Image, Text, TouchableOpacity, ScrollView, Animated, Keyboard, BackHandler } from 'react-native'
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -23,7 +23,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const Colors = useThemeColors()
     const Strings = useStrings()
     const inset = useSafeAreaInsets()
-    const Styles = createDynamicStyles(Colors, Fonts)
+    const Styles = createDynamicStyles(Colors)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const dispatch = useAppDispatch()
     useEffect((): void => {
@@ -35,8 +35,8 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const cartItem: CartItemType[] = cartData?.cartItems
     const menuItem: menuDataType[] = menuData?.menuData
     const iSFavouriteMenuArray: string[] = iSFavouriteMenuData?.favorites
-    const category: string[] = [...(menuItem.map((item) => item.categories).flat(1))].sort()
-    const categorySet: string[] = [...new Set<string>([...category])];
+    const categoryArr: string[] = [...(menuItem.map((item) => item.categories).flat(1))].sort()
+    const categorySet: string[] = [...new Set<string>([...categoryArr])];
     const frequencyMap: Map<string, number> = new Map();
     const [activeCategory, setActiveCategory] = useState<string>(categoryType);
     //search
@@ -47,23 +47,23 @@ const Index = ({ categoryType }: { categoryType: string }) => {
         categorySet.splice(1, 0, 'Favourites')
         frequencyMap.set('Favourites', iSFavouriteMenuArray?.length)
     }
-    for (const element of category) {
-        frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
+    for (const cat of categoryArr) {
+        frequencyMap.set(cat, (frequencyMap.get(cat) || 0) + 1);
     }
     const frequencyArray: CategoryFrequency[] = Array.from(frequencyMap, ([category, count]) => ({ category, count }));
     const slideUp = useRef<Animated.Value>(new Animated.Value(0)).current;
-    const handleslideUp = (): void => {
+    const handleslideUp = useCallback((): void => {
         Animated.timing(slideUp, {
             toValue: 1,
             duration: 200,
             useNativeDriver: true
         }).start()
-    }
+    }, [slideUp])
     useEffect((): void => {
         if (cartItem.length > 0) {
             handleslideUp();
         }
-    }, [cartItem.length])
+    }, [cartItem.length, handleslideUp])
     const slideInRef = useRef<Animated.Value>(new Animated.Value(0)).current
     const searchBarSlideDown = (): void => {
         Animated.timing(slideInRef, {
@@ -72,13 +72,13 @@ const Index = ({ categoryType }: { categoryType: string }) => {
             useNativeDriver: true
         }).start()
     }
-    const searchBarSlideUp = (): void => {
+    const searchBarSlideUp = useCallback((): void => {
         Animated.timing(slideInRef, {
             toValue: 0,
             duration: 300,
             useNativeDriver: true
         }).start()
-    }
+    },[slideInRef])
     const toggleSearch = async (): Promise<void> => {
         if (searchActive) {
             searchBarSlideUp()
@@ -103,7 +103,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
             backAction,
         );
         return () => backHandler.remove();
-    }, [searchActive]);
+    }, [searchActive, searchBarSlideUp]);
 
     return (
         <View style={Styles.ParentContaienr}>
@@ -152,7 +152,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                     />
                     <TouchableOpacity
                         onPress={() => {
-                            if (searchTerm != '')
+                            if (searchTerm !== '')
                                 setSearchTerm('')
                             else
                                 toggleSearch()
@@ -180,22 +180,22 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                             <Image source={Images.Foood_Menu_Icon} style={Styles.menuIcon} />
                         </TouchableOpacity>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                            {categorySet.map((category) => (
+                            {categorySet.map((cat) => (
                                 <TouchableOpacity
-                                    key={category}
+                                    key={cat}
                                     style={[
                                         Styles.categoryContainer,
-                                        activeCategory === category && Styles.ActiveBorder
+                                        activeCategory === cat && Styles.ActiveBorder
                                     ]}
-                                    onPress={() => setActiveCategory(category)}
+                                    onPress={() => setActiveCategory(cat)}
                                 >
                                     <Text
                                         style={[
                                             Styles.categoryContainerText,
-                                            activeCategory === category && Styles.ActiveText
+                                            activeCategory === cat && Styles.ActiveText
                                         ]}
                                     >
-                                        {category}
+                                        {cat}
                                     </Text>
                                 </TouchableOpacity>
                             ))}
@@ -225,7 +225,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         ParentContaienr: {
             backgroundColor: Colors.bodyColor,

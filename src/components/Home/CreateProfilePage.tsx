@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TextInput, Image, TouchableWithoutFeedback, Keyboard, TouchableOpacity, KeyboardAvoidingView, Platform, RefreshControl, ScrollView } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, TextInput, Image, TouchableWithoutFeedback, Keyboard, TouchableOpacity, Platform, RefreshControl } from 'react-native'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -22,7 +22,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const Colors = useThemeColors()
     const Strings = useStrings()
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
@@ -57,22 +57,10 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const [selectedImage, setSelectedImage] = useState<string | undefined>(currentUser?.avatar)
     const [refreshing, setRefreshing] = React.useState<boolean>(false);
     const [imageLoading, setImageLoading] = React.useState<boolean>(false);
-    useEffect((): void => {
-        checkGoodToLogin();
-        handleShowWarningEmail();
-        handleShowWarningName();
-        showTopEmailPlaceHolder();
-        showTopNamePlaceHolder();
-    }, [email, name])
-    const handleCheckGmail = (): boolean | undefined => {
+
+    const handleCheckGmail = useCallback((): boolean | undefined => {
         return (email?.endsWith('.com') && email?.includes('@'))
-    }
-    const checkGoodToLogin = (): void => {
-        if (name?.trim() !== '' && handleCheckGmail())
-            setGoodToLogin(true)
-        else
-            setGoodToLogin(false)
-    }
+    },[email])
     const handleChangeEmail = (text: string): void => {
         setEmail(text)
         setIsTouchedEmail(true)
@@ -81,6 +69,12 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         setName(text)
         setIsTouchedName(true)
     }
+    const checkGoodToLogin = useCallback((): void => {
+        if (name?.trim() !== '' && handleCheckGmail())
+            setGoodToLogin(true)
+        else
+            setGoodToLogin(false)
+    }, [handleCheckGmail , name])
     const handleSave = (): void => {
         if (!goodToLogin) return;
         if (existingUser) {
@@ -112,7 +106,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
             navigation.navigate(Strings.HomeScreen);
         }, 20000);
     }
-    const handleShowWarningEmail = (): void => {
+    const handleShowWarningEmail = useCallback((): void => {
         if (
             isTouchedEmail &&
             (email === '' || !handleCheckGmail())
@@ -121,29 +115,36 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         } else {
             setShowWarningEmail(false)
         }
-    }
-    const handleShowWarningName = (): void => {
+    }, [handleCheckGmail , isTouchedEmail, email])
+    const handleShowWarningName = useCallback((): void => {
         if (isTouchedName && name === '') {
             setShowWarningName(true)
         } else {
             setShowWarningName(false)
         }
-    }
-    const showTopEmailPlaceHolder = (): void => {
+    }, [isTouchedName, name])
+    const showTopEmailPlaceHolder = useCallback((): void => {
         if (isTouchedEmail && email !== '')
             setShowTopgEmail(true)
         else
             setShowTopgEmail(false)
-    }
-    const showTopNamePlaceHolder = (): void => {
+    }, [isTouchedEmail, email])
+    const showTopNamePlaceHolder = useCallback((): void => {
         if (isTouchedName && name !== '')
             setShowTopName(true)
         else
             setShowTopName(false)
-    }
+    }, [isTouchedName, name])
+    useEffect((): void => {
+        checkGoodToLogin();
+        handleShowWarningEmail();
+        handleShowWarningName();
+        showTopNamePlaceHolder();
+        showTopEmailPlaceHolder();
+    }, [checkGoodToLogin, handleShowWarningEmail, handleShowWarningName, showTopNamePlaceHolder, showTopEmailPlaceHolder])
     const openImagePicker = async (): Promise<void> => {
         try {
-            if (Platform.OS == 'android') {
+            if (Platform.OS === 'android') {
                 const pickResult = await launchImageLibrary({
                     mediaType: 'photo',
                     selectionLimit: 1,
@@ -202,7 +203,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         setTimeout(() => {
             setRefreshing(false);
         }, 1000);
-    }, []);
+    }, [dispatch]);
     return (
         <View style={Styles.parentBackground}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -240,7 +241,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                         <TouchableOpacity
                                             onPress={openImagePicker}
                                             style={Styles.ImageContainer}>
-                                            {selectedImage != '' ? (
+                                            {selectedImage !== '' ? (
                                                 <Image source={{ uri: selectedImage }} style={Styles.profileImage} />
                                             ) : (
                                                 <Image source={Images.Camera} style={Styles.CameraImage} />
@@ -295,7 +296,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                     <Text style={Styles.placeHolderTopText}>{Strings.email.toUpperCase() + '*'} </Text>
                                 )}
                                 <View style={Styles.EmailAndWarning} >
-                                    {userdata?.loading != 'success' ? (
+                                    {userdata?.loading !== 'success' ? (
                                         <Text>{Strings.loading}</Text>
                                     ) : (
                                         <TextInput
@@ -331,7 +332,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parentBackground: {
             flex: 1,

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Animated, TouchableOpacity, Image, TouchableWithoutFeedback, ScrollView } from 'react-native'
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -16,11 +16,11 @@ export default function CountrySelectionBottomSheet() {
   const fade = useRef<Animated.Value>(new Animated.Value(0)).current;
   const Colors = useThemeColors()
   const Strings = useStrings()
-  const Styles = createDynamicStyles(Colors, Fonts)
+  const Styles = createDynamicStyles(Colors)
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { countrySelected, setCountrySelected } = useCountry();
-  const slideUp = (): void => {
+  const slideUp = useCallback((): void => {
     Animated.parallel([
       Animated.timing(slide, {
         toValue: 0,
@@ -33,7 +33,7 @@ export default function CountrySelectionBottomSheet() {
         useNativeDriver: true,
       })
     ]).start();
-  };
+  }, [slide, fade])
   const slideDown = (): void => {
     Animated.parallel([
       Animated.timing(slide, {
@@ -56,7 +56,7 @@ export default function CountrySelectionBottomSheet() {
   };
   useEffect(() => {
     slideUp();
-  }, []);
+  }, [slideUp]);
   return (
     <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
       <TouchableWithoutFeedback onPress={closeModal}>
@@ -86,13 +86,13 @@ export default function CountrySelectionBottomSheet() {
                     <Image source={country?.flag} style={Styles.FlagIcon} />
                     <View style={Styles.CountryEntriesRight}>
                       <Text style={Styles.CountryName}>{country?.name}</Text>
-                      {countrySelected?.code == country?.code && (
+                      {countrySelected?.code === country?.code && (
                         <Text style={Styles.needToHaveLocalNumber}>{Strings.needToHaveLocalNumber}</Text>
                       )}
                     </View>
                   </View>
                   <View style={Styles.CheckBox}>
-                    {countrySelected?.code == country?.code && (
+                    {countrySelected?.code === country?.code && (
                       <View style={Styles.CheckBoxSelected} />
                     )}
                   </View>
@@ -110,7 +110,7 @@ export default function CountrySelectionBottomSheet() {
     </Animated.View >
   )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
 
   const Styles = StyleSheet.create({
     backDrop: {
@@ -171,7 +171,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     countryDescription: {
       width: "90%",
       alignSelf: 'center',
-      fontFamily: Fonts.fon16,
+      fontFamily: Fonts.font16,
       fontSize: normalize(17),
       textAlign: 'center',
       color: Colors.textFadeBlack,

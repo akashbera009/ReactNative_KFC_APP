@@ -12,13 +12,12 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 import Svg, { Circle } from 'react-native-svg';
-import GestureHandler from './GestureHandler';
 const { width } = Dimensions.get('window')
 export default function ReAnimated() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     // animation 
     const aniWidth = useSharedValue(100)
@@ -129,7 +128,7 @@ export default function ReAnimated() {
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
             height: '100%',
@@ -174,7 +173,8 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             paddingHorizontal: vw(10),
             paddingVertical: vh(6),
             color: Colors.constantWhite,
-            borderRadius: normalize(10)
+            borderRadius: normalize(10),
+            fontFamily : Fonts.font18
         },
         firstBox: {
             backgroundColor: Colors.ButtonBlueColor,

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -11,13 +11,13 @@ import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
-import { DesignWidth, normalize, vh, vw } from '../../utils/Dimensions';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function GestureHandler() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     // animation 
     const isPressed = useSharedValue(false);
@@ -43,7 +43,7 @@ export default function GestureHandler() {
                 y: e.translationY + start.value.y
             }
         })
-        .onEnd((e) => {
+        .onEnd(() => {
             start.value = {
                 x: offset.value.x,
                 y: offset.value.y
@@ -65,7 +65,7 @@ export default function GestureHandler() {
                 position.value = END_POSITION + e.translationX;
             }
         })
-        .onEnd((e) => {
+        .onEnd(() => {
             if (position.value > END_POSITION / 2) {
                 position.value = withTiming(END_POSITION, { duration: 100 });
                 onLeft.value = false;
@@ -141,7 +141,7 @@ export default function GestureHandler() {
         </View>
     );
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
             height: '100%',

@@ -1,23 +1,22 @@
 import { StyleSheet, Text, View, Animated, TouchableOpacity, TouchableWithoutFeedback, Image } from 'react-native'
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // utils files 
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useStrings } from '../../utils/Strings';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 
-
 export default function CouponAppliedPopUp() {
     const Colors = useThemeColors()
-    const Styles = createDynamicStyles(Colors, Fonts)
+    const Styles = createDynamicStyles(Colors)
     const Strings = useStrings()
     const slide = useRef(new Animated.Value(500)).current;
     const fade = useRef(new Animated.Value(0)).current;
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const slideUp = (): void => {
+    const slideUp = useCallback((): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -30,7 +29,7 @@ export default function CouponAppliedPopUp() {
                 useNativeDriver: true,
             })
         ]).start();
-    };
+    }, [slide , fade])
     const slideDown = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -51,10 +50,17 @@ export default function CouponAppliedPopUp() {
             navigation.pop();
         }, 400);
     };
-    setTimeout((): void => { navigation.pop() }, 1500);
+    useEffect((): ()=> void | void => {
+        const timer = setTimeout(() => {
+            navigation.pop();
+        }, 1500);
+
+        return () => clearTimeout(timer);
+    }, [navigation]);
+
     useEffect((): void => {
         slideUp();
-    }, []);
+    }, [slideUp]);
     return (
         <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
             <TouchableWithoutFeedback onPress={closeModal}>
@@ -85,7 +91,7 @@ export default function CouponAppliedPopUp() {
         </Animated.View>
     )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         backDrop: {
             backgroundColor: Colors.HyperTransparent,

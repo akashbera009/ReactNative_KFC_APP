@@ -19,7 +19,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
     // amount calculations  
@@ -75,7 +75,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                                 </View>
                                 <Text style={Styles.date}>{order?.date} </Text>
                             </View>
-                            {order?.status == Strings.beingPreparedString ? (
+                            {order?.status === Strings.beingPreparedString ? (
                                 <TouchableOpacity
                                     style={Styles.trackButton}
                                     onPress={() => navigation.push(Strings.TrackOrderScreen, {
@@ -131,10 +131,10 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
                                 <View style={Styles.RightContainer}>
                                     <Text style={Styles.FoodName}>{item.name}</Text>
                                     <View style={Styles.DescriptionContainer}>
-                                        {item?.description.map((item, idx) => (
-                                            <View key={idx} style={Styles.DotAndDescription}>
+                                        {item?.description.map((i, indx) => (
+                                            <View key={indx} style={Styles.DotAndDescription}>
                                                 <View style={Styles.dot} />
-                                                <Text style={Styles.DescriptioText}>{item}</Text>
+                                                <Text style={Styles.DescriptioText}>{i}</Text>
                                             </View>
                                         ))}
                                     </View>
@@ -164,7 +164,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
             backgroundColor: Colors.bodyColor,

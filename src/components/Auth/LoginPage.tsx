@@ -19,7 +19,7 @@ export default function LoginPage() {
   const Strings = useStrings()
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const Styles = createDynamicStyles(Colors, Fonts);
+  const Styles = createDynamicStyles(Colors);
   const { language, setLanguage } = useLanguage()
   const { countrySelected } = useCountry();
   return (
@@ -73,7 +73,7 @@ export default function LoginPage() {
                 onPress={() => setLanguage('en')}
                 style={[Styles.checkBox]}
               >
-                {language == 'en' && (
+                {language === 'en' && (
                   <View style={Styles.TickMarkImageContainer}>
                     <Image source={Images.Tick_Mark} style={[Styles.tickMark]} />
                   </View>
@@ -87,7 +87,7 @@ export default function LoginPage() {
                 onPress={() => setLanguage('ar')}
                 style={[Styles.checkBox]}
               >
-                {language == 'ar' && (
+                {language === 'ar' && (
                   <View style={Styles.TickMarkImageContainer}>
                     <Image source={Images.Tick_Mark} style={[Styles.tickMark]} />
                   </View>
@@ -124,7 +124,7 @@ export default function LoginPage() {
     </View >
   )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
   const Styles = StyleSheet.create({
     parentBackground: {
       height: '100%',
