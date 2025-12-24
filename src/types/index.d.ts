@@ -29,8 +29,56 @@ type RootStackParamList = {
   HelpScreen: undefined
   LoginPageCountryBottomSheetScreen: undefined
   ReAnimatedScreen: undefined
-  GestureScreen : undefined
+  GestureScreen: undefined
 }
 type RootDrawerParamList = {
   Main: undefined;
 }
+
+
+type AuthStackParamList = {
+  LoginScreen: undefined;
+  LoginScreen2: undefined;
+  OTPScreen: { phoneNo: string };
+  CreateProfileScreen: { phoneNo: string };
+};
+
+type AppStackParamList = {
+  HomeScreen: undefined;
+  SearchScreen: undefined;
+  ExploreMenuScreen: { categoryType: string };
+  MenuCategorizeScreen: {
+    activeCategory: string;
+    frequencyArray: CategoryFrequency[];
+  };
+  FoodCustomizationScreen: { foodItem: menuDataType };
+  CartScreen: undefined;
+  CheckOutScreen: { totalAmount: number; discount: number };
+  OrderStatusScreen: OrderStatusPageProps;
+  TrackOrderScreen: {
+    currentOrder: OrderHistory | null;
+    orderId?: string;
+    GrandTotal: number;
+  };
+  OrderHistoryScreens: undefined;
+  OrderDetailsScreen: { order: OrderHistory | null };
+};
+
+type ModalStackParamList = {
+  ChangeLocationBottomSheetScreen: undefined;
+  RemoveCartItemBottomSheetScreen: RemoveCartItemProps;
+  OfferAppliedScreen: undefined;
+  PaymentModalScreen: { amount: number };
+  CommonPopUpScreen: { header: string; message: string };
+  PopUpScreens: undefined;
+  LoginPageCountryBottomSheetScreen: undefined;
+};
+type RootStackParamList2 = {
+  Splash: undefined;
+  Auth: undefined;
+  App: undefined;
+  Modal: {
+    screen: keyof ModalStackParamList;
+    params?: any;
+  };
+};

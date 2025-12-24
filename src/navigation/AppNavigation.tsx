@@ -39,6 +39,7 @@ import CommonPopUpScreen from '../screens/CommonPopUpScreen';
 import TermsAndConditionsScreen from '../screens/TermsAndConditionsScreen';
 import ReAnimatedScreen from '../screens/ReAnimatedScreen';
 import GestureScreen from '../screens/GestureScreen';
+import { normalize } from '../utils/Dimensions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -197,6 +198,28 @@ function StackNavigator() {
             <Stack.Screen
                 name={Strings.GestureScreen}
                 component={GestureScreen}
+
+                options={{
+                    // presentation : 'fullScreenModal',
+                    // presentation : 'containedModal'
+                    // presentation : 'modal'
+
+                    // presentation :'formSheet',
+                    // headerShown : false,
+                    // sheetAllowedDetents : [.25 , 0.50 , .75],
+                    // sheetInitialDetentIndex : 2,
+                    // sheetCornerRadius : normalize(10),
+                    // sheetGrabberVisible : true, /// ios ,
+                    // sheetLargestUndimmedDetentIndex : 0,
+
+
+                    gestureEnabled: false,
+                    // animationDuration : 1000,
+                    // animation : 'slide_from_bottom',
+                    // animation:'simple_push',
+                    // gestureDirection : 'vertical'
+                    // statusBarHidden:
+                }}
             />
         </Stack.Navigator>
     )
@@ -207,10 +230,25 @@ export default function AppNavigation() {
         <GestureHandlerRootView>
             <NavigationContainer>
                 <Drawer.Navigator
-                    screenOptions={{ headerShown: false, drawerPosition: 'left', }}
+                    screenOptions={{
+                        headerShown: false,
+                        drawerPosition: 'left',
+                        drawerType: 'front',
+                        swipeEnabled: false
+                    }}
                     drawerContent={DrawerContent}
                 >
-                    <Drawer.Screen name='Main' component={StackNavigator} />
+                    <Drawer.Screen
+                        name='Main'
+                        component={StackNavigator}
+                        listeners={({ navigation }) => ({
+                            drawerItemPress: (e) => {
+                                e.preventDefault();
+                                console.log('Drawer item pressed');
+                                navigation.navigate('SomeScreen');
+                            },
+                        })}
+                    />
                 </Drawer.Navigator>
             </NavigationContainer>
         </GestureHandlerRootView>

@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 //  gesture 
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring} from 'react-native-reanimated';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -23,19 +23,17 @@ export default function GestureHandler() {
     const isPressed = useSharedValue(false);
     const offset = useSharedValue({ x: 0, y: 0 });
     const start = useSharedValue({ x: 0, y: 0 })
+
     const animatedStyles = useAnimatedStyle(() => ({
         transform: [
             { translateX: offset.value.x },
-            { translateY: offset.value.y },
-            { scale: withSpring(isPressed.value ? 1.2 : 1) },
-        ],
-        backgroundColor: isPressed.value ? 'yellow' : 'blue',
+            { translateY: offset.value.y }],
+        backgroundColor: isPressed.value ? 'blue' : 'yellow'
     }))
-
     // pan gesture 
     const panGesture = Gesture.Pan()
-        .onBegin(() => {
-            isPressed.value = true
+        .onStart(() => {
+            isPressed.value = true;
         })
         .onUpdate((e) => {
             offset.value = {
@@ -52,31 +50,57 @@ export default function GestureHandler() {
         .onFinalize(() => {
             isPressed.value = false
         })
+        .onChange(() => {
+            console.log('changning ');
+
+        })
+        // .minPointers(2)
+        // .activateAfterLongPress(300)
+        // .activeOffsetX(20)
+        // .failOffsetX(100)
+        // .failOffsetY([-20, 20])
+        // .activeOffsetY([-Infinity, Infinity])
+        .enabled(true)
+        .shouldCancelWhenOutside(false)
+        .cancelsTouchesInView(true)
+    // .hitSlop({
+    //     height :150 , 
+    //     top : 150 , 
+    //     // bottom : 150 , 
+    //     // width : 30 , 
+    //     // left : 15 , 
+    // })
+
 
     // simple pan gesture 
-    const position = useSharedValue(0)
     const onLeft = useSharedValue(true)
+    const position = useSharedValue(0)
     const END_POSITION = 200
+    const eitherSideStyle = useAnimatedStyle(() => ({
+        transform: [
+            { translateX: position.value }
+        ],
+        backgroundColor: onLeft.value ? 'blue' : 'green'
+    }))
     const panGesture2 = Gesture.Pan()
         .onUpdate((e) => {
-            if (onLeft.value) {
-                position.value = e.translationX;
-            } else {
-                position.value = END_POSITION + e.translationX;
-            }
+            console.log(onLeft.value);
+            if (onLeft.value)
+                position.value = e.translationX
+            else
+                position.value = e.translationX + END_POSITION
         })
         .onEnd(() => {
             if (position.value > END_POSITION / 2) {
-                position.value = withTiming(END_POSITION, { duration: 100 });
-                onLeft.value = false;
-            } else {
-                position.value = withTiming(0, { duration: 100 });
-                onLeft.value = true;
+                position.value = withSpring(END_POSITION)
+                onLeft.value = false
             }
-        });
-    const animatedStyle = useAnimatedStyle(() => ({
-        transform: [{ translateX: position.value }],
-    }));
+            else {
+                position.value = withSpring(0)
+                onLeft.value = true
+            }
+        })
+        .minDistance(60)
 
     // tap gesture 
     const isTapped = useSharedValue('blue')
@@ -84,13 +108,13 @@ export default function GestureHandler() {
         backgroundColor: isTapped.value
     }))
     const TapGesture = Gesture.Tap()
-        .onStart(() => {
-            console.log('start');
-            isTapped.value = 'red'
-        })
         .onBegin(() => {
             console.log('begin');
             isTapped.value = 'yellow'
+        })
+        .onStart(() => {
+            console.log('start');
+            isTapped.value = 'red'
         })
         .onEnd(() => {
             console.log('end');
@@ -100,7 +124,39 @@ export default function GestureHandler() {
             console.log('finalize');
             isTapped.value = "black"
         })
+        // .minPointers(2)
+        // .maxDuration(2000)
         .numberOfTaps(2)
+        .maxDelay(1500)
+
+
+    // longpress gesture 
+    const bgColorLong = useSharedValue('orange')
+    const longpressGesture = Gesture.LongPress()
+        .onStart(() => {
+            bgColorLong.value = 'red'
+        })
+        .onEnd(() => {
+            // bgColorLong.value = 'blue'
+        })
+        .minDuration(400)
+    const longpressGestureAnimation = useAnimatedStyle(() => ({
+        backgroundColor: bgColorLong.value,
+    }))
+    // rotate 
+    const rotateRef = useSharedValue(0)
+     const savedRotation = useSharedValue(1);
+    const rotateGesture = Gesture.Rotation()
+    .onUpdate((e)=>{
+        rotateRef.value = savedRotation.value +  e.rotation
+        console.log(e.rotation);
+    })
+    .onEnd(()=>{
+        savedRotation.value = rotateRef.value
+    })
+    const rotatorStyles = useAnimatedStyle(()=>({
+        transform:[{rotateZ : `${(rotateRef.value/Math.PI)*180}deg`}]
+    }))
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -124,8 +180,8 @@ export default function GestureHandler() {
 
                 <Text style={Styles.secitonTitle}>either side pan gesture </Text>
                 <View style={Styles.eitherSideGestureContainer}>
-                    <GestureDetector gesture={panGesture2} >
-                        <Animated.View style={[Styles.box, animatedStyle]} />
+                    <GestureDetector gesture={panGesture2}>
+                        <Animated.View style={[Styles.box, eitherSideStyle]} />
                     </GestureDetector>
                 </View>
 
@@ -134,6 +190,22 @@ export default function GestureHandler() {
                     <GestureDetector gesture={TapGesture}>
                         <Animated.View style={[Styles.pointer, colorTappedChange]} >
                             <Text>tap</Text>
+                        </Animated.View>
+                    </GestureDetector>
+                </View>
+                <View style={Styles.thirdSection}>
+                    <Text style={Styles.secitonTitle}>longpress gesture  </Text>
+                    <GestureDetector gesture={longpressGesture}>
+                        <Animated.View style={[Styles.pointer2, longpressGestureAnimation]} >
+                            <Text>long press </Text>
+                        </Animated.View>
+                    </GestureDetector>
+                </View>
+                <View style={Styles.fourthSection}>
+                    <Text style={Styles.secitonTitle}>rotation gesture  </Text>
+                    <GestureDetector gesture={rotateGesture}>
+                        <Animated.View style={[Styles.rotator , rotatorStyles]} >
+                            <Text style={{color : '#f7f7f7ff'}}>rotate  </Text>
                         </Animated.View>
                     </GestureDetector>
                 </View>
@@ -185,8 +257,11 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginVertical: vh(10)
         },
         FirstSection: {
-            // flex : 1 ,
             backgroundColor: '#ffffffff',
+        },
+        fourthSection: {
+            backgroundColor: '#c7e1fbff',
+            paddingBottom :  vh(100)
         },
         ball: {
             width: vh(100),
@@ -198,10 +273,24 @@ const createDynamicStyles = (Colors: ColorType) => {
         secondSection: {
             backgroundColor: '#d8f1beff',
         },
+        thirdSection: {
+            backgroundColor: '#f7f6d0ff',
+        },
         pointer: {
             width: vw(60),
             height: vh(60),
-            borderRadius: normalize(30),
+            // borderRadius: normalize(30),
+            alignSelf: 'center',
+            backgroundColor: '#ef9c3fff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        pointer2: {
+            width: vw(260),
+            height: vh(60),
+            alignSelf: 'center',
             backgroundColor: '#ef9c3fff',
             display: 'flex',
             alignItems: 'center',
@@ -220,6 +309,17 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: vw(250),
             height: vh(60),
             borderRadius: normalize(30)
+        },
+        rotator: {
+            width: vh(200),
+            height: vw(100),
+            borderRadius: normalize(5),
+            backgroundColor: '#4d1254ff',
+            alignSelf: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
         }
     });
     return Styles;

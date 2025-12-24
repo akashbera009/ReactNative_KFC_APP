@@ -1,28 +1,22 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import { screenWidth, vh, normalize } from '../utils/Dimensions';
-const MediaSkeleton = () => {
-    const Styles = createDynamicStyles();
+import { normalize } from '../utils/Dimensions';
+const MediaSkeleton = ({ height, width }: { height: number, width: number }) => {
     return (
         <SkeletonPlaceholder
             borderRadius={normalize(12)}
             speed={1000}
         >
             <View
-                style={[Styles.centerMedia, {
-                    width: screenWidth * 0.9,
-                    height: vh(240),
-                }]}
+                style={{
+                    width,
+                    height,
+                    alignSelf: 'center'
+                }}
             />
         </SkeletonPlaceholder>
     );
 };
 
 export default MediaSkeleton;
-const createDynamicStyles = () => {
-    const Styles = StyleSheet.create({
-        centerMedia: { alignSelf: 'center' }
-    });
-    return Styles;
-};

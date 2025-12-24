@@ -81,7 +81,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
                                             <View style={Styles.MediavideoPlayer}>
                                                 {loadingIdx === idx && (
                                                     <View style={StyleSheet.absoluteFill}>
-                                                        <MediaSkeleton />
+                                                        <MediaSkeleton height={vh(240)} width={screenWidth * 0.9} />
                                                     </View>
                                                 )}
                                                 <VideoPlayerComponent
@@ -259,7 +259,9 @@ const createDynamicStyles = (Colors: ColorType) => {
             color: Colors.textBlack
         },
         ScrollContainer: {
-            height: '92%',
+            // height: '100%',
+            flex: 1,
+            paddingBottom: vh(100),
             backgroundColor: Colors.bodyLigheterColor,
         },
         horizontalScrollview: {
@@ -456,11 +458,11 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         BottomCartContainer: {
             width: '100%',
-            height: vh(110),
+            height: vh(80),
             backgroundColor: Colors.bodyColor,
             position: 'absolute',
             left: 0,
-            bottom : 0 , 
+            bottom: 0,
             zIndex: 2,
             shadowColor: Colors.blueShadows,
             shadowOffset: { width: 0, height: vh(0) },

@@ -11,6 +11,7 @@ import { RadialGradient } from 'react-native-gradients';
 import CurrentOrder from './CurrentOrder';
 import BestSeller from './BestSeller';
 import VideoPlayerComponent from '../../CommonFunctions/VideoPlayer';
+import MediaSkeleton from '../../Loaders/MediaShimmer';
 //redux 
 import { fetchMenu } from '../../features/menuSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,13 +62,13 @@ export default function HomePage() {
   const imageSet = [Images.Home_Page_Main_Image, Images.ChickenBox, Images.ChickenNuget, Images.BurgerPNG]
   useEffect((): (() => void | void) => {
     const interval = setTimeout((): void => {
-      setImageIndex(prev => prev < imageSet.length ? prev + 1 : 0)
+      setImageIndex(prev => prev < imageSet.length - 1 ? prev + 1 : 0)
     }, 2500);
     FadeIn()
     return () => {
       clearTimeout(interval)
     }
-  }, [imageIndex, FadeIn , imageSet.length])
+  }, [imageIndex, FadeIn, imageSet.length])
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     dispatch(fetchMenu())
@@ -178,7 +179,7 @@ export default function HomePage() {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={[Styles.LowerScrollContainer, { marginBottom: inset.bottom + 10 }]}>
+        <View style={[Styles.LowerScrollContainer, { marginBottom: inset.bottom + vh(10) }]}>
           <View style={Styles.ExploreContainer}>
             <View style={Styles.headerExplore}>
               <Text style={Styles.ExploreHeader}>{Strings.exploreMore.toUpperCase()} </Text>
@@ -270,7 +271,10 @@ export default function HomePage() {
             </View>
             <ScrollView style={Styles.CardsContainer} horizontal showsHorizontalScrollIndicator={false}>
               {menuData?.loading !== 'Success' ? (
-                <Text>{Strings.loading}</Text>
+                <View style={Styles.menuDataLoader}>
+                  <MediaSkeleton height={vh(120)} width={vw(250)} />
+                  <MediaSkeleton height={vh(120)} width={vw(250)} />
+                </View>
               ) : (
                 <>
                   {menuData?.menuData?.map((item, idx) => (
@@ -806,6 +810,13 @@ const createDynamicStyles = (Colors: ColorType) => {
       color: Colors.textBlack,
       fontFamily: Fonts.font18,
       fontSize: normalize(14)
+    },
+    menuDataLoader: {
+      gap: vw(10),
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
     },
     CardsContainer: {
       marginBottom: vw(5)

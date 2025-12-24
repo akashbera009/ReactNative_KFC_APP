@@ -37,10 +37,9 @@ export default function ExploreMenu({ activeCategory }: { activeCategory: string
                 }
                 keyExtractor={item => item?.name}
             />
-            {cartItem?.length !== 0 ?
-                <View style={[Styles.bottomBlank, Platform.OS === 'ios' ? { height: insets.bottom + 60 } : { height: insets.bottom + 70 }]} />
-                :
-                <View style={[Styles.bottomBlank, Platform.OS === 'ios' ? { height: insets.bottom - 30 } : { height: insets.bottom }]} />
+            {cartItem?.length !== 0
+                ? <View style={[Styles.bottomBlank, Platform.OS === 'ios' ? { height: insets.bottom + 60 } : { height: insets.bottom + 70 }]} />
+                : <View style={[Styles.bottomBlank, Platform.OS === 'ios' ? { height: insets.bottom - 30 } : { height: insets.bottom }]} />
             }
         </View>
     )
