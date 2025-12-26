@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 let persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['cart','favourite' ,'orders'  ],
+    whitelist: ['cart','favourite' ,'orders' ],
     blacklist: ['bioAuth']
 }
 let rootReducer = combineReducers({

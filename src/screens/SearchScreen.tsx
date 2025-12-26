@@ -3,7 +3,7 @@ import SearchPage from '../components/Menu/SearchPage'
 
 const SearchScreen = () => {
   return (
-   <SearchPage/>
+   <SearchPage searchTerm=''/>
   )
 }
 

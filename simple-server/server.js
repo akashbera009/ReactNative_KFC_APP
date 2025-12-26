@@ -28,7 +28,7 @@ const readOrders = () => {
   if (!fs.existsSync(ORDERS_FILE)) return [];
   const data = fs.readFileSync(ORDERS_FILE, 'utf8');
   return JSON.parse(data);
-  
+
 };
 
 const writeOrders = (orders) => {
@@ -73,17 +73,43 @@ app.post('/users', (req, res) => {
   res.status(201).json(newUser);
 });
 
+// update 
 app.put('/users/:id', (req, res) => {
   const users = readJSON(USERS_FILE);
   const userId = req.params.id;
-  const index = users.findIndex((u) => u.id === userId);
-  if (index === -1) {
-    return res.status(404).json({ message: "User not found" });
-  }
-  users[index] = { ...users[index], ...req.body };
-  writeJSON(USERS_FILE, users);
 
+  const index = users.findIndex(u => u.id === userId);
+  if (index === -1) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+  const allowedUpdates = ['name', 'email', 'avatar'];
+  const updates = {};
+  allowedUpdates.forEach((key) => {
+    if (req.body[key] !== undefined) {
+      updates[key] = req.body[key];
+    }
+  });
+  users[index] = {
+    ...users[index],
+    ...updates,
+  };
+  writeJSON(USERS_FILE, users);
   res.json(users[index]);
+});
+
+
+app.get('/users/mobile/:mobileNo', (req, res) => {
+  const users = readJSON(USERS_FILE);
+  const { mobileNo } = req.params;
+
+  const user = users.find(u => u.mobileNo === mobileNo);
+  console.log('user i:' , user);
+  
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  res.json(user);
 });
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

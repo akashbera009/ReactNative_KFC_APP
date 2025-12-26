@@ -16,7 +16,7 @@ import MediaSkeleton from '../../Loaders/MediaShimmer';
 import { fetchMenu } from '../../features/menuSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
-import { fetctUserDeatails } from '../../features/userSlice';
+// import { fetctUserDeatails } from '../../features/userSlice';
 import { fetchOrders } from '../../features/orderSlice';
 // util imports
 import Fonts from '../../utils/Fonts'
@@ -39,8 +39,8 @@ export default function HomePage() {
   useEffect(() => {
     dispatch(fetchMenu())
     dispatch(fetchOrders())
-    dispatch(fetctUserDeatails())
-  }, [dispatch])
+  }, [dispatch ])
+
   const menuData = useSelector((state: RootState) => state.menuData)
   const { countrySelected } = useCountry()
   const colorList: GradientStop[] = [

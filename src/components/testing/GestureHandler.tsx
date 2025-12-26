@@ -4,21 +4,22 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 //  gesture 
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring} from 'react-native-reanimated';
+import { GestureDetector, Gesture, ScrollView, Directions } from 'react-native-gesture-handler';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-
 export default function GestureHandler() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    // const [scrollEnabled, setScrollEnabled] = useState(true)
+    const scrollEnabled = useSharedValue(true)
     // animation 
     const isPressed = useSharedValue(false);
     const offset = useSharedValue({ x: 0, y: 0 });
@@ -34,6 +35,8 @@ export default function GestureHandler() {
     const panGesture = Gesture.Pan()
         .onStart(() => {
             isPressed.value = true;
+            scrollEnabled.value = false
+            // runOnJS(setScrollEnabled)(false);
         })
         .onUpdate((e) => {
             offset.value = {
@@ -49,10 +52,9 @@ export default function GestureHandler() {
         })
         .onFinalize(() => {
             isPressed.value = false
+            scrollEnabled.value = true
         })
         .onChange(() => {
-            console.log('changning ');
-
         })
         // .minPointers(2)
         // .activateAfterLongPress(300)
@@ -62,20 +64,27 @@ export default function GestureHandler() {
         // .activeOffsetY([-Infinity, Infinity])
         .enabled(true)
         .shouldCancelWhenOutside(false)
-        .cancelsTouchesInView(true)
-    // .hitSlop({
-    //     height :150 , 
-    //     top : 150 , 
-    //     // bottom : 150 , 
-    //     // width : 30 , 
-    //     // left : 15 , 
-    // })
+        .hitSlop({
+            bottom: 350,
+            top: 350,
+            left: 350,
+            right: 350
+            // bottom : 150 , 
+            // width : 30 , 
+            // left : 15 , 
+        })
 
 
     // simple pan gesture 
     const onLeft = useSharedValue(true)
     const position = useSharedValue(0)
+    const savedPosition = useSharedValue(0)
+
     const END_POSITION = 200
+    const BALL_SIZE = vh(60)
+    const CONTAINER_WIDTH = vw(250)
+    const MAX_TRANSLATE_X = CONTAINER_WIDTH - BALL_SIZE
+
     const eitherSideStyle = useAnimatedStyle(() => ({
         transform: [
             { translateX: position.value }
@@ -84,23 +93,25 @@ export default function GestureHandler() {
     }))
     const panGesture2 = Gesture.Pan()
         .onUpdate((e) => {
-            console.log(onLeft.value);
-            if (onLeft.value)
-                position.value = e.translationX
-            else
-                position.value = e.translationX + END_POSITION
+            const nextX = e.translationX + savedPosition.value
+            position.value = Math.min(
+                Math.max(nextX, 0),
+                MAX_TRANSLATE_X
+            )
         })
         .onEnd(() => {
-            if (position.value > END_POSITION / 2) {
-                position.value = withSpring(END_POSITION)
-                onLeft.value = false
-            }
-            else {
+            if (position.value < END_POSITION / 2) {
                 position.value = withSpring(0)
-                onLeft.value = true
+                savedPosition.value = 0
+            } else {
+                position.value = withSpring(END_POSITION)
+                savedPosition.value = END_POSITION
             }
+            onLeft.value = position.value < MAX_TRANSLATE_X / 2
         })
-        .minDistance(60)
+        // .minDistance(60)
+        // .cancelsTouchesInView(false)
+        .shouldCancelWhenOutside(true)
 
     // tap gesture 
     const isTapped = useSharedValue('blue')
@@ -143,20 +154,193 @@ export default function GestureHandler() {
     const longpressGestureAnimation = useAnimatedStyle(() => ({
         backgroundColor: bgColorLong.value,
     }))
+
     // rotate 
     const rotateRef = useSharedValue(0)
-     const savedRotation = useSharedValue(1);
+    const savedRotation = useSharedValue(1);
     const rotateGesture = Gesture.Rotation()
-    .onUpdate((e)=>{
-        rotateRef.value = savedRotation.value +  e.rotation
-        console.log(e.rotation);
-    })
-    .onEnd(()=>{
-        savedRotation.value = rotateRef.value
-    })
-    const rotatorStyles = useAnimatedStyle(()=>({
-        transform:[{rotateZ : `${(rotateRef.value/Math.PI)*180}deg`}]
+        .onBegin(() => {
+            scrollEnabled.value = false
+        })
+        .onUpdate((e) => {
+            rotateRef.value = savedRotation.value + e.rotation
+        })
+        .onEnd(() => {
+            savedRotation.value = rotateRef.value
+        })
+        .onFinalize(() => {
+            scrollEnabled.value = true
+        })
+    const rotatorStyles = useAnimatedStyle(() => ({
+        transform: [{ rotateZ: `${(rotateRef.value / Math.PI) * 180}deg` }]
     }))
+
+    //pinch gesture 
+    const scaleRef = useSharedValue(1)
+    const savedScaleRef = useSharedValue(1)
+    const MIN_SCALE = 1;
+    const MAX_SCALE = 3;
+    const pinchStyles = useAnimatedStyle(() => ({
+        transform: [{ scale: scaleRef.value }]
+    }))
+    const pinchGesture = Gesture.Pinch()
+        .onBegin(() => {
+            scrollEnabled.value = false
+        })
+        .onUpdate((e) => {
+            scaleRef.value = e.scale * savedScaleRef.value
+        })
+        .onEnd(() => {
+            if (scaleRef.value < MIN_SCALE) {
+                console.log('scalref value is lesstha 1 ', scaleRef.value);
+                scaleRef.value = withSpring(MIN_SCALE)
+                savedScaleRef.value = MIN_SCALE
+            } else if (scaleRef.value > MAX_SCALE) {
+                console.log('scalref value is greater 3 ', scaleRef.value);
+                scaleRef.value = withSpring(MAX_SCALE)
+                savedScaleRef.value = MAX_SCALE
+            } else {
+                savedScaleRef.value = scaleRef.value
+            }
+        })
+        .onFinalize(() => {
+            scrollEnabled.value = true
+        })
+
+    // fling 
+    const flingRef = useSharedValue(0)
+    // const savedFlingRef = useSharedValue(0)
+    const flingStyles = useAnimatedStyle(() => ({
+        transform: [{ translateX: flingRef.value }]
+    }))
+    const flingGestureRight = Gesture.Fling()
+        .direction(Directions.RIGHT)
+        .onStart(() => {
+            flingRef.value = withSpring(flingRef.value + 20);
+        })
+        .onEnd(() => {
+            // console.log(e);
+        })
+        .numberOfPointers(1)
+    const flingGestureLeft = Gesture.Fling()
+        .direction(Directions.LEFT)
+        .onStart(() => {
+            flingRef.value = withSpring(flingRef.value - 20);
+        })
+        .onEnd(() => {
+            // console.log(e);
+        })
+
+
+
+    // composed
+    const offset2 = useSharedValue({ x: 0, y: 0 });
+    // const start2 = useSharedValue({ x: 0, y: 0 });
+    const popupPosition = useSharedValue({ x: 0, y: 0 });
+    const popupAlpha = useSharedValue(0);
+    const animatedStyles2 = useAnimatedStyle(() => {
+        return {
+            transform: [
+                { translateX: offset2.value.x },
+                { translateY: offset2.value.y },
+            ],
+        };
+    });
+
+    const animatedPopupStyles = useAnimatedStyle(() => {
+        return {
+            transform: [
+                { translateX: popupPosition.value.x },
+                { translateY: popupPosition.value.y },
+            ],
+            opacity: popupAlpha.value,
+        };
+    });
+
+    const dragGesture = Gesture.Pan()
+        .onStart((_e) => {
+            popupAlpha.value = withTiming(0);
+        })
+        .onUpdate((e) => {
+            offset2.value = {
+                x: e.translationX + start.value.x,
+                y: e.translationY + start.value.y,
+            };
+        })
+        .onEnd(() => {
+            start.value = {
+                x: offset2.value.x,
+                y: offset2.value.y,
+            };
+        });
+
+    const longPressGesture = Gesture.LongPress().onStart((_event) => {
+        popupPosition.value = { x: offset2.value.x, y: offset2.value.y };
+        popupAlpha.value = withTiming(1);
+    });
+
+    const composedGesture = Gesture.Race(dragGesture, longPressGesture)
+
+
+
+    // simultenious 
+    const offset4 = useSharedValue({ x: 0, y: 0 });
+    const start4 = useSharedValue({ x: 0, y: 0 });
+    const scale4 = useSharedValue(1);
+    const savedScale4 = useSharedValue(1);
+    const rotation4 = useSharedValue(0);
+    const savedRotation4 = useSharedValue(0);
+    const animatedStyles4 = useAnimatedStyle(() => {
+        return {
+            transform: [
+                { translateX: offset4.value.x },
+                { translateY: offset4.value.y },
+                { scale: scale4.value },
+                { rotateZ: `${rotation4.value}rad` },
+            ],
+        };
+    });
+
+    const dragGesture4 = Gesture.Pan()
+        .averageTouches(true)
+        .onUpdate((e) => {
+            offset4.value = {
+                x: e.translationX + start4.value.x,
+                y: e.translationY + start4.value.y,
+            };
+        })
+        .onEnd(() => {
+            start4.value = {
+                x: offset4.value.x,
+                y: offset4.value.y,
+            };
+        });
+
+    const zoomGesture4 = Gesture.Pinch()
+        .onUpdate((event) => {
+            scale4.value = savedScale4.value * event.scale;
+        })
+        .onEnd(() => {
+            savedScale4.value = scale4.value;
+        });
+
+    const rotateGesture4 = Gesture.Rotation()
+        .onUpdate((event) => {
+            rotation4.value = savedRotation4.value + event.rotation;
+        })
+        .onEnd(() => {
+            savedRotation4.value = rotation4.value;
+        });
+
+    const composed4 = Gesture.Simultaneous(
+        dragGesture4,
+        Gesture.Simultaneous(zoomGesture4, rotateGesture4)
+    );
+    //// 
+    const touchStyle = useAnimatedStyle(() => ({
+
+    }))
+    const touchGesture = Gesture.Tap()
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -170,49 +354,109 @@ export default function GestureHandler() {
                 </View>
             </View>
             <View style={Styles.body}>
+                {/* scrollEnabled={scrollEnabled.value} */}
+                <ScrollView >
+                    <View style={Styles.FirstSection}>
+                        <Text style={Styles.secitonTitle}>pan gesture </Text>
+                        <GestureDetector gesture={panGesture}>
+                            <Animated.View style={[Styles.ball, animatedStyles]} />
+                        </GestureDetector>
+                    </View>
 
-                <View style={Styles.FirstSection}>
-                    <Text style={Styles.secitonTitle}>pan gesture </Text>
-                    <GestureDetector gesture={panGesture}>
-                        <Animated.View style={[Styles.ball, animatedStyles]} />
-                    </GestureDetector>
-                </View>
+                    <Text style={Styles.secitonTitle}>either side pan gesture </Text>
+                    <View style={Styles.eitherSideGestureContainer}>
+                        <GestureDetector gesture={panGesture2}>
+                            <Animated.View style={[Styles.box, eitherSideStyle]} />
+                        </GestureDetector>
+                    </View>
 
-                <Text style={Styles.secitonTitle}>either side pan gesture </Text>
-                <View style={Styles.eitherSideGestureContainer}>
-                    <GestureDetector gesture={panGesture2}>
-                        <Animated.View style={[Styles.box, eitherSideStyle]} />
-                    </GestureDetector>
-                </View>
+                    <View style={Styles.secondSection}>
+                        <Text style={Styles.secitonTitle}>tap gesture </Text>
+                        <GestureDetector gesture={TapGesture}>
+                            <Animated.View style={[Styles.pointer, colorTappedChange]} >
+                                <Text>tap</Text>
+                            </Animated.View>
+                        </GestureDetector>
+                    </View>
+                    <View style={Styles.thirdSection}>
+                        <Text style={Styles.secitonTitle}>longpress gesture  </Text>
+                        <GestureDetector gesture={longpressGesture}>
+                            <Animated.View style={[Styles.pointer2, longpressGestureAnimation]} >
+                                <Text>long press </Text>
+                            </Animated.View>
+                        </GestureDetector>
+                    </View>
+                    <View style={Styles.fourthSection}>
+                        <Text style={Styles.secitonTitle}>rotation gesture  </Text>
+                        <GestureDetector gesture={rotateGesture}>
+                            <Animated.View style={[Styles.rotator, rotatorStyles]} >
+                                <Text style={{ color: '#f7f7f7ff' }}>rotate  </Text>
+                            </Animated.View>
+                        </GestureDetector>
+                    </View>
+                    <View style={Styles.fifthhSection}>
+                        <Text style={Styles.secitonTitle}>pinch gesture  </Text>
+                        <GestureDetector gesture={pinchGesture}>
+                            <Animated.View style={[Styles.pinch, pinchStyles]} >
+                                <Text style={{ color: '#f7f7f7ff' }}>pinch  </Text>
+                            </Animated.View>
+                        </GestureDetector>
+                    </View>
+                    <View style={Styles.sixthSection}>
+                        <Text style={Styles.secitonTitle}>fling gesture  </Text>
+                        <GestureDetector gesture={Gesture.Simultaneous(flingGestureRight, flingGestureLeft)}>
+                            <Animated.View style={[Styles.fling, flingStyles]} >
+                                <Text style={{ color: '#f7f7f7ff' }}>fling   </Text>
+                            </Animated.View>
+                        </GestureDetector>
+                    </View>
+                    <View style={Styles.fifthhSection}>
+                        <Text style={Styles.secitonTitle}>touch  gesture  </Text>
+                        <GestureDetector gesture={touchGesture}>
+                            <Animated.View style={[Styles.touchBox, touchStyle]} >
+                                <Text style={{ color: '#f7f7f7ff' }}>Touch   </Text>
+                            </Animated.View>
+                        </GestureDetector>
+                    </View>
 
-                <View style={Styles.secondSection}>
-                    <Text style={Styles.secitonTitle}>tap gesture </Text>
-                    <GestureDetector gesture={TapGesture}>
-                        <Animated.View style={[Styles.pointer, colorTappedChange]} >
-                            <Text>tap</Text>
-                        </Animated.View>
-                    </GestureDetector>
-                </View>
-                <View style={Styles.thirdSection}>
-                    <Text style={Styles.secitonTitle}>longpress gesture  </Text>
-                    <GestureDetector gesture={longpressGesture}>
-                        <Animated.View style={[Styles.pointer2, longpressGestureAnimation]} >
-                            <Text>long press </Text>
-                        </Animated.View>
-                    </GestureDetector>
-                </View>
-                <View style={Styles.fourthSection}>
-                    <Text style={Styles.secitonTitle}>rotation gesture  </Text>
-                    <GestureDetector gesture={rotateGesture}>
-                        <Animated.View style={[Styles.rotator , rotatorStyles]} >
-                            <Text style={{color : '#f7f7f7ff'}}>rotate  </Text>
-                        </Animated.View>
-                    </GestureDetector>
-                </View>
+                    <View style={Styles.FirstSection}>
+                        <Text style={Styles.secitonTitle}>(componsed ) pan + longpress  gesture </Text>
+                        <Popup style={animatedPopupStyles} />
+                        <GestureDetector gesture={composedGesture}>
+                            <Animated.View style={[Styles.ball, animatedStyles2]} />
+                        </GestureDetector>
+                    </View>
+                    {/* <NativeGesture/> */}
+
+                    <View style={Styles.FirstSection}>
+                        <GestureDetector gesture={composed4}>
+                            <Animated.View style={[Styles.ball4, animatedStyles4]} />
+                        </GestureDetector>
+                    </View>
+                </ScrollView>
             </View>
         </View>
     );
 }
+function Popup({ style }: any) {
+    return (
+        <Animated.View style={[styles.popup, style]}>
+            <Text style={styles.text}>Popup</Text>
+        </Animated.View>
+    );
+}
+const styles = StyleSheet.create({
+    popup: {
+        position: 'absolute',
+        backgroundColor: 'black',
+        padding: 10,
+        borderRadius: 6,
+        zIndex: 100,
+    },
+    text: {
+        color: 'white',
+    },
+});
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
@@ -261,13 +505,30 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         fourthSection: {
             backgroundColor: '#c7e1fbff',
-            paddingBottom :  vh(100)
+            paddingBottom: vh(20)
+        },
+        fifthhSection: {
+            backgroundColor: '#d2f4d0ff',
+            paddingBottom: vh(20),
+            minHeight: vh(200)
+        },
+        sixthSection: {
+            backgroundColor: '#f4ded0ff',
+            paddingBottom: vh(20),
+            minHeight: vh(200)
         },
         ball: {
-            width: vh(100),
-            height: vw(100),
+            width: vh(50),
+            height: vw(50),
             borderRadius: normalize(100),
             backgroundColor: 'blue',
+            alignSelf: 'center',
+        },
+        ball4: {
+            width: vh(150),
+            height: vw(100),
+            // borderRadius: normalize(100),
+            backgroundColor: '#e47373ff',
             alignSelf: 'center',
         },
         secondSection: {
@@ -312,9 +573,42 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         rotator: {
             width: vh(200),
-            height: vw(100),
+            height: vw(60),
             borderRadius: normalize(5),
             backgroundColor: '#4d1254ff',
+            alignSelf: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        pinch: {
+            width: vh(150),
+            height: vw(100),
+            borderRadius: normalize(5),
+            backgroundColor: '#03126fff',
+            alignSelf: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        fling: {
+            width: vh(180),
+            height: vw(80),
+            borderRadius: normalize(30),
+            backgroundColor: '#046309ff',
+            alignSelf: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        touchBox: {
+            width: vh(380),
+            height: vw(80),
+            borderRadius: normalize(30),
+            backgroundColor: '#ed6814ff',
             alignSelf: 'center',
             display: 'flex',
             alignItems: 'center',

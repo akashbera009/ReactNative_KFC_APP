@@ -39,7 +39,6 @@ import CommonPopUpScreen from '../screens/CommonPopUpScreen';
 import TermsAndConditionsScreen from '../screens/TermsAndConditionsScreen';
 import ReAnimatedScreen from '../screens/ReAnimatedScreen';
 import GestureScreen from '../screens/GestureScreen';
-import { normalize } from '../utils/Dimensions';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator()
@@ -47,7 +46,7 @@ const Drawer = createDrawerNavigator()
 function StackNavigator() {
     const Strings = useStrings()
     return (
-        <Stack.Navigator initialRouteName={Strings.HomeScreen} screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName={Strings.GestureScreen} screenOptions={{ headerShown: false }}>
             <Stack.Screen
                 name={Strings.SplashScreen}
                 component={SplashScreen}
@@ -200,10 +199,11 @@ function StackNavigator() {
                 component={GestureScreen}
 
                 options={{
-                    // presentation : 'fullScreenModal',
-                    // presentation : 'containedModal'
-                    // presentation : 'modal'
+                    presentation : 'fullScreenModal',
+                    // presentation : 'containedModal',
 
+
+                    // presentation : 'modal',
                     // presentation :'formSheet',
                     // headerShown : false,
                     // sheetAllowedDetents : [.25 , 0.50 , .75],
@@ -214,8 +214,8 @@ function StackNavigator() {
 
 
                     gestureEnabled: false,
+                    animation :'fade',
                     // animationDuration : 1000,
-                    // animation : 'slide_from_bottom',
                     // animation:'simple_push',
                     // gestureDirection : 'vertical'
                     // statusBarHidden:
@@ -241,13 +241,6 @@ export default function AppNavigation() {
                     <Drawer.Screen
                         name='Main'
                         component={StackNavigator}
-                        listeners={({ navigation }) => ({
-                            drawerItemPress: (e) => {
-                                e.preventDefault();
-                                console.log('Drawer item pressed');
-                                navigation.navigate('SomeScreen');
-                            },
-                        })}
                     />
                 </Drawer.Navigator>
             </NavigationContainer>

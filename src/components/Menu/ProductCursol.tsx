@@ -39,7 +39,7 @@ export default function ImageCarousel() {
                 animated: true,
             });
             setIndex(nextIndex);
-        }, 2000);
+        }, 3000);
 
         return () => clearInterval(timer);
     }, [index , images.length]);

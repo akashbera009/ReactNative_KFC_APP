@@ -1,25 +1,36 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 import { RootState } from "../store/store";
-import {BACKEND_SERVER} from '../utils/backendLink'
+import { BACKEND_SERVER } from '../utils/backendLink'
 
 interface userfetchedType {
-    userData: userDatailsType[],
-    currentUser? : {},
+    currentUser: userDatailsType | null,
     loading: string
 }
+type UpdateUserPayload = {
+    id: string;
+    data: {
+        name?: string;
+        email?: string;
+        avatar?: string;
+    };
+};
+
 export const initialState: userfetchedType = {
-    userData: [],
+    currentUser: null,
     loading: 'ideal'
 }
-export const fetctUserDeatails = createAsyncThunk(
+export const fetctUserDeatails = createAsyncThunk<userDatailsType, string>(
     'users/fetctUserDeatails',
-    async () => {
-        const res = await axios.get(`${BACKEND_SERVER}/users`)
+    async (mobileNO: string) => {
+        const res = await axios.get(`${BACKEND_SERVER}/users/mobile/${mobileNO}`)
         return res.data
     })
-export const selectUserByMobile = (state:RootState, mobile: string) =>
-    state?.users?.userData?.find((u: userDatailsType) => u.mobileNo === mobile);
+export const selectCurrentUser = (state: RootState) => {
+    console.log('current user ', state.users.currentUser);
+
+    return state.users.currentUser;
+}
 
 export const addUserDetails = createAsyncThunk(
     "users/addUserDetails",
@@ -28,13 +39,20 @@ export const addUserDetails = createAsyncThunk(
         return res.data as userDatailsType;
     }
 );
-export const updateUser = createAsyncThunk(
-    "users/updateUser",
-    async ({ id, data }: { id: string; data: Partial<userDatailsType> }) => {
-        const res = await axios.put(`${BACKEND_SERVER}/users/${id}`, data);
-        return res.data as userDatailsType;
+
+export const updateUser = createAsyncThunk<
+    userDatailsType,
+    UpdateUserPayload
+>(
+    'users/updateUser',
+    async ({ id, data }) => {
+        const res = await axios.put(
+            `${BACKEND_SERVER}/users/${id}`,
+            data
+        );
+        return res.data;
     }
-);
+)
 const userSlice = createSlice({
     name: 'users',
     initialState,
@@ -45,20 +63,17 @@ const userSlice = createSlice({
                 state.loading = 'pending';
             })
             .addCase(fetctUserDeatails.fulfilled, (state, action) => {
-                state.userData = action.payload;
+                state.currentUser = action.payload;
                 state.loading = 'success';
             })
             .addCase(fetctUserDeatails.rejected, (state) => {
                 state.loading = 'error';
             })
-            .addCase(addUserDetails.fulfilled, (state, action) => {
-                state.userData.push(action.payload);
-            })
+            // .addCase(addUserDetails.fulfilled, (state, action) => {
+            //     state.userData.push(action.payload);
+            // })
             .addCase(updateUser.fulfilled, (state, action) => {
-                const index = state.userData.findIndex(
-                    (u) => u.id === action.payload.id
-                );
-                if (index !== -1) state.userData[index] = action.payload;
+                state.currentUser = action.payload;
             });
     }
 })

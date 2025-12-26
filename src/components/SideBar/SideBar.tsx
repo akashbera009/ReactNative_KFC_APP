@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { selectCurrentOrder } from '../../features/getCurrentOrder';
 import { fetctUserDeatails } from '../../features/userSlice';
 import { RootState, useAppDispatch } from '../../store/store';
-
 //util files 
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages';
@@ -20,6 +19,8 @@ import { useLanguage } from '../../context/LanguageContex';
 import { useCountry } from '../../context/CountryContext';
 import { CountryInfo } from '../../data/CountryInfo';
 import { normalize, vh, vw } from '../../utils/Dimensions';
+import MediaSkeleton from '../../Loaders/MediaShimmer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const SideBar = () => {
   const Colors = useThemeColors()
   const Strings = useStrings()
@@ -54,11 +55,24 @@ const SideBar = () => {
       .catch((err) => console.error(err));
   }
   const dispatch = useAppDispatch();
-  useEffect((): void => {
-    dispatch(fetctUserDeatails())
-  }, [dispatch])
+  const [storedPhone, setStoredPhone] = useState<string>('');
+  useEffect(() => {
+    const loadPhone = async () => {
+      const phone = await AsyncStorage.getItem('phoneNo');
+      if (phone) {
+        setStoredPhone(phone);
+      }
+    };
+    loadPhone();
+  }, []);
+  useEffect(() => {
+    if (!storedPhone) return;
+
+    dispatch(fetctUserDeatails(storedPhone));
+  }, [dispatch, storedPhone]);
   const userdata = useSelector((state: RootState) => state?.users)
-  const currentUser = userdata?.userData?.find((item) => item?.mobileNo === '9876543210')
+  const currentUser = userdata?.currentUser
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -70,13 +84,18 @@ const SideBar = () => {
           <View style={Styles.NameContainer}>
             <View style={Styles.PersonImageContainer}>
               {userdata?.loading === 'success' ? (
-                <Image source={{ uri: currentUser?.avatar }}
+                <Image
+                  source={{ uri: currentUser?.avatar }}
                   style={Styles.avatarImage} />
               ) : (
-                <Text style={Styles.NameLetter}>{currentUser?.name?.charAt(0)} </Text>
+                <MediaSkeleton height={vh(100)} width={vh(100)} />
               )}
             </View>
-            <Text style={Styles.Name}>{currentUser?.name} </Text>
+            {userdata?.loading === 'success' ? (
+              <Text style={Styles.Name}>{currentUser?.name} </Text>
+            ) : (
+              <MediaSkeleton height={vh(20)} width={vh(150)} />
+            )}
           </View>
           <TouchableOpacity
             onPress={() => setIsSettingsMenuOpen(!isSettingsMenunOpen)}
@@ -90,7 +109,7 @@ const SideBar = () => {
                 activeOpacity={.7}
                 onPress={() => {
                   navigation.navigate(Strings.CreateProfileScreen, {
-                    phoneNo: '9876543210'
+                    phoneNo: storedPhone
                   })
                   setIsSettingsMenuOpen(false)
                 }}>

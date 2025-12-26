@@ -24,19 +24,18 @@ export default function LoginPage2() {
     const { countrySelected } = useCountry()
     const { language, setLanguage } = useLanguage()
     const [mobileNo, setMobileNo] = useState<string>('')
+    const [rawMobileNO, setRawMobileNo] = useState<string>('')
     const [goodToLogin, setGoodToLogin] = useState<boolean>(false)
-    const [userToken, setUserToken] = useState<string | null>(null);
+    // const [userToken, setUserToken] = useState<string | null>(null);
     const checkGoodToLogin = useCallback((): void => {
-        if (mobileNo.length === countrySelected.mobileNoLength) {
-            setGoodToLogin(false)
-        } else
-            setGoodToLogin(true)
+        setGoodToLogin(mobileNo.length <= countrySelected.mobileNoLength)
     }, [mobileNo, countrySelected.mobileNoLength])
     useEffect((): void => {
         checkGoodToLogin()
-    }, [checkGoodToLogin, mobileNo])
+    }, [checkGoodToLogin])
     const handleMobileNoInput = (text: string): void => {
-        if (text.length <= countrySelected.mobileNoLength) {
+        const digitsOnly = text.replace(' ', '')
+        if (digitsOnly.length <= countrySelected.mobileNoLength) {
             let formattedText
             if (countrySelected?.code === 'uae')
                 formattedText = text.replace(/(\d{3})(?=\d)/g, '$1 ');
@@ -46,6 +45,7 @@ export default function LoginPage2() {
                 formattedText = text.replace(/(\d{4})(?=\d)/g, '$1 ');
             setMobileNo(formattedText)
         }
+        setRawMobileNo(digitsOnly)
     }
     const signInWithGoogle = async (): Promise<void> => {
         try {
@@ -54,8 +54,9 @@ export default function LoginPage2() {
             console.log('Google Sign-In response:', response);
             if (isSuccessResponse(response)) {
                 console.log('isSuccessResponse(response)', isSuccessResponse(response))
-                setUserToken(response?.data?.idToken)
-                Alert.alert('Success', `Google Sign-In Successful! token is ${userToken}`);
+                // setUserToken(response?.data?.idToken)
+                Alert.alert('Success', `Google Sign-In Successful! token is ${response?.data?.user?.id}`);
+                navigation.navigate(Strings.HomeScreen)
             } else if (response.type === 'cancelled') {
                 console.log('sign in was calcelled by user ');
                 Alert.alert('Alert', 'Sigin in calcelled by user');
@@ -81,7 +82,7 @@ export default function LoginPage2() {
         if (mobileNo.length < countrySelected?.mobileNoLength) return
         await Keyboard.dismiss()
         navigation.push(Strings.OTPScreen, {
-            phoneNo: mobileNo
+            phoneNo: rawMobileNO
         })
     }
 

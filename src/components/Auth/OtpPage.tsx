@@ -4,6 +4,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// redux 
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../../store/store';
+import { fetctUserDeatails } from '../../features/userSlice';
 // util  imports 
 import { useThemeColors } from '../../utils/Colors'
 import { useStrings } from '../../utils/Strings'
@@ -11,8 +15,9 @@ import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages'
 import { useCountry } from '../../context/CountryContext';
 import { normalize, vh, vw } from '../../utils/Dimensions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
+export default function OtpPage({ phoneNo }: { phoneNo: string }) {
   const [inputValue, setInputValue] = useState<string[]>(new Array(4).fill(''))
   const inputRef = useRef<Array<TextInput | null>>([])
   const Colors = useThemeColors()
@@ -47,11 +52,31 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
   useEffect((): void => {
     checkGoodToLogin()
   }, [inputValue, checkGoodToLogin])
-  const handleVerify = (): void => {
-    if (goodToLogin)
-      navigation.push(Strings.CreateProfileScreen, {
-        phoneNo: phoneNo1
-      })
+
+
+  // redux part 
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetctUserDeatails(phoneNo))
+  }, [dispatch, phoneNo])
+  const existingUser = useSelector((state: RootState) =>
+    state.users.currentUser
+  );
+  const handleVerify = async(): Promise<void> =>  {
+    if (goodToLogin) {
+      if (existingUser) {
+        console.log('existing user found ');
+        await AsyncStorage.setItem('phoneNo', phoneNo)
+        navigation.navigate(Strings.HomeScreen)
+      }
+      else {
+        console.log('not found any iser ');
+
+        navigation.push(Strings.CreateProfileScreen, {
+          phoneNo: phoneNo
+        })
+      }
+    }
   }
   const handleResendOtp = (): void => {
     setTimer(60)
@@ -77,7 +102,7 @@ export default function OtpPage({ phoneNo1 }: { phoneNo1: string }) {
       </View>
       <View style={Styles.enterOtpHeaderContainer}>
         <Text style={Styles.enterOtpHeader}>{Strings.enterOtpHeader}</Text>
-        <Text style={Styles.PhoneNo}>{countrySelected?.mobileCode} {phoneNo1}</Text>
+        <Text style={Styles.PhoneNo}>{countrySelected?.mobileCode} {phoneNo}</Text>
       </View>
       <KeyboardAwareScrollView
         enableOnAndroid
@@ -222,7 +247,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       color: Colors.textBlack
     },
     scrollviewBottom: {
-      paddingBottom: 50
+      paddingBottom: vh(50)
     },
     otpRelatedContainer: {
       marginTop: vh(100),

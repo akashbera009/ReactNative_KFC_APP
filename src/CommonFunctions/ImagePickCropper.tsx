@@ -10,13 +10,15 @@ import { createThumbnail } from "react-native-create-thumbnail";
 import { DocumentPickerResponse, keepLocalCopy, pick, types } from '@react-native-documents/picker'
 import Pdf from 'react-native-pdf'
 import RNFS from 'react-native-fs';
+// custom component 
+import VideoPlayerComponent from './VideoPlayer';
+import MediaSkeleton from '../Loaders/MediaShimmer';
 // utils
 import Fonts from '../utils/Fonts';
 import Images from '../utils/LocalImages';
 import { useStrings } from '../utils/Strings';
 import { useThemeColors } from '../utils/Colors';
 import { normalize, vh, vw } from '../utils/Dimensions';
-import VideoPlayerComponent from './VideoPlayer';
 
 export default function ImagePickCropper() {
     const Colors = useThemeColors();
@@ -106,7 +108,8 @@ export default function ImagePickCropper() {
                 timeStamp: 1000,
                 format: 'png',
             });
-            setVideoThumbnail(thumbnail.path);
+            setVideoThumbnail(thumbnail?.path);
+            
         } catch (error) {
             console.log('Video pick error:', error);
         }
@@ -183,7 +186,11 @@ export default function ImagePickCropper() {
                         <TouchableOpacity
                             onPress={() => setVideoModal(true)}
                             style={Styles.fieldFilled} >
-                            <Image source={{ uri: videoThumbnail }} style={Styles.VideoThumbnail} />
+                            {videoThumbnail === '' ? (
+                                <MediaSkeleton height={vh(260)} width={vw(350)}/>
+                            ) : (
+                                <Image source={{ uri: videoThumbnail }} style={Styles.VideoThumbnail} />
+                            )}
                             <TouchableOpacity
                                 style={Styles?.editButtonContainer}
                                 onPress={pickVideo}>

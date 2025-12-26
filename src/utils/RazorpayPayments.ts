@@ -2,18 +2,18 @@ import RazorpayCheckout from 'react-native-razorpay';
 import { useThemeColors } from './Colors';
 import { useStrings } from './Strings';
 import { DeliveryDetails } from '../data/DeliveryDetails';
+import Config from 'react-native-config'; 
 
 export const useRazorpayPayment = () => {
     const Colors = useThemeColors();
     const Strings = useStrings();
-
     const handlePayment = async (amount: number) => {
         try {
             const options = {
                 description: Strings.KFC_restaurant,
                 image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWp9hoNV1qp1p83g-DwIQA7dU-XzIeelAHwg&s',
                 currency: 'INR',
-                key: 'rzp_test_v4UV05zNfrIcEE',
+                key: `${Config.RARORPAY_KEY}`,
                 amount: String(Math.round(amount * 100)),
                 name: Strings.KFC,
                 prefill: {

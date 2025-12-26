@@ -9,7 +9,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
 // redux 
 import { useSelector } from "react-redux";
-import { addUserDetails, fetctUserDeatails, selectUserByMobile, updateUser } from '../../features/userSlice';
+import { addUserDetails, fetctUserDeatails, updateUser } from '../../features/userSlice';
 import { RootState, useAppDispatch } from '../../store/store';
 // util imports
 import Fonts from '../../utils/Fonts'
@@ -29,22 +29,22 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const rawPhone = phoneNo;
     let formattedText: string
     if (countrySelected?.code === 'uae')
-        formattedText = phoneNo.replace(/(\d{3})(?=\d)/g, '$1 ');
+        formattedText = phoneNo?.replace(/(\d{3})(?=\d)/g, '$1 ');
     else if (countrySelected?.code === 'in')
-        formattedText = phoneNo.replace(/(\d{5})(?=\d)/g, '$1 ');
+        formattedText = phoneNo?.replace(/(\d{5})(?=\d)/g, '$1 ');
     else
-        formattedText = phoneNo.replace(/(\d{4})(?=\d)/g, '$1 ');
+        formattedText = phoneNo?.replace(/(\d{4})(?=\d)/g, '$1 ');
     phoneNo = formattedText
     // data fetch
     const dispatch = useAppDispatch();
-    const existingUser = useSelector((state: RootState) =>
-        selectUserByMobile(state, rawPhone)
-    );
     useEffect(() => {
-        dispatch(fetctUserDeatails())
-    }, [dispatch])
+        dispatch(fetctUserDeatails(rawPhone))
+    }, [dispatch, rawPhone])
+    const existingUser = useSelector((state: RootState) =>
+        state.users.currentUser
+    );
     const userdata = useSelector((state: RootState) => state?.users)
-    const currentUser = userdata?.userData.find((item: userDatailsType) => item?.mobileNo === rawPhone)
+    const currentUser = userdata?.currentUser
     const [email, setEmail] = useState<string | undefined>(currentUser?.email ?? undefined)
     const [name, setName] = useState<string | undefined>(currentUser?.name ?? undefined)
     const [isTouchedEmail, setIsTouchedEmail] = useState<boolean>(false)
@@ -60,7 +60,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
 
     const handleCheckGmail = useCallback((): boolean | undefined => {
         return (email?.endsWith('.com') && email?.includes('@'))
-    },[email])
+    }, [email])
     const handleChangeEmail = (text: string): void => {
         setEmail(text)
         setIsTouchedEmail(true)
@@ -74,7 +74,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
             setGoodToLogin(true)
         else
             setGoodToLogin(false)
-    }, [handleCheckGmail , name])
+    }, [handleCheckGmail, name])
     const handleSave = (): void => {
         if (!goodToLogin) return;
         if (existingUser) {
@@ -115,7 +115,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         } else {
             setShowWarningEmail(false)
         }
-    }, [handleCheckGmail , isTouchedEmail, email])
+    }, [handleCheckGmail, isTouchedEmail, email])
     const handleShowWarningName = useCallback((): void => {
         if (isTouchedName && name === '') {
             setShowWarningName(true)
@@ -199,11 +199,11 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     }
     const onRefresh = React.useCallback((): void => {
         setRefreshing(true);
-        dispatch(fetctUserDeatails())
+        dispatch(fetctUserDeatails(rawPhone))
         setTimeout(() => {
             setRefreshing(false);
         }, 1000);
-    }, [dispatch]);
+    }, [dispatch, rawPhone]);
     return (
         <View style={Styles.parentBackground}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
