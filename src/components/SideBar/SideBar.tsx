@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, StyleSheet, View, Text, Image, TouchableWithoutFeedback, Linking, Alert, Platform } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, DrawerActions, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 //redux
@@ -21,6 +21,7 @@ import { CountryInfo } from '../../data/CountryInfo';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 import MediaSkeleton from '../../Loaders/MediaShimmer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const SideBar = () => {
   const Colors = useThemeColors()
   const Strings = useStrings()
@@ -28,7 +29,8 @@ const SideBar = () => {
   const inset = useSafeAreaInsets();
   const languae = useLanguage()
   const { countrySelected, setCountrySelected } = useCountry()
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+  // const drawerNavigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
   const [countryMenuOpen, setCountryMenuOpen] = useState<boolean>(false)
   const { isDarkMode, setIsDarkMode } = useTheme()
   const [isSettingsMenunOpen, setIsSettingsMenuOpen] = useState<boolean>(false)
@@ -94,7 +96,9 @@ const SideBar = () => {
             {userdata?.loading === 'success' ? (
               <Text style={Styles.Name}>{currentUser?.name} </Text>
             ) : (
-              <MediaSkeleton height={vh(20)} width={vh(150)} />
+              <>
+                {/* <MediaSkeleton height={vh(20)} width={vh(150)} /> */}
+              </>
             )}
           </View>
           <TouchableOpacity
@@ -108,8 +112,9 @@ const SideBar = () => {
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
                 onPress={() => {
-                  navigation.navigate(Strings.CreateProfileScreen, {
-                    phoneNo: storedPhone
+                  navigation.navigate("Auth", {
+                    screen: Strings.CreateProfileScreen,
+                    params: { phoneNo: storedPhone }
                   })
                   setIsSettingsMenuOpen(false)
                 }}>
@@ -130,8 +135,14 @@ const SideBar = () => {
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
                 onPress={() => {
-                  navigation.navigate(Strings.SplashScreen)
+                  navigation.dispatch(DrawerActions.closeDrawer());
                   setIsSettingsMenuOpen(false)
+                  navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [{ name: 'Splash' }],
+                    })
+                  );
                 }}>
                 <Image source={Images.Logout_Icon} style={Styles.ThemeIcon} />
                 <Text style={Styles.countryEntriesText}>{Strings.logout}</Text>
@@ -140,7 +151,7 @@ const SideBar = () => {
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
                 onPress={() => {
-                  navigation.navigate(Strings.FontsScreen)
+                  navigation.navigate("Testing", { screen: Strings.FontsScreen })
                   setIsSettingsMenuOpen(false)
                 }}>
                 <Text>{Strings.FontsScreen}</Text>
@@ -149,7 +160,7 @@ const SideBar = () => {
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
                 onPress={() => {
-                  navigation.navigate(Strings.ReAnimatedScreen)
+                  navigation.navigate("Testing", { screen: Strings.ReAnimatedScreen })
                   setIsSettingsMenuOpen(false)
                 }}>
                 <Text>{Strings.ReAnimatedScreen}</Text>
@@ -163,7 +174,7 @@ const SideBar = () => {
             <TouchableOpacity
               style={Styles.LanguageChangeButton}
               onPress={() => {
-                navigation.navigate(Strings.PopUpScreens);
+                navigation.navigate("Modal", { screen: Strings.PopUpScreens });
                 setIsSettingsMenuOpen(false)
               }}
             >
@@ -203,8 +214,11 @@ const SideBar = () => {
         <View style={Styles.MenuListContainer}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(Strings.OrderDetailsScreen, {
-                order: currentOrder
+              navigation.navigate("Order", {
+                screen: Strings.OrderDetailsScreen,
+                params: {
+                  order: currentOrder
+                }
               });
               setIsSettingsMenuOpen(false)
             }}
@@ -214,7 +228,7 @@ const SideBar = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(Strings.OrderHistoryScreens)
+              navigation.navigate("Order", { screen: Strings.OrderHistoryScreens })
               setIsSettingsMenuOpen(false)
             }}
             style={Styles.SingleEntry}>

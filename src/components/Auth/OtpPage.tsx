@@ -24,7 +24,7 @@ export default function OtpPage({ phoneNo }: { phoneNo: string }) {
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors);
   const inset = useSafeAreaInsets();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
   const { countrySelected } = useCountry()
   const [timer, setTimer] = useState<number>(90)
   const [resendActive, setResendActive] = useState<boolean>(false)

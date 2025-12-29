@@ -18,7 +18,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function LoginPage2() {
     const Colors = useThemeColors();
     const Strings = useStrings();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors)
     const { countrySelected } = useCountry()
@@ -194,11 +194,11 @@ export default function LoginPage2() {
             <View style={[Styles.TcContainer, { bottom: inset.bottom }]}>
                 <View style={Styles.TcInnerContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(Strings.TermsAndConditionsScreen)}>
+                        onPress={() => navigation.navigate("App", { screen: Strings.TermsAndConditionsScreen })}>
                         <Text style={Styles.tcText}>{Strings.tc.toUpperCase()} </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(Strings.HomeScreen)}>
+                        onPress={() => navigation.replace("App", { screen: Strings.HomeScreen })}>
                         <Text style={Styles.tcText}>{Strings.skipLoginAndContinue.toUpperCase()} </Text>
                     </TouchableOpacity>
                 </View>
@@ -212,7 +212,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: '100%'
         },
         scrollviewBottom: {
-            paddingBottom: 50
+            paddingBottom: vh(50)
         },
         UpperCOntainer: {
             backgroundColor: Colors.bodyColor,

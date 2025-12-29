@@ -14,12 +14,12 @@ import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-export default function SearchPage({ searchTerm }: SearchPageProps) {
+export default function SearchComponent({ searchTerm }: SearchPageProps) {
     const Colors = useThemeColors();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
     const Strings = useStrings()
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const [searchResult, setSearchResult] = useState<menuDataType[]>([])
     const menuData = useSelector((state: RootState) => state.menuData)
     const menuItems = useMemo(() => menuData?.menuData ?? [], [menuData])
@@ -135,7 +135,7 @@ export default function SearchPage({ searchTerm }: SearchPageProps) {
                                 data={searchResult}
                                 keyExtractor={(item) => item.id.toString()}
                                 renderItem={({ item }) => <MenuCard foodItem={item} />}
-                                contentContainerStyle={[Styles.ScrollViewContainer, { paddingBottom: inset.bottom + 20 }]}
+                                contentContainerStyle={[Styles.ScrollViewContainer, { paddingBottom: inset.bottom + vh(20) }]}
                                 keyboardShouldPersistTaps="handled"
                                 showsVerticalScrollIndicator={false}
                             />

@@ -20,7 +20,7 @@ export default function WebViewPage() {
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
 
     const INJECTED_JAVASCRIPT: string = `
     window.onload = function() {
@@ -70,7 +70,6 @@ export default function WebViewPage() {
 `;
     const onMessage = (event: WebViewMessageEvent): void => {
         const messageData = event.nativeEvent.data;
-        console.log('Raw message:', messageData);
         try {
             if (messageData === 'NO_DATA') {
                 console.log('No injected data found');

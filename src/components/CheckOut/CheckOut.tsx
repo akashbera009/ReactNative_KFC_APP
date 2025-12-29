@@ -24,7 +24,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const { countrySelected } = useCountry()
     const cartData = useSelector((state: RootState) => state.cart)
     const cartItem = cartData?.cartItems
@@ -37,7 +37,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     const [paymentMethodSelected, setPaymentMethodSelected] = useState<string>('')
     const [laterDate, setLaterDate] = useState<Date>(new Date())
     const [showTime, setShowTime] = useState<boolean>(false);
-    const [showDate, setShowDate] = useState< boolean>(false);
+    const [showDate, setShowDate] = useState<boolean>(false);
     // amount calculations  
     const vatAmount: number = Number((totalAmount * 5 / 100).toFixed(2))
     const beforeTax: number = totalAmount - DeliveryDetails?.charges - vatAmount
@@ -53,12 +53,16 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
         if (paymentMethodSelected === Strings.cashOnDeliveryString) {
             onPaymentSuccess('', OrderId, true, OrderDate, OrderTime, Strings.cashOnDeliveryString)
         } else {
-            navigation.navigate(Strings.PaymentModalScreen, {
-                amount: GrandTotal,
-                onSuccess: (paymentId: string, isSuccess: boolean) => {
-                    onPaymentSuccess(paymentId, OrderId, isSuccess, OrderDate, OrderTime, Strings.onlineString);
-                }
-            })
+            navigation.navigate("Modal",
+                {
+                    screen: Strings.PaymentModalScreen,
+                    params: {
+                        amount: GrandTotal,
+                        // onSuccess: (paymentId: string, isSuccess: boolean) => {
+                        //     onPaymentSuccess(paymentId, OrderId, isSuccess, OrderDate, OrderTime, Strings.onlineString);
+                        // }
+                    }
+                })
         }
     }
     const onPaymentSuccess = (paymentId: string | undefined, orderId: string, isSuccess: boolean, OrderDate: string, OrderTime: string, paymentMode: string): void => {
@@ -78,17 +82,20 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                 dispatch(addAsyncOrder(newOrder))
                 dispatch(clearCart())
             }
-            navigation.navigate(Strings.OrderStatusScreen, {
-                currentOrders: cartItem,
-                orderId: orderId,
-                OrderDate: OrderDate,
-                OrderTime: OrderTime,
-                paymentMode: paymentMethodSelected,
-                vatAmount: vatAmount,
-                GrandTotal: GrandTotal,
-                SubTotal: beforeTax,
-                deliveriCharge: DeliveryDetails?.charges,
-                orderStatus: isSuccess
+            navigation.navigate("Order", {
+                screen: Strings.OrderStatusScreen,
+                params: {
+                    currentOrders: cartItem,
+                    orderId: orderId,
+                    OrderDate: OrderDate,
+                    OrderTime: OrderTime,
+                    paymentMode: paymentMethodSelected,
+                    vatAmount: vatAmount,
+                    GrandTotal: GrandTotal,
+                    SubTotal: beforeTax,
+                    deliveriCharge: DeliveryDetails?.charges,
+                    orderStatus: isSuccess
+                }
             })
         }, 1000);
     }
@@ -169,11 +176,11 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                                 {deliveryType === 'later' && <View style={Styles.radioInner} />}
                             </View>
                         </TouchableOpacity>
-                        { new Date().toLocaleString().slice(0, 17) !== laterDate.toLocaleString().slice(0, 17) && (
+                        {new Date().toLocaleString().slice(0, 17) !== laterDate.toLocaleString().slice(0, 17) && (
                             <Text style={Styles.dateBadge}> {Strings.willBeDeliveredOn} :  {laterDate.toLocaleString().slice(0, 16)}</Text>
                         )}
                         {showDate && (
-                            <RNDateTimePicker 
+                            <RNDateTimePicker
                                 value={laterDate}
                                 mode="date"
                                 display={Platform.OS === 'ios' ? 'inline' : 'default'}
@@ -490,15 +497,15 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: Colors.KFC_red,
             borderRadius: normalize(6),
         },
-        dateBadge:{
-            marginTop : vh(10),
-            borderRadius : normalize(15),
-            backgroundColor : Colors.blueLightBG,
-            marginHorizontal : 'auto',
-            paddingVertical : vh(8),
-            paddingHorizontal : vh(8),
-            fontFamily :Fonts.font18 , 
-            color : Colors.textBlack
+        dateBadge: {
+            marginTop: vh(10),
+            borderRadius: normalize(15),
+            backgroundColor: Colors.blueLightBG,
+            marginHorizontal: 'auto',
+            paddingVertical: vh(8),
+            paddingHorizontal: vh(8),
+            fontFamily: Fonts.font18,
+            color: Colors.textBlack
         },
         DateFixingButton: {
             backgroundColor: Colors.activeBorder,

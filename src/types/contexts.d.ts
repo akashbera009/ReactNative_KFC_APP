@@ -15,8 +15,12 @@ type CartContextType = {
   setCartItem: React.Dispatch<SetStateAction<CartItemType[]>>
 }
 type MenuContextType = {
-  menuItem : menuDataType[] ; 
-  setMenuItem : React.Dispatch<SetStateAction<menuDataType[]>>
+  menuItem: menuDataType[];
+  setMenuItem: React.Dispatch<SetStateAction<menuDataType[]>>
+}
+type MenuCategoryContextType = {
+  activeCategory: string;
+  setActiveCategory: (ele: string) => void ; 
 }
 type countryType = {
   name: string,
@@ -27,7 +31,7 @@ type countryType = {
   mobileNoFraction: number,
   currencyCode: string
 }
-type OrderQueueContextType ={
- orderQueueItem : OrderHistory[]
- setOrderQueueItem : React.Dispatch<SetStateAction<OrderHistory[]>>
+type OrderQueueContextType = {
+  orderQueueItem: OrderHistory[]
+  setOrderQueueItem: React.Dispatch<SetStateAction<OrderHistory[]>>
 }

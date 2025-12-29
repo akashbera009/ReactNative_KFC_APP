@@ -18,7 +18,7 @@ export default function LoginPage() {
   const Colors = useThemeColors()
   const Strings = useStrings()
   const inset = useSafeAreaInsets();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
   const Styles = createDynamicStyles(Colors);
   const { language, setLanguage } = useLanguage()
   const { countrySelected } = useCountry();
@@ -100,22 +100,26 @@ export default function LoginPage() {
               <Image source={countrySelected?.flag} style={Styles.flagImage} />
               <Text style={[Styles.CountryName,]}>{countrySelected?.name}</Text>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('LoginPageCountryBottomSheetScreen')}>
+            <TouchableOpacity onPress={() => navigation.navigate("Modal", {
+              screen: Strings.LoginPageCountryBottomSheetScreen
+            }
+            )}>
               <Text style={[Styles.changeText, { fontFamily: Fonts.subHeader, color: Colors.ButtonBlueColor }]}>{Strings.change}</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
             activeOpacity={.5}
             style={[Styles.loginButton, {}]}
-            onPress={() => navigation.push(Strings.LoginScreen2)}>
+            onPress={() => navigation.push("Auth", { screen: Strings.LoginScreen2 })}>
             <Text style={[Styles.LoginButtonText]}>{Strings.login}</Text>
           </TouchableOpacity>
-          <View style={[Styles.BottomTermsContainer, { marginBottom: inset.bottom + 10 }]}>
-            <TouchableOpacity >
+          <View style={[Styles.BottomTermsContainer, { marginBottom: inset.bottom + vh(10) }]}>
+            <TouchableOpacity 
+              onPress={() => navigation.push("App", { screen: Strings.TermsAndConditionsScreen })}>
               <Text style={Styles.termsAndCondition}>{Strings.termsCondition.toUpperCase()}</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate(Strings.HomeScreen)}>
+              onPress={() => navigation.replace("App", { screen: Strings.HomeScreen })}>
               <Text style={Styles.termsAndCondition}>{Strings.skipLogin}</Text>
             </TouchableOpacity>
           </View>

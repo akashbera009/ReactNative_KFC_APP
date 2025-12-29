@@ -11,7 +11,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 export const CommonPopUp = ({ header, message }: CommonPopUpScreenProps) => {
     const Colors = useThemeColors();
     const Strings = useStrings();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const Styles = createDynamicStyles(Colors);
     const opacity = useRef<Animated.Value>(new Animated.Value(0)).current;
     useEffect((): () => void | void => {

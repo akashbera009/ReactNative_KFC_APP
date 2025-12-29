@@ -25,7 +25,7 @@ export default function ImagePickCropper() {
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const [imageUri, setImageUri] = useState<string>('');
     const [videoUri, setVideoUri] = useState<string | undefined>('');
     const [viewOnlyModal, setViewOnlyModal] = useState<boolean>(false)

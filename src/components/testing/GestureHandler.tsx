@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 //  gesture 
 import { GestureDetector, Gesture, ScrollView, Directions } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import { runOnJS } from 'react-native-worklets';
+import type { RefObject } from 'react';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -17,13 +19,18 @@ export default function GestureHandler() {
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     // const [scrollEnabled, setScrollEnabled] = useState(true)
     const scrollEnabled = useSharedValue(true)
     // animation 
     const isPressed = useSharedValue(false);
     const offset = useSharedValue({ x: 0, y: 0 });
     const start = useSharedValue({ x: 0, y: 0 })
+
+
+    /// block external 
+    const scrollRef = useRef<ScrollView | null>(null);
+
 
     const animatedStyles = useAnimatedStyle(() => ({
         transform: [
@@ -36,7 +43,6 @@ export default function GestureHandler() {
         .onStart(() => {
             isPressed.value = true;
             scrollEnabled.value = false
-            // runOnJS(setScrollEnabled)(false);
         })
         .onUpdate((e) => {
             offset.value = {
@@ -176,6 +182,7 @@ export default function GestureHandler() {
     }))
 
     //pinch gesture 
+
     const scaleRef = useSharedValue(1)
     const savedScaleRef = useSharedValue(1)
     const MIN_SCALE = 1;
@@ -206,6 +213,7 @@ export default function GestureHandler() {
         .onFinalize(() => {
             scrollEnabled.value = true
         })
+        // .simultaneousWithExternalGesture(scrollRef)
 
     // fling 
     const flingRef = useSharedValue(0)
@@ -231,7 +239,7 @@ export default function GestureHandler() {
             // console.log(e);
         })
 
-
+    const composedGestureFling = Gesture.Simultaneous(flingGestureRight, flingGestureLeft)
 
     // composed
     const offset2 = useSharedValue({ x: 0, y: 0 });
@@ -336,6 +344,104 @@ export default function GestureHandler() {
         dragGesture4,
         Gesture.Simultaneous(zoomGesture4, rotateGesture4)
     );
+
+
+    // exclusive 
+    const singleTap = Gesture.Tap().onEnd((_event, success) => {
+        if (success) {
+            console.log('single tap!');
+        }
+    });
+    const doubleTap = Gesture.Tap()
+        .numberOfTaps(2)
+        .onEnd((_event, success) => {
+            if (success) {
+                console.log('double tap!');
+            }
+        });
+    const taps = Gesture.Exclusive(doubleTap, singleTap);
+
+
+    // requireeexternalgesturetofail
+    const [tapMessge, setTapMessage] = useState('')
+    const innerTap = Gesture.Tap()
+        .numberOfTaps(2)
+        // .runOnJS(true)
+        .onStart(() => {
+            console.log('inner tap');
+            runOnJS(setTapMessage)('inner double tap')
+            // setTapMessage('inner double tap')
+        });
+
+    const outerTap = Gesture.Tap()
+        .onStart(() => {
+            console.log('outer tap');
+            runOnJS(setTapMessage)('outer single tap')
+        })
+        .requireExternalGestureToFail(innerTap)
+    // .blocksExternalGesture(innerTap)
+    // .simultaneousWithExternalGesture(innerTap)
+
+
+    // manual gesture 
+    // const trackedPointers: Animated.SharedValue<Pointer>[] = [];
+    // const active = useSharedValue(false);
+
+    // for (let i = 0; i < 12; i++) {
+    //     trackedPointers[i] = useSharedValue<Pointer>
+    //     {
+    //         visible: false
+    //         x: 0
+    //         y: 0
+    //     };
+    // }
+
+    // const gesture = Gesture.Manual()
+    //     .onTouchesDown((e, manager) => {
+    //         for (const touch of e.changedTouches) {
+    //             trackedPointers[touch.id].value = {
+    //                 visible: true,
+    //                 x: touch.x,
+    //                 y: touch.y,
+    //             };
+    //         }
+
+    //         if (e.numberOfTouches >= 2) {
+    //             manager.activate();
+    //         }
+    //     })
+    //     .onTouchesMove((e, _manager) => {
+    //         for (const touch of e.changedTouches) {
+    //             trackedPointers[touch.id].value = {
+    //                 visible: true,
+    //                 x: touch.x,
+    //                 y: touch.y,
+    //             };
+    //         }
+    //     })
+    //     .onTouchesUp((e, manager) => {
+    //         for (const touch of e.changedTouches) {
+    //             trackedPointers[touch.id].value = {
+    //                 visible: false,
+    //                 x: touch.x,
+    //                 y: touch.y,
+    //             };
+    //         }
+
+    //         if (e.numberOfTouches === 0) {
+    //             manager.end();
+    //         }
+    //     })
+    //     .onStart(() => {
+    //         active.value = true;
+    //     })
+    //     .onEnd(() => {
+    //         active.value = false;
+    //     });
+
+
+
+
     //// 
     const touchStyle = useAnimatedStyle(() => ({
 
@@ -355,7 +461,10 @@ export default function GestureHandler() {
             </View>
             <View style={Styles.body}>
                 {/* scrollEnabled={scrollEnabled.value} */}
-                <ScrollView >
+                <ScrollView
+                    // scrollEnabled={scrollEnabled.value}
+                    ref={scrollRef}
+                >
                     <View style={Styles.FirstSection}>
                         <Text style={Styles.secitonTitle}>pan gesture </Text>
                         <GestureDetector gesture={panGesture}>
@@ -404,40 +513,158 @@ export default function GestureHandler() {
                     </View>
                     <View style={Styles.sixthSection}>
                         <Text style={Styles.secitonTitle}>fling gesture  </Text>
-                        <GestureDetector gesture={Gesture.Simultaneous(flingGestureRight, flingGestureLeft)}>
+                        <GestureDetector gesture={composedGestureFling}>
                             <Animated.View style={[Styles.fling, flingStyles]} >
                                 <Text style={{ color: '#f7f7f7ff' }}>fling   </Text>
                             </Animated.View>
                         </GestureDetector>
                     </View>
-                    <View style={Styles.fifthhSection}>
+                    {/* <View style={Styles.fifthhSection}>
                         <Text style={Styles.secitonTitle}>touch  gesture  </Text>
                         <GestureDetector gesture={touchGesture}>
                             <Animated.View style={[Styles.touchBox, touchStyle]} >
                                 <Text style={{ color: '#f7f7f7ff' }}>Touch   </Text>
                             </Animated.View>
                         </GestureDetector>
-                    </View>
+                    </View> */}
 
                     <View style={Styles.FirstSection}>
-                        <Text style={Styles.secitonTitle}>(componsed ) pan + longpress  gesture </Text>
+                        <Text style={Styles.secitonTitle}> pan + longpress  gesture(race) </Text>
                         <Popup style={animatedPopupStyles} />
                         <GestureDetector gesture={composedGesture}>
                             <Animated.View style={[Styles.ball, animatedStyles2]} />
                         </GestureDetector>
                     </View>
-                    {/* <NativeGesture/> */}
 
-                    <View style={Styles.FirstSection}>
+                    <View style={Styles.seventhSection}>
+                        <Text style={Styles.secitonTitle}>zoom rotate , pan (simultenious)  </Text>
                         <GestureDetector gesture={composed4}>
                             <Animated.View style={[Styles.ball4, animatedStyles4]} />
                         </GestureDetector>
                     </View>
+
+                    <View style={Styles.eightSection}>
+                        <Text style={Styles.secitonTitle}>single tap and double tap(exlusive )  </Text>
+                        <GestureDetector gesture={taps}>
+                            <Animated.View style={[Styles.ball5]} />
+                        </GestureDetector>
+                    </View>
+
+                    <Text style={Styles.secitonTitle}>requireExternalGestureToFail  </Text>
+                    <View style={Styles.ninthSction}>
+                        <GestureDetector gesture={outerTap}>
+                            <View style={Styles.outer}>
+                                <GestureDetector gesture={innerTap}>
+                                    <View style={Styles.inner} >
+                                        <Text style={Styles.boxText} >
+                                            make double tap here
+                                        </Text>
+                                    </View>
+                                </GestureDetector>
+                            </View>
+                        </GestureDetector>
+                        <Text style={Styles.secitonTitle}> {tapMessge} </Text>
+                    </View>
+
+
+
+                    <Text style={Styles.secitonTitle}>blocks extrernal gesture</Text>
+                    <ScrollView style={Styles.container} ref={scrollRef}>
+                        {ITEMS.map((item: string) => (
+                            <Item backgroundColor={item} key={item} scrollRef={scrollRef} />
+                        ))}
+                    </ScrollView>
+
+
+                    {/* manual gesture  */}
+                    {/* <GestureDetector gesture={gesture}>
+                        <Animated.View style={{ flex: 1 }}>
+                            {trackedPointers.map((pointer, index) => (
+                                <PointerElement pointer={pointer} active={active} key={index} />
+                            ))}
+                        </Animated.View>
+                    </GestureDetector> */}
+
                 </ScrollView>
             </View>
         </View>
     );
 }
+
+type ItemProps = {
+    backgroundColor: string;
+    scrollRef: RefObject<ScrollView | null>;
+};
+const ITEMS = ['red', 'green', 'blue', 'yellow'];
+function Item({ backgroundColor }: ItemProps) {
+    const scale = useSharedValue(1);
+    const zIndex = useSharedValue(1);
+
+    const pinch23 = Gesture.Pinch()
+        // .blocksExternalGesture(scrollRef)
+        .onBegin(() => {
+            zIndex.value = 100;
+        })
+        .onChange((e) => {
+            scale.value *= e.scaleChange;
+        })
+        .onFinalize(() => {
+            scale.value = withTiming(1, undefined, (finished) => {
+                if (finished) {
+                    zIndex.value = 1;
+                }
+            });
+        });
+
+    const animatedStyles23 = useAnimatedStyle(() => ({
+        transform: [{ scale: scale.value }],
+        zIndex: zIndex.value,
+    }));
+    const Colors = useThemeColors();
+    const Styles = createDynamicStyles(Colors);
+    return (
+        <GestureDetector gesture={pinch23}>
+            <Animated.View
+                style={[
+                    { backgroundColor: backgroundColor },
+                    Styles.item,
+                    animatedStyles23,
+                ]}
+            />
+        </GestureDetector>
+    );
+}
+
+
+// manual gesture 
+// interface Pointer {
+//     visible: boolean;
+//     x: number;
+//     y: number;
+// }
+// function PointerElement(props: {
+//     pointer: Animated.SharedValue<Pointer>,
+//     active: Animated.SharedValue<boolean>,
+// }) {
+//     const animatedStyle = useAnimatedStyle(() => ({
+//         transform: [
+//             { translateX: props.pointer.value.x },
+//             { translateY: props.pointer.value.y },
+//             {
+//                 scale:
+//                     (props.pointer.value.visible ? 1 : 0) *
+//                     (props.active.value ? 1.3 : 1),
+//             },
+//         ],
+//         backgroundColor: props.active.value ? 'red' : 'blue',
+//     }));
+//     const Colors = useThemeColors();
+//     const Styles = createDynamicStyles(Colors);
+//     return <Animated.View style={[Styles.pointer, animatedStyle]} />;
+// }
+
+
+
 function Popup({ style }: any) {
     return (
         <Animated.View style={[styles.popup, style]}>
@@ -517,6 +744,25 @@ const createDynamicStyles = (Colors: ColorType) => {
             paddingBottom: vh(20),
             minHeight: vh(200)
         },
+        seventhSection: {
+            backgroundColor: '#f4ded0ff',
+            paddingBottom: vh(20),
+            minHeight: vh(200)
+        },
+        eightSection: {
+            backgroundColor: '#c2eda6ff',
+            paddingBottom: vh(20),
+            minHeight: vh(200)
+        },
+        ninthSction: {
+            backgroundColor: '#f7cc95ff',
+            paddingBottom: vh(20),
+            minHeight: vh(200),
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
         ball: {
             width: vh(50),
             height: vw(50),
@@ -527,8 +773,13 @@ const createDynamicStyles = (Colors: ColorType) => {
         ball4: {
             width: vh(150),
             height: vw(100),
-            // borderRadius: normalize(100),
             backgroundColor: '#e47373ff',
+            alignSelf: 'center',
+        },
+        ball5: {
+            width: vh(150),
+            height: vw(100),
+            backgroundColor: '#466debff',
             alignSelf: 'center',
         },
         secondSection: {
@@ -614,7 +865,54 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-        }
+        },
+
+
+        // container: {
+        //     flex: 1,
+        //     alignItems: 'center',
+        //     justifyContent: 'center',
+        // },
+        outer: {
+            width: vw(250),
+            height: vh(250),
+            backgroundColor: 'lightblue',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        inner: {
+            width: vw(100),
+            height: vh(100),
+            backgroundColor: 'blue',
+            alignSelf: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        boxText: {
+            fontSize: normalize(16),
+            color: Colors.constantWhite,
+            textAlign: 'center'
+        },
+        container: {
+            flex: 1,
+        },
+        item: {
+            height: vh(100),
+            width: vw(200)
+        },
+        pointer10: {
+            width: 60,
+            height: 60,
+            borderRadius: 30,
+            backgroundColor: 'red',
+            position: 'absolute',
+            marginStart: -30,
+            marginTop: -30,
+        },
     });
     return Styles;
 };

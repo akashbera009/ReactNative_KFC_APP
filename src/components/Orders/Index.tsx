@@ -21,7 +21,7 @@ export default function Index() {
   const Strings = useStrings();
   const inset = useSafeAreaInsets();
   const Styles = createDynamicStyles(Colors);
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
     dispatch(fetchOrders())

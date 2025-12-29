@@ -24,7 +24,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors);
     const inset = useSafeAreaInsets();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const { countrySelected } = useCountry()
     const rawPhone = phoneNo;
     let formattedText: string
@@ -97,13 +97,16 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
             }));
         }
         navigation.pop()
-        navigation.navigate(Strings.CommonPopUpScreen, {
-            header: Strings.UserDeatailUpdatedHeader,
-            message: Strings.UserDeatailUpdatedMessage
+        navigation.navigate("Modal", {
+            screen: Strings.CommonPopUpScreen,
+            params: {
+                header: Strings.UserDeatailUpdatedHeader,
+                message: Strings.UserDeatailUpdatedMessage
+            }
         })
         setTimeout(() => {
             navigation.pop()
-            navigation.navigate(Strings.HomeScreen);
+            navigation.replace("App", { screen: Strings.HomeScreen });
         }, 20000);
     }
     const handleShowWarningEmail = useCallback((): void => {
@@ -320,6 +323,13 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                 <TouchableOpacity
                                     activeOpacity={.5}
                                     onPress={handleSave}
+                                    style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
+                                    <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings.save.toUpperCase()}</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    activeOpacity={.5}
+                                    onPress={()=> navigation.replace('App')}
                                     style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
                                     <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings.save.toUpperCase()}</Text>
                                 </TouchableOpacity>

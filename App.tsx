@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 // persistor 
 import persistStore from 'redux-persist/es/persistStore'
 import { PersistGate } from 'redux-persist/integration/react';
-import AppRoot from './ AppRoot';
+import AppRoot from './src/AppRoot';
 let persistor = persistStore(store)
 function App() {
   return (

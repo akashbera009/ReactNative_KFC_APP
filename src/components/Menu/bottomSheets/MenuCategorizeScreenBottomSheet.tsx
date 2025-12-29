@@ -10,13 +10,15 @@ import { useStrings } from '../../../utils/Strings';
 import Fonts from '../../../utils/Fonts'
 import Images from '../../../utils/LocalImages';
 import { normalize, vh, vw } from '../../../utils/Dimensions';
-export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, frequencyArray }: MenuCategorizationScreenProps) {
+import { useMenuCategory } from '../../../context/MenuContext';
+export default function MenuCategorizeScreenBottomSheet({ frequencyArray }: MenuCategorizationScreenProps) {
     const slide = useRef(new Animated.Value(800)).current;
     const fade = useRef(new Animated.Value(0)).current;
     const Colors = useThemeColors()
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors)
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const {setActiveCategory} = useMenuCategory()
     const slideUp = useCallback(() :void=> {
         Animated.parallel([
             Animated.timing(slide, {

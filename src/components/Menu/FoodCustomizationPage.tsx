@@ -20,7 +20,7 @@ export default function FoodCustomizationPage({ foodItem }: { foodItem: menuData
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const [activeDotIdx, setActiveDotIdx] = useState<number>(0)
     const [loadingIdx, setLoadingIdx] = React.useState<number | null>(0);
     const [tabBarIdx, setTabBarIdx] = React.useState<number | null>(0);

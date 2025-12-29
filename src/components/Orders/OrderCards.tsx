@@ -14,7 +14,7 @@ export default function OrderCards({ order }: { order: OrderHistory }) {
     const Strings = useStrings();
     const Styles = createDynamicStyles(Colors);
     const { countrySelected } = useCountry();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const itemNames: string = order?.Items
         ? order?.Items?.map((i: CartItemType) => `${i?.quantity} ${i?.name}`).join(', ')
         : '';

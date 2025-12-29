@@ -20,12 +20,12 @@ import { useCountry } from '../../context/CountryContext';
 import { DeliveryDetails } from '../../data/DeliveryDetails';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 
-export default function CartPage({ discount, discountPercentage, offerCode }: CartScreenScreenProps) {
+export default function CartPage({ discount, discountPercentage, offerCode }: CartScreenProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const cartData = useSelector((state: RootState) => state.cart)
     const cartItem = cartData?.cartItems
     const { countrySelected } = useCountry();

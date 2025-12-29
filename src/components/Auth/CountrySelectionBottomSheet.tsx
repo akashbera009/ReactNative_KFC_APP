@@ -18,7 +18,7 @@ export default function CountrySelectionBottomSheet() {
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors)
   const inset = useSafeAreaInsets();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
   const { countrySelected, setCountrySelected } = useCountry();
   const slideUp = useCallback((): void => {
     Animated.parallel([

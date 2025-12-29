@@ -14,7 +14,7 @@ export const CartItemNotFound = () => {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     return (
         <View style={Styles.NotFoundContainer}>
             <View style={Styles.imageContaienr}>

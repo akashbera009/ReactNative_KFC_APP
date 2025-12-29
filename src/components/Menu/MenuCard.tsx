@@ -19,7 +19,7 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
     const country = useCountry()
     const Strings = useStrings();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const cartItem = useSelector((state: RootState) => state.cart)
     const itemInCart: CartItemType | undefined = cartItem?.cartItems?.find((item: CartItemType) => item?.menuItemUid === foodItem?.uid)
     const quantity: number = itemInCart ? itemInCart?.quantity : 0;

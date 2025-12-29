@@ -17,7 +17,7 @@ export default function BestSeller() {
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors);
     const Country = useCountry()
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     return (
         <View style={Styles.ParentBestSellerContainer}>
             <View style={Styles.headerExplore}>

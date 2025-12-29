@@ -17,14 +17,15 @@ import { useStrings } from '../../utils/Strings'
 import { useThemeColors } from '../../utils/Colors'
 import { normalize, vh, vw } from '../../utils/Dimensions';
 import { TextInput } from 'react-native-gesture-handler';
-import SearchPage from './SearchPage';
+import SearchComponent from './SearchComponent';
+import { useMenuCategory } from '../../context/MenuContext';
 
 const Index = ({ categoryType }: { categoryType: string }) => {
     const Colors = useThemeColors()
     const Strings = useStrings()
     const inset = useSafeAreaInsets()
     const Styles = createDynamicStyles(Colors)
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const dispatch = useAppDispatch()
     useEffect((): void => {
         dispatch(fetchMenu())
@@ -38,7 +39,11 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const categoryArr: string[] = [...(menuItem.map((item) => item.categories).flat(1))].sort()
     const categorySet: string[] = [...new Set<string>([...categoryArr])];
     const frequencyMap: Map<string, number> = new Map();
-    const [activeCategory, setActiveCategory] = useState<string>(categoryType);
+    const { activeCategory, setActiveCategory } = useMenuCategory()
+    useEffect(() => {
+        setActiveCategory(categoryType)
+    }, [categoryType]);
+
     //search
     const [searchTerm, setSearchTerm] = useState<string>('')
     const [searchActive, setSearchActive] = useState<boolean>(false)
@@ -78,7 +83,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
             duration: 300,
             useNativeDriver: true
         }).start()
-    },[slideInRef])
+    }, [slideInRef])
     const toggleSearch = async (): Promise<void> => {
         if (searchActive) {
             searchBarSlideUp()
@@ -163,23 +168,28 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                 </Animated.View >
             </View>
             {searchActive ? (
-                <SearchPage searchTerm={searchTerm} />
+                <SearchComponent searchTerm={searchTerm} />
             ) : (
                 <>
                     <View style={Styles.CategorySelector}>
                         <TouchableOpacity
                             style={Styles.menuIconContainer}
                             onPress={() => {
-                                navigation.navigate(Strings.MenuCategorizeScreen, {
-                                    activeCategory: activeCategory,
-                                    setActiveCategory: setActiveCategory,
-                                    frequencyArray: frequencyArray
-                                })
+                                navigation.navigate("Modal",
+                                    {
+                                        screen: Strings.MenuCategorizeScreen,
+                                        params: {
+                                            frequencyArray: frequencyArray
+                                        }
+                                    })
                             }}
                         >
                             <Image source={Images.Foood_Menu_Icon} style={Styles.menuIcon} />
                         </TouchableOpacity>
-                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                        <ScrollView
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        >
                             {categorySet.map((cat) => (
                                 <TouchableOpacity
                                     key={cat}

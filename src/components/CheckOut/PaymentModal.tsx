@@ -21,11 +21,11 @@ import Images from '../../utils/LocalImages';
 import { savedCards, otherPaymentOption } from '../../data/DeliveryDetails';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 
-export default function PaymentOptionsBottomSheet({ amount, onSuccess }: PaymentModalScreenProps) {
+export default function PaymentOptionsBottomSheet({ amount}: PaymentModalScreenProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const Styles = createDynamicStyles(Colors);
     const slide = useRef(new Animated.Value(500)).current;
     const fade = useRef(new Animated.Value(0)).current;
@@ -41,7 +41,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
         success: boolean,
         payment_id: string | undefined
     ): void => {
-        onSuccess?.(payment_id, success);
+        // onSuccess?.(payment_id, success);
     }
     const slideUp = useCallback((): void => {
         Animated.parallel([

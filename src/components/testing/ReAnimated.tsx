@@ -1,24 +1,25 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useReducer, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // animation 
-import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, withRepeat, withSequence, withDelay } from 'react-native-reanimated';
+import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, withRepeat, withSequence, withDelay, withDecay } from 'react-native-reanimated';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
-import { normalize, vh, vw } from '../../utils/Dimensions';
+import { normalize, screenWidth, vh, vw } from '../../utils/Dimensions';
 import Svg, { Circle } from 'react-native-svg';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 const { width } = Dimensions.get('window')
 export default function ReAnimated() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     // animation 
     const aniWidth = useSharedValue(100)
     const handelIncrease = () => {
@@ -64,6 +65,39 @@ export default function ReAnimated() {
             )
         )
     }
+    //. decay gesture 
+    const position = useSharedValue(0)
+    // const savedPosition = useSharedValue(0)
+    const Screen_OFFSET = vw(10);
+    const BOX_SIZE = vw(80);
+    const decayGesture = Gesture.Pan()
+        .onChange((e) => {
+            position.value += e.changeX;
+            console.log(e);
+        })
+        .onFinalize((e) => {
+            position.value = withDecay({
+                velocity: e.velocityX,
+                rubberBandEffect: true,
+                clamp: [
+                    -screenWidth / 2 + BOX_SIZE / 2 + Screen_OFFSET,
+                    screenWidth / 2 - BOX_SIZE / 2 - Screen_OFFSET,
+                ]
+            })
+        })
+    const decayStyles = useAnimatedStyle(() => ({
+        transform: [{ translateX: position.value }]
+    }))
+
+    /// expand 
+    const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
+    const COLORS = ['#fa7f7c', '#b58df1', '#ffe780', '#82cab2', '#87cce8'];
+    const colors = width > 500 ? COLORS : COLORS.slice(0, 3);
+    const [expandedId, setExpandedId] = useState(0);
+
+    // rotate 
+    const [isToggled, toggle] = useReducer((s) => !s, false);
+
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -122,6 +156,64 @@ export default function ReAnimated() {
                             <Text style={Styles.buttonContainerText}> goto gesture hangles </Text>
                         </TouchableOpacity>
                     </View>
+
+                    <View style={Styles.fourthSection}>
+                        <Text style={Styles.secitonTitle} > with decay </Text>
+                        <GestureDetector gesture={decayGesture}>
+                            <Animated.View style={[Styles.ThirdBox, decayStyles]} />
+                        </GestureDetector>
+                    </View>
+
+                    <View style={Styles.ThirdSection}>
+                        <Text style={Styles.secitonTitle} > css transition  </Text>
+                        <View style={Styles.container}>
+                            {colors.map((color, id) => {
+                                return (
+                                    <AnimatedTouchableOpacity
+                                        onPress={() => setExpandedId(id)}
+                                        key={id}
+                                        style={[
+                                            Styles.box, {
+                                                backgroundColor: color,
+                                                flexGrow: id === expandedId ? 3 : 1,
+                                                transitionProperty: 'flexGrow',
+                                                transitionDuration: 500,
+                                            }
+                                        ]}
+                                    >
+                                    </AnimatedTouchableOpacity>
+                                )
+                            })}
+                        </View>
+                    </View>
+
+                    <View style={Styles.RotateSection}>
+                        <View style={Styles.container2}>
+                            <View style={Styles.row}>
+                                {colors.map((color, id) => (
+                                    <Animated.View
+                                        key={color}
+                                        style={[
+                                            Styles.box2,
+                                            {
+                                                backgroundColor: color,
+                                                transform: [{ rotateY: isToggled ? '0deg' : '180deg' }],
+                                                borderRadius: isToggled ? 16 : 0,
+                                                transitionProperty: ['transform', 'borderRadius'],
+                                                transitionDuration: [400 * id + 500, '0.5s'],
+                                            },
+                                        ]}
+                                    >
+                                        <Text>  lo  </Text>
+                                    </Animated.View>
+                                ))}
+                            </View>
+                        </View>
+                        <TouchableOpacity onPress={toggle} style={Styles.rotateButton}  >
+                            <Text>Click me </Text>
+                        </TouchableOpacity>
+                    </View>
+
                 </ScrollView>
             </View>
         </View>
@@ -174,7 +266,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             paddingVertical: vh(6),
             color: Colors.constantWhite,
             borderRadius: normalize(10),
-            fontFamily : Fonts.font18
+            fontFamily: Fonts.font18
         },
         firstBox: {
             backgroundColor: Colors.ButtonBlueColor,
@@ -212,7 +304,57 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         ThirdSection: {
             backgroundColor: '#fdf8d6ff',
-        }
+        },
+        RotateSection: {
+            backgroundColor: '#d6e6fdff',
+        },
+        fourthSection: {
+            backgroundColor: '#bff7f3ff',
+        },
+        container: {
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            gap: 16,
+            marginHorizontal: 16,
+        },
+        container2: {
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            // justifyContent: 'center',
+            height: '100%',
+            gap: 16,
+            // marginHorizontal: 16,
+        },
+        row: {
+            flexDirection: 'row',
+            gap: 16,
+        },
+        rotateButton: {
+            height: vh(50),
+            width: '80%',
+            backgroundColor: '#f47d7dff',
+            marginBottom: vh(10),
+            alignSelf: 'center',
+            borderRadius: normalize(10),
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+        },
+        box: {
+            height: vh(120),
+            marginVertical: vw(64),
+        },
+        box2: {
+            width: 100,
+            height: 100,
+            borderRadius: 20,
+            marginVertical: 64,
+        },
     });
     return Styles;
 };

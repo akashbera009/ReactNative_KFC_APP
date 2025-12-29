@@ -11,6 +11,7 @@ import CommonPopUpScreen from '../screens/CommonPopUpScreen';
 import OfferAppliedScreen from '../screens/OfferAppliedScreen';
 import LoginPageCountryBottomSheetScreen from '../screens/LoginPageCountryBottomSheetScreen';
 import PopUpScreens from '../screens/PopUpScreens';
+import MenuCategorizeScreen from '../screens/MenuCategorizeScreen';
 
 const ModalStack = createNativeStackNavigator<ModalStackParamList>();
 export default function ModalStackNavigator() {
@@ -19,16 +20,41 @@ export default function ModalStackNavigator() {
         <ModalStack.Navigator
             screenOptions={{
                 headerShown: false,
-                presentation: 'transparentModal',
+                contentStyle: { backgroundColor: "transparent" }
             }}
         >
-            <ModalStack.Screen name={Strings.ChangeLocationBottomSheetScreen} component={ChangeLocationBottomSheetScreen} />
-            <ModalStack.Screen name="RemoveCartItemBottomSheetScreen" component={RemoveCartItemBottomSheetScreen} />
-            <ModalStack.Screen name="OfferAppliedScreen" component={OfferAppliedScreen} />
-            <ModalStack.Screen name="PaymentModalScreen" component={PaymentModalScreen} />
-            <ModalStack.Screen name="CommonPopUpScreen" component={CommonPopUpScreen} />
-            <ModalStack.Screen name="PopUpScreens" component={PopUpScreens} />
-            <ModalStack.Screen name="LoginPageCountryBottomSheetScreen" component={LoginPageCountryBottomSheetScreen} />
+            <ModalStack.Screen
+                name={Strings.LoginPageCountryBottomSheetScreen}
+                component={LoginPageCountryBottomSheetScreen}
+            />
+            <ModalStack.Screen
+                name={Strings.MenuCategorizeScreen}
+                component={MenuCategorizeScreen}
+            />
+            <ModalStack.Screen
+                name={Strings.ChangeLocationBottomSheetScreen}
+                component={ChangeLocationBottomSheetScreen}
+            />
+            <ModalStack.Screen
+                name={Strings.RemoveCartItemBottomSheetScreen}
+                component={RemoveCartItemBottomSheetScreen}
+            />
+            <ModalStack.Screen
+                name={Strings.OfferAppliedScreen}
+                component={OfferAppliedScreen}
+            />
+            <ModalStack.Screen
+                name={Strings.PaymentModalScreen}
+                component={PaymentModalScreen}
+            />
+            <ModalStack.Screen
+                name={Strings.CommonPopUpScreen}
+                component={CommonPopUpScreen}
+            />
+            <ModalStack.Screen
+                name={Strings.PopUpScreens}
+                component={PopUpScreens}
+            />
         </ModalStack.Navigator>
     );
 }

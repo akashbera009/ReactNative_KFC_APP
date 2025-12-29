@@ -23,7 +23,7 @@ export default function Maps() {
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const { countrySelected, setCountrySelected } = useCountry();
     const [open, setOpen] = useState<boolean>(false);
     const toggleOpen = (): void => {
@@ -377,7 +377,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignItems: 'center',
         },
         contentContainerStyle:{ 
-            paddingBottom: 50 
+            paddingBottom: vh(50) 
         },
         body: {
             flex: 1,

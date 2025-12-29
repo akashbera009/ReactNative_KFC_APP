@@ -6,16 +6,27 @@ import SplashScreen from '../screens/SplashScreen';
 import AuthStackNavigator from './AuthStack';
 import AppStackNavigator from './AppStack';
 import ModalStackNavigator from './ModalStack';
+import { useStrings } from '../utils/Strings';
+import TestingStackNavigator from './TestingStack';
+import OrderStackNavigator from './OrderStack';
 
 const RootStack = createNativeStackNavigator<RootStackParamList2>();
 
 export default function RootStackNavigator() {
+    const Strings = useStrings()
     return (
-        <RootStack.Navigator screenOptions={{ headerShown: false }}>
-            <RootStack.Screen name="Splash" component={SplashScreen} />
-            <RootStack.Screen name="Auth" component={AuthStackNavigator} />
-            <RootStack.Screen name="App" component={AppStackNavigator} />
-            <RootStack.Screen name="Modal" component={ModalStackNavigator} options={{ presentation: 'transparentModal' }} />
+        <RootStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="App" >
+            <RootStack.Screen name={Strings.SplashStack} component={SplashScreen} />
+            <RootStack.Screen name={Strings.AuthStack} component={AuthStackNavigator} />
+            <RootStack.Screen name={Strings.AppStack} component={AppStackNavigator} />
+            <RootStack.Screen name={Strings.ModalStack} component={ModalStackNavigator}
+                options={{
+                    presentation: 'transparentModal',
+                    animation: 'slide_from_bottom',
+                }}
+            />
+            <RootStack.Screen name={Strings.OrderStack} component={OrderStackNavigator} />
+            <RootStack.Screen name={Strings.TestingStack} component={TestingStackNavigator} />
         </RootStack.Navigator>
     );
 }

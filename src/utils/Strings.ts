@@ -2,6 +2,12 @@ import { useLanguage } from '../context/LanguageContex'
 
 const en = {
   // screens
+  SplashStack: "Splash",
+  AuthStack: "Auth",
+  AppStack: "App",
+  ModalStack: "Modal",
+  OrderStack: "Order",
+  TestingStack: "Testing",
   HomeScreen: 'HomeScreen',
   ChangeLocationBottomSheetScreen: 'ChangeLocationBottomSheetScreen',
   MapsScreen: 'MapsScreen',
@@ -343,6 +349,12 @@ const en = {
 
 const ar = {
   // screens
+  SplashStack: "Splash",
+  AuthStack: "Auth",
+  AppStack: "App",
+  ModalStack: "Modal",
+  OrderStack: "Order",
+  TestingStack: "Testing",
   HomeScreen: 'HomeScreen',
   ChangeLocationBottomSheetScreen: 'ChangeLocationBottomSheetScreen',
   MapsScreen: 'MapsScreen',

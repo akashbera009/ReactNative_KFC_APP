@@ -18,7 +18,7 @@ export default function ChangeLocationBottomSheet() {
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors)
     const inset = useSafeAreaInsets();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const slideUp = useCallback((): void => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -77,7 +77,15 @@ export default function ChangeLocationBottomSheet() {
                             <View style={[Styles.DoneButtonContainer, { bottom: inset.bottom }]}>
                                 <TouchableOpacity
                                     style={[Styles.Button, Styles.ChangeButton]}
-                                    onPress={() => navigation.navigate(Strings.MapsScreen)}>
+                                    onPress={() => {
+                                        navigation.goBack()
+                                        setTimeout(() => {
+                                            navigation.navigate("App", {
+                                                screen: Strings.MapsScreen
+                                            })
+                                        }, 500);
+                                    }
+                                    }>
                                     <Text style={[Styles.DoneButtonText, Styles.ChangeButtonText]}>{Strings.change.toLocaleUpperCase()}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity

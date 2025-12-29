@@ -18,7 +18,7 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
     const Strings = useStrings();
     const Styles = createDynamicStyles(Colors);
     const { countrySelected } = useCountry()
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
     const cartData = useSelector((state: RootState) => state.cart)
     const cartItem: CartItemType[] = cartData.cartItems
     let totalPrice: string = cartItem.reduce((acc, item) => acc + item?.price * item?.quantity, 0).toFixed(2);
@@ -34,7 +34,7 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
             easing,
             useNativeDriver: true
         }).start()
-    },[slideIn])
+    }, [slideIn])
     useEffect((): void => {
         handleSlideIn(Easing.in(Easing.quad))
     }, [handleSlideIn])
@@ -74,10 +74,15 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
                             offerCode: ''
                         });
                     } else {
-                        navigation.navigate(Strings.CheckOutScreen, {
-                            totalAmount: totalAmount,
-                            discount: discount
-                        });
+                        navigation.navigate("Order",
+                            {
+                                screen:
+                                    Strings.CheckOutScreen,
+                                params: {
+                                    totalAmount: totalAmount,
+                                    discount: discount
+                                }
+                            });
                     }
                 }}
             >
