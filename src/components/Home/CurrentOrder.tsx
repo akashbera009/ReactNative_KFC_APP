@@ -18,7 +18,7 @@ export default function CurrentOrder() {
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors);
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const currentOrder = useSelector<RootState, OrderHistory | null>(selectCurrentOrder)
   const ItemNames = currentOrder?.Items.map((item: CartItemType) => item?.name).join(',') ?? ''
   return (
@@ -37,7 +37,7 @@ export default function CurrentOrder() {
         </View>
         <TouchableOpacity
           style={Styles.trackButton}
-          onPress={() => navigation.navigate("Order",
+          onPress={() => navigation.navigate(Strings.OrderStack,
             {
               screen: Strings.OrderDetailsScreen,
               params: { order: currentOrder }

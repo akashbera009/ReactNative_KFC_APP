@@ -10,12 +10,12 @@ import { useStrings } from '../utils/Strings';
 import TestingStackNavigator from './TestingStack';
 import OrderStackNavigator from './OrderStack';
 
-const RootStack = createNativeStackNavigator<RootStackParamList2>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootStackNavigator() {
     const Strings = useStrings()
     return (
-        <RootStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="App" >
+        <RootStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={Strings.TestingStack} >
             <RootStack.Screen name={Strings.SplashStack} component={SplashScreen} />
             <RootStack.Screen name={Strings.AuthStack} component={AuthStackNavigator} />
             <RootStack.Screen name={Strings.AppStack} component={AppStackNavigator} />

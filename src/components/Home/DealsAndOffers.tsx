@@ -18,14 +18,14 @@ export default function DealsAndOffer() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors);
     const cartData = useSelector((state: RootState) => state.cart)
     const cartItem: CartItemType[] = cartData.cartItems
     const handleApplyOffer = (
         discount: number, discountPercentage: number, offerCode: string
     ): void => {
-        navigation.navigate("Modal", { screen: Strings.OfferAppliedScreen })
+        navigation.navigate(Strings.ModalStack, { screen: Strings.OfferAppliedScreen })
         if (cartItem.length !== 0) {
             setTimeout(() => {
                 navigation.pop(1)

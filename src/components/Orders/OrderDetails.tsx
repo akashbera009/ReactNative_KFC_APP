@@ -20,7 +20,7 @@ export default function OrderDetails({ order }: { order: OrderHistory }) {
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
     // amount calculations  
     const totalAmount: number = order?.Items

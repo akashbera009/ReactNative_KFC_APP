@@ -7,7 +7,7 @@ import SplashPage from '../components/LandingPage/SplashPage'
 
 export default function SplashScreen() {
     const Strings = useStrings()
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     setTimeout(() => {
         navigation.replace(Strings.AuthStack)
     }, 1500)

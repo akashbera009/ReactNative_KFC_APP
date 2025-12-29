@@ -25,7 +25,7 @@ export default function PaymentOptionsBottomSheet({ amount}: PaymentModalScreenP
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors);
     const slide = useRef(new Animated.Value(500)).current;
     const fade = useRef(new Animated.Value(0)).current;

@@ -30,7 +30,7 @@ export default function OrderStatus({
     const Strings = useStrings();
     const Styles = createDynamicStyles(Colors);
     const inset = useSafeAreaInsets();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
     const [openAmountDetails, setOpenAmountDetails] = useState<boolean>(false)
     const [pending, setPending] = useState<boolean>(true)
@@ -83,7 +83,7 @@ export default function OrderStatus({
                     <TouchableOpacity
                         onPress={() => {
                             orderStatus ?
-                                navigation.replace("App")
+                                navigation.replace(Strings.AppStack)
                                 :
                                 navigation.pop(2)
                         }}

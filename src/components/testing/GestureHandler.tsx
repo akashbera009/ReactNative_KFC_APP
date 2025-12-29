@@ -19,7 +19,7 @@ export default function GestureHandler() {
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     // const [scrollEnabled, setScrollEnabled] = useState(true)
     const scrollEnabled = useSharedValue(true)
     // animation 

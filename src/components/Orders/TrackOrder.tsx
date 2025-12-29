@@ -19,7 +19,7 @@ export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProp
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors);
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const inset = useSafeAreaInsets()
   const { countrySelected } = useCountry()
   // maps 

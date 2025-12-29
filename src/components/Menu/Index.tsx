@@ -25,7 +25,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const Strings = useStrings()
     const inset = useSafeAreaInsets()
     const Styles = createDynamicStyles(Colors)
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const dispatch = useAppDispatch()
     useEffect((): void => {
         dispatch(fetchMenu())
@@ -42,8 +42,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const { activeCategory, setActiveCategory } = useMenuCategory()
     useEffect(() => {
         setActiveCategory(categoryType)
-    }, [categoryType]);
-
+    }, [categoryType , setActiveCategory]);
     //search
     const [searchTerm, setSearchTerm] = useState<string>('')
     const [searchActive, setSearchActive] = useState<boolean>(false)
@@ -175,7 +174,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                         <TouchableOpacity
                             style={Styles.menuIconContainer}
                             onPress={() => {
-                                navigation.navigate("Modal",
+                                navigation.navigate(Strings.ModalStack,
                                     {
                                         screen: Strings.MenuCategorizeScreen,
                                         params: {

@@ -23,7 +23,7 @@ export default function KeyboardTesting() {
   const Styles = createDynamicStyles(Colors);
   const inset = useSafeAreaInsets();
   const { countrySelected, setCountrySelected } = useCountry();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [open, setOpen] = useState<boolean>(false);
   const [tag, setTag] = useState<string>('');
   const [goodToSave, setGoodToSave] = useState<boolean>(false);

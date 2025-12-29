@@ -15,7 +15,7 @@ export default function CouponAppliedPopUp() {
     const Strings = useStrings()
     const slide = useRef(new Animated.Value(500)).current;
     const fade = useRef(new Animated.Value(0)).current;
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const slideUp = useCallback((): void => {
         Animated.parallel([
             Animated.timing(slide, {

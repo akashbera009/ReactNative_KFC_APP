@@ -33,7 +33,7 @@ export default function HomePage() {
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors);
   const inset = useSafeAreaInsets();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const drawerNavigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
@@ -114,7 +114,7 @@ export default function HomePage() {
         </View>
         <View style={[Styles.ImagesAndAddressContainer, Platform.OS === 'android' && Styles.AndroidHeight]}>
           <TouchableOpacity
-            onPress={() => navigation.replace("Splash")}
+            onPress={() => navigation.replace(Strings.SplashStack)}
           >
             <Image source={Images.KfcTextLogo} style={[Styles.HeaderKFC, { marginTop: inset.top }]} />
           </TouchableOpacity>
@@ -174,7 +174,7 @@ export default function HomePage() {
             </View>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("Modal", {
+                navigation.navigate(Strings.ModalStack, {
                   screen: Strings.ChangeLocationBottomSheetScreen
                 })}
               style={Styles.RightSideButton}>

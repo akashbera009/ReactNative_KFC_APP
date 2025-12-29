@@ -87,7 +87,7 @@ type TestingStackParamList = {
   GestureScreen: undefined
 }
 
-type RootStackParamList2 = {
+type RootStackParamList = {
   Splash: undefined;
   Auth: NavigatorScreenParams<AuthStackParamList> | undefined;
   App: NavigatorScreenParams<AppStackParamList> | undefined;

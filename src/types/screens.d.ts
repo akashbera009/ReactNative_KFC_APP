@@ -1,17 +1,17 @@
-// type OtpScreenPropType = NativeStackScreenProps<RootStackParamList2, 'OTPScreen'>
-// type CreateProfilePageProps = NativeStackScreenProps<RootStackParamList2, 'CreateProfileScreen'>
-// type MenuCategorizationScreenProps = NativeStackScreenProps<RootStackParamList2, 'MenuCategorizeScreen'>
-// type RemoveCartItemBottomSheetScreenProps = NativeStackScreenProps<RootStackParamList2, 'RemoveCartItemBottomSheetScreen'>
-// type CheckOutScreenProps = NativeStackScreenProps<RootStackParamList2, 'CheckOutScreen'>
-// type OrderDetailsScreen = NativeStackScreenProps<RootStackParamList2, 'OrderDetailsScreen'>
-// type ExploreMenuScreenProps = NativeStackScreenProps<RootStackParamList2, 'ExploreMenuScreenProps'>
-// type OrderStatusScreenProps = NativeStackScreenProps<RootStackParamList2, 'OrderStatusScreenProps'>
-// type OfferAppliedScreenProps = NativeStackScreenProps<RootStackParamList2, 'OfferAppliedScreen'>
-// type CartScreenScreenProps = NativeStackScreenProps<RootStackParamList2, 'CartScreen'>
-// type TrackOrderScreenProps = NativeStackScreenProps<RootStackParamList2, 'TrackOrder'>
-// type PaymentModalScreenProps = NativeStackScreenProps<RootStackParamList2, 'PaymentModalScreen'>
-// type FoodCustomizationScreenProps = NativeStackScreenProps<RootStackParamList2, 'FoodCustomizationScreen'>
-// type CommonPopUpScreenProps = NativeStackScreenProps<RootStackParamList2, 'CommonPopUpScreen'>
+// type OtpScreenPropType = NativeStackScreenProps<RootStackParamList, 'OTPScreen'>
+// type CreateProfilePageProps = NativeStackScreenProps<RootStackParamList, 'CreateProfileScreen'>
+// type MenuCategorizationScreenProps = NativeStackScreenProps<RootStackParamList, 'MenuCategorizeScreen'>
+// type RemoveCartItemBottomSheetScreenProps = NativeStackScreenProps<RootStackParamList, 'RemoveCartItemBottomSheetScreen'>
+// type CheckOutScreenProps = NativeStackScreenProps<RootStackParamList, 'CheckOutScreen'>
+// type OrderDetailsScreen = NativeStackScreenProps<RootStackParamList, 'OrderDetailsScreen'>
+// type ExploreMenuScreenProps = NativeStackScreenProps<RootStackParamList, 'ExploreMenuScreenProps'>
+// type OrderStatusScreenProps = NativeStackScreenProps<RootStackParamList, 'OrderStatusScreenProps'>
+// type OfferAppliedScreenProps = NativeStackScreenProps<RootStackParamList, 'OfferAppliedScreen'>
+// type CartScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'CartScreen'>
+// type TrackOrderScreenProps = NativeStackScreenProps<RootStackParamList, 'TrackOrder'>
+// type PaymentModalScreenProps = NativeStackScreenProps<RootStackParamList, 'PaymentModalScreen'>
+// type FoodCustomizationScreenProps = NativeStackScreenProps<RootStackParamList, 'FoodCustomizationScreen'>
+// type CommonPopUpScreenProps = NativeStackScreenProps<RootStackParamList, 'CommonPopUpScreen'>
 
 type OtpScreenPropType =
     NativeStackScreenProps<AuthStackParamList, 'OTPScreen'>;

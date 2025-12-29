@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // animation 
-import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, withRepeat, withSequence, withDelay, withDecay } from 'react-native-reanimated';
+import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, withRepeat, withSequence, withDelay, withDecay, cubicBezier, CSSAnimationKeyframes } from 'react-native-reanimated';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -19,7 +19,7 @@ export default function ReAnimated() {
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     // animation 
     const aniWidth = useSharedValue(100)
     const handelIncrease = () => {
@@ -98,6 +98,31 @@ export default function ReAnimated() {
     // rotate 
     const [isToggled, toggle] = useReducer((s) => !s, false);
 
+    /// pulse 
+    const pulse: CSSAnimationKeyframes = {
+        '0%': {
+            transform: [{ scale: 0.8 }, { rotateZ: '-15deg' }]
+        },
+        '100%': {
+            transform: [{ scale: 1.2 }, { rotateZ: '15deg' }]
+        },
+    }
+    const bounce: CSSAnimationKeyframes = {
+        '0%': {
+            transform: [{ translateY: 100 },]
+        },
+        '100%': {
+            transform: [{ translateY: 0 },]
+        },
+    }
+    const rotate: CSSAnimationKeyframes = {
+        '0%': {
+            transform: [{ rotateY: '0deg' }],
+        },
+        '100%': {
+            transform: [{ rotateY: '180deg' }],
+        },
+    }
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -178,6 +203,7 @@ export default function ReAnimated() {
                                                 flexGrow: id === expandedId ? 3 : 1,
                                                 transitionProperty: 'flexGrow',
                                                 transitionDuration: 500,
+                                                transitionBehavior: 'allow-discrete'
                                             }
                                         ]}
                                     >
@@ -187,7 +213,7 @@ export default function ReAnimated() {
                         </View>
                     </View>
 
-                    <View style={Styles.RotateSection}>
+                    {/* <View style={Styles.RotateSection}>
                         <View style={Styles.container2}>
                             <View style={Styles.row}>
                                 {colors.map((color, id) => (
@@ -201,6 +227,7 @@ export default function ReAnimated() {
                                                 borderRadius: isToggled ? 16 : 0,
                                                 transitionProperty: ['transform', 'borderRadius'],
                                                 transitionDuration: [400 * id + 500, '0.5s'],
+                                                transitionTimingFunction: cubicBezier(0.25, 0.1, 0.5, 2),
                                             },
                                         ]}
                                     >
@@ -211,9 +238,39 @@ export default function ReAnimated() {
                         </View>
                         <TouchableOpacity onPress={toggle} style={Styles.rotateButton}  >
                             <Text>Click me </Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> 
+                    </View>*/}
+                    <Text style={Styles.secitonTitle2}> CSS animations </Text>
+                    <View style={Styles.PulseSection}>
+                        <Animated.View
+                            style={[
+                                Styles.box2, {
+                                    animationName: [pulse],
+                                    animationDuration: ['2s'],
+                                    animationIterationCount: 'infinite',
+                                    animationDirection: 'alternate',
+                                }]}
+                        />
                     </View>
+                    <View style={Styles.row}>
+                        {colors.map((color, id) => (
+                            <Animated.View
+                                key={color}
+                                style={[
+                                    Styles.box2,
+                                    {
+                                        backgroundColor: color, 
+                                        animationName: rotate,
+                                        animationDuration : id * 500 + 500,
+                                        // animationDirection : 'alternate',
+                                        animationIterationCount :'infinite',
+                                        animationDelay : 1000
 
+                                    }]}
+                            >
+                            </Animated.View>
+                        ))}
+                    </View>
                 </ScrollView>
             </View>
         </View>
@@ -296,6 +353,11 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignSelf: 'center',
             marginVertical: vh(10)
         },
+        secitonTitle2: {
+            fontSize: normalize(18),
+            alignSelf: 'center',
+            marginVertical: vh(10)
+        },
         ThirdBox: {
             height: vh(80),
             width: vw(80),
@@ -305,7 +367,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         ThirdSection: {
             backgroundColor: '#fdf8d6ff',
         },
-        RotateSection: {
+        PulseSection: {
             backgroundColor: '#d6e6fdff',
         },
         fourthSection: {
@@ -354,6 +416,8 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: 100,
             borderRadius: 20,
             marginVertical: 64,
+            backgroundColor: '#589409ff',
+            alignSelf: 'center'
         },
     });
     return Styles;

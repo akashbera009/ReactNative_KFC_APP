@@ -14,7 +14,7 @@ export default function FAQPage() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors);
     const [selectedTab, setSelectedTab] = useState<'online' | 'restaurants' | 'employment'>('online');
     const [openIndex, setOpenIndex] = useState<number | null>(null);

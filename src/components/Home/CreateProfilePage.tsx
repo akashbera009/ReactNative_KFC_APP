@@ -24,7 +24,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors);
     const inset = useSafeAreaInsets();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
     const rawPhone = phoneNo;
     let formattedText: string
@@ -97,7 +97,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
             }));
         }
         navigation.pop()
-        navigation.navigate("Modal", {
+        navigation.navigate(Strings.ModalStack, {
             screen: Strings.CommonPopUpScreen,
             params: {
                 header: Strings.UserDeatailUpdatedHeader,
@@ -106,7 +106,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         })
         setTimeout(() => {
             navigation.pop()
-            navigation.replace("App", { screen: Strings.HomeScreen });
+            navigation.replace(Strings.AppStack, { screen: Strings.HomeScreen });
         }, 20000);
     }
     const handleShowWarningEmail = useCallback((): void => {
@@ -329,7 +329,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
 
                                 <TouchableOpacity
                                     activeOpacity={.5}
-                                    onPress={()=> navigation.replace('App')}
+                                    onPress={()=> navigation.replace(Strings.AppStack)}
                                     style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
                                     <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings.save.toUpperCase()}</Text>
                                 </TouchableOpacity>

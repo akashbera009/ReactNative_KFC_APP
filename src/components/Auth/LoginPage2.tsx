@@ -18,7 +18,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function LoginPage2() {
     const Colors = useThemeColors();
     const Strings = useStrings();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors)
     const { countrySelected } = useCountry()
@@ -194,11 +194,11 @@ export default function LoginPage2() {
             <View style={[Styles.TcContainer, { bottom: inset.bottom }]}>
                 <View style={Styles.TcInnerContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("App", { screen: Strings.TermsAndConditionsScreen })}>
+                        onPress={() => navigation.navigate(Strings.AppStack, { screen: Strings.TermsAndConditionsScreen })}>
                         <Text style={Styles.tcText}>{Strings.tc.toUpperCase()} </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.replace("App", { screen: Strings.HomeScreen })}>
+                        onPress={() => navigation.replace(Strings.AppStack, { screen: Strings.HomeScreen })}>
                         <Text style={Styles.tcText}>{Strings.skipLoginAndContinue.toUpperCase()} </Text>
                     </TouchableOpacity>
                 </View>

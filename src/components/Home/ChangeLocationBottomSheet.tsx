@@ -18,7 +18,7 @@ export default function ChangeLocationBottomSheet() {
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors)
     const inset = useSafeAreaInsets();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const slideUp = useCallback((): void => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -80,7 +80,7 @@ export default function ChangeLocationBottomSheet() {
                                     onPress={() => {
                                         navigation.goBack()
                                         setTimeout(() => {
-                                            navigation.navigate("App", {
+                                            navigation.navigate(Strings.AppStack, {
                                                 screen: Strings.MapsScreen
                                             })
                                         }, 500);

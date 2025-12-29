@@ -16,7 +16,7 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors);
     const slide = useRef<Animated.Value>(new Animated.Value(500)).current;
     const fade = useRef<Animated.Value>(new Animated.Value(0)).current;

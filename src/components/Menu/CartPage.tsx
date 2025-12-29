@@ -25,7 +25,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const cartData = useSelector((state: RootState) => state.cart)
     const cartItem = cartData?.cartItems
     const { countrySelected } = useCountry();

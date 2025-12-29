@@ -18,7 +18,7 @@ export default function LanguagePopUp() {
     const inset = useSafeAreaInsets();
     const { language, setLanguage } = useLanguage()
     const [tempLang, settempLang] = useState<string>(language)
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const handleSelectionLanguage = (lang: string): void => {
         settempLang(lang)
     }

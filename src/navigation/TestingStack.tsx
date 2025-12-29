@@ -11,7 +11,7 @@ const TestingStack = createNativeStackNavigator<TestingStackParamList>();
 export default function TestingStackNavigator() {
     const Strings = useStrings()
     return (
-        <TestingStack.Navigator screenOptions={{ headerShown: false }}>
+        <TestingStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={Strings.ReAnimatedScreen}>
             <TestingStack.Screen name={Strings.FontsScreen} component={FontsScreen} />
             <TestingStack.Screen name={Strings.ReAnimatedScreen} component={ReAnimatedScreen} />
             <TestingStack.Screen name={Strings.GestureScreen} component={GestureScreen} />

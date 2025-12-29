@@ -18,7 +18,7 @@ const AppStack = createNativeStackNavigator<AppStackParamList>();
 export default function AppStackNavigator() {
   const Strings = useStrings()
   return (
-    <AppStack.Navigator screenOptions={{ headerShown: false }}>
+    <AppStack.Navigator screenOptions={{ headerShown: false }} >
       <AppStack.Screen name={Strings.HomeScreen} component={HomeScreen} />
       <AppStack.Screen name={Strings.MapsScreen} component={MapsScreen} options={{ presentation: 'fullScreenModal' }} />
       <AppStack.Screen name={Strings.ExploreMenuScreen} component={ExploreMenuScreen} />

@@ -24,7 +24,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList2>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
     const cartData = useSelector((state: RootState) => state.cart)
     const cartItem = cartData?.cartItems
@@ -53,7 +53,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
         if (paymentMethodSelected === Strings.cashOnDeliveryString) {
             onPaymentSuccess('', OrderId, true, OrderDate, OrderTime, Strings.cashOnDeliveryString)
         } else {
-            navigation.navigate("Modal",
+            navigation.navigate(Strings.ModalStack,
                 {
                     screen: Strings.PaymentModalScreen,
                     params: {
@@ -82,7 +82,7 @@ export default function CheckOut({ totalAmount, discount }: { totalAmount: numbe
                 dispatch(addAsyncOrder(newOrder))
                 dispatch(clearCart())
             }
-            navigation.navigate("Order", {
+            navigation.navigate(Strings.OrderStack, {
                 screen: Strings.OrderStatusScreen,
                 params: {
                     currentOrders: cartItem,
