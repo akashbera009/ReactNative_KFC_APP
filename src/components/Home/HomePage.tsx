@@ -13,11 +13,10 @@ import BestSeller from './BestSeller';
 import VideoPlayerComponent from '../../CommonFunctions/VideoPlayer';
 import MediaSkeleton from '../../Loaders/MediaShimmer';
 //redux 
-import { fetchMenu } from '../../features/menuSlice';
+import { fetchMenu } from '../../actions/MenuAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
-// import { fetctUserDeatails } from '../../features/userSlice';
-import { fetchOrders } from '../../features/orderSlice';
+import { fetchOrders } from '../../actions/OrderAction';
 // util imports
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages';

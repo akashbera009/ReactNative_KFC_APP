@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios';
-import {BACKEND_SERVER} from '../utils/backendLink'
+import { createSlice} from "@reduxjs/toolkit";
+// action
+import {fetchMenu} from '../../src/actions/MenuAction'
 
 const initialState : {
   menuData: menuDataType[];
@@ -9,12 +9,6 @@ const initialState : {
   menuData: [],
   loading: 'ideal'
 };
-// async menu data fetchstor
-export const fetchMenu = createAsyncThunk('menu/fetchMenu', async () => {
-    const res = await axios.get(`${BACKEND_SERVER}/menu`);
-    return res.data
-})
-
 const menuSlice = createSlice({
     name: 'menuData',
     initialState,

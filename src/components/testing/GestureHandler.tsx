@@ -443,10 +443,10 @@ export default function GestureHandler() {
 
 
     //// 
-    const touchStyle = useAnimatedStyle(() => ({
+    // const touchStyle = useAnimatedStyle(() => ({
 
-    }))
-    const touchGesture = Gesture.Tap()
+    // }))
+    // const touchGesture = Gesture.Tap()
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>

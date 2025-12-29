@@ -12,7 +12,7 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 // redux 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchOrders } from '../../features/orderSlice';
+import { fetchOrders } from '../../actions/OrderAction';
 import { AppDispatch, RootState } from '../../store/store';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 

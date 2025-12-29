@@ -41,7 +41,7 @@ export default function PaymentOptionsBottomSheet({ amount}: PaymentModalScreenP
         success: boolean,
         payment_id: string | undefined
     ): void => {
-        // onSuccess?.(payment_id, success);
+        console.log(payment_id, success);
     }
     const slideUp = useCallback((): void => {
         Animated.parallel([

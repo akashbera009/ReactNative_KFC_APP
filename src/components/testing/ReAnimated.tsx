@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
-import React, { useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // animation 
-import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, withRepeat, withSequence, withDelay, withDecay, cubicBezier, CSSAnimationKeyframes } from 'react-native-reanimated';
+import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, withRepeat, withSequence, withDelay, withDecay, CSSAnimationKeyframes, cubicBezier, Easing, useAnimatedRef, useDerivedValue, scrollTo } from 'react-native-reanimated';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -14,6 +14,9 @@ import { normalize, screenWidth, vh, vw } from '../../utils/Dimensions';
 import Svg, { Circle } from 'react-native-svg';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 const { width } = Dimensions.get('window')
+const ITEM_COUNT = 10;
+const ITEM_SIZE = 100;
+const ITEM_MARGIN = 10;
 export default function ReAnimated() {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -23,7 +26,10 @@ export default function ReAnimated() {
     // animation 
     const aniWidth = useSharedValue(100)
     const handelIncrease = () => {
-        aniWidth.value = withSpring((aniWidth.value + 50) % width)
+        aniWidth.value = withTiming((aniWidth.value + 50) % width, {
+            duration: 1000,
+            easing: Easing.inOut(Easing.elastic(5))
+        })
     }
     //2nd 
     const translateAnimate = useSharedValue(0)
@@ -96,7 +102,7 @@ export default function ReAnimated() {
     const [expandedId, setExpandedId] = useState(0);
 
     // rotate 
-    const [isToggled, toggle] = useReducer((s) => !s, false);
+    // const [isToggled, toggle] = useReducer((s) => !s, false);
 
     /// pulse 
     const pulse: CSSAnimationKeyframes = {
@@ -107,14 +113,14 @@ export default function ReAnimated() {
             transform: [{ scale: 1.2 }, { rotateZ: '15deg' }]
         },
     }
-    const bounce: CSSAnimationKeyframes = {
-        '0%': {
-            transform: [{ translateY: 100 },]
-        },
-        '100%': {
-            transform: [{ translateY: 0 },]
-        },
-    }
+    // const bounce: CSSAnimationKeyframes = {
+    //     '0%': {
+    //         transform: [{ translateY: 100 },]
+    //     },
+    //     '100%': {
+    //         transform: [{ translateY: 0 },]
+    //     },
+    // }
     const rotate: CSSAnimationKeyframes = {
         '0%': {
             transform: [{ rotateY: '0deg' }],
@@ -123,6 +129,31 @@ export default function ReAnimated() {
             transform: [{ rotateY: '180deg' }],
         },
     }
+
+    // animatedref + animated derivedvalue
+    const animatedRef = useAnimatedRef<Animated.ScrollView>();
+    const scroll = useSharedValue<number>(0);
+    // const offset2 = useScrollOffset(animatedRef);
+    useDerivedValue(() => {
+        scrollTo(
+            animatedRef, // ref
+            0, // x
+            scroll.value * (ITEM_SIZE + 2 * ITEM_MARGIN), // y 
+            true // animated 
+        )
+    })
+    // const text = useDerivedValue(
+    //     () => `Scroll offset: ${offset2.value.toFixed(1)}`
+    // );
+    const handelIncrement = () => {
+        if (scroll.value < items.length - 1)
+            scroll.value += 1
+    }
+    const handelDecrement = () => {
+        if (scroll.value > 0)
+            scroll.value -= 1
+    }
+    const items = Array.from(Array(ITEM_COUNT).values());
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -249,6 +280,7 @@ export default function ReAnimated() {
                                     animationDuration: ['2s'],
                                     animationIterationCount: 'infinite',
                                     animationDirection: 'alternate',
+                                    animationPlayState: 'running'
                                 }]}
                         />
                     </View>
@@ -259,24 +291,66 @@ export default function ReAnimated() {
                                 style={[
                                     Styles.box2,
                                     {
-                                        backgroundColor: color, 
+                                        backgroundColor: color,
                                         animationName: rotate,
-                                        animationDuration : id * 500 + 500,
+                                        animationDuration: id + 1 * 500 + 1000,
                                         // animationDirection : 'alternate',
-                                        animationIterationCount :'infinite',
-                                        animationDelay : 1000
+                                        animationIterationCount: 'infinite',
+                                        animationDelay: 1000,
+                                        animationTimingFunction: cubicBezier(0.25, 0.1, 0.26, 1.53)
+                                        // animationTimingFunction : steps(4, 'end'),
+                                        // animationTimingFunction :  linear(0, [0.25, '75%'], 1),
 
                                     }]}
                             >
                             </Animated.View>
                         ))}
                     </View>
+
+                    <Text style={Styles.secitonTitle2}> animatedRef + derivedValue  </Text>
+                    <View style={Styles.container}>
+                        <View style={Styles.boxWrapper}>
+                            {/* <AnimatedText text={text} /> */}
+                            <TouchableOpacity
+                                style={Styles.IncrementBUtton}
+                                onPress={handelDecrement}>
+                                <Text>scrollup </Text>
+                            </TouchableOpacity>
+                            <Animated.ScrollView ref={animatedRef}>
+                                {items.map((_, i) => (
+                                    <View key={i} style={Styles.box3}>
+                                        <Text style={{ textAlign: 'center' }}>{i}</Text>
+                                    </View>
+                                ))}
+                            </Animated.ScrollView>
+                            <TouchableOpacity
+                                style={Styles.IncrementBUtton}
+                                onPress={handelIncrement}>
+                                <Text>scrolldown </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </ScrollView>
             </View>
         </View>
     );
 }
+// const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
+// function AnimatedText(props: { text: DerivedValue<string> }) {
+//     const text = props.text;
+//     const animatedProps = useAnimatedProps(() => ({
+//         text: text.value,
+//         defaultValue: text.value,
+//     }));
+//     return (
+//         <AnimatedTextInput
+//             {...props}
+//             editable={false}
+//             animatedProps={animatedProps}
+//         />
+//     );
+// }
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
@@ -419,6 +493,31 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: '#589409ff',
             alignSelf: 'center'
         },
+        boxWrapper: {
+            width: '100%',
+            height: 250,
+            alignItems: 'center',
+            marginBottom: vh(40)
+        },
+        box3: {
+            width: ITEM_SIZE,
+            height: ITEM_SIZE,
+            margin: ITEM_MARGIN,
+            borderRadius: 15,
+            backgroundColor: '#b58df1',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        IncrementBUtton: {
+            backgroundColor: Colors.greenOk,
+            height: vh(40),
+            width: vw(200),
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+            borderRadius: normalize(10)
+        }
     });
     return Styles;
 };

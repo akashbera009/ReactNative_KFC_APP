@@ -9,7 +9,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
 // redux 
 import { useSelector } from "react-redux";
-import { addUserDetails, fetctUserDeatails, updateUser } from '../../features/userSlice';
+import { addUserDetails, fetctUserDeatails, updateUser } from '../../actions/UserAction';
 import { RootState, useAppDispatch } from '../../store/store';
 // util imports
 import Fonts from '../../utils/Fonts'
@@ -323,13 +323,6 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
                                 <TouchableOpacity
                                     activeOpacity={.5}
                                     onPress={handleSave}
-                                    style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
-                                    <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings.save.toUpperCase()}</Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    activeOpacity={.5}
-                                    onPress={()=> navigation.replace(Strings.AppStack)}
                                     style={[Styles.VerifyBUtton, goodToLogin ? Styles.VerifyBUttonActive : null]}>
                                     <Text style={[Styles.VerifyBUttonText, goodToLogin ? Styles.VerifyBUttonTextActive : null]} >{Strings.save.toUpperCase()}</Text>
                                 </TouchableOpacity>

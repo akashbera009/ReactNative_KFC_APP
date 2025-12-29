@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 //redux
 import { useSelector } from 'react-redux';
 import { selectCurrentOrder } from '../../features/getCurrentOrder';
-import { fetctUserDeatails } from '../../features/userSlice';
+import { fetctUserDeatails } from '../../actions/UserAction';
 import { RootState, useAppDispatch } from '../../store/store';
 //util files 
 import Fonts from '../../utils/Fonts'

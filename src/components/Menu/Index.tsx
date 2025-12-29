@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ExploreMenu from './ExploreMenu'
 import BottomCart from './BottomCart';
 //redux 
-import { fetchMenu } from '../../features/menuSlice';
+import { fetchMenu } from '../../actions/MenuAction';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../store/store';
 //util files 
@@ -48,8 +48,8 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const [searchActive, setSearchActive] = useState<boolean>(false)
     const inputRef = useRef<TextInput>(null)
     if (iSFavouriteMenuArray?.length > 0) {
-        categorySet.splice(1, 0, 'Favourites')
-        frequencyMap.set('Favourites', iSFavouriteMenuArray?.length)
+        categorySet.splice(1, 0, Strings.favouriteString)
+        frequencyMap.set(Strings.favouriteString, iSFavouriteMenuArray?.length)
     }
     for (const cat of categoryArr) {
         frequencyMap.set(cat, (frequencyMap.get(cat) || 0) + 1);

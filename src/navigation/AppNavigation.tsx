@@ -6,7 +6,7 @@ import RootStackNavigator from "./RootStack";
 const DrawerContent = () => <SideBarScreen />;
 const Drawer = createDrawerNavigator()
 
-export default function AppNavigationTest() {
+export default function AppNavigation() {
   return (
     <NavigationContainer>
       <Drawer.Navigator

@@ -8,7 +8,7 @@ import { nanoid } from 'nanoid/non-secure';
 import { DeliveryDetails } from '../../data/DeliveryDetails';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 // redux 
-import { addAsyncOrder } from '../../features/orderSlice';
+import { addAsyncOrder } from '../../actions/OrderAction';
 import { RootState, useAppDispatch } from '../../store/store';
 import { clearCart } from '../../features/cartSlice';
 import { useSelector } from 'react-redux';

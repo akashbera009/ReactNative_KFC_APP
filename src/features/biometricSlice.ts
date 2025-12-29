@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
     checkBiometricSupportThunk,
     authenticateWithBiometricsThunk,
-} from './biometricThunks';
+} from '../actions/biometricAction';
 
 const initialState: AuthState = {
     isAuthenticated: false,

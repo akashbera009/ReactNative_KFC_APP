@@ -45,6 +45,7 @@ const en = {
 
   fonOneString: 'For One',
   dealsString: 'Deals',
+  favouriteString : 'Favourites',
   slideDesertString: 'Slides & Deserts',
   forSharingString: 'For Sharing',
   sandwichString: 'SandWich',
@@ -392,6 +393,7 @@ const ar = {
 
   fonOneString: 'For One',
   dealsString: 'Deals',
+  favouriteString : 'Favourites',
   slideDesertString: 'Slides & Deserts',
   forSharingString: 'For Sharing',
   sandwichString: 'SandWich',

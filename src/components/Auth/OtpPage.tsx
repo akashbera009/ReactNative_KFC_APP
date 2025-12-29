@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // redux 
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../store/store';
-import { fetctUserDeatails } from '../../features/userSlice';
+import { fetctUserDeatails } from '../../actions/UserAction';
 // util  imports 
 import { useThemeColors } from '../../utils/Colors'
 import { useStrings } from '../../utils/Strings'

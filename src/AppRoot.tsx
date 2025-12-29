@@ -8,10 +8,10 @@ import { AppDispatch } from './store/store';
 import {
     authenticateWithBiometricsThunk,
     checkBiometricSupportThunk,
-} from './features/biometricThunks';
+} from './actions/biometricAction';
 // google sign in 
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import AppNavigationTest from './navigation/AppNavigation';
+import AppNavigation from './navigation/AppNavigation';
 
 const AppRoot = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -27,7 +27,7 @@ const AppRoot = () => {
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
-            <AppNavigationTest/>
+            <AppNavigation/>
         </GestureHandlerRootView>
     );
 };
