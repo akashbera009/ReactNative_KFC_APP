@@ -365,12 +365,12 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         sectionTitle: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
             marginTop: vh(10),
             marginLeft: vw(20),
@@ -381,7 +381,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         enterCreateProfileHeader: {
             fontSize: normalize(18),
             marginTop: vh(30),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         CreateProfileRelatedContainer: {
@@ -414,7 +414,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         InputEntries: {
             marginRight: vw(10),
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
             width: '100%'
         },
@@ -440,7 +440,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         mobileCode: {
             marginBottom: vh(5),
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack
         },
         arrowDown: {
@@ -455,21 +455,21 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginLeft: vw(10)
         },
         mobileNumberPlaceholder: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.timerFadeText,
             fontSize: normalize(10),
             marginLeft: vw(105),
         },
         mobileNo: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             alignSelf: 'center',
             marginLeft: vw(5),
             color: Colors.textBlack
         },
         placeHolderTopText: {
             fontSize: normalize(11),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.timerFadeText,
             marginBottom: vh(-15)
         },
@@ -498,7 +498,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(12),
             color: Colors.orangeColorText,
             marginLeft: vw(10),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             marginTop: vh(8)
         },
         mobileAndImage: {
@@ -547,7 +547,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: Colors.KFC_red
         },
         VerifyBUttonText: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(16),
             color: Colors.verifyText
         },

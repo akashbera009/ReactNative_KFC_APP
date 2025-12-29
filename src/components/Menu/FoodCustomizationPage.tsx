@@ -255,7 +255,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         navHeaderText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         ScrollContainer: {
@@ -358,7 +358,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         groupText: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.timerFadeText
         },
         cursolContainer: {
@@ -368,7 +368,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         ActiveTab: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         activetabUnderLine: {
@@ -386,7 +386,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(12),
             paddingHorizontal: normalize(12),
             paddingVertical: normalize(6),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textFadeBlack
         },
         horizontalBoxContainer: {
@@ -412,7 +412,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         customizationText: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
         },
         radioButton: {
@@ -441,18 +441,18 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         choiceText: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
         },
         choiceText2: {
             fontSize: normalize(12),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack,
             marginTop: normalize(2),
         },
         choiceText3: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             marginHorizontal: vw(20),
             marginBottom: normalize(10),
         },

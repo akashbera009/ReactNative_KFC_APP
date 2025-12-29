@@ -213,7 +213,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     headerText: {
       fontSize: normalize(20),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.textBlack
     },
     BackIconAndHeaderText: {
@@ -237,7 +237,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     editbuttonFadeText: {
       color: Colors.textBlack,
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(12),
       marginHorizontal: vw(10),
       marginVertical: vh(5),
@@ -284,12 +284,12 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginRight: vw(12),
     },
     orderIdText: {
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       fontSize: normalize(14),
       color: Colors.textBlack,
     },
     codText: {
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       fontSize: normalize(14),
       marginTop: vh(4),
       color: Colors.textBlack,
@@ -303,13 +303,13 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     detailsButtonText: {
       color: Colors.textBlack,
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       fontSize: normalize(10),
     },
     currentStatusHeading: {
       marginTop: vh(20),
       marginLeft: vw(20),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(10),
       color: Colors.KFC_red,
     },
@@ -337,12 +337,12 @@ const createDynamicStyles = (Colors: ColorType) => {
       flex: 1,
     },
     statusTitle: {
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(16),
       color: Colors.textBlack,
     },
     statusSubtitle: {
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       marginTop: vh(4),
       fontSize: normalize(14),
       color: Colors.timerFadeText,
@@ -358,7 +358,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     statusBadgeText: {
       color: Colors.constantWhite,
       fontSize: normalize(12),
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
     },
     statusBadgeNext: {
       backgroundColor: Colors.blueShadows,
@@ -370,7 +370,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     statusBadgeNextText: {
       fontSize: normalize(12),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.constantWhite,
     },
   })

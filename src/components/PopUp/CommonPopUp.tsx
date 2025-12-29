@@ -69,13 +69,13 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         popupTitle: {
             fontSize: normalize(18),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
             marginBottom: vh(10),
         },
         popupMessage: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack,
             marginBottom: vh(20)
         },
@@ -92,7 +92,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         saveText: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.constantWhite,
         }
     })

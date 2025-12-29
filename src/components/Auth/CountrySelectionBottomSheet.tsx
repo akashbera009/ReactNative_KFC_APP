@@ -162,7 +162,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     WelcomeHeader: {
       fontSize: normalize(22),
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       alignSelf: 'center',
       letterSpacing: normalize(1),
       marginTop: vh(40),
@@ -171,7 +171,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     countryDescription: {
       width: "90%",
       alignSelf: 'center',
-      fontFamily: Fonts.font16,
+      fontFamily: Fonts.helveticaLight,
       fontSize: normalize(17),
       textAlign: 'center',
       color: Colors.textFadeBlack,
@@ -221,7 +221,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     CountryName: {
       fontSize: normalize(14),
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       color: Colors.textFadeBlack2
     },
     needToHaveLocalNumber: {
@@ -261,7 +261,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     DoneButtonText: {
       fontSize: normalize(18),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.constantWhite
     }
   })

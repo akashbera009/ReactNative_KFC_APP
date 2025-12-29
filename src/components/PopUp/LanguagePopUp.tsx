@@ -103,7 +103,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         selectionLanguageHeader: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
             alignSelf: 'center',
             marginVertical: vh(20),
@@ -155,7 +155,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         changeText: {
             marginRight: vw(10),
             marginLeft: vw(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         loginButton: {
@@ -174,7 +174,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         LoginButtonText: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.constantWhite
         },
     })

@@ -163,7 +163,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignItems: 'center'
         },
         trySearching: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
             fontSize: normalize(18)
         },
@@ -201,14 +201,14 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignSelf: 'center',
             fontSize: normalize(24),
             color: Colors.textBlack,
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
         NotFoundRes: {
             alignSelf: 'center',
             marginVertical: vh(10),
             fontSize: normalize(18),
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.helveticaMedium
         },
         ExploreMoreButton: {
             backgroundColor: Colors.KFC_red,
@@ -221,7 +221,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(15),
             marginHorizontal: vw(35),
             marginVertical: vh(16),
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
         ScrollViewContainer: {
 

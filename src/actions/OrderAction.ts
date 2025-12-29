@@ -4,7 +4,6 @@ import { BACKEND_SERVER } from '../utils/backendLink'
 export const fetchOrders = createAsyncThunk('orders/fetchOrders', async () => {
     try {
         const res = await axios.get(`${BACKEND_SERVER}/orders`);
-        console.log('orders', res.data);
         return res.data
     } catch (error) {
         console.log(error)

@@ -6,7 +6,6 @@ export const initialState: userfetchedType = {
     currentUser: null,
     loading: 'ideal'
 }
-
 const userSlice = createSlice({
     name: 'users',
     initialState,
@@ -23,9 +22,16 @@ const userSlice = createSlice({
             .addCase(fetctUserDeatails.rejected, (state) => {
                 state.loading = 'error';
             })
+            .addCase(updateUser.pending, (state) => {
+                state.loading = 'loading';
+            })
             .addCase(updateUser.fulfilled, (state, action) => {
                 state.currentUser = action.payload;
-            });
+                state.loading = 'success';
+            })
+            .addCase(updateUser.rejected, (state) => {
+                state.loading = 'error';
+            })
     }
 })
 

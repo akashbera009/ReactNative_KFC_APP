@@ -30,8 +30,8 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     useEffect((): void => {
         dispatch(fetchMenu())
     }, [dispatch])
-    const cartData = useSelector((state: RootState) => state.cart)
-    const menuData = useSelector((state: RootState) => state.menuData)
+    const cartData = useSelector((state: RootState) => state?.cart)
+    const menuData = useSelector((state: RootState) => state?.menuData)
     const iSFavouriteMenuData = useSelector((state: RootState) => state.favourite)
     const cartItem: CartItemType[] = cartData?.cartItems
     const menuItem: menuDataType[] = menuData?.menuData
@@ -252,7 +252,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
@@ -295,7 +295,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '70%',
             height: '90%',
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
             marginLeft: vw(20)
         },
@@ -340,12 +340,12 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         categoryContainerText: {
             marginHorizontal: vw(5),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.resendOtpText,
             fontSize: normalize(14),
         },
         ActiveText: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         BottomCartContainer: {

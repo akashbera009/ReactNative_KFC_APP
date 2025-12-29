@@ -40,7 +40,8 @@ export default function HomePage() {
     dispatch(fetchOrders())
   }, [dispatch])
 
-  const menuData = useSelector((state: RootState) => state.menuData)
+  const menuData = useSelector((state: RootState) => state?.menuData)
+  const menuItem: menuDataType[] = menuData?.menuData ?? [] 
   const { countrySelected } = useCountry()
   const colorList: GradientStop[] = [
     { offset: '0%', color: Colors.orangeColorText, opacity: '1' },
@@ -279,7 +280,7 @@ export default function HomePage() {
                 </View>
               ) : (
                 <>
-                  {menuData?.menuData?.map((item, idx) => (
+                  {menuItem.map((item, idx) => (
                     <View key={idx} style={Styles.Cards}>
                       <View style={Styles.TopContainer}>
                         <Image src={item?.image} style={Styles.cardImage} />
@@ -529,17 +530,17 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     DeliveryTo: {
       color: Colors.textFadeBlack,
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
     },
     DeliveryType: {
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.textBlack,
     },
     DeliveryAddress: {
       width: vw(230),
       overflow: 'hidden',
       marginRight: vw(15),
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       color: Colors.textFadeBlack,
     },
     RightSideButton: {
@@ -550,7 +551,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       right: vw(15)
     },
     changeText: {
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(11),
       paddingHorizontal: vw(6),
       paddingVertical: vh(4),
@@ -573,12 +574,12 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     ExploreHeader: {
       color: Colors.textBlack,
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(14)
     },
     ExploreHeaderViewAll: {
       color: Colors.textFadeBlack,
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(12)
     },
     ExploreCardsContainer: {
@@ -690,7 +691,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       elevation: 5,
     },
     ExploreCardText: {
-      fontFamily: Fonts.font9,
+      fontFamily: Fonts.nationalMedium,
       color: Colors.textFadeBlack2,
       fontSize: normalize(19),
       textAlign: 'right',
@@ -758,7 +759,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginLeft: vw(20)
     },
     favourites: {
-      fontFamily: Fonts.font2,
+      fontFamily: Fonts.nationalBold,
       color: Colors.constantWhite,
       fontSize: normalize(28),
       textShadowColor: Colors.textFadeBlack2,
@@ -784,7 +785,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       margin: normalize(12)
     },
     orderNowButtonText: {
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.constantWhite,
       fontSize: normalize(10),
     },
@@ -810,7 +811,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     WhatsNewHeader: {
       color: Colors.textBlack,
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(14)
     },
     menuDataLoader: {
@@ -874,7 +875,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       color: Colors.textBlack,
       width: '80%',
       overflow: 'hidden',
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
     },
     OrderButton: {
       position: 'absolute',
@@ -888,7 +889,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     OrderText: {
       color: Colors.KFC_red,
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(11),
       marginHorizontal: vw(15),
       marginVertical: vh(5),
@@ -948,7 +949,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginVertical: vh(2),
     },
     bottomKFCDescription: {
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       fontSize: normalize(11),
       color: Colors.textBlack,
       alignSelf: 'center',

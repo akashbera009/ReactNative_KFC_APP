@@ -45,7 +45,7 @@ const en = {
 
   fonOneString: 'For One',
   dealsString: 'Deals',
-  favouriteString : 'Favourites',
+  favouriteString: 'Favourites',
   slideDesertString: 'Slides & Deserts',
   forSharingString: 'For Sharing',
   sandwichString: 'SandWich',
@@ -232,6 +232,7 @@ const en = {
   otherPaymentMethod: 'Other Payment Method',
   savedCards: 'Saved Cards',
   otherPaymentOptions: 'Other Payment Options',
+  stars: '**** **** ****',
   success: 'Success',
   failed: 'Failed',
   currentOrders: 'Current Orders',
@@ -393,7 +394,7 @@ const ar = {
 
   fonOneString: 'For One',
   dealsString: 'Deals',
-  favouriteString : 'Favourites',
+  favouriteString: 'Favourites',
   slideDesertString: 'Slides & Deserts',
   forSharingString: 'For Sharing',
   sandwichString: 'SandWich',
@@ -579,7 +580,7 @@ const ar = {
   otherPaymentMethod: 'طرق دفع أخرى',
   savedCards: 'البطاقات المحفوظة',
   otherPaymentOptions: 'خيارات دفع أخرى',
-
+  stars: '**** **** ****',
   success: 'نجاح',
   failed: 'فشل',
   currentOrders: 'الطلبات الحالية',

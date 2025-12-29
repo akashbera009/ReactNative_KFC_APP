@@ -86,25 +86,25 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     orderIdText: {
       color: Colors.textFadeBlack2,
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       fontSize: normalize(13),
     },
     Header: {
       color: Colors.textBlack,
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(14),
       marginVertical: vw(10),
     },
     orderId: {
       fontSize: normalize(13),
       color: Colors.textBlack,
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       letterSpacing: normalize(.1),
     },
     date: {
       fontSize: normalize(13),
       color: Colors.textBlack,
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       letterSpacing: normalize(.1),
     },
     VerticalBorder: {
@@ -118,12 +118,12 @@ const createDynamicStyles = (Colors: ColorType) => {
     orderItem: {
       fontSize: normalize(12),
       color: Colors.timerFadeText,
-      fontFamily: Fonts.font17
+      fontFamily: Fonts.helveticaMedium
     },
     beverages: {
       fontSize: normalize(12),
       color: Colors.timerFadeText,
-      fontFamily: Fonts.font17
+      fontFamily: Fonts.helveticaMedium
     },
     trackButton: {
       backgroundColor: Colors.KFC_red,
@@ -137,7 +137,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       paddingHorizontal: vw(8),
       paddingVertical: vh(6),
       fontSize: normalize(13),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
     }
   })
   return Styles

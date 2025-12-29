@@ -73,7 +73,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignSelf: 'center',
             fontSize: normalize(20),
             color: Colors.textBlack,
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
         NotFoundRes: {
             alignSelf: 'center',
@@ -81,7 +81,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(14),
             marginTop: vh(20),
             color: Colors.resendOtpText,
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.helveticaMedium
         },
         ExploreMoreButton: {
             backgroundColor: Colors.KFC_red,
@@ -94,7 +94,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(15),
             marginHorizontal: vw(35),
             marginVertical: vh(16),
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
     })
     return Styles;

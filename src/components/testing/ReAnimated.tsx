@@ -369,7 +369,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
@@ -397,7 +397,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             paddingVertical: vh(6),
             color: Colors.constantWhite,
             borderRadius: normalize(10),
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
         firstBox: {
             backgroundColor: Colors.ButtonBlueColor,

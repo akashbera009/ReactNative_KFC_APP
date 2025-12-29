@@ -141,7 +141,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '75%',
             marginTop: vh(20),
             lineHeight: vh(40),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             textAlign: 'center',
             alignSelf: 'center',
             fontSize: normalize(24),
@@ -174,7 +174,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         DoneButtonText: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.constantWhite,
             marginHorizontal: vw(20),
             marginVertical: vh(3)

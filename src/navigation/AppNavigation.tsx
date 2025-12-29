@@ -12,7 +12,8 @@ export default function AppNavigation() {
       <Drawer.Navigator
         screenOptions={{
           headerShown: false,
-          swipeEnabled: false
+          swipeEnabled: false,
+          drawerType : 'front'
         }}
         drawerContent={DrawerContent}
       >

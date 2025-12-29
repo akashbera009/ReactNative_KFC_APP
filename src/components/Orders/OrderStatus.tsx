@@ -296,7 +296,7 @@ const createDynamicStyles = (Colors: ColorType) =>
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         ContentContainer: {
@@ -330,7 +330,7 @@ const createDynamicStyles = (Colors: ColorType) =>
         },
         OrderConfirmed: {
             fontSize: normalize(18),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         RoundLoader: {
@@ -341,14 +341,14 @@ const createDynamicStyles = (Colors: ColorType) =>
         },
         OrderNumber: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack2,
             marginTop: vh(3),
         },
         WaitingText: {
             maxWidth: '80%',
             marginTop: vh(5),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText,
             lineHeight: normalize(20),
             fontSize: normalize(12),
@@ -361,7 +361,7 @@ const createDynamicStyles = (Colors: ColorType) =>
         DateText: {
             fontSize: normalize(12),
             color: Colors.textBlack,
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
         },
         TrackBox: {
             marginTop: vh(15),
@@ -395,7 +395,7 @@ const createDynamicStyles = (Colors: ColorType) =>
         },
         TrackText: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             marginLeft: vw(10),
             color: Colors.textBlack,
         },
@@ -429,7 +429,7 @@ const createDynamicStyles = (Colors: ColorType) =>
         },
         SummaryHeader: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
             marginVertical: vh(20),
         },
@@ -450,12 +450,12 @@ const createDynamicStyles = (Colors: ColorType) =>
             marginTop: vh(10),
             fontSize: normalize(13),
             color: Colors.textBlack,
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.helveticaMedium
         },
         AddressInfo: {
             marginTop: vh(10),
             marginBottom: vh(10),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText,
             lineHeight: normalize(20),
             fontSize: normalize(13),
@@ -484,13 +484,13 @@ const createDynamicStyles = (Colors: ColorType) =>
             color: Colors.timerFadeText,
         },
         InfoBold: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(13),
             color: Colors.textFadeBlack2,
         },
         items: {
             marginTop: vh(10),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(14),
             color: Colors.textBlack,
         },
@@ -516,7 +516,7 @@ const createDynamicStyles = (Colors: ColorType) =>
         ItemQty: {
             width: vw(30),
             textAlign: 'center',
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textGrey,
             fontSize: normalize(14),
         },
@@ -524,7 +524,7 @@ const createDynamicStyles = (Colors: ColorType) =>
             color: Colors.textBlack,
             fontSize: normalize(13),
             marginTop: vh(8),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
         },
 
         TotalRow: {
@@ -563,7 +563,7 @@ const createDynamicStyles = (Colors: ColorType) =>
             transform: [{ rotate: '180deg' }]
         },
         TotalAmount: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(16),
             color: Colors.textBlack,
         },
@@ -578,14 +578,14 @@ const createDynamicStyles = (Colors: ColorType) =>
             flexDirection: 'row',
         },
         BillRowLeft: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack2,
             fontSize: normalize(14),
         },
         BillRow: {
             fontSize: normalize(14),
             marginTop: vh(8),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack2,
         },
         FailedContainer: {
@@ -595,7 +595,7 @@ const createDynamicStyles = (Colors: ColorType) =>
         },
         FailedTitle: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
             textAlign: 'center',
         },
@@ -604,13 +604,13 @@ const createDynamicStyles = (Colors: ColorType) =>
             fontSize: normalize(16),
             width: '80%',
             alignSelf: 'center',
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack,
             textAlign: 'center',
             lineHeight: normalize(20),
         },
         PhoneNumber: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textFadeBlack,
         },
         RefundBox: {
@@ -624,30 +624,30 @@ const createDynamicStyles = (Colors: ColorType) =>
         },
         RefundTitle: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack2,
         },
         RefundInfo: {
             marginTop: vh(10),
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText,
             lineHeight: normalize(25),
         },
         failedTotalAmount: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack2,
         },
         WriteTitle: {
             fontSize: normalize(18),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack2,
         },
         WriteSub: {
             marginTop: vh(5),
             fontSize: normalize(13),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack,
             lineHeight: vh(20),
         },
@@ -661,7 +661,7 @@ const createDynamicStyles = (Colors: ColorType) =>
             borderRadius: normalize(1),
         },
         EmailText: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             fontSize: normalize(14),
             marginHorizontal: vw(10),
             color: Colors.textFadeBlack,
@@ -681,7 +681,7 @@ const createDynamicStyles = (Colors: ColorType) =>
         },
         RestaurantTitle: {
             fontSize: normalize(18),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         addressAndCall: {
@@ -696,7 +696,7 @@ const createDynamicStyles = (Colors: ColorType) =>
             lineHeight: vh(20),
             fontSize: normalize(13),
             maxWidth: '75%',
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
         },
         CallIcon: {
             height: vh(38),

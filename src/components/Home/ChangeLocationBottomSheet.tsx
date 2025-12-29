@@ -161,14 +161,14 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         ConfirmHeader: {
             fontSize: normalize(22),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             alignSelf: 'center',
             letterSpacing: normalize(1),
         },
         countryDescription: {
             width: "90%",
             alignSelf: 'center',
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             fontSize: normalize(18),
             textAlign: 'center',
             color: Colors.blueShadows,
@@ -196,7 +196,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         Address: {
             width: '80%',
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText,
         },
         DoneButtonContainer: {
@@ -224,7 +224,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         DoneButtonText: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.constantWhite,
             marginHorizontal: vw(50),
             marginVertical: vh(5)

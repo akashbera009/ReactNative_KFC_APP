@@ -7,7 +7,6 @@ export const fetctUserDeatails = createAsyncThunk<userDatailsType, string>(
     async (mobileNO: string) => {
         try {
             const res = await axios.get(`${BACKEND_SERVER}/users/mobile/${mobileNO}`)
-            console.log('user is', res.data);
             return res.data
         } catch (e) {
             console.log(e);

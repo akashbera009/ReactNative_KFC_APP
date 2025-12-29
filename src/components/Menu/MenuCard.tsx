@@ -69,7 +69,6 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
                         <View style={Styles.ribbonTriangle} />
                     </View>
                 )}
-
                 <Image src={foodItem?.image} style={Styles.LeftfoodImage} />
                 <View style={Styles.RightContainer}>
                     <View style={Styles.nameAndFavButton}>
@@ -181,7 +180,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginRight: vw(14),
             marginVertical: vh(3),
             color: Colors.constantWhite,
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.helveticaMedium
         },
         ribbonTriangle: {
             position: 'absolute',
@@ -226,7 +225,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         FoodName: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             marginVertical: vh(10),
             color: Colors.textBlack
         },
@@ -251,7 +250,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: Colors.textFadeBlack,
         },
         DescriptioText: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText,
             fontSize: normalize(11),
             marginRight: vw(5),
@@ -266,7 +265,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         customizeText: {
             fontSize: normalize(13),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.ButtonBlueColor,
         },
         backArrow: {
@@ -293,7 +292,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         Price: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             marginHorizontal: vw(2),
             color: Colors.textBlack,
         },
@@ -304,7 +303,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         OldPrice: {
             fontSize: normalize(13),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack,
         },
@@ -337,7 +336,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         counter: {
             marginHorizontal: vw(8),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(16),
             color: Colors.textBlack
         },
@@ -377,7 +376,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(10),
             marginHorizontal: vw(14),
             marginVertical: vh(10),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
         },
         Favourite_Icon: {
             height: vh(20),

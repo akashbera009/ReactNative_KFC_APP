@@ -1,15 +1,11 @@
 import React from 'react'
 import PaymentModal from '../components/CheckOut/PaymentModal'
 const PaymentModalScreen = ({ route }: PaymentModalScreenProps) => {
-  const { amount, 
-    // orderId,
-    // onSuccess 
+  const { amount,
   } = route.params
   return (
     <PaymentModal
       amount={amount}
-      // orderId={orderId}
-    //  onSuccess ={onSuccess }
     />
   )
 }

@@ -23,7 +23,7 @@ export default function AppStackNavigator() {
       <AppStack.Screen name={Strings.MapsScreen} component={MapsScreen} options={{ presentation: 'fullScreenModal' }} />
       <AppStack.Screen name={Strings.ExploreMenuScreen} component={ExploreMenuScreen} />
       <AppStack.Screen name={Strings.FoodCustomizationScreen} component={FoodCustomizationScreen} />
-      <AppStack.Screen name={Strings.CartScreen} component={CartScreen} options={{ animation: 'fade' }} />
+      <AppStack.Screen name={Strings.CartScreen} component={CartScreen}  />
       <AppStack.Screen name={Strings.FAQPageScreen} component={FAQPageScreen} />
       <AppStack.Screen name={Strings.DealsAndOfferScreen} component={DealsAndOfferScreen} />
       <AppStack.Screen name={Strings.TermsAndConditionsScreen} component={TermsAndConditionsScreen} />

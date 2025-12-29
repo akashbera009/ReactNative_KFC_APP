@@ -175,7 +175,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     HeaderKFC: {
       fontSize: normalize(80),
       color: Colors.constantWhite,
-      fontFamily: Fonts.font18
+      fontFamily: Fonts.helveticaBold
     },
     kfclogoImage: {
       height: 50,
@@ -186,7 +186,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     LoginDescriptionText: {
       fontSize: normalize(22),
       color: Colors.constantWhite,
-      fontFamily: Fonts.font18
+      fontFamily: Fonts.helveticaBold
     },
     MiddleContainer: {
       marginTop: vh(100),
@@ -218,12 +218,12 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginLeft: vw(8),
       fontSize: normalize(12),
       marginHorizontal: 'auto',
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.constantWhite
     },
     ChooseLangageText: {
       color: Colors.fadeWhiteText,
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       width: '90%',
       marginVertical: vh(10),
       marginHorizontal: 'auto'
@@ -294,12 +294,12 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginVertical: 'auto'
     },
     CountryName: {
-      fontFamily: Fonts.font17
+      fontFamily: Fonts.helveticaMedium
     },
     changeText: {
       marginRight: vw(10),
       marginLeft: vw(15),
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       color: Colors.constantBlack
     },
     loginButton: {
@@ -315,7 +315,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     LoginButtonText: {
       fontSize: normalize(16),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.constantWhite
     },
     BottomTermsContainer: {

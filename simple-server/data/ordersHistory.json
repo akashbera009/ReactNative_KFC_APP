@@ -844,5 +844,62 @@
     "status": "Being Prepared",
     "paymentMode": "Cash On Delivery",
     "paymentId": ""
+  },
+  {
+    "id": 1767024329264,
+    "Items": [
+      {
+        "cartUid": 1767022616017,
+        "menuItemUid": "menu-3",
+        "name": "Super Mega Deal",
+        "description": [
+          "12 Chicken pcs",
+          "Family fries"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "image": "https://i.ibb.co/V0Qx3vcX/KFC-Combo-Pack.webp",
+        "categories": [
+          "Deals",
+          "For Sharing"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 29 2025",
+    "orderId": "ORD-9TP51hX",
+    "status": "Being Prepared",
+    "paymentMode": "Online",
+    "paymentId": "pay_RxUCF26f3K4c37"
+  },
+  {
+    "id": 1767027502874,
+    "Items": [
+      {
+        "cartUid": 1767026828312,
+        "menuItemUid": "menu-8",
+        "name": "Crispy Duo Combo",
+        "description": [
+          "2 Crispy Chicken Fillets",
+          "1 Regular Fries",
+          "1 Bun",
+          "1 Pepsi - Medium"
+        ],
+        "price": 27.9,
+        "oldPrice": 31,
+        "image": "https://i.ibb.co/S73PQLnC/Home-Page-Main-Image.png",
+        "categories": [
+          "Deals",
+          "For One",
+          "Chicken Meals"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 29 2025",
+    "orderId": "ORD-1tsCOC2",
+    "status": "Being Prepared",
+    "paymentMode": "Online",
+    "paymentId": "pay_RxV9GYjhCJbd0l"
   }
 ]

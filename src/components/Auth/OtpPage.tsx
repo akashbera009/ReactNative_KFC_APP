@@ -62,12 +62,12 @@ export default function OtpPage({ phoneNo }: { phoneNo: string }) {
   const existingUser = useSelector((state: RootState) =>
     state.users.currentUser
   );
-  const handleVerify = async(): Promise<void> =>  {
+  const handleVerify = async (): Promise<void> => {
     if (goodToLogin) {
       if (existingUser) {
         console.log('existing user found ');
         await AsyncStorage.setItem('phoneNo', phoneNo)
-        navigation.navigate(Strings.HomeScreen)
+        navigation.navigate(Strings.AppStack, { screen: Strings.HomeScreen })
       }
       else {
         console.log('not found any iser ');
@@ -210,7 +210,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     headerText: {
       fontSize: normalize(20),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.textBlack
     },
     BackIconAndHeaderText: {
@@ -228,7 +228,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     navHeaderText: {
       fontSize: normalize(20),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
     },
     enterOtpHeaderContainer: {
       width: '90%',
@@ -237,13 +237,13 @@ const createDynamicStyles = (Colors: ColorType) => {
     enterOtpHeader: {
       fontSize: normalize(18),
       marginTop: vh(30),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.textBlack
     },
     PhoneNo: {
       fontSize: normalize(17),
       marginTop: vh(10),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.textBlack
     },
     scrollviewBottom: {
@@ -305,7 +305,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       backgroundColor: Colors.KFC_red
     },
     VerifyBUttonText: {
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(16),
       color: Colors.verifyText
     },
@@ -338,7 +338,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     resendRealtedText: {
       color: Colors.resendOtpText,
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       margin: normalize(10)
     },
     activeResndText: {

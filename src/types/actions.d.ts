@@ -16,3 +16,6 @@ interface orderFetchedType {
   orders: OrderHistory[],
   loading: string
 }
+type FavoriteState = {
+    favorites: string[];
+};

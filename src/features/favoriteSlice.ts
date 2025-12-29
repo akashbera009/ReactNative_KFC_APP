@@ -1,8 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-type FavoriteState = {
-    favorites: string[];
-};
 const initialState: FavoriteState = {
     favorites: []
 }

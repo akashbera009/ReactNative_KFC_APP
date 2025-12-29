@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
+import logger from 'redux-logger';
 // reducers
 import menuReducer from '../features/menuSlice'
 import cartReducer from '../features/cartSlice'
@@ -8,14 +9,14 @@ import favouriteReducer from '../features/favoriteSlice'
 import userReducer from '../features/userSlice'
 import BiometricAuthSlice from '../features/biometricSlice'
 // persist 
-import { persistReducer} from 'redux-persist'
+import { persistReducer } from 'redux-persist'
 // storage 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 let persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['cart','favourite' ,'orders' ],
+    whitelist: ['cart', 'favourite', 'orders'],
     blacklist: ['bioAuth']
 }
 let rootReducer = combineReducers({
@@ -23,16 +24,15 @@ let rootReducer = combineReducers({
     menuData: menuReducer,
     orders: orderReducer,
     favourite: favouriteReducer,
-    users: userReducer, 
-    bioAuth : BiometricAuthSlice
+    users: userReducer,
+    bioAuth: BiometricAuthSlice
 })
 let persistedReducer = persistReducer(persistConfig, rootReducer)
-
 export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
-    }),
+    }).concat(logger),
 })
 
 export type RootState = ReturnType<typeof store.getState>;

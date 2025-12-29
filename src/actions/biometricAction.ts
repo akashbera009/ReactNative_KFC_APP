@@ -7,13 +7,23 @@ import {
 export const checkBiometricSupportThunk = createAsyncThunk(
   'biometric/checkSupport',
   async () => {
-    return await checkBiometricSupport();
+    try {
+      return await checkBiometricSupport();
+    } catch (e) {
+      console.log('biometric error', e);
+      return e
+    }
   }
 );
 
 export const authenticateWithBiometricsThunk = createAsyncThunk(
   'biometric/authenticate',
   async () => {
-    return await authenticateWithBiometrics();
+    try {
+      return await authenticateWithBiometrics();
+    } catch (e) {
+      console.log('biometric error', e);
+      return e
+    }
   }
 );

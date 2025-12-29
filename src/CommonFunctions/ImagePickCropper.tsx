@@ -419,7 +419,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         placeholder: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
         },
         previewImage: {
             width: '100%',
@@ -437,7 +437,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         videoLabel: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
         },
         videoPreviewContainer: {
             display: 'flex',
@@ -456,7 +456,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         saveText: {
             color: Colors.constantWhite,
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(16)
         },
         viewOnlyModalContainer: {
@@ -505,7 +505,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginLeft: vw(30),
             width: '80%',
             top: vh(25),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(18),
         },
         crossIconPDF: {

@@ -69,7 +69,6 @@ const SideBar = () => {
   }, []);
   useEffect(() => {
     if (!storedPhone) return;
-
     dispatch(fetctUserDeatails(storedPhone));
   }, [dispatch, storedPhone]);
   const userdata = useSelector((state: RootState) => state?.users)
@@ -348,14 +347,8 @@ const createDynamicStyles = (Colors: ColorType) => {
       height: vh(100),
       width: vw(100)
     },
-    NameLetter: {
-      fontFamily: Fonts.headerRegular,
-      fontSize: normalize(30),
-      color: Colors.constantWhite,
-      textAlign: 'center',
-    },
     Name: {
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(22),
       color: Colors.textBlack,
       textAlign: 'center',
@@ -412,7 +405,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     Language: {
       fontSize: normalize(15),
       color: Colors.textBlack,
-      fontFamily: Fonts.font17
+      fontFamily: Fonts.helveticaMedium
     },
     LanguageChangeButton: {
       borderWidth: normalize(1),
@@ -424,7 +417,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginHorizontal: vw(12),
       color: Colors.textBlack,
       marginVertical: vh(8),
-      fontFamily: Fonts.font17
+      fontFamily: Fonts.helveticaMedium
     },
     CountryContainer: {
       display: 'flex',
@@ -448,7 +441,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     countryName: {
       fontSize: normalize(16),
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       color: Colors.textBlack,
     },
     Arrow: {
@@ -485,7 +478,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     countryEntriesText: {
       marginBottom: vh(4),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(16),
       color: Colors.textBlack,
       marginLeft: vw(4)
@@ -523,7 +516,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       margin: normalize(8)
     },
     singleEntryText: {
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       fontSize: normalize(17),
       margin: normalize(5),
       color: Colors.textBlack,
@@ -539,7 +532,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginBottom: vh(25),
     },
     BottomViewText: {
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       fontSize: normalize(17),
       color: Colors.textBlack,
     },
@@ -571,7 +564,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       tintColor: Colors.constantWhite,
     },
     CallSupport: {
-      fontFamily: Fonts.font9,
+      fontFamily: Fonts.nationalMedium,
       fontSize: normalize(26),
       color: Colors.textBlack,
     }

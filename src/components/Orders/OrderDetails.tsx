@@ -181,7 +181,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
@@ -219,17 +219,17 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         order: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack2,
         },
         orderId: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         date: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText,
             marginTop: vh(6)
         },
@@ -262,17 +262,17 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         PriceEntriesLeft: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText,
         },
         GrandText: {
             fontSize: normalize(15),
             color: Colors.textFadeBlack2,
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
         },
         PriceEntriesRight: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
             marginLeft: 'auto'
         },
@@ -291,7 +291,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             paddingHorizontal: vw(10),
             paddingVertical: vh(6),
             fontSize: normalize(12),
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
         downloadContainer: {
             width: "95%",
@@ -320,7 +320,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginHorizontal: vw(15),
             color: Colors.textFadeBlack2,
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
         },
         DeliveryAddressContainer: {
             width: "95%",
@@ -348,12 +348,12 @@ const createDynamicStyles = (Colors: ColorType) => {
             tintColor: Colors.textBlack
         },
         deliveryTo: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             fontSize: normalize(15),
             color: Colors.textFadeBlack2
         },
         Type: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(15),
             color: Colors.textBlack
         },
@@ -362,11 +362,11 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginLeft: vw(47),
             marginTop: vh(-5),
             marginBottom: vh(20),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText
         },
         TotalItems: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(16),
             width: '95%',
             alignSelf: 'center',
@@ -405,7 +405,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         FoodName: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             marginVertical: vh(10),
             color: Colors.textBlack
         },
@@ -430,7 +430,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: Colors.textFadeBlack,
         },
         DescriptioText: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.timerFadeText,
             fontSize: normalize(11),
             marginRight: vw(5),
@@ -464,7 +464,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(15),
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack2,
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
         OldPriceContainer: {
             display: 'flex',
@@ -475,7 +475,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(13),
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
         CrossBorder: {
             width: '100%',
@@ -493,12 +493,12 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginHorizontal: vw(20),
         },
         Qty: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             fontSize: normalize(17),
             color: Colors.textFadeBlack,
         },
         QtyNumber: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(18),
             color: Colors.textBlack,
         },

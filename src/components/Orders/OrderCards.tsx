@@ -77,26 +77,26 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginRight: vw(5)
         },
         badgeText: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack2,
         },
         OrderId: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         orderDate: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack2,
         },
         itemsTitle: {
             marginTop: vh(18),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(15),
             color: Colors.textBlack,
         },
         itemDesc: {
             marginTop: vh(4),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText,
             fontSize: normalize(15),
             width: '85%',
@@ -111,12 +111,12 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         priceText: {
             fontSize: normalize(17),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         statusText: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
         },
         Delivered: {
             color: Colors.greenOk

@@ -131,7 +131,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         CounterText: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.constantWhite,
         },
         CartImage: {
@@ -151,12 +151,12 @@ const createDynamicStyles = (Colors: ColorType) => {
         totalPrice: {
             fontSize: normalize(16),
             marginBottom: vh(4),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         discountPrice: {
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
         },
         DisctointContainer: {
             display: 'flex',
@@ -168,11 +168,11 @@ const createDynamicStyles = (Colors: ColorType) => {
         countrycode: {
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
         },
         savedtext: {
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
         },
         ViewCart: {
             backgroundColor: Colors.KFC_red,
@@ -186,7 +186,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(13),
             marginHorizontal: vw(16),
             marginVertical: vh(10),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
         },
     });
     return Styles;

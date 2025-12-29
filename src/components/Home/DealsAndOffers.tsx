@@ -96,12 +96,12 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         sectionTitle: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
             marginTop: vh(10),
             marginLeft: vw(20),
@@ -125,13 +125,13 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         offerTitle: {
             fontSize: normalize(17),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
             marginBottom: vh(4),
         },
         offerDesc: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText,
             marginTop: vh(10),
             lineHeight: vh(22),
@@ -146,12 +146,12 @@ const createDynamicStyles = (Colors: ColorType) => {
         tncText: {
             fontSize: normalize(13),
             letterSpacing: normalize(1),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.ButtonTextBlueColor,
         },
         applyText: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.KFC_red,
         },
     })

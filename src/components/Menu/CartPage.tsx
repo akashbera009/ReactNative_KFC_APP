@@ -39,9 +39,12 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
         dispatch(increaseQuantity(uid))
     }
     const handleDelete = (uid: string, image: string): void => {
-        navigation.push(Strings.RemoveCartItemBottomSheetScreen, {
-            imageLink: image,
-            uid: uid,
+        navigation.push(Strings.ModalStack, {
+            screen: Strings.RemoveCartItemBottomSheetScreen,
+            params: {
+                imageLink: image,
+                uid: uid,
+            }
         })
     }
     const handleDecreaseQuantity = (uid: string): void => {
@@ -341,7 +344,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
@@ -366,13 +369,13 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         navHeaderText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         noOfItemsText: {
             color: Colors.textBlack,
             fontSize: normalize(12),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             marginHorizontal: vw(10),
             marginVertical: vh(2)
         },
@@ -383,7 +386,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginHorizontal: vw(10),
         },
         editbuttonText: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             fontSize: normalize(12),
             color: Colors.KFC_red,
             marginHorizontal: vw(15),
@@ -391,7 +394,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         editbuttonFadeText: {
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(12),
             marginHorizontal: vw(15),
             marginVertical: vh(5),
@@ -454,12 +457,12 @@ const createDynamicStyles = (Colors: ColorType) => {
         ExploreMenu: {
             marginVertical: vh(5),
             fontSize: normalize(18),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         moreItemsCart: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack,
         },
         GotoMoreMenu: {
@@ -491,13 +494,13 @@ const createDynamicStyles = (Colors: ColorType) => {
         applyCoupon: {
             marginHorizontal: vw(15),
             fontSize: normalize(18),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         CouponAppliedText: {
             marginHorizontal: vw(12),
             fontSize: normalize(18),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         changeButton: {
@@ -505,7 +508,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         changeButtonText: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.KFC_red,
         },
         AppliedOfferDetail: {
@@ -517,12 +520,12 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         offerAppliedGreenText: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.greenOk,
             letterSpacing: normalize(.5),
         },
         offerAppliedGreenTextCurrency: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
         },
         PricingTotalContainer: {
             paddingVertical: vh(20),
@@ -546,18 +549,18 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         PriceEntriesLeft: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack,
         },
         PriceEntriesRight: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
             marginLeft: 'auto'
         },
         discountAmount: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.greenOk,
         },
         BottomCartContainer: {
@@ -566,7 +569,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: Colors.bodyColor,
             position: 'absolute',
             left: 0,
-            bottom : 0 , 
+            bottom: 0,
             zIndex: 2,
             shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(0) },
@@ -616,7 +619,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         deleteButtonText: {
             fontSize: normalize(14),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.KFC_red,
         },
         discountImageTop: {
@@ -726,7 +729,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         FoodName: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             marginVertical: vh(10),
             color: Colors.textBlack
         },
@@ -759,7 +762,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: Colors.textFadeBlack,
         },
         DescriptioText: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.timerFadeText,
             fontSize: normalize(11),
             marginRight: vw(5),
@@ -797,13 +800,13 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         Price: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             marginHorizontal: vw(2),
             color: Colors.textBlack,
         },
         OldPrice: {
             fontSize: normalize(13),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             marginHorizontal: vw(2),
             color: Colors.textFadeBlack,
         },
@@ -849,7 +852,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         counter: {
             marginHorizontal: vw(8),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(16),
             color: Colors.textBlack
         },

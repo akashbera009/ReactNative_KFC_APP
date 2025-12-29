@@ -21,7 +21,7 @@ import Images from '../../utils/LocalImages';
 import { savedCards, otherPaymentOption } from '../../data/DeliveryDetails';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 
-export default function PaymentOptionsBottomSheet({ amount}: PaymentModalScreenProps) {
+export default function PaymentOptionsBottomSheet({ amount }: PaymentModalScreenProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
@@ -41,7 +41,13 @@ export default function PaymentOptionsBottomSheet({ amount}: PaymentModalScreenP
         success: boolean,
         payment_id: string | undefined
     ): void => {
-        console.log(payment_id, success);
+        navigation.popTo(Strings.OrderStack, {
+            screen: Strings.CheckOutScreen,
+            params: {
+                result : success , 
+                payment_id : payment_id,
+             }
+        })
     }
     const slideUp = useCallback((): void => {
         Animated.parallel([
@@ -56,7 +62,7 @@ export default function PaymentOptionsBottomSheet({ amount}: PaymentModalScreenP
                 useNativeDriver: true
             })
         ]).start();
-    },[slide , fade])
+    }, [slide, fade])
     const slideDown = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
@@ -117,7 +123,7 @@ export default function PaymentOptionsBottomSheet({ amount}: PaymentModalScreenP
                                         <View >
                                             <Text style={Styles.bankName}>{card?.bank}</Text>
                                             <Text style={Styles.cardNumber}>
-                                                **** **** **** {card.last}
+                                                {Strings.stars} {card.last}
                                             </Text>
                                         </View>
                                         <View style={Styles.radioBlackOuter}>
@@ -226,7 +232,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         title: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             textAlign: 'center',
             marginBottom: vh(25),
             marginTop: vh(10),
@@ -236,7 +242,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(13),
             color: Colors.textFadeBlack,
             marginBottom: vh(15),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
         },
         cardsScroll: {
             paddingBottom: vh(20)
@@ -273,13 +279,13 @@ const createDynamicStyles = (Colors: ColorType) => {
         bankName: {
             color: Colors.constantWhite,
             fontSize: normalize(14),
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.helveticaMedium
         },
         cardNumber: {
             color: Colors.constantWhite,
             fontSize: normalize(14),
             marginTop: vh(10),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             letterSpacing: normalize(1.25)
         },
         cardFooter: {
@@ -296,14 +302,14 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(10),
             backgroundColor: Colors.HyperTransparent2,
             padding: normalize(8),
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
         otherMethodLabel: {
             marginTop: vh(10),
             marginBottom: vh(10),
             fontSize: normalize(13),
             color: Colors.textFadeBlack,
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
         },
         methodRow: {
             flexDirection: 'row',
@@ -323,14 +329,14 @@ const createDynamicStyles = (Colors: ColorType) => {
         methodText: {
             fontSize: normalize(17),
             color: Colors.textBlack,
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             letterSpacing: normalize(.5),
         },
         methodOffer: {
             fontSize: normalize(12),
             color: Colors.orangeColorText,
             marginTop: vh(2),
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.helveticaMedium
         },
         tc: {
             color: Colors.ButtonTextBlueColor,
@@ -394,7 +400,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         preferredText: {
             color: Colors.textFadeBlack2,
             fontSize: normalize(12),
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.helveticaMedium
         },
         buttonsRow: {
             flexDirection: 'row',
@@ -411,7 +417,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         cancelText: {
             color: Colors.textBlack,
             textAlign: 'center',
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
         payBtn: {
             width: '45%',
@@ -422,7 +428,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         payText: {
             color: Colors.constantWhite,
             textAlign: 'center',
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         }
     });
 };

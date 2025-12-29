@@ -25,8 +25,8 @@ const BiometricAuthSlice = createSlice({
             })
             .addCase(checkBiometricSupportThunk.fulfilled, (state, action) => {
                 state.loading = 'idle';
-                state.biometricSupported = action.payload;
-                state.biometricEnabled = action.payload;
+                state.biometricSupported = Boolean(action.payload);
+                state.biometricEnabled = Boolean(action.payload);
             })
             .addCase(checkBiometricSupportThunk.rejected, (state) => {
                 state.loading = 'failed';
@@ -37,7 +37,7 @@ const BiometricAuthSlice = createSlice({
             })
             .addCase(authenticateWithBiometricsThunk.fulfilled, (state, action) => {
                 state.loading = 'idle';
-                state.isAuthenticated = action.payload;
+                state.isAuthenticated = Boolean(action.payload);
             })
             .addCase(authenticateWithBiometricsThunk.rejected, (state) => {
                 state.loading = 'failed';

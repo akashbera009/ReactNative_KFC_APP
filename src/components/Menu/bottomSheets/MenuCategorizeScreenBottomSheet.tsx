@@ -140,7 +140,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         Header: {
             fontSize: normalize(18),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         crossIconContainer: {
@@ -177,7 +177,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         CategoryText: {
             fontSize: normalize(18),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
         },
         ArrowContainer: {

@@ -124,7 +124,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(14),
             marginHorizontal: vw(4),
             color: Colors.textBlack,
-            fontFamily: Fonts.font17 , 
+            fontFamily: Fonts.helveticaMedium , 
             width: '85%',
             overflow: 'hidden'
         },
@@ -133,7 +133,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: '40%',
             fontSize: normalize(11),
             color: Colors.timerFadeText,
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             margin: normalize(4),
         },
         LowerContainer: {
@@ -158,7 +158,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         price: {
             fontSize: normalize(13),
             color: Colors.textBlack,
-            fontFamily: Fonts.font17
+            fontFamily: Fonts.helveticaMedium
         },
         OrderButton: {
             borderWidth: normalize(2),

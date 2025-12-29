@@ -108,7 +108,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     headerText: {
       fontSize: normalize(20),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.textBlack
     },
     BackIconAndHeaderText: {
@@ -134,7 +134,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     sectionTitle: {
       marginTop: vh(0),
       fontSize: normalize(17),
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       color: Colors.textBlack,
       marginBottom: vh(8),
     },
@@ -172,14 +172,14 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     NoOrdersYet: {
       fontSize: normalize(24),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       color: Colors.textBlack,
       marginTop: vh(30)
     },
     makeAorder: {
       fontSize: normalize(14),
       color: Colors.timerFadeText,
-      fontFamily: Fonts.font17,
+      fontFamily: Fonts.helveticaMedium,
       letterSpacing: normalize(1),
       marginTop: vh(20),
       marginBottom: vh(10)
@@ -192,7 +192,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     ExploreMenu: {
       color: Colors.constantWhite,
       fontSize: normalize(16),
-      fontFamily: Fonts.font18,
+      fontFamily: Fonts.helveticaBold,
       marginHorizontal: vw(50),
       marginVertical: vh(15)
     },

@@ -302,7 +302,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
@@ -346,7 +346,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         navHeaderText: {
             overflow: 'hidden',
             fontSize: normalize(16),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             width: '70%',
             color: Colors.textBlack
         },
@@ -363,7 +363,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         countryName: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
             marginLeft: vw(8)
         },
@@ -406,7 +406,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginLeft: vw(10)
         },
         iWant: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack
         },
         selectionContainer: {
@@ -438,7 +438,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             borderRadius: normalize(10),
         },
         checkBoxText: {
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
         },
         completeAddress: {
@@ -449,7 +449,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginVertical: vh(20),
             marginTop: vh(30),
             color: Colors.textBlack,
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(16),
         },
         adressAndChangeButton: {
@@ -461,7 +461,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         PlaceHolderText: {
             color: Colors.textBlack,
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             fontSize: normalize(16),
         },
         addresPlaceHolder: {
@@ -476,7 +476,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         ChangeButtonText: {
             fontSize: normalize(12),
             color: Colors.textBlack,
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             marginHorizontal: vw(8),
             marginVertical: vh(4)
         },
@@ -511,7 +511,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         tagLocation: {
             fontSize: normalize(13),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
         },
         TagsContainer: {
@@ -529,7 +529,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginVertical: vh(2),
             paddingHorizontal: vw(10),
             paddingVertical: vh(5),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             fontSize: normalize(11),
         },
         ActiveTag: {
@@ -556,7 +556,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         confirmLocation: {
             color: Colors.constantWhite,
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(17),
         },
     });

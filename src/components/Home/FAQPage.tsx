@@ -136,7 +136,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         headerText: {
             fontSize: normalize(22),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
         tabWrapper: {
@@ -148,7 +148,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         activeTab: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
             borderBottomColor: Colors.KFC_red,
             borderBottomWidth: normalize(2),
@@ -157,7 +157,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         inactiveTab: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.timerFadeText,
             marginRight: vw(20),
             paddingBottom: vh(6),
@@ -180,7 +180,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         cardText: {
             width: '80%',
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
             lineHeight: vh(25),
         },
@@ -203,7 +203,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         answerText: {
             fontSize: normalize(15),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack,
             lineHeight: vh(22),
             marginTop: vh(8),

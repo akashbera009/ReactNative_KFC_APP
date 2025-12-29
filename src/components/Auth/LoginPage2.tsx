@@ -244,7 +244,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         Welcome2: {
             fontSize: normalize(18),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             marginHorizontal: vw(5),
             alignSelf: 'center',
             letterSpacing: normalize(.2),
@@ -258,7 +258,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         SecondLineText: {
             fontSize: normalize(22),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             marginHorizontal: vw(4),
             color: Colors.textBlack
         },
@@ -283,7 +283,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         chooseLangHeader: {
             color: Colors.timerFadeText,
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             fontSize: normalize(13),
             marginTop: vh(15),
             marginLeft: vw(15)
@@ -308,7 +308,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         chooseLangText: {
             fontSize: normalize(16),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack
         },
         TickMarkOuter: {
@@ -339,7 +339,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         mobileNoHeader: {
             color: Colors.timerFadeText,
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(13),
             marginRight: vw(4)
         },
@@ -351,7 +351,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignSelf: 'center',
         },
         MobileInputContainer: {
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         customBorder: {
@@ -363,7 +363,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         CountryCode: {
             marginRight: vw(10),
             marginTop: vh(-8),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textFadeBlack2
         },
         centralMobileContainer: {
@@ -395,11 +395,11 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         ActiveButtonText: {
             color: Colors.constantWhite,
-            fontFamily: Fonts.font18
+            fontFamily: Fonts.helveticaBold
         },
         SubmitButtonText: {
             fontSize: normalize(13),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textFadeBlack,
             paddingHorizontal: vw(10),
         },
@@ -439,7 +439,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         faangButtonText: {
             fontSize: normalize(13),
-            fontFamily: Fonts.font17,
+            fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
             paddingHorizontal: vw(10),
             marginLeft: vw(8)
@@ -463,7 +463,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         tcText: {
             color: Colors.ButtonBlueColor,
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             fontSize: normalize(12)
         }
     })

@@ -255,15 +255,15 @@ export default function GestureHandler() {
         };
     });
 
-    const animatedPopupStyles = useAnimatedStyle(() => {
-        return {
-            transform: [
-                { translateX: popupPosition.value.x },
-                { translateY: popupPosition.value.y },
-            ],
-            opacity: popupAlpha.value,
-        };
-    });
+    // const animatedPopupStyles = useAnimatedStyle(() => {
+    //     return {
+    //         transform: [
+    //             { translateX: popupPosition.value.x },
+    //             { translateY: popupPosition.value.y },
+    //         ],
+    //         opacity: popupAlpha.value,
+    //     };
+    // });
 
     const dragGesture = Gesture.Pan()
         .onStart((_e) => {
@@ -530,7 +530,7 @@ export default function GestureHandler() {
 
                     <View style={Styles.FirstSection}>
                         <Text style={Styles.secitonTitle}> pan + longpress  gesture(race) </Text>
-                        <Popup style={animatedPopupStyles} />
+                        {/* <Popup style={animatedPopupStyles} /> */}
                         <GestureDetector gesture={composedGesture}>
                             <Animated.View style={[Styles.ball, animatedStyles2]} />
                         </GestureDetector>
@@ -665,25 +665,25 @@ function Item({ backgroundColor }: ItemProps) {
 
 
 
-function Popup({ style }: any) {
-    return (
-        <Animated.View style={[styles.popup, style]}>
-            <Text style={styles.text}>Popup</Text>
-        </Animated.View>
-    );
-}
-const styles = StyleSheet.create({
-    popup: {
-        position: 'absolute',
-        backgroundColor: 'black',
-        padding: 10,
-        borderRadius: 6,
-        zIndex: 100,
-    },
-    text: {
-        color: 'white',
-    },
-});
+// function Popup({ style }: any) {
+//     return (
+//         <Animated.View style={[styles.popup, style]}>
+//             <Text style={styles.text}>Popup</Text>
+//         </Animated.View>
+//     );
+// }
+// const styles = StyleSheet.create({
+//     popup: {
+//         position: 'absolute',
+//         backgroundColor: 'black',
+//         padding: 10,
+//         borderRadius: 6,
+//         zIndex: 100,
+//     },
+//     text: {
+//         color: 'white',
+//     },
+// });
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
@@ -702,7 +702,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         headerText: {
             fontSize: normalize(20),
-            fontFamily: Fonts.font18,
+            fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {

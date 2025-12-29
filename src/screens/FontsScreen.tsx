@@ -11,10 +11,10 @@ const FontsScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     return (
         <SafeAreaView >
-            <Text
+            {/* <Text
                 style={[Styles.text, { fontFamily: Fonts.headerRegular }]}>
                 Login to unlock 10 , 100 (header Regular)
-            </Text>
+            </Text> */}
             <View style={Styles.divider} />
             <Text
                 style={[Styles.text, { fontFamily: Fonts.exp }]}>
@@ -32,30 +32,26 @@ const FontsScreen = () => {
             </Text>
             <View style={Styles.divider} />
             <Text
-                style={[Styles.text, { fontFamily: Fonts.bodyBoldFot }]}>
-                Twister BBQ Box  10 , 100 (bodyBoldFot)
-            </Text>
-            <Text
                 style={Styles.text}>
                 Twister BBQ Box  10 , 100 (no font)
             </Text>
             <View style={Styles.divider} />
-            <Text
+            {/* <Text
                 style={[Styles.text, { fontFamily: Fonts.font1 }]}>
                 Twister BBQ Box  10 , 100 (font1)
-            </Text>
+            </Text> */}
             <View style={Styles.divider} />
             <Text
-                style={[Styles.text, { fontFamily: Fonts.font2 }]}>
-                Twister BBQ Box  10 , 100 (font2)
+                style={[Styles.text, { fontFamily: Fonts.nationalBold }]}>
+                Twister BBQ Box  10 , 100 (nationalBold)
             </Text>
             <View style={Styles.divider} />
-            <Text
+            {/* <Text
                 style={[Styles.text, { fontFamily: Fonts.font3 }]}>
                 Twister BBQ Box  10 , 100 (font3)
-            </Text>
+            </Text> */}
             <View style={Styles.divider} />
-            <Text
+            {/* <Text
                 style={[Styles.text, { fontFamily: Fonts.font4 }]}>
                 Twister BBQ Box  10 , 100 (font4)
             </Text>
@@ -63,28 +59,28 @@ const FontsScreen = () => {
             <Text
                 style={[Styles.text, { fontFamily: Fonts.expHead }]}>
                 KFC  10 , 100 (expHead)
-            </Text>
+            </Text> */}
             <View style={Styles.divider} />
-            <Text
+            {/* <Text
                 style={[Styles.text, { fontFamily: Fonts.font6 }]}>
                 Twister BBQ Box  10 , 100 (font6)
-            </Text>
+            </Text> */}
             <View style={Styles.divider} />
-            <Text
+            {/* <Text
                 style={[Styles.text, { fontFamily: Fonts.font7 }]}>
                 Twister BBQ Box  10 , 100 (font7)
-            </Text>
+            </Text> */}
             <View style={Styles.divider} />
             <Text
-                style={[Styles.text, { fontFamily: Fonts.font9, }]}>
-                Finger Licling  10 , 100 (font9)
+                style={[Styles.text, { fontFamily: Fonts.nationalMedium, }]}>
+                Finger Licling  10 , 100 (nationalMedium)
             </Text>
             <Text
                 style={Styles.text}>
                 Finger Licling  10 , 100 (no font)
             </Text>
             <View style={Styles.divider} />
-            <Text
+            {/* <Text
                 style={[Styles.text, { fontFamily: Fonts.font10 }]}>
                 FOR SHARING  10 , 100 (font10)
             </Text>
@@ -97,7 +93,7 @@ const FontsScreen = () => {
             <Text
                 style={[Styles.text, { fontFamily: Fonts.font8 }]}>
                 Twister BBQ Box  10 , 100 (font8)
-            </Text>
+            </Text> */}
             <View style={Styles.divider} />
 
             <Text
@@ -110,7 +106,7 @@ const FontsScreen = () => {
             </Text>
             <View style={Styles.divider} />
 
-            <Text
+            {/* <Text
                 style={[Styles.text, { fontFamily: Fonts.font13 }]}>
                 Twister BBQ Box  10 , 100 (font13)
             </Text>
@@ -125,43 +121,43 @@ const FontsScreen = () => {
             <Text
                 style={[Styles.text, { fontFamily: Fonts.font15 }]}>
                 Twister BBQ Box  10 , 100 (font15)
+            </Text> */}
+            <View style={Styles.divider} />
+
+            <Text
+                style={[Styles.text, { fontFamily: Fonts.helveticaLight }]}>
+                Twister BBQ Box  10 , 100 (helveticaLight)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={[Styles.text, { fontFamily: Fonts.font16 }]}>
-                Twister BBQ Box  10 , 100 (font16)
+                style={[Styles.text, { fontFamily: Fonts.helveticaMedium }]}>
+                Twister BBQ Box  10 , 100 (helveticaMedium)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={[Styles.text, { fontFamily: Fonts.font17 }]}>
-                Twister BBQ Box  10 , 100 (font17)
+                style={[Styles.text, { fontFamily: Fonts.helveticaBold }]}>
+                Twister BBQ Box  10 , 100 (helveticaBold)
             </Text>
             <View style={Styles.divider} />
 
-            <Text
-                style={[Styles.text, { fontFamily: Fonts.font18 }]}>
-                Twister BBQ Box  10 , 100 (font18)
-            </Text>
-            <View style={Styles.divider} />
-
-            <Text
+            {/* <Text
                 style={[Styles.text, { fontFamily: Fonts.font19 }]}>
                 Twister BBQ Box  10 , 100 (font19)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={[Styles.text, { fontFamily: Fonts.font20 }]}>
-                Twister BBQ Box  10 , 100 (font20)
+                style={[Styles.text, { fontFamily: Fonts.nationalBold0 }]}>
+                Twister BBQ Box  10 , 100 (nationalBold0)
             </Text>
             <View style={Styles.divider} />
 
             <Text
-                style={{ fontFamily: Fonts.font21 }}>
-                Twister BBQ Box  10 , 100 (font21)
-            </Text>
+                style={{ fontFamily: Fonts.nationalBold1 }}>
+                Twister BBQ Box  10 , 100 (nationalBold1)
+            </Text> */}
             <View style={Styles.divider} />
 
 
