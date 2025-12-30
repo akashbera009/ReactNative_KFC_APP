@@ -10,7 +10,7 @@ export const fetctUserDeatails = createAsyncThunk<userDatailsType, string>(
             return res.data
         } catch (e) {
             console.log(e);
-            return e
+            throw e
         }
     })
 
@@ -22,7 +22,7 @@ export const addUserDetails = createAsyncThunk(
             return res.data as userDatailsType;
         } catch (e) {
             console.log(e);
-            return e
+            throw e
         }
     }
 );

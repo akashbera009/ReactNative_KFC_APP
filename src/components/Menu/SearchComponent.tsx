@@ -25,7 +25,6 @@ export default function SearchComponent({ searchTerm }: SearchPageProps) {
     const menuItems = useMemo(() => menuData?.menuData ?? [], [menuData])
     const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
     useEffect(() => {
-
         if (debounceRef.current) {
             clearTimeout(debounceRef.current)
         }

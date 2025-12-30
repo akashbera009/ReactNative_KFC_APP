@@ -13,9 +13,13 @@ interface userfetchedType {
 }
 
 interface orderFetchedType {
-  orders: OrderHistory[],
-  loading: boolean
+    orders: OrderHistory[],
+    loading: boolean
 }
 type FavoriteState = {
     favorites: string[];
 };
+type menuSliceInitialState = {
+    menuData: menuDataType[];
+    loading: boolean;
+}

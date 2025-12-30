@@ -39,9 +39,8 @@ export default function HomePage() {
     dispatch(fetchMenu())
     dispatch(fetchOrders())
   }, [dispatch])
-
   const menuData = useSelector((state: RootState) => state?.menuData)
-  const menuItem: menuDataType[] = menuData?.menuData ?? [] 
+  const menuItem: menuDataType[] = menuData?.menuData ?? []
   const { countrySelected } = useCountry()
   const colorList: GradientStop[] = [
     { offset: '0%', color: Colors.orangeColorText, opacity: '1' },
@@ -59,7 +58,7 @@ export default function HomePage() {
     }).start()
   }, [fadeAnimation])
   const [imageIndex, setImageIndex] = useState<number>(0);
-  const imageSet = [Images.Home_Page_Main_Image, Images.ChickenBox, Images.ChickenNuget, Images.BurgerPNG]
+  const imageSet = [Images.Home_Page_Main_Image, Images.ChickenNuget, Images.BurgerPNG]
   useEffect((): (() => void | void) => {
     const interval = setTimeout((): void => {
       setImageIndex(prev => prev < imageSet.length - 1 ? prev + 1 : 0)
@@ -273,7 +272,7 @@ export default function HomePage() {
               <Text style={Styles.ExploreHeaderViewAll}>{Strings.viewAll.toUpperCase()} </Text>
             </View>
             <ScrollView style={Styles.CardsContainer} horizontal showsHorizontalScrollIndicator={false}>
-              {menuData?.loading !== 'Success' ? (
+              {menuData?.loading ? (
                 <View style={Styles.menuDataLoader}>
                   <MediaSkeleton height={vh(120)} width={vw(250)} />
                   <MediaSkeleton height={vh(120)} width={vw(250)} />
@@ -480,7 +479,8 @@ const createDynamicStyles = (Colors: ColorType) => {
       width: vw(220),
       alignSelf: 'center',
       position: 'relative',
-      zIndex: 5
+      zIndex: 5,
+      objectFit: 'contain'
     },
     IndexContainer: {
       display: 'flex',

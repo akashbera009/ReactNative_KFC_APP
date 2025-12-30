@@ -1,8 +1,8 @@
 import React from 'react'
-import ReAnimated from '../components/testing/ReAnimated'
+import ReAnimated2 from '../components/testing/ReAnimated2'
 const ReAnimatedScreen = () => {
     return (
-        <ReAnimated />
+        <ReAnimated2 />
     )
 }
 export default ReAnimatedScreen

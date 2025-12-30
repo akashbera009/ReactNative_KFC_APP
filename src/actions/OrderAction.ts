@@ -7,7 +7,7 @@ export const fetchOrders = createAsyncThunk('orders/fetchOrders', async () => {
         return res.data
     } catch (error) {
         console.log(error)
-        return error
+        throw error
     }
 })
 export const addAsyncOrder = createAsyncThunk('orders/addOrder', async (order: OrderHistory) => {
@@ -16,6 +16,6 @@ export const addAsyncOrder = createAsyncThunk('orders/addOrder', async (order: O
         return res.data;
     } catch (error) {
         console.log(error)
-        return error
+        throw error
     }
 })

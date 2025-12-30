@@ -1,13 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 // action
 import { fetchMenu } from '../../src/actions/MenuAction'
-
-const initialState: {
-    menuData: menuDataType[];
-    loading: string;
-} = {
+const initialState: menuSliceInitialState = {
     menuData: [],
-    loading: 'ideal'
+    loading: false
 };
 const menuSlice = createSlice({
     name: 'menuData',
@@ -16,14 +12,15 @@ const menuSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchMenu.pending, (state) => {
-                state.loading = 'Pending'
+                state.loading = true
             })
             .addCase(fetchMenu.fulfilled, (state, action) => {
-                state.loading = 'Success'
-                state.menuData = (action.payload);
+                state.loading = false
+                state.menuData = action.payload;
             })
             .addCase(fetchMenu.rejected, (state) => {
-                state.loading = 'Error'
+                state.loading = false
+                state.menuData = []
             })
     }
 })

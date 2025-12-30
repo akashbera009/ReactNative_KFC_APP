@@ -15,7 +15,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 export default function RootStackNavigator() {
     const Strings = useStrings()
     return (
-        <RootStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={Strings.SplashStack} >
+        <RootStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={Strings.AppStack} >
             <RootStack.Screen name={Strings.SplashStack} component={SplashScreen} />
             <RootStack.Screen name={Strings.AuthStack} component={AuthStackNavigator} />
             <RootStack.Screen name={Strings.AppStack} component={AppStackNavigator} />

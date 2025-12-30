@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // animation 
-import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, withRepeat, withSequence, withDelay, withDecay, CSSAnimationKeyframes, cubicBezier, Easing, useAnimatedRef, useDerivedValue, scrollTo } from 'react-native-reanimated';
+import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, withRepeat, withSequence, withDelay, withDecay, CSSAnimationKeyframes, cubicBezier, Easing, useAnimatedRef, useDerivedValue, scrollTo, useScrollOffset, DerivedValue, useAnimatedScrollHandler, useAnimatedSensor, SensorType } from 'react-native-reanimated';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -12,11 +12,16 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { normalize, screenWidth, vh, vw } from '../../utils/Dimensions';
 import Svg, { Circle } from 'react-native-svg';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector, TextInput } from 'react-native-gesture-handler';
+
 const { width } = Dimensions.get('window')
 const ITEM_COUNT = 10;
 const ITEM_SIZE = 100;
 const ITEM_MARGIN = 10;
+
+
+const AnimatedText2 = Animated.createAnimatedComponent(Text);
+
 export default function ReAnimated() {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -132,28 +137,82 @@ export default function ReAnimated() {
 
     // animatedref + animated derivedvalue
     const animatedRef = useAnimatedRef<Animated.ScrollView>();
-    const scroll = useSharedValue<number>(0);
-    // const offset2 = useScrollOffset(animatedRef);
+    const scrollIdx = useSharedValue<number>(0);
+    const offset2 = useScrollOffset(animatedRef);
     useDerivedValue(() => {
         scrollTo(
             animatedRef, // ref
             0, // x
-            scroll.value * (ITEM_SIZE + 2 * ITEM_MARGIN), // y 
+            scrollIdx.value * (ITEM_SIZE + 2 * ITEM_MARGIN), // y 
             true // animated 
         )
     })
-    // const text = useDerivedValue(
-    //     () => `Scroll offset: ${offset2.value.toFixed(1)}`
-    // );
+    const text = useDerivedValue(
+        () => `Scroll offset: ${offset2.value.toFixed(1)}`
+    );
     const handelIncrement = () => {
-        if (scroll.value < items.length - 1)
-            scroll.value += 1
+        if (scrollIdx.value < items.length - 1)
+            scrollIdx.value += 1
     }
     const handelDecrement = () => {
-        if (scroll.value > 0)
-            scroll.value -= 1
+        if (scrollIdx.value > 0)
+            scrollIdx.value -= 1
     }
     const items = Array.from(Array(ITEM_COUNT).values());
+
+
+    // my scroll compoennt 
+    const scrollRef2 = useAnimatedRef<Animated.ScrollView>()
+    const scrollIdx2 = useSharedValue(0)
+    const scrollOffset2 = useScrollOffset(scrollRef2)
+    // useDerivedValue(() => {
+    //     scrollTo(
+    //         scrollRef2,
+    //         scrollIdx2.value * (ITEM_SIZE + (2 * ITEM_MARGIN)),
+    //         0,
+    //         true
+    //     )
+    // })
+    const animatedProp = useDerivedValue(() => {
+        return `${scrollOffset2.value.toFixed(1)}`
+    })
+    // const handelIncrement2 = () => {
+    //     if (scrollIdx2.value < items.length - 1) {
+    //         scrollIdx2.value += 1
+    //     }
+    // }
+    // const handelDecrement2 = () => {
+    //     if (scrollIdx2.value > 0) {
+    //         scrollIdx2.value -= 1
+    //     }
+    // }
+    const scrollHandler = useAnimatedScrollHandler({
+        onScroll: (e) => {
+            const idx = Math.round(e.contentOffset.x / (ITEM_SIZE + (2 * ITEM_MARGIN)))
+            console.log('scrollidx', idx);
+            scrollIdx2.value = idx
+        },
+        onMomentumEnd: (e) => {
+            console.log('momemntun end ', e.contentOffset.x);
+        }
+    })
+
+
+    // gyroscope 
+    // const gyroscope = useAnimatedSensor(SensorType.GYROSCOPE);
+    // const xb = useSharedValue(0)
+    // useDerivedValue(() => {
+    //     const { x, y, z } = gyroscope.sensor.value;
+    //     console.log(x, y, z);
+    //     xb.value = x
+    // });
+
+    // const gyroValue = useDerivedValue(() => {
+    //     return `${(xb.value * 100000).toFixed(3)}`
+
+    // })
+
+
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -310,7 +369,7 @@ export default function ReAnimated() {
                     <Text style={Styles.secitonTitle2}> animatedRef + derivedValue  </Text>
                     <View style={Styles.container}>
                         <View style={Styles.boxWrapper}>
-                            {/* <AnimatedText text={text} /> */}
+                            <AnimatedText text={text} />
                             <TouchableOpacity
                                 style={Styles.IncrementBUtton}
                                 onPress={handelDecrement}>
@@ -330,27 +389,90 @@ export default function ReAnimated() {
                             </TouchableOpacity>
                         </View>
                     </View>
+
+                    <Text style={Styles.secitonTitle2}> my animated scrollview  </Text>
+                    <View style={Styles.container}>
+                        <View style={Styles.boxWrapper}>
+                            <AnimatedTextComponent text={animatedProp} />
+                            {/* <TouchableOpacity
+                                style={Styles.IncrementBUtton}
+                                onPress={handelDecrement2}>
+                                <Text>scrollUp </Text>
+                            </TouchableOpacity> */}
+                            <Animated.ScrollView
+                                horizontal={true}
+                                onScroll={scrollHandler}
+                                ref={scrollRef2}>
+                                {items.map((_, i) => (
+                                    <View key={i} style={Styles.box3}>
+                                        <Text style={{ textAlign: 'center' }}>{i}</Text>
+                                    </View>
+                                ))}
+                            </Animated.ScrollView>
+                            {/* <TouchableOpacity
+                                style={Styles.IncrementBUtton}
+                                onPress={handelIncrement2}>
+                                <Text>scrolldown </Text>
+                            </TouchableOpacity> */}
+                        </View>
+                    </View>
+
+                    {/* <Text style={Styles.secitonTitle2}> gryoscope values   </Text>
+                    <View style={Styles.container}>
+                        <Animated.View style={[Styles.box3,
+                        {
+                            transform: [{ translateX: Number(gyroValue) }]
+                        }
+                        ]}>
+
+                        </Animated.View>
+                        <AnimatedText
+                            text={gyroValue}
+                        />
+                    </View> */}
+
+                    
                 </ScrollView>
             </View>
         </View>
     );
 }
-// const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
-// function AnimatedText(props: { text: DerivedValue<string> }) {
-//     const text = props.text;
-//     const animatedProps = useAnimatedProps(() => ({
-//         text: text.value,
-//         defaultValue: text.value,
-//     }));
-//     return (
-//         <AnimatedTextInput
-//             {...props}
-//             editable={false}
-//             animatedProps={animatedProps}
-//         />
-//     );
-// }
+function AnimatedText(props: { text: DerivedValue<string> }) {
+    const text = props.text;
+    const animatedProps = useAnimatedProps(() => ({
+        text: text.value,
+        defaultValue: text.value,
+    }));
+    return (
+        <AnimatedTextInput
+            {...props}
+            editable={false}
+            animatedProps={animatedProps}
+        />
+    );
+}
+// my compoentn 
+
+const AnimatedTextInputComponent = Animated.createAnimatedComponent(TextInput)
+const AnimatedTextComponent = (props: { text: DerivedValue<string> }) => {
+    const text = props.text
+    const animatedProps = useAnimatedProps(() => ({
+        text: text.value,
+        defaultValue: text.value
+    }))
+    return (
+        <AnimatedTextInputComponent
+            {...props}
+            animatedProps={animatedProps}
+            editable={false}
+        />
+    )
+}
+
+
+
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
