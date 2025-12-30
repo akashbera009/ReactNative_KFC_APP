@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { fetchOrders, addAsyncOrder } from '../../src/actions/OrderAction'
 const initialState: orderFetchedType = {
   orders: [],
-  loading: 'idle',
+  loading: false,
 };
 const orderSlice = createSlice({
   name: 'orders',
@@ -16,24 +16,24 @@ const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrders.pending, (state) => {
-        state.loading = 'pending';
+        state.loading = true;
       })
       .addCase(fetchOrders.fulfilled, (state, action) => {
         state.orders = action.payload;
-        state.loading = 'success';
+        state.loading = false;
       })
       .addCase(fetchOrders.rejected, (state) => {
-        state.loading = 'error';
+        state.loading = false;
       })
       .addCase(addAsyncOrder.pending, (state) => {
-        state.loading = 'pending';
+        state.loading = true
       })
       .addCase(addAsyncOrder.fulfilled, (state, action) => {
         state.orders.push(action.payload);
-        state.loading = 'success';
+        state.loading = false;
       })
       .addCase(addAsyncOrder.rejected, (state) => {
-        state.loading = 'error';
+        state.loading = false;
       });
   },
 });

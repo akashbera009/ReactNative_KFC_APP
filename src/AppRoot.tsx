@@ -6,7 +6,6 @@ import Config from 'react-native-config';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './store/store';
 import {
-    authenticateWithBiometricsThunk,
     checkBiometricSupportThunk,
 } from './actions/biometricAction';
 // google sign in 
@@ -22,7 +21,6 @@ const AppRoot = () => {
 
     useEffect(() => {
         dispatch(checkBiometricSupportThunk());
-        dispatch(authenticateWithBiometricsThunk());
     }, [dispatch]);
 
     return (

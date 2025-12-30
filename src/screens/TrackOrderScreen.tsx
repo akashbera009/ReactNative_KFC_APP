@@ -1,10 +1,10 @@
 import React from 'react'
 import TrackOrder from '../components/Orders/TrackOrder'
 
-const TrackOrderScreen = ({route}:TrackOrderScreenProps ) => {
-    const {currentOrder, orderId, grandTotal } =route.params
+const TrackOrderScreen = ({ route }: TrackOrderScreenProps) => {
+    const { currentOrder, orderId, grandTotal } = route.params
     return (
-        <TrackOrder currentOrder={currentOrder} orderId ={orderId} grandTotal ={grandTotal} />
+        <TrackOrder currentOrder={currentOrder} orderId={orderId} grandTotal={grandTotal} />
     )
 }
 

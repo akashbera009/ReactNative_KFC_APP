@@ -711,28 +711,10 @@
     "paymentId": "pay_RprWLaoUh4GNPN"
   },
   {
-    "id": 1765960955725,
+    "id": 1767083985547,
     "Items": [
       {
-        "cartUid": 1765956491457,
-        "menuItemUid": "menu-2",
-        "name": "Mighty Twist",
-        "description": [
-          "Mighty Zinger",
-          "1 Twister - Org",
-          "Fries - Regular"
-        ],
-        "price": 24,
-        "oldPrice": 24.7,
-        "image": "https://i.ibb.co/mCH5ZNcq/Chicken-Nuget.png",
-        "categories": [
-          "Deals",
-          "For One"
-        ],
-        "quantity": 1
-      },
-      {
-        "cartUid": 1765960950573,
+        "cartUid": 1767083915232,
         "menuItemUid": "menu-3",
         "name": "Super Mega Deal",
         "description": [
@@ -749,157 +731,10 @@
         "quantity": 1
       }
     ],
-    "date": "Dec 17 2025",
-    "orderId": "ORD-VNOIA5b",
+    "date": "Dec 30 2025",
+    "orderId": "ORD-roUS2we",
     "status": "Being Prepared",
-    "paymentMode": "Cash On Delivery",
-    "paymentId": ""
-  },
-  {
-    "id": 1766468389155,
-    "Items": [
-      {
-        "cartUid": 1766037931546,
-        "menuItemUid": "menu-8",
-        "name": "Crispy Duo Combo",
-        "description": [
-          "2 Crispy Chicken Fillets",
-          "1 Regular Fries",
-          "1 Bun",
-          "1 Pepsi - Medium"
-        ],
-        "price": 27.9,
-        "oldPrice": 31,
-        "image": "https://i.ibb.co/S73PQLnC/Home-Page-Main-Image.png",
-        "categories": [
-          "Deals",
-          "For One",
-          "Chicken Meals"
-        ],
-        "quantity": 1
-      }
-    ],
-    "date": "Dec 23 2025",
-    "orderId": "ORD-PUvjmh-",
-    "status": "Being Prepared",
-    "paymentMode": "Cash On Delivery",
-    "paymentId": ""
-  },
-  {
-    "id": 1766473403425,
-    "Items": [
-      {
-        "cartUid": 1766469250467,
-        "menuItemUid": "menu-8",
-        "name": "Crispy Duo Combo",
-        "description": [
-          "2 Crispy Chicken Fillets",
-          "1 Regular Fries",
-          "1 Bun",
-          "1 Pepsi - Medium"
-        ],
-        "price": 27.9,
-        "oldPrice": 31,
-        "image": "https://i.ibb.co/S73PQLnC/Home-Page-Main-Image.png",
-        "categories": [
-          "Deals",
-          "For One",
-          "Chicken Meals"
-        ],
-        "quantity": 1
-      }
-    ],
-    "date": "Dec 23 2025",
-    "orderId": "ORD-aaCENgk",
-    "status": "Being Prepared",
-    "paymentMode": "Online",
-    "paymentId": "pay_Ruxo2PRxC9RvNn"
-  },
-  {
-    "id": 1766921299669,
-    "Items": [
-      {
-        "cartUid": 1766511585064,
-        "menuItemUid": "menu-8",
-        "name": "Crispy Duo Combo",
-        "description": [
-          "2 Crispy Chicken Fillets",
-          "1 Regular Fries",
-          "1 Bun",
-          "1 Pepsi - Medium"
-        ],
-        "price": 27.9,
-        "oldPrice": 31,
-        "image": "https://i.ibb.co/S73PQLnC/Home-Page-Main-Image.png",
-        "categories": [
-          "Deals",
-          "For One",
-          "Chicken Meals"
-        ],
-        "quantity": 1
-      }
-    ],
-    "date": "Dec 28 2025",
-    "orderId": "ORD-Zk2DkQx",
-    "status": "Being Prepared",
-    "paymentMode": "Cash On Delivery",
-    "paymentId": ""
-  },
-  {
-    "id": 1767024329264,
-    "Items": [
-      {
-        "cartUid": 1767022616017,
-        "menuItemUid": "menu-3",
-        "name": "Super Mega Deal",
-        "description": [
-          "12 Chicken pcs",
-          "Family fries"
-        ],
-        "price": 24,
-        "oldPrice": 24.7,
-        "image": "https://i.ibb.co/V0Qx3vcX/KFC-Combo-Pack.webp",
-        "categories": [
-          "Deals",
-          "For Sharing"
-        ],
-        "quantity": 1
-      }
-    ],
-    "date": "Dec 29 2025",
-    "orderId": "ORD-9TP51hX",
-    "status": "Being Prepared",
-    "paymentMode": "Online",
-    "paymentId": "pay_RxUCF26f3K4c37"
-  },
-  {
-    "id": 1767027502874,
-    "Items": [
-      {
-        "cartUid": 1767026828312,
-        "menuItemUid": "menu-8",
-        "name": "Crispy Duo Combo",
-        "description": [
-          "2 Crispy Chicken Fillets",
-          "1 Regular Fries",
-          "1 Bun",
-          "1 Pepsi - Medium"
-        ],
-        "price": 27.9,
-        "oldPrice": 31,
-        "image": "https://i.ibb.co/S73PQLnC/Home-Page-Main-Image.png",
-        "categories": [
-          "Deals",
-          "For One",
-          "Chicken Meals"
-        ],
-        "quantity": 1
-      }
-    ],
-    "date": "Dec 29 2025",
-    "orderId": "ORD-1tsCOC2",
-    "status": "Being Prepared",
-    "paymentMode": "Online",
-    "paymentId": "pay_RxV9GYjhCJbd0l"
+    "paymentMode": "Dec 30 2025",
+    "paymentId": "pay_RxlBg58heKTM5p"
   }
 ]

@@ -21,7 +21,7 @@ import Images from '../../utils/LocalImages';
 import { savedCards, otherPaymentOption } from '../../data/DeliveryDetails';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 
-export default function PaymentOptionsBottomSheet({ amount }: PaymentModalScreenProps) {
+export default function PaymentOptionsBottomSheet({ amount, onSuccess }: PaymentModalScreenProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
@@ -41,13 +41,18 @@ export default function PaymentOptionsBottomSheet({ amount }: PaymentModalScreen
         success: boolean,
         payment_id: string | undefined
     ): void => {
-        navigation.popTo(Strings.OrderStack, {
-            screen: Strings.CheckOutScreen,
-            params: {
-                result : success , 
-                payment_id : payment_id,
-             }
-        })
+        console.log(payment_id, success);
+        onSuccess?.(payment_id, success)
+
+        
+        // navigation.popTo(Strings.OrderStack, {
+        //     screen: Strings.CheckOutScreen,
+        //     params: {
+        //         result : success , 
+        //         payment_id : payment_id,
+        //      }
+        // })
+
     }
     const slideUp = useCallback((): void => {
         Animated.parallel([

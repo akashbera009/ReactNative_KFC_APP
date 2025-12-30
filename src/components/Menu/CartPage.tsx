@@ -171,157 +171,159 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                         ))}
                     </ScrollView>
                 </View>
-            ) : (<>
-                {cartItem?.length !== 0 ?
-                    (<>
-                        <View style={Styles.scrollContainer}>
-                            <ScrollView showsVerticalScrollIndicator={false} >
-                                {topOfferAppliedIndicator && (
-                                    <View style={Styles.OfferAppliedTopIndicator}>
-                                        <View style={Styles.discountImageContainer}>
-                                            <Image source={Images.discount} style={Styles.discountImageTop} />
+            ) : (
+                <View style={Styles.cartItemContainer}>
+                    {cartItem?.length !== 0 ?
+                        (<View style={Styles.outerScrollContainer}>
+                            <View style={Styles.scrollContainer}>
+                                <ScrollView showsVerticalScrollIndicator={false} >
+                                    {topOfferAppliedIndicator && (
+                                        <View style={Styles.OfferAppliedTopIndicator}>
+                                            <View style={Styles.discountImageContainer}>
+                                                <Image source={Images.discount} style={Styles.discountImageTop} />
+                                            </View>
+                                            <View style={Styles.GreenTextContainer}>
+                                                <Text style={Styles.offerAppliedGreenText}>{Strings.offer} </Text>
+                                                <Text style={Styles.offerAppliedGreenText}>{offerCode} </Text>
+                                                <Text style={Styles.offerAppliedGreenText}>{Strings.applied} </Text>
+                                            </View>
+                                            <Image source={Images.Info_Button} style={Styles.InfoButton} />
+                                            <TouchableOpacity
+                                                style={Styles.deleteButton}
+                                                onPress={() => setTopOfferAppliedIndicator(false)}
+                                            >
+                                                <Text style={[Styles.deleteButtonText]}>{Strings.delete.toUpperCase()} </Text>
+                                            </TouchableOpacity>
                                         </View>
-                                        <View style={Styles.GreenTextContainer}>
-                                            <Text style={Styles.offerAppliedGreenText}>{Strings.offer} </Text>
-                                            <Text style={Styles.offerAppliedGreenText}>{offerCode} </Text>
-                                            <Text style={Styles.offerAppliedGreenText}>{Strings.applied} </Text>
-                                        </View>
-                                        <Image source={Images.Info_Button} style={Styles.InfoButton} />
-                                        <TouchableOpacity
-                                            style={Styles.deleteButton}
-                                            onPress={() => setTopOfferAppliedIndicator(false)}
-                                        >
-                                            <Text style={[Styles.deleteButtonText]}>{Strings.delete.toUpperCase()} </Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                )}
-                                {cartItem.map((item, idx) => (
-                                    <View key={idx} style={Styles.CardContainer}>
-                                        <View style={Styles.UpperContainer}>
-                                            <Image src={item?.image} style={Styles.LeftfoodImage} />
-                                            <View style={Styles.RightContainer}>
-                                                <Text style={Styles.FoodName}>{item?.name}</Text>
-                                                <View style={Styles.DescriptionContainer}>
-                                                    {item?.description.map((item1, id) => (
-                                                        <View key={id} style={Styles.DotAndDescription}>
-                                                            <View style={Styles.dot} />
-                                                            <Text style={Styles.DescriptioText}>{item1}</Text>
-                                                        </View>
-                                                    ))}
+                                    )}
+                                    {cartItem.map((item, idx) => (
+                                        <View key={idx} style={Styles.CardContainer}>
+                                            <View style={Styles.UpperContainer}>
+                                                <Image src={item?.image} style={Styles.LeftfoodImage} />
+                                                <View style={Styles.RightContainer}>
+                                                    <Text style={Styles.FoodName}>{item?.name}</Text>
+                                                    <View style={Styles.DescriptionContainer}>
+                                                        {item?.description.map((item1, id) => (
+                                                            <View key={id} style={Styles.DotAndDescription}>
+                                                                <View style={Styles.dot} />
+                                                                <Text style={Styles.DescriptioText}>{item1}</Text>
+                                                            </View>
+                                                        ))}
+                                                    </View>
                                                 </View>
                                             </View>
-                                        </View>
-                                        <View style={Styles.LowerContainer}>
-                                            <View style={Styles.LowerLeftPriceContainer}>
-                                                <Text style={Styles.Price}>{item.price.toFixed(2)}</Text>
-                                                <Text style={Styles.Price}>{countrySelected.currencyCode}</Text>
-                                            </View>
-                                            <View style={Styles.AddedCartButtonContainer}>
-                                                {(item?.quantity === 1) ?
-                                                    <TouchableOpacity
-                                                        style={Styles.deleteButtonContainer}
-                                                        onPress={() => { handleDelete(item?.menuItemUid, item?.image) }}
-                                                    >
-                                                        <Image source={Images.Delete_Icon} style={Styles.deleteIcon} />
-                                                    </TouchableOpacity>
-                                                    :
-                                                    <TouchableOpacity
-                                                        style={Styles.deleteButtonContainer}
-                                                        onPress={() => { handleDecreaseQuantity(item?.menuItemUid) }}
-                                                    >
-                                                        <Image source={Images.Minus} style={Styles.deleteIcon} />
-                                                    </TouchableOpacity>
-                                                }
+                                            <View style={Styles.LowerContainer}>
+                                                <View style={Styles.LowerLeftPriceContainer}>
+                                                    <Text style={Styles.Price}>{item.price.toFixed(2)}</Text>
+                                                    <Text style={Styles.Price}>{countrySelected.currencyCode}</Text>
+                                                </View>
+                                                <View style={Styles.AddedCartButtonContainer}>
+                                                    {(item?.quantity === 1) ?
+                                                        <TouchableOpacity
+                                                            style={Styles.deleteButtonContainer}
+                                                            onPress={() => { handleDelete(item?.menuItemUid, item?.image) }}
+                                                        >
+                                                            <Image source={Images.Delete_Icon} style={Styles.deleteIcon} />
+                                                        </TouchableOpacity>
+                                                        :
+                                                        <TouchableOpacity
+                                                            style={Styles.deleteButtonContainer}
+                                                            onPress={() => { handleDecreaseQuantity(item?.menuItemUid) }}
+                                                        >
+                                                            <Image source={Images.Minus} style={Styles.deleteIcon} />
+                                                        </TouchableOpacity>
+                                                    }
 
-                                                <Text style={Styles.counter}>{item?.quantity <= 9 ? `0${item?.quantity}` : item?.quantity} </Text>
-                                                <TouchableOpacity
-                                                    style={item?.quantity < 10 ? Styles.AddCounterButton : Styles.AddCounterButtonFade}
-                                                    onPress={() => { handleIncreaseQuantity(item?.menuItemUid) }}
-                                                >
-                                                    <Image source={Images.AddButton} style={Styles.AddButtonImage} />
-                                                </TouchableOpacity>
-                                            </View>
-                                        </View>
-                                    </View>
-                                ))}
-                                <TouchableOpacity
-                                    onPress={() => navigation.pop()}
-                                    style={Styles.ExploreMenuContainer}>
-                                    <View style={Styles.LeftExploreCOntaienr}>
-                                        <Text style={Styles.ExploreMenu}>{Strings.exploreMenu} </Text>
-                                        <Text style={Styles.moreItemsCart}>{Strings.addMoreItemsToCart} </Text>
-                                    </View>
-                                    <View>
-                                        <Image source={Images.back_arrow} style={Styles.GotoMoreMenu} />
-                                    </View>
-                                </TouchableOpacity>
-                                {isOfferApplied ?
-                                    (
-                                        <View style={[Styles.CouponMenuContainer, Styles.GreenBorder]}>
-                                            <View style={Styles.AboveCouponCOntainer}>
-                                                <View style={Styles.TopCouponCOntaienr}>
-                                                    <Image source={Images.discount} style={Styles.discountImage} />
-                                                    <Text style={Styles.CouponAppliedText}>{Strings.couponApplied} </Text>
+                                                    <Text style={Styles.counter}>{item?.quantity <= 9 ? `0${item?.quantity}` : item?.quantity} </Text>
+                                                    <TouchableOpacity
+                                                        style={item?.quantity < 10 ? Styles.AddCounterButton : Styles.AddCounterButtonFade}
+                                                        onPress={() => { handleIncreaseQuantity(item?.menuItemUid) }}
+                                                    >
+                                                        <Image source={Images.AddButton} style={Styles.AddButtonImage} />
+                                                    </TouchableOpacity>
                                                 </View>
-                                                <TouchableOpacity
-                                                    style={Styles.changeButton}
-                                                    onPress={handleOfferApply}
-                                                >
-                                                    <Text style={Styles.changeButtonText}>{Strings.change.toUpperCase()} </Text>
-                                                </TouchableOpacity>
-                                            </View>
-                                            <View style={Styles.AppliedOfferDetail}>
-                                                <Text style={Styles.offerAppliedGreenText}>{Strings.offer} {offerCode} {Strings.applied}. {Strings.youSaved} </Text>
-                                                <Text style={[Styles.offerAppliedGreenText, Styles.offerAppliedGreenTextCurrency]}>{Math.abs(Number(discountAmount))} {countrySelected?.currencyCode.toUpperCase()} </Text>
                                             </View>
                                         </View>
-                                    ) : (
-                                        <TouchableOpacity
-                                            onPress={handleOfferApply}
-                                            style={Styles.ExploreMenuContainer}>
-                                            <View style={Styles.LeftCouponCOntaienr}>
-                                                <Image source={Images.discount} style={Styles.discountImage} />
-                                                <Text style={Styles.applyCoupon}>{Strings.applyCoupon} </Text>
+                                    ))}
+                                    <TouchableOpacity
+                                        onPress={() => navigation.pop()}
+                                        style={Styles.ExploreMenuContainer}>
+                                        <View style={Styles.LeftExploreCOntaienr}>
+                                            <Text style={Styles.ExploreMenu}>{Strings.exploreMenu} </Text>
+                                            <Text style={Styles.moreItemsCart}>{Strings.addMoreItemsToCart} </Text>
+                                        </View>
+                                        <View>
+                                            <Image source={Images.back_arrow} style={Styles.GotoMoreMenu} />
+                                        </View>
+                                    </TouchableOpacity>
+                                    {isOfferApplied ?
+                                        (
+                                            <View style={[Styles.CouponMenuContainer, Styles.GreenBorder]}>
+                                                <View style={Styles.AboveCouponCOntainer}>
+                                                    <View style={Styles.TopCouponCOntaienr}>
+                                                        <Image source={Images.discount} style={Styles.discountImage} />
+                                                        <Text style={Styles.CouponAppliedText}>{Strings.couponApplied} </Text>
+                                                    </View>
+                                                    <TouchableOpacity
+                                                        style={Styles.changeButton}
+                                                        onPress={handleOfferApply}
+                                                    >
+                                                        <Text style={Styles.changeButtonText}>{Strings.change.toUpperCase()} </Text>
+                                                    </TouchableOpacity>
+                                                </View>
+                                                <View style={Styles.AppliedOfferDetail}>
+                                                    <Text style={Styles.offerAppliedGreenText}>{Strings.offer} {offerCode} {Strings.applied}. {Strings.youSaved} </Text>
+                                                    <Text style={[Styles.offerAppliedGreenText, Styles.offerAppliedGreenTextCurrency]}>{Math.abs(Number(discountAmount))} {countrySelected?.currencyCode.toUpperCase()} </Text>
+                                                </View>
                                             </View>
-                                            <View>
-                                                <Image source={Images.back_arrow} style={Styles.GotoMoreMenu} />
-                                            </View>
-                                        </TouchableOpacity>
-                                    )}
-                                <View style={[Styles.PricingTotalContainer, { marginBottom: inset.bottom + 30 }]}>
-                                    <View style={Styles.PriceEntries}>
-                                        <Text style={Styles.PriceEntriesLeft}>{Strings.SubTotal} </Text>
-                                        <Text style={Styles.PriceEntriesRight}>{beforeTax} {countrySelected?.currencyCode} </Text>
-                                    </View>
-                                    {isOfferApplied && (
+                                        ) : (
+                                            <TouchableOpacity
+                                                onPress={handleOfferApply}
+                                                style={Styles.ExploreMenuContainer}>
+                                                <View style={Styles.LeftCouponCOntaienr}>
+                                                    <Image source={Images.discount} style={Styles.discountImage} />
+                                                    <Text style={Styles.applyCoupon}>{Strings.applyCoupon} </Text>
+                                                </View>
+                                                <View>
+                                                    <Image source={Images.back_arrow} style={Styles.GotoMoreMenu} />
+                                                </View>
+                                            </TouchableOpacity>
+                                        )}
+                                    <View style={[Styles.PricingTotalContainer, { marginBottom: inset.bottom + 30 }]}>
                                         <View style={Styles.PriceEntries}>
-                                            <Text style={Styles.PriceEntriesLeft}>{Strings.discount} </Text>
-                                            <Text style={[Styles.PriceEntriesRight, Styles.discountAmount]}>-{discountAmount} {countrySelected?.currencyCode} </Text>
+                                            <Text style={Styles.PriceEntriesLeft}>{Strings.SubTotal} </Text>
+                                            <Text style={Styles.PriceEntriesRight}>{beforeTax} {countrySelected?.currencyCode} </Text>
                                         </View>
-                                    )}
-                                    <View style={Styles.PriceEntries}>
-                                        <Text style={Styles.PriceEntriesLeft}>{Strings.vat.toUpperCase()} @ {DeliveryDetails?.vatCharge}% </Text>
-                                        <Text style={Styles.PriceEntriesRight}>{vatAmount} {countrySelected?.currencyCode} </Text>
+                                        {isOfferApplied && (
+                                            <View style={Styles.PriceEntries}>
+                                                <Text style={Styles.PriceEntriesLeft}>{Strings.discount} </Text>
+                                                <Text style={[Styles.PriceEntriesRight, Styles.discountAmount]}>-{discountAmount} {countrySelected?.currencyCode} </Text>
+                                            </View>
+                                        )}
+                                        <View style={Styles.PriceEntries}>
+                                            <Text style={Styles.PriceEntriesLeft}>{Strings.vat.toUpperCase()} @ {DeliveryDetails?.vatCharge}% </Text>
+                                            <Text style={Styles.PriceEntriesRight}>{vatAmount} {countrySelected?.currencyCode} </Text>
+                                        </View>
+                                        <View style={Styles.PriceEntries}>
+                                            <Text style={Styles.PriceEntriesLeft}>{Strings.deliveriCharge} </Text>
+                                            <Text style={Styles.PriceEntriesRight}>{DeliveryDetails?.charges} {countrySelected?.currencyCode} </Text>
+                                        </View>
+                                        <View style={Styles.PriceEntries}>
+                                            <Text style={Styles.PriceEntriesLeft}>{Strings.grandTotal} </Text>
+                                            <Text style={Styles.PriceEntriesRight}>{GrandAmount} {countrySelected?.currencyCode} </Text>
+                                        </View>
                                     </View>
-                                    <View style={Styles.PriceEntries}>
-                                        <Text style={Styles.PriceEntriesLeft}>{Strings.deliveriCharge} </Text>
-                                        <Text style={Styles.PriceEntriesRight}>{DeliveryDetails?.charges} {countrySelected?.currencyCode} </Text>
-                                    </View>
-                                    <View style={Styles.PriceEntries}>
-                                        <Text style={Styles.PriceEntriesLeft}>{Strings.grandTotal} </Text>
-                                        <Text style={Styles.PriceEntriesRight}>{GrandAmount} {countrySelected?.currencyCode} </Text>
-                                    </View>
-                                </View>
-                            </ScrollView>
+                                </ScrollView>
+                            </View>
+                            <View style={[Styles.BottomCartContainer ,  { bottom: inset.bottom - 10 }]}>
+                                <BottomCart ButtonType={Strings.placeOrder} navLink={Strings.CheckOutScreen} totalAmount={Number(GrandAmount)} discount={discount} />
+                            </View>
                         </View>
-                        <View style={Styles.BottomCartContainer}>
-                            <BottomCart ButtonType={Strings.placeOrder} navLink={Strings.CheckOutScreen} totalAmount={Number(GrandAmount)} discount={discount} />
-                        </View>
-                    </>
-                    ) : (
-                        <CartItemNotFound />
-                    )}
-            </>)}
+                        ) : (
+                            <CartItemNotFound />
+                        )}
+                </View>
+            )}
         </View>
     );
 }
@@ -329,7 +331,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
-            height: '100%',
+            flex: 1,
             backgroundColor: Colors.bodyColor,
         },
         NavWrapper: {
@@ -565,7 +567,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         BottomCartContainer: {
             width: '100%',
-            height: vh(110),
+            height: vh(70),
             backgroundColor: Colors.bodyColor,
             position: 'absolute',
             left: 0,
@@ -576,11 +578,15 @@ const createDynamicStyles = (Colors: ColorType) => {
             shadowOpacity: 0.25,
             shadowRadius: normalize(5),
             elevation: 5,
+        }, 
+        cartItemContainer: {
+            flexGrow : 1 , 
         },
-        BottomCOntainerWrapper: {
+        outerScrollContainer: {
+            flexGrow: 1,
         },
         scrollContainer: {
-            height: '80%',
+            flexGrow: 1,
             backgroundColor: Colors.bodyLigheterColor,
         },
         OfferAppliedTopIndicator: {

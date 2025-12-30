@@ -1,10 +1,10 @@
 import React from 'react'
 import OrderDetails from '../components/Orders/OrderDetails'
 
-const OrderDetailsScreen = ({route}:OrderDetailsScreen ) => {
-    const {order} = route.params ; 
+const OrderDetailsScreen = ({ route }: OrderDetailsScreenProps) => {
+  const { order } = route.params;
   return (
-    <OrderDetails order={order}/>
+    <OrderDetails order={order} />
   )
 }
 

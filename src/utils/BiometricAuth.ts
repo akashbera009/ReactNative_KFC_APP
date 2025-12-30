@@ -14,11 +14,11 @@ export const checkBiometricSupport = async (): Promise<boolean> => {
 
 export const authenticateWithBiometrics = async (): Promise<boolean> => {
   try {
-    const result = await rnBiometrics.simplePrompt({
+    const {success} = await rnBiometrics.simplePrompt({
       promptMessage: 'Authenticate using biometrics',
       fallbackPromptMessage: 'Authentication Required'
     });
-    return result.success;
+    return success;
   } catch (error) {
     return false;
   }

@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, Animated, Easing, type EasingFunction } from 'react-native';
-import React, { useRef, useEffect, useCallback } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 //redux
@@ -25,29 +25,9 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
     let discountPrice: number = cartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
     discountPrice -= Number(totalPrice);
     let formattedCounterText: string = cartItem?.length < 10 ? `0${cartItem?.length}` : `${cartItem?.length}`;
-    // aimation 
-    const slideIn = useRef<Animated.Value>(new Animated.Value(0)).current;
-    const handleSlideIn = useCallback((easing: EasingFunction): void => {
-        Animated.timing(slideIn, {
-            toValue: 1,
-            duration: 200,
-            easing,
-            useNativeDriver: true
-        }).start()
-    }, [slideIn])
-    useEffect((): void => {
-        handleSlideIn(Easing.in(Easing.quad))
-    }, [handleSlideIn])
 
     return (
-        <Animated.View style={[Styles.ViewCartWrapper, {
-            transform: [{
-                translateY: slideIn.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [100, 0]
-                })
-            }]
-        }]}>
+        <View style={[Styles.ViewCartWrapper]}>
             <View style={Styles.DetailsContainer}>
                 <View style={Styles.ImageContainer}>
                     <Image source={Images.Chicken_Bucket} style={Styles.CartImage} />
@@ -88,7 +68,7 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
             >
                 <Text style={Styles.ViewCartText}>{ButtonType?.toUpperCase()} </Text>
             </TouchableOpacity>
-        </Animated.View >
+        </View >
     );
 }
 const createDynamicStyles = (Colors: ColorType) => {

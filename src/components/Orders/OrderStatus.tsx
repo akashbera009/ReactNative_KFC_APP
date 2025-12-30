@@ -151,8 +151,9 @@ export default function OrderStatus({
                                         navigation.navigate(Strings.TrackOrderScreen, {
                                             currentOrder: currentOrder ?? null,
                                             orderId: orderId,
-                                            GrandTotal: GrandTotal
-                                        })}
+                                            grandTotal: GrandTotal
+                                        })
+                                    }
                                     style={Styles.TrackBox}>
                                     <View style={Styles.TrackLeft}>
                                         <Image source={Images.Track_Order} style={Styles.TrackIcon} />

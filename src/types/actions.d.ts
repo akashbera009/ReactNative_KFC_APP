@@ -14,7 +14,7 @@ interface userfetchedType {
 
 interface orderFetchedType {
   orders: OrderHistory[],
-  loading: string
+  loading: boolean
 }
 type FavoriteState = {
     favorites: string[];

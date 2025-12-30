@@ -37,7 +37,7 @@ type ModalStackParamList = {
   ChangeLocationBottomSheetScreen: undefined;
   RemoveCartItemBottomSheetScreen: RemoveCartItemProps;
   OfferAppliedScreen: undefined;
-  PaymentModalScreen: { amount: number };
+  PaymentModalScreen: { amount: number , onSuccess: (payment_id: string, isSuccess: boolean) => void };
   CommonPopUpScreen: { header: string; message: string };
   PopUpScreens: undefined;
   LoginPageCountryBottomSheetScreen: undefined;

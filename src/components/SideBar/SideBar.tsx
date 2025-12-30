@@ -73,7 +73,21 @@ const SideBar = () => {
   }, [dispatch, storedPhone]);
   const userdata = useSelector((state: RootState) => state?.users)
   const currentUser = userdata?.currentUser
-
+  const handleLogout = async (): Promise<void> => {
+    try {
+      await AsyncStorage.removeItem('phoneNo')
+      navigation.dispatch(DrawerActions.closeDrawer());
+      setIsSettingsMenuOpen(false)
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: Strings.SplashStack }],
+        })
+      );
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -133,16 +147,7 @@ const SideBar = () => {
               <TouchableOpacity
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
-                onPress={() => {
-                  navigation.dispatch(DrawerActions.closeDrawer());
-                  setIsSettingsMenuOpen(false)
-                  navigation.dispatch(
-                    CommonActions.reset({
-                      index: 0,
-                      routes: [{ name: Strings.SplashStack }],
-                    })
-                  );
-                }}>
+                onPress={handleLogout}>
                 <Image source={Images.Logout_Icon} style={Styles.ThemeIcon} />
                 <Text style={Styles.countryEntriesText}>{Strings.logout}</Text>
               </TouchableOpacity>

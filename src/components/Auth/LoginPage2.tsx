@@ -26,7 +26,7 @@ export default function LoginPage2() {
     const [mobileNo, setMobileNo] = useState<string>('')
     const [rawMobileNO, setRawMobileNo] = useState<string>('')
     const [goodToLogin, setGoodToLogin] = useState<boolean>(false)
-    // const [userToken, setUserToken] = useState<string | null>(null);
+    const [userToken, setUserToken] = useState<string | null>(null);
     const checkGoodToLogin = useCallback((): void => {
         setGoodToLogin(mobileNo.length <= countrySelected.mobileNoLength)
     }, [mobileNo, countrySelected.mobileNoLength])
@@ -54,9 +54,10 @@ export default function LoginPage2() {
             console.log('Google Sign-In response:', response);
             if (isSuccessResponse(response)) {
                 console.log('isSuccessResponse(response)', isSuccessResponse(response))
-                // setUserToken(response?.data?.idToken)
+                setUserToken(response?.data?.idToken)
+                console.log(userToken);
                 Alert.alert('Success', `Google Sign-In Successful! token is ${response?.data?.user?.id}`);
-                navigation.navigate(Strings.HomeScreen)
+                navigation.navigate(Strings.AppStack , {screen : Strings.HomeScreen})
             } else if (response.type === 'cancelled') {
                 console.log('sign in was calcelled by user ');
                 Alert.alert('Alert', 'Sigin in calcelled by user');

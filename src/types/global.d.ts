@@ -183,9 +183,10 @@ type GradientStop = {
   opacity: string
 };
 interface AuthState {
-  isAuthenticated: boolean;
+  isAuthenticated: boolean | null ;
   biometricEnabled: boolean;
   biometricSupported: boolean;
-  loading: string;
+  loading: boolean;
   error?: string;
+  biometricChecked: boolean; 
 }

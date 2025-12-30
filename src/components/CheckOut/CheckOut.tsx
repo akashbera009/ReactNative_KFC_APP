@@ -12,6 +12,7 @@ import { addAsyncOrder } from '../../actions/OrderAction';
 import { RootState, useAppDispatch } from '../../store/store';
 import { clearCart } from '../../features/cartSlice';
 import { useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -19,7 +20,6 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-// export default function CheckOut({ totalAmount, discount }: { totalAmount: number, discount: number }) {
 export default function CheckOut({ route }: CheckOutScreenProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -40,10 +40,14 @@ export default function CheckOut({ route }: CheckOutScreenProps) {
     const [showTime, setShowTime] = useState<boolean>(false);
     const [showDate, setShowDate] = useState<boolean>(false);
     // amount calculations  
-    const { totalAmount, discount } = route.params
-    const vatAmount: number = Number((totalAmount * 5 / 100).toFixed(2))
-    const beforeTax: number = totalAmount - DeliveryDetails?.charges - vatAmount
-    const DiscountPrice: number = discount;
+    const [checkoutData] = useState(() => ({
+        totalAmount: Number(route.params?.totalAmount || 0),
+        discount: Number(route.params?.discount || 0),
+    }));
+
+    const vatAmount: number = Number((checkoutData?.totalAmount * 5 / 100).toFixed(2))
+    const beforeTax: number = checkoutData?.totalAmount - DeliveryDetails?.charges - vatAmount
+    const DiscountPrice: number = checkoutData?.discount;
     const AfterDiscount: number = Number((beforeTax - DiscountPrice).toFixed(2));
     const GrandTotal: number = AfterDiscount + DeliveryDetails?.charges
     const dispatch = useAppDispatch()
@@ -54,18 +58,28 @@ export default function CheckOut({ route }: CheckOutScreenProps) {
     const OrderId = `ORD-${nanoid(7)}`
     const openPaymentModal = (): void => {
         if (paymentMethodSelected === Strings.cashOnDeliveryString) {
-            onPaymentSuccess('', OrderId, true, OrderDate, OrderTime, Strings.cashOnDeliveryString)
+            onPaymentSuccess('', OrderId, true, Strings.cashOnDeliveryString)
         } else {
             navigation.navigate(Strings.ModalStack,
                 {
                     screen: Strings.PaymentModalScreen,
                     params: {
                         amount: GrandTotal,
+                        onSuccess: (paymentId: string, isSuccess: boolean) => {
+                            console.log(paymentId, isSuccess);
+                            onPaymentSuccess(paymentId, OrderId, isSuccess, OrderDate);
+                        }
                     }
                 })
         }
     }
-    const onPaymentSuccess = useCallback((paymentId: string | undefined, orderId: string, isSuccess: boolean, OrderDate: string, OrderTime: string, paymentMode: string): void => {
+    const orderLoading = useSelector((state: RootState) => state?.orders?.loading)
+    const onPaymentSuccess = useCallback(async (
+        paymentId: string | undefined,
+        orderId: string,
+        isSuccess: boolean,
+        paymentMode: string
+    ): Promise<void> => {
         const newOrder: OrderHistory = {
             id: Date.now(),
             Items: cartItem,
@@ -76,34 +90,40 @@ export default function CheckOut({ route }: CheckOutScreenProps) {
             paymentId: paymentId
         };
         Alert.alert(isSuccess ? Strings.success : Strings.failed);
-        setTimeout(() => {
-            navigation.pop(2);
-            if (isSuccess) {
-                dispatch(addAsyncOrder(newOrder))
-                dispatch(clearCart())
+        navigation.pop(2);
+
+        if (!isSuccess) return
+
+        try {
+            await dispatch(addAsyncOrder(newOrder))
+            console.log('order added , now navigating ', orderLoading);
+            if (!orderLoading) {
+                navigation.navigate(Strings.OrderStack, {
+                    screen: Strings.OrderStatusScreen,
+                    params: {
+                        currentOrders: cartItem,
+                        orderId: orderId,
+                        OrderDate: OrderDate,
+                        OrderTime: OrderTime,
+                        paymentMode: paymentMethodSelected,
+                        vatAmount: vatAmount,
+                        GrandTotal: GrandTotal,
+                        SubTotal: beforeTax,
+                        deliveriCharge: DeliveryDetails?.charges,
+                        orderStatus: isSuccess
+                    }
+                })
             }
-            navigation.navigate(Strings.OrderStack, {
-                screen: Strings.OrderStatusScreen,
-                params: {
-                    currentOrders: cartItem,
-                    orderId: orderId,
-                    OrderDate: OrderDate,
-                    OrderTime: OrderTime,
-                    paymentMode: paymentMethodSelected,
-                    vatAmount: vatAmount,
-                    GrandTotal: GrandTotal,
-                    SubTotal: beforeTax,
-                    deliveriCharge: DeliveryDetails?.charges,
-                    orderStatus: isSuccess
-                }
-            })
-        }, 1000);
-    }, [GrandTotal, Strings.OrderStack, Strings.OrderStatusScreen, Strings.beingPreparedString, Strings.failed, Strings.success, beforeTax, cartItem, dispatch, navigation, paymentMethodSelected, vatAmount])
-    useEffect(() => {
-        if (route.params?.result !== undefined) {
-            onPaymentSuccess(route.params?.payment_id, OrderId, route.params?.result, OrderDate, OrderTime, Strings.onlineString);
+            dispatch(clearCart())
+        } catch (error) {
+            console.log(error);
         }
-    }, [route.params, OrderDate, OrderId, OrderTime, Strings.onlineString, onPaymentSuccess])
+    }, [GrandTotal, Strings.OrderStack, Strings.OrderStatusScreen, Strings.beingPreparedString, Strings.failed, Strings.success, beforeTax, cartItem, dispatch, navigation, paymentMethodSelected, vatAmount, orderLoading , OrderDate , OrderTime])
+    // useEffect(() => {
+    //     if (route.params?.result !== undefined) {
+    //         onPaymentSuccess(route.params?.payment_id, OrderId, route.params?.result, Strings.onlineString);
+    //     }
+    // }, [route.params, OrderDate, OrderId, OrderTime, Strings.onlineString, onPaymentSuccess])
 
     useEffect((): (() => void) | void => {
         if (paymentMethodOpen) {
@@ -119,9 +139,32 @@ export default function CheckOut({ route }: CheckOutScreenProps) {
         setPaymentMethodOpen(!paymentMethodOpen)
         paymentMethodOpen === true && scrollToPosition()
     }
-    const handelDeliverlater = async () => {
+    const handelDeliverlater = async (): Promise<void> => {
         setShowDate(true)
         setDeliveryType('later')
+    }
+    const getPhoneNo = async (): Promise<string> => {
+        try {
+            const phoneNo = await AsyncStorage.getItem('phoneNo')
+            if (phoneNo)
+                return phoneNo
+            else
+                return ''
+        } catch (error) {
+            console.log('cant get storedMobileno')
+            return ''
+        }
+    }
+    const handleChangeAddress = async () => {
+        const mobileNo = await getPhoneNo()
+        if (mobileNo !== undefined) {
+            navigation.navigate(Strings.AuthStack, {
+                screen: Strings.CreateProfileScreen,
+                params: {
+                    phoneNo: mobileNo
+                }
+            })
+        }
     }
     return (
         <View style={Styles.parent}>
@@ -143,9 +186,7 @@ export default function CheckOut({ route }: CheckOutScreenProps) {
                             <Text style={Styles.userPhone}>{countrySelected?.mobileCode} - {DeliveryDetails?.mobileNumber}</Text>
                         </View>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate(Strings.CreateProfileScreen, {
-                                phoneNo: DeliveryDetails?.mobileNumber
-                            })}
+                            onPress={handleChangeAddress}
                             style={Styles.changeButton}>
                             <Text style={Styles.changeText}>{Strings.change}</Text>
                         </TouchableOpacity>

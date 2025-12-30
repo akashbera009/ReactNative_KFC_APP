@@ -42,7 +42,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const { activeCategory, setActiveCategory } = useMenuCategory()
     useEffect(() => {
         setActiveCategory(categoryType)
-    }, [categoryType , setActiveCategory]);
+    }, [categoryType, setActiveCategory]);
     //search
     const [searchTerm, setSearchTerm] = useState<string>('')
     const [searchActive, setSearchActive] = useState<boolean>(false)
@@ -59,7 +59,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     const handleslideUp = useCallback((): void => {
         Animated.timing(slideUp, {
             toValue: 1,
-            duration: 200,
+            duration: 350,
             useNativeDriver: true
         }).start()
     }, [slideUp])
@@ -216,7 +216,8 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                             opacity: slideUp.interpolate({
                                 inputRange: [0, 1],
                                 outputRange: [0, 1]
-                            }),
+                            },
+                            ),
                             transform: [
                                 {
                                     translateY: slideUp.interpolate({

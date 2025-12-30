@@ -15,7 +15,7 @@ import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
 import { useCountry } from '../../context/CountryContext';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProps) {
+export default function TrackOrder({ currentOrder, orderId, grandTotal }: TrackOrderScreenProps) {
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors);
@@ -159,7 +159,10 @@ export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProp
               </View>
             </View>
             <TouchableOpacity
-              onPress={() => navigation.pop()}
+              onPress={() => navigation.push(Strings.OrderDetailsScreen,
+                { order: currentOrder }
+              )
+              }
               style={Styles.detailsButton}>
               <Text style={Styles.detailsButtonText}>{Strings.details.toUpperCase()}</Text>
             </TouchableOpacity>
@@ -191,8 +194,8 @@ export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProp
             </View>
           </View>
         </ScrollView>
-      </View>
-    </View>
+      </View >
+    </View >
   )
 }
 const createDynamicStyles = (Colors: ColorType) => {
