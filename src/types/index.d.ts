@@ -42,13 +42,11 @@ type ModalStackParamList = {
   PopUpScreens: undefined;
   LoginPageCountryBottomSheetScreen: undefined;
   MenuCategorizeScreen: {
-    // activeCategory: string;
     frequencyArray: CategoryFrequency[];
   };
 };
 
 type TestingStackParamList = {
-  FontsScreen: undefined
   ReAnimatedScreen: undefined
   GestureScreen: undefined
 }

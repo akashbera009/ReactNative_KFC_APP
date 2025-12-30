@@ -30,7 +30,6 @@ export default function TrackOrder({ orderId, grandTotal }: TrackOrderScreenProp
   const getCurrentLocation = async (): Promise<void> => {
     Geolocation.getCurrentPosition(
       position => {
-        console.log('position', position)
         setLocation({
           latitude: position?.coords?.latitude,
           longitude: position?.coords?.longitude

@@ -150,15 +150,6 @@ const SideBar = () => {
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
                 onPress={() => {
-                  navigation.navigate(Strings.TestingStack, { screen: Strings.FontsScreen })
-                  setIsSettingsMenuOpen(false)
-                }}>
-                <Text>{Strings.FontsScreen}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={Styles.SettingsMenuEntries}
-                activeOpacity={.7}
-                onPress={() => {
                   navigation.navigate(Strings.TestingStack, { screen: Strings.ReAnimatedScreen })
                   setIsSettingsMenuOpen(false)
                 }}>
