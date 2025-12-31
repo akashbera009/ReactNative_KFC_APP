@@ -21,7 +21,7 @@ export default function SearchComponent({ searchTerm }: SearchPageProps) {
     const Strings = useStrings()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [searchResult, setSearchResult] = useState<menuDataType[]>([])
-    const menuData = useSelector((state: RootState) => state.menuData)
+    const menuData = useSelector((state: RootState) => state?.menuData)
     const menuItems = useMemo(() => menuData?.menuData ?? [], [menuData])
     const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
     useEffect(() => {

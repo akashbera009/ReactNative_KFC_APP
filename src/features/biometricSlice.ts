@@ -45,7 +45,7 @@ const BiometricAuthSlice = createSlice({
             })
             .addCase(authenticateWithBiometricsThunk.rejected, (state) => {
                 state.loading = false;
-                state.isAuthenticated = false;
+                state.isAuthenticated = null;
                 state.biometricChecked = true;
             });
     }

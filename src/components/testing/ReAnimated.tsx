@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // animation 
-import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, withRepeat, withSequence, withDelay, withDecay, CSSAnimationKeyframes, cubicBezier, Easing, useAnimatedRef, useDerivedValue, scrollTo, useScrollOffset, DerivedValue, useAnimatedScrollHandler, useAnimatedSensor, SensorType } from 'react-native-reanimated';
+import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming, withRepeat, withSequence, withDelay, withDecay, CSSAnimationKeyframes, cubicBezier, Easing, useAnimatedRef, useDerivedValue, scrollTo, useScrollOffset, DerivedValue, useAnimatedScrollHandler } from 'react-native-reanimated';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -20,7 +20,7 @@ const ITEM_SIZE = 100;
 const ITEM_MARGIN = 10;
 
 
-const AnimatedText2 = Animated.createAnimatedComponent(Text);
+// const AnimatedText2 = Animated.createAnimatedComponent(Text);
 
 export default function ReAnimated() {
     const Colors = useThemeColors();
@@ -431,7 +431,7 @@ export default function ReAnimated() {
                         />
                     </View> */}
 
-                    
+
                 </ScrollView>
             </View>
         </View>

@@ -22,9 +22,16 @@ export default function SplashScreen() {
     );
     useEffect(() => {
         const loadPhone = async () => {
-            const phone = await AsyncStorage.getItem('phoneNo');
-            setStoredPhone(phone);
-            setIsPhoneChecked(true);
+            try {
+                const phone = await AsyncStorage.getItem('phoneNo');
+                setStoredPhone(phone);
+                setIsPhoneChecked(true);
+            } catch (error) {
+                setStoredPhone(null)
+                console.warn('Failed to read phoneNo from storage', error);
+            } finally {
+                setIsPhoneChecked(true);
+            }
         };
         loadPhone();
     }, []);
@@ -45,12 +52,16 @@ export default function SplashScreen() {
             return;
         }
         if (!biometricChecked || loading) return;
-        navigation.reset({
-            index: 0,
-            routes: [
-                { name: isAuthenticated ? Strings.AppStack : Strings.AuthStack },
-            ],
-        });
-    }, [isPhoneChecked, storedPhone, biometricChecked, loading, isAuthenticated, Strings.AppStack, Strings.AuthStack, navigation]);
+
+        if (isAuthenticated) {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: Strings.AppStack }],
+            });
+            return;
+        }
+        dispatch(authenticateWithBiometricsThunk());
+    }, [dispatch, isPhoneChecked, storedPhone, biometricChecked, loading, isAuthenticated, Strings.AppStack, Strings.AuthStack, navigation]);
+
     return <SplashPage />
 }
