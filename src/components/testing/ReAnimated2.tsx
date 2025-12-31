@@ -149,8 +149,6 @@ export default function ReAnimated2() {
                         />
                     </View>
 
-
-                 
                 </ScrollView>
             </View>
         </View >
