@@ -2,56 +2,67 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-// context 
-import { useCart } from '../../context/CartContext';
+//redux
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+// utils
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
-// utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
-export default function BottomCart({ ButtonType, navLink, totalAmount }: BottomCartProps) {
+export default function BottomCart({ ButtonType, navLink, totalAmount, discount }: BottomCartProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const { countrySelected } = useCountry()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const { CartItem } = useCart();
-    let totalPrice = CartItem.reduce((acc, item) => acc + item?.price * item?.quantity, 0).toFixed(2);
-    let discountPrice = CartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
+    const cartData = useSelector((state: RootState) => state.cart)
+    const cartItem: CartItemType[] = cartData.cartItems
+    let totalPrice: string = cartItem.reduce((acc, item) => acc + item?.price * item?.quantity, 0).toFixed(2);
+    let discountPrice: number = cartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
     discountPrice -= Number(totalPrice);
+    let formattedCounterText: string = cartItem?.length < 10 ? `0${cartItem?.length}` : `${cartItem?.length}`;
 
     return (
-        <View style={Styles.ViewCartWrapper}>
+        <View style={[Styles.ViewCartWrapper]}>
             <View style={Styles.DetailsContainer}>
                 <View style={Styles.ImageContainer}>
-                    <Image source={Images?.Chicken_Bucket} style={Styles.CartImage} />
+                    <Image source={Images.Chicken_Bucket} style={Styles.CartImage} />
                     <View style={Styles.ImageWrapper}>
-                        <Text style={Styles.CounterText}>{CartItem?.length} </Text>
+                        <Text style={Styles.CounterText}>{formattedCounterText} </Text>
                     </View>
                 </View>
                 <View style={Styles.PriceDetails}>
                     <Text style={Styles.totalPrice}>{totalPrice}</Text>
                     <View style={Styles.DisctointContainer}>
-                        <Text style={Styles.discountPrice}>{discountPrice?.toFixed(2)}</Text>
+                        <Text style={Styles.discountPrice}>{Math.abs(discountPrice)?.toFixed(2)}</Text>
                         <Text style={Styles.countrycode}>{countrySelected?.currencyCode} </Text>
-                        <Text style={Styles.savedtext}>{Strings?.youSaved} </Text>
+                        <Text style={Styles.savedtext}>{Strings.youSaved} </Text>
                     </View>
                 </View>
             </View>
             <TouchableOpacity
                 style={Styles.ViewCart}
                 onPress={() => {
-                    if (navLink === 'CartScreen') {
-                        navigation.navigate(Strings?.CartScreen);
-                    } else {
-                        navigation.navigate(Strings?.CheckOutScreen, {
-                            totalAmount: totalAmount,
-                            // items: cartItems,
-                            // address: selectedAddress,
+                    if (navLink === Strings.CartScreen) {
+                        navigation.navigate(Strings.CartScreen, {
+                            discount: 0,
+                            discountPercentage: 0,
+                            offerCode: ''
                         });
+                    } else {
+                        navigation.navigate(Strings.OrderStack,
+                            {
+                                screen:
+                                    Strings.CheckOutScreen,
+                                params: {
+                                    totalAmount: totalAmount,
+                                    discount: discount
+                                }
+                            });
                     }
                 }}
             >
@@ -60,8 +71,7 @@ export default function BottomCart({ ButtonType, navLink, totalAmount }: BottomC
         </View >
     );
 }
-
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         ViewCartWrapper: {
             width: '93%',
@@ -78,57 +88,55 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         ImageContainer: {
-            width: 42,
+            width: vw(42),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
-            borderRadius: 1,
+            borderRadius: normalize(1),
         },
         ImageWrapper: {
-            height: 42,
-            width: 42,
+            height: vh(42),
+            width: vw(42),
             position: 'relative',
             left: '-50%',
             zIndex: 4,
-            borderRadius: 1,
-            backgroundColor: Colors?.HyperTransparent,
+            borderRadius: normalize(1),
+            backgroundColor: Colors.HyperTransparent,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
         },
         CounterText: {
-            fontSize: 12,
-            fontWeight: 700,
-            color: Colors?.constantWhite,
+            fontSize: normalize(14),
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.constantWhite,
         },
         CartImage: {
-            height: 42,
-            width: 42,
+            height: vh(42),
+            width: vw(42),
             left: '50%',
             position: 'relative',
             zIndex: 3,
-            borderRadius: 1,
+            borderRadius: normalize(1),
         },
         PriceDetails: {
-            marginLeft: 10,
+            marginLeft: vw(10),
             display: 'flex',
             justifyContent: 'center',
             alignSelf: 'center',
-            // backgroundColor: '#ffdcdcff',
         },
         totalPrice: {
-            fontSize: 16,
-            fontWeight: 700,
-            marginBottom: 4,
-            fontFamily: Fonts?.subHeader
+            fontSize: normalize(16),
+            marginBottom: vh(4),
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.textBlack
         },
         discountPrice: {
-            color: Colors?.textFadeBlack,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 600
+            color: Colors.textFadeBlack,
+            fontFamily: Fonts.helveticaBold,
         },
         DisctointContainer: {
             display: 'flex',
@@ -138,30 +146,27 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         countrycode: {
-            marginHorizontal: 2,
-            color: Colors?.textFadeBlack,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 600
+            marginHorizontal: vw(2),
+            color: Colors.textFadeBlack,
+            fontFamily: Fonts.helveticaBold,
         },
         savedtext: {
-            color: Colors?.textFadeBlack,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 600
+            color: Colors.textFadeBlack,
+            fontFamily: Fonts.helveticaMedium,
         },
         ViewCart: {
-            backgroundColor: Colors?.KFC_red,
-            borderRadius: 4,
+            backgroundColor: Colors.KFC_red,
+            borderRadius: normalize(4),
             alignSelf: 'flex-end',
             marginLeft: 'auto',
-            marginVertical: 14,
+            marginVertical: vh(14),
         },
         ViewCartText: {
-            color: Colors?.constantWhite,
-            fontSize: 13,
-            marginHorizontal: 16,
-            marginVertical: 10,
-            fontFamily: Fonts?.font17,
-            fontWeight: 700
+            color: Colors.constantWhite,
+            fontSize: normalize(13),
+            marginHorizontal: vw(16),
+            marginVertical: vh(10),
+            fontFamily: Fonts.helveticaBold,
         },
     });
     return Styles;

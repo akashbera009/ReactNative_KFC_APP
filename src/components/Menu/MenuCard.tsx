@@ -1,146 +1,116 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
+// redux 
+import { RootState, useAppDispatch } from '../../store/store';
+import { toggleFavourite } from '../../features/favoriteSlice';
+import { useSelector } from 'react-redux';
+import { addToCart, increaseQuantity, decreaseQuantity, removeFromCart } from '../../features/cartSlice';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
-import { useCart } from '../../context/CartContext';
-import { useMenu } from '../../context/MenuContext';
-export default function MenuCard({
-    id,
-    name,
-    description,
-    price,
-    oldPrice,
-    tag,
-    image,
-    isFavorite,
-    customizable,
-    categories,
-}: menuDataType) {
+import { normalize, vh, vw } from '../../utils/Dimensions';
+export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
     const Colors = useThemeColors();
     const country = useCountry()
     const Strings = useStrings();
-    const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts);
+    const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const { menuItem, setMenuItem } = useMenu();
-    const { CartItem, setCartItem } = useCart();
-    const itemInCart = CartItem.find((item) => item.name === name);
-    const quantity = itemInCart ? itemInCart?.quantity : 0;
+    const cartItem = useSelector((state: RootState) => state.cart)
+    const itemInCart: CartItemType | undefined = cartItem?.cartItems?.find((item: CartItemType) => item?.menuItemUid === foodItem?.uid)
+    const quantity: number = itemInCart ? itemInCart?.quantity : 0;
+    const dispatch = useAppDispatch()
+    const favouritelist = useSelector((state: RootState) => state.favourite)
     const handleCartAdding = () => {
+        if (cartItem?.cartItems?.find((item: CartItemType) => item?.menuItemUid === foodItem?.uid)) return;
         const newItem: CartItemType = {
-            id: id,
-            name: name,
-            description: description,
-            price: price,
-            oldPrice: oldPrice,
-            tag: tag,
-            image: image,
-            isFavorite: isFavorite,
-            customizable: customizable,
-            categories: categories,
-            quantity: quantity + 1,
+            cartUid: Date.now(),
+            menuItemUid: foodItem?.uid,
+            name: foodItem?.name,
+            description: foodItem?.description,
+            price: foodItem?.price,
+            oldPrice: foodItem?.oldPrice,
+            image: foodItem?.image,
+            categories: foodItem?.categories,
+            quantity: 1,
         }
-        if (CartItem.find((item) => item.name === newItem.name)) return;
-        setCartItem((prev: CartItemType[]) => [...prev, newItem]);
+        dispatch(addToCart(newItem))
     }
-    const handleIncreaseQunatity = (name: string) => {
+    const handleIncreaseQunatity = (uid: string): void => {
         if (quantity < 10) {
-            setCartItem((prev: CartItemType[]) =>
-                prev.map(item =>
-                    item?.name == name
-                        ? { ...item, quantity: item?.quantity + 1 }
-                        : item
-                )
-            )
+            dispatch(increaseQuantity(uid))
         } else return;
-
     }
-    const handleDecreaseQuantity = () => {
+    const handleDecreaseQuantity = (uid: string): void => {
         if (quantity >= 1) {
-            setCartItem((prev: CartItemType[]) =>
-                prev.map((item, idx) =>
-                    item?.name == name
-                        ? { ...item, quantity: item?.quantity - 1 }
-                        : item
-                )
-            )
+            dispatch(decreaseQuantity(uid))
         } else return;
     }
-    const handleRemoveItem = () => {
-        if (quantity == 1) {
-            setCartItem((prev: CartItemType[]) =>
-                prev.filter(item =>
-                    item?.name != name
-                )
-            )
+    const handleRemoveItem = (uid: string): void => {
+        if (quantity === 1) {
+            dispatch(removeFromCart(uid))
         } else return;
     }
-    const handleToggleFavourite = (id: number) => {
-        setMenuItem((prev: menuDataType[]) =>
-            prev.map(item =>
-                item.id === id
-                    ? { ...item, isFavorite: !item.isFavorite }
-                    : item
-            )
-        );
+    const handleToggleFavourite = (uid: string): void => {
+        dispatch(toggleFavourite(uid))
     }
-    let formattedQuantity = quantity <= 9 ? `0${quantity}` : quantity;
+    const formattedQuantity: string = quantity <= 9 ? `0${quantity}` : `${quantity}`;
+
     return (
         <View style={Styles.CardContainer}>
             <View style={Styles.UpperContainer}>
-                {tag && (
+                {foodItem?.tag && (
                     <View style={Styles.Tags}>
-                        <Text style={Styles.TagText}>{tag} </Text>
+                        <Text style={Styles.TagText}>{foodItem?.tag} </Text>
                         <View style={Styles.ribbonTriangle} />
                     </View>
                 )}
-
-                <Image source={image} style={Styles.LeftfoodImage} />
+                <Image src={foodItem?.image} style={Styles.LeftfoodImage} />
                 <View style={Styles.RightContainer}>
-                    <Text style={Styles.FoodName}>{name}</Text>
+                    <View style={Styles.nameAndFavButton}>
+                        <Text style={Styles.FoodName}>{foodItem?.name}</Text>
+                        <TouchableOpacity
+                            style={Styles.favIconContainer}
+                            onPress={() => { handleToggleFavourite(foodItem?.uid) }}
+                        >
+                            {favouritelist?.favorites?.includes(foodItem?.uid) ? (
+                                <Image source={Images.Favourite_Icon} style={Styles.Favourite_Icon} />
+                            ) : (
+                                <Image source={Images.Favourite_Icon_Empty} style={Styles.Favourite_Icon} />
+                            )}
+                        </TouchableOpacity>
+                    </View>
                     <View style={Styles.DescriptionContainer}>
-                        {description.map((item, idx) => (
+                        {foodItem?.description.map((item, idx) => (
                             <View key={idx} style={Styles.DotAndDescription}>
                                 <View style={Styles.dot} />
                                 <Text style={Styles.DescriptioText}>{item}</Text>
                             </View>
                         ))}
                     </View>
-                    {customizable && (
+                    {foodItem?.customizable && (
                         <TouchableOpacity
                             style={Styles.CustomizeContainer}
-                            onPress={() => { }}
+                            onPress={() => navigation.navigate(Strings.FoodCustomizationScreen, {
+                                foodItem: foodItem
+                            })}
                         >
-                            <Text style={Styles.customizeText}>{Strings?.customize.toUpperCase()} </Text>
-                            <Image source={Images?.back_arrow} style={Styles.backArrow} />
+                            <Text style={Styles.customizeText}>{Strings.customize.toUpperCase()} </Text>
+                            <Image source={Images.back_arrow} style={Styles.backArrow} />
                         </TouchableOpacity>
                     )}
                 </View>
-                <TouchableOpacity
-                    style={Styles.favIconContainer}
-                    onPress={() => { handleToggleFavourite(id) }}
-                >
-                    {isFavorite ? (
-                        <Image source={Images?.Favourite_Icon} style={Styles.Favourite_Icon} />
-                    ) : (
-                        <Image source={Images?.Favourite_Icon_Empty} style={Styles.Favourite_Icon} />
-                    )}
-                </TouchableOpacity>
             </View>
             <View style={Styles.LowerContainer}>
                 <View style={Styles.LowerLeftPriceContainer}>
-                    <Text style={Styles.Price}>{price.toFixed(2)}</Text>
+                    <Text style={Styles.Price}>{foodItem?.price.toFixed(2)}</Text>
                     <Text style={Styles.Price}>{country?.countrySelected.currencyCode}</Text>
                     <View style={Styles.OldPriceContainer}>
-                        <Text style={Styles.OldPrice}>{oldPrice.toFixed(2)}</Text>
+                        <Text style={Styles.OldPrice}>{foodItem?.oldPrice.toFixed(2)}</Text>
                         <Text style={Styles.OldPrice}>{country?.countrySelected.currencyCode}</Text>
                         <View style={Styles.CrossBorder} />
                     </View>
@@ -150,31 +120,31 @@ export default function MenuCard({
                         onPress={() => handleCartAdding()}
                         style={Styles.AddToCartButton}
                     >
-                        <Text style={Styles.AddToCartButtonText}>{Strings?.AddToCart.toUpperCase()} </Text>
+                        <Text style={Styles.AddToCartButtonText}>{Strings.AddToCart.toUpperCase()} </Text>
                     </TouchableOpacity>
                 ) : (
                     <View style={Styles.AddedCartButtonContainer}>
                         {(quantity > 1) ?
                             <TouchableOpacity
                                 style={Styles.deleteButtonContainer}
-                                onPress={() => { handleDecreaseQuantity() }}
+                                onPress={() => { handleDecreaseQuantity(foodItem?.uid) }}
                             >
-                                <Image source={Images?.Minus} style={Styles.deleteIcon} />
+                                <Image source={Images.Minus} style={Styles.deleteIcon} />
                             </TouchableOpacity>
                             :
                             <TouchableOpacity
                                 style={Styles.deleteButtonContainer}
-                                onPress={() => { handleRemoveItem() }}
+                                onPress={() => { handleRemoveItem(foodItem?.uid) }}
                             >
-                                <Image source={Images?.Delete_Icon} style={Styles.deleteIcon} />
+                                <Image source={Images.Delete_Icon} style={Styles.deleteIcon} />
                             </TouchableOpacity>
                         }
                         <Text style={Styles.counter}>{formattedQuantity} </Text>
                         <TouchableOpacity
                             style={quantity < 10 ? Styles.AddCounterButton : Styles.AddCounterButtonFade}
-                            onPress={() => handleIncreaseQunatity(name)}
+                            onPress={() => handleIncreaseQunatity(foodItem?.uid)}
                         >
-                            <Image source={Images?.AddButton} style={Styles.AddButtonImage} />
+                            <Image source={Images.AddButton} style={Styles.AddButtonImage} />
                         </TouchableOpacity>
                     </View>
                 )}
@@ -183,48 +153,47 @@ export default function MenuCard({
     );
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         CardContainer: {
-            height: 210,
             width: '100%',
             alignSelf: 'center',
-            backgroundColor: Colors?.bodyColor,
-            marginVertical: 6,
-            shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            backgroundColor: Colors.bodyColor,
+            marginVertical: vh(6),
+            shadowColor: Colors.blueShadows,
+            shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: .4,
-            shadowRadius: 5,
+            shadowRadius: normalize(5),
             elevation: 5,
         },
         Tags: {
             position: 'absolute',
-            top: 5,
-            left: 5,
-            backgroundColor: Colors?.activeBorder,
-            borderTopLeftRadius: 2,
-            borderTopRightRadius: 2,
+            top: vh(5),
+            left: vw(5),
+            backgroundColor: Colors.activeBorder,
+            borderTopLeftRadius: normalize(2),
+            borderTopRightRadius: normalize(2),
         },
         TagText: {
-            fontSize: 9,
-            marginLeft: 5,
-            marginRight: 14,
-            marginVertical: 3,
-            color: Colors?.constantWhite,
-            fontWeight: 600
+            fontSize: normalize(9),
+            marginLeft: vw(5),
+            marginRight: vw(14),
+            marginVertical: vh(3),
+            color: Colors.constantWhite,
+            fontFamily: Fonts.helveticaMedium
         },
         ribbonTriangle: {
             position: 'absolute',
-            top: 0,
-            right: 0,
-            width: 0,
-            height: 0,
-            borderTopWidth: 10,
-            borderBottomWidth: 10,
-            borderLeftWidth: 8,
+            top: vh(0),
+            right: vw(0),
+            width: vw(0),
+            height: vh(0),
+            borderTopWidth: normalize(10),
+            borderBottomWidth: normalize(10),
+            borderLeftWidth: normalize(8),
             borderTopColor: 'transparent',
             borderBottomColor: 'transparent',
-            borderLeftColor: Colors?.bodyColor,
+            borderLeftColor: Colors.bodyColor,
             transform: [{ scaleX: -1 }]
 
         },
@@ -237,78 +206,76 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
 
         LeftfoodImage: {
-            height: 120,
-            width: 120,
-            marginVertical: 15,
-            marginTop: 25,
-            marginLeft: 15
+            height: vh(120),
+            width: vw(120),
+            marginVertical: vh(15),
+            marginTop: vh(25),
+            marginLeft: vw(15)
         },
         RightContainer: {
             width: '60%',
-            height: '90%',
-            paddingTop: 5,
-            marginLeft: 10,
+            paddingTop: vh(5),
+            marginLeft: vw(10),
+        },
+        nameAndFavButton: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
         },
         FoodName: {
-            fontSize: 15,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 700,
-            marginVertical: 10,
-            color: Colors?.textBlack
+            fontSize: normalize(15),
+            fontFamily: Fonts.helveticaBold,
+            marginVertical: vh(10),
+            color: Colors.textBlack
         },
         DescriptionContainer: {
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
             width: '100%',
-            marginLeft: 1
+            marginLeft: vw(1)
         },
         DotAndDescription: {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            marginVertical: 4
+            marginVertical: vh(4)
         },
         dot: {
-            margin: 5,
-            height: 4,
-            width: 4,
-            borderRadius: 20,
-            backgroundColor: Colors?.textFadeBlack,
+            margin: normalize(5),
+            height: vh(4),
+            width: vw(4),
+            borderRadius: normalize(20),
+            backgroundColor: Colors.textFadeBlack,
         },
         DescriptioText: {
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 700,
-            color: Colors?.timerFadeText,
-            fontSize: 11,
-            marginRight: 5,
+            fontFamily: Fonts.helveticaMedium,
+            color: Colors.timerFadeText,
+            fontSize: normalize(11),
+            marginRight: vw(5),
         },
         CustomizeContainer: {
-            position: 'absolute',
-            bottom: -8,
-            left: -2,
+            position: 'relative',
+            top: vh(10),
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            marginVertical: 10
+            marginVertical: vh(10)
         },
         customizeText: {
-            fontSize: 13,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.ButtonBlueColor,
-            fontWeight: 700,
+            fontSize: normalize(13),
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.ButtonBlueColor,
         },
         backArrow: {
-            height: 12,
-            width: 12,
-            marginLeft: 2,
+            height: vh(12),
+            width: vw(12),
+            marginLeft: vw(2),
             transform: [{ rotate: '180deg' }],
-            tintColor: Colors?.ButtonBlueColor,
+            tintColor: Colors.ButtonBlueColor,
         },
         LowerContainer: {
-            position: 'absolute',
-            left: 0,
-            bottom: 0,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -321,108 +288,103 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
-            marginHorizontal: 20
+            marginHorizontal: vw(20)
         },
         Price: {
-            fontSize: 15,
-            fontWeight: 700,
-            marginHorizontal: 2,
-            color: Colors?.textBlack,
+            fontSize: normalize(15),
+            fontFamily: Fonts.helveticaBold,
+            marginHorizontal: vw(2),
+            color: Colors.textBlack,
         },
         OldPriceContainer: {
             display: 'flex',
             flexDirection: 'row',
-            marginLeft: 4
+            marginLeft: vw(4)
         },
         OldPrice: {
-            fontSize: 13,
-            fontWeight: 700,
-            marginHorizontal: 2,
-            color: Colors?.textFadeBlack,
+            fontSize: normalize(13),
+            fontFamily: Fonts.helveticaMedium,
+            marginHorizontal: vw(2),
+            color: Colors.textFadeBlack,
         },
         CrossBorder: {
             width: '100%',
-            borderBottomColor: Colors?.textFadeBlack,
-            borderBottomWidth: 2,
+            borderBottomColor: Colors.textFadeBlack,
+            borderBottomWidth: normalize(2),
             position: 'absolute',
-            top: 8,
-            left: 0,
+            top: vh(8),
+            left: vw(0),
         },
         AddedCartButtonContainer: {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            marginHorizontal: 20,
-            marginVertical: 15,
+            marginHorizontal: vw(20),
+            marginVertical: vh(15),
         },
         deleteButtonContainer: {
-            borderWidth: 1,
-            borderColor: Colors?.fadeBorder,
-            borderRadius: 4,
-            padding: 4
+            borderWidth: normalize(1),
+            borderColor: Colors.fadeBorder,
+            borderRadius: normalize(4),
+            padding: normalize(4)
         },
         deleteIcon: {
-            height: 20,
-            width: 20,
-            tintColor: Colors?.textBlack
+            height: vh(20),
+            width: vw(20),
+            tintColor: Colors.textBlack
         },
         counter: {
-            marginHorizontal: 8,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 700,
-            fontSize: 16,
-            color: Colors?.textBlack
+            marginHorizontal: vw(8),
+            fontFamily: Fonts.helveticaBold,
+            fontSize: normalize(16),
+            color: Colors.textBlack
         },
         AddCounterButton: {
-            height: 30,
-            width: 30,
+            height: vh(30),
+            width: vw(30),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: 4,
-            backgroundColor: Colors?.KFC_red,
+            borderRadius: normalize(4),
+            backgroundColor: Colors.KFC_red,
         },
         AddCounterButtonFade: {
-            height: 30,
-            width: 30,
+            height: vh(30),
+            width: vw(30),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: 4,
-            backgroundColor: Colors?.KFC_red_Fade,
+            borderRadius: normalize(4),
+            backgroundColor: Colors.KFC_red_Fade,
         },
         AddButtonImage: {
-            height: 15,
-            width: 15,
-            tintColor: Colors?.constantWhite,
+            height: vh(15),
+            width: vw(15),
+            tintColor: Colors.constantWhite,
         },
         AddToCartButton: {
-            backgroundColor: Colors?.KFC_red,
-            borderRadius: 4,
-            marginHorizontal: 14,
-            marginVertical: 14
+            backgroundColor: Colors.KFC_red,
+            borderRadius: normalize(4),
+            marginHorizontal: vw(14),
+            marginVertical: vh(14)
         },
         AddToCartButtonText: {
-            color: Colors?.constantWhite,
-            fontSize: 10,
-            marginHorizontal: 14,
-            marginVertical: 10,
-            fontFamily: Fonts?.headerRegular,
-            fontWeight: 700
+            color: Colors.constantWhite,
+            fontSize: normalize(10),
+            marginHorizontal: vw(14),
+            marginVertical: vh(10),
+            fontFamily: Fonts.helveticaBold,
         },
-
         Favourite_Icon: {
-            height: 20,
-            width: 20,
-            tintColor: Colors?.KFC_red
+            height: vh(20),
+            width: vw(20),
+            tintColor: Colors.KFC_red
         },
         favIconContainer: {
-            position: 'absolute',
-            right: 15,
-            top: 20,
+            marginRight: vw(15)
         }
     });
     return Styles;

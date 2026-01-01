@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React, { useState, useEffect } from 'react'
-
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+// google sign in 
+import { GoogleSignin, statusCodes, isSuccessResponse, isErrorWithCode } from '@react-native-google-signin/google-signin';
 // util import 
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
@@ -11,77 +13,115 @@ import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
 import { useCountry } from '../../context/CountryContext';
 import { useLanguage } from '../../context/LanguageContex';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
 export default function LoginPage2() {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const inset = useSafeAreaInsets();
-    const Styles = createDynamicStyles(Colors, Fonts)
+    const Styles = createDynamicStyles(Colors)
     const { countrySelected } = useCountry()
     const { language, setLanguage } = useLanguage()
     const [mobileNo, setMobileNo] = useState<string>('')
-    const [goodToLogin, setGoodToLogin] = useState(false)
-
-    useEffect(() => {
+    const [rawMobileNO, setRawMobileNo] = useState<string>('')
+    const [goodToLogin, setGoodToLogin] = useState<boolean>(false)
+    const [userToken, setUserToken] = useState<string | null>(null);
+    const checkGoodToLogin = useCallback((): void => {
+        setGoodToLogin(mobileNo.length <= countrySelected.mobileNoLength)
+    }, [mobileNo, countrySelected.mobileNoLength])
+    useEffect((): void => {
         checkGoodToLogin()
-    }, [mobileNo])
-    const checkGoodToLogin = () => {
-        if (mobileNo.length === countrySelected.mobileNoLength) {
-            setGoodToLogin(false)
-        } else
-            setGoodToLogin(true)
-    }
-    const handleMobileNoInput = (text: string) => {
-        if (text.length <= countrySelected.mobileNoLength) {
+    }, [checkGoodToLogin])
+    const handleMobileNoInput = (text: string): void => {
+        const digitsOnly = text.replace(' ', '')
+        if (digitsOnly.length <= countrySelected.mobileNoLength) {
             let formattedText
-            if (countrySelected?.code == 'uae')
+            if (countrySelected?.code === 'uae')
                 formattedText = text.replace(/(\d{3})(?=\d)/g, '$1 ');
-            else if (countrySelected?.code == 'in')
+            else if (countrySelected?.code === 'in')
                 formattedText = text.replace(/(\d{5})(?=\d)/g, '$1 ');
             else
                 formattedText = text.replace(/(\d{4})(?=\d)/g, '$1 ');
             setMobileNo(formattedText)
         }
+        setRawMobileNo(digitsOnly)
     }
-    const handleSubmit = async () => {
-        // if (mobileNo.length < countrySelected?.mobileNoLength)
-        //     return
-        // await Keyboard.dismiss()
-        // comment
-        navigation.push(Strings?.OTPScreen, {
-            phoneNo: mobileNo
+    const signInWithGoogle = async (): Promise<void> => {
+        try {
+            await GoogleSignin.hasPlayServices();
+            const response = await GoogleSignin.signIn();
+            console.log('Google Sign-In response:', response);
+            if (isSuccessResponse(response)) {
+                console.log('isSuccessResponse(response)', isSuccessResponse(response))
+                setUserToken(response?.data?.idToken)
+                console.log(userToken);
+                Alert.alert('Success', `Google Sign-In Successful! token is ${response?.data?.user?.id}`);
+                navigation.navigate(Strings.AppStack , {screen : Strings.HomeScreen})
+            } else if (response.type === 'cancelled') {
+                console.log('sign in was calcelled by user ');
+                Alert.alert('Alert', 'Sigin in calcelled by user');
+            } else {
+                console.log('unknown action');
+            }
+        } catch (error: unknown) {
+            if (isErrorWithCode(error)) {
+                switch (error.code) {
+                    case statusCodes.IN_PROGRESS:
+                        console.log(statusCodes.IN_PROGRESS);
+                        break;
+                    case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+                        console.log(statusCodes.PLAY_SERVICES_NOT_AVAILABLE);
+                        break;
+                    default:
+                        console.log(error);
+                }
+            }
+        };
+    }
+    const handleSubmit = async (): Promise<void> => {
+        if (mobileNo.length < countrySelected?.mobileNoLength) return
+        await Keyboard.dismiss()
+        navigation.push(Strings.OTPScreen, {
+            phoneNo: rawMobileNO
         })
     }
 
     return (
         <View style={Styles.ParentContainer}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                <View>
-                    <View style={Styles.ThreeColumnStyle}>
-                        <View style={[Styles.singleCOlumnStyle,]} />
-                        <View style={[Styles.singleCOlumnStyle,]} />
-                        <View style={[Styles.singleCOlumnStyle,]} />
-                    </View>
-                    <Image source={Images?.KFC_Combo_Pack} style={[Styles.KFC_ComboImage, { marginTop: inset.top }]} />
-                    <Text style={Styles.Welcome2} >{Strings?.welcome2.toUpperCase()}</Text>
-                    <View style={Styles.SecondLine}>
-                        <Text style={Styles.SecondLineText}>{Strings?.KFC.toUpperCase()}</Text>
-                        <Text style={Styles.SecondLineText}>{countrySelected.name.toUpperCase()}</Text>
-                        <Text style={Styles.SecondLineText}>{Strings?.app.toUpperCase()}</Text>
+                <KeyboardAwareScrollView
+                    enableOnAndroid
+                    keyboardShouldPersistTaps="handled"
+                    extraScrollHeight={150}
+                    contentContainerStyle={Styles.scrollviewBottom}
+                >
+                    <View style={Styles.UpperCOntainer}>
+                        <View style={Styles.ThreeColumnStyle}>
+                            <View style={[Styles.singleCOlumnStyle,]} />
+                            <View style={[Styles.singleCOlumnStyle,]} />
+                            <View style={[Styles.singleCOlumnStyle,]} />
+                        </View>
+                        <Image source={Images.KFC_Combo_Pack} style={[Styles.KFC_ComboImage, { marginTop: inset.top }]} />
+                        <Text style={Styles.Welcome2} >{Strings.welcome2.toUpperCase()}</Text>
+                        <View style={Styles.SecondLine}>
+                            <Text style={Styles.SecondLineText}>{Strings.KFC.toUpperCase()}</Text>
+                            <Text style={Styles.SecondLineText}>{countrySelected.name.toUpperCase()}</Text>
+                            <Text style={Styles.SecondLineText}>{Strings.app.toUpperCase()}</Text>
+                        </View>
                     </View>
                     <View style={Styles.LowerContaienr}>
                         <View style={Styles.ChooseLanguageContainer}>
-                            <Text style={Styles.chooseLangHeader}>{Strings?.chooseLanguage}</Text>
+                            <Text style={Styles.chooseLangHeader}>{Strings.chooseLanguage}</Text>
                             <View style={Styles.languageContainer}>
                                 <TouchableOpacity
                                     style={Styles.LanguageButton}
                                     onPress={() => { setLanguage('en') }}
                                     activeOpacity={.3}
                                 >
-                                    <Text style={Styles.chooseLangText}>{Strings?.english} </Text>
-                                    <View style={[Styles.TickMarkOuter, language == 'en' ? Styles.ActiveBorder : null]} >
-                                        {language == 'en' && (
+                                    <Text style={Styles.chooseLangText}>{Strings.english} </Text>
+                                    <View style={[Styles.TickMarkOuter, language === 'en' ? Styles.ActiveBorder : null]} >
+                                        {language === 'en' && (
                                             <View style={Styles.CheckBox} />
                                         )}
                                     </View>
@@ -91,9 +131,9 @@ export default function LoginPage2() {
                                     onPress={() => { setLanguage('ar') }}
                                     activeOpacity={.3}
                                 >
-                                    <Text style={Styles.chooseLangText}>{Strings?.arabic} </Text>
-                                    <View style={[Styles.TickMarkOuter, language == 'ar' ? Styles.ActiveBorder : null]} >
-                                        {language == 'ar' && (
+                                    <Text style={Styles.chooseLangText}>{Strings.arabic} </Text>
+                                    <View style={[Styles.TickMarkOuter, language === 'ar' ? Styles.ActiveBorder : null]} >
+                                        {language === 'ar' && (
                                             <View style={Styles.CheckBox} />
                                         )}
                                     </View>
@@ -102,9 +142,9 @@ export default function LoginPage2() {
                         </View>
                         <View style={Styles.MobileNumberIPContainer}>
                             <View style={Styles.headerTextContainer}>
-                                <Text style={Styles.mobileNoHeader}>{Strings?.loginWIthNumberText} </Text>
+                                <Text style={Styles.mobileNoHeader}>{Strings.loginWIthNumberText} </Text>
                                 <Text style={Styles.mobileNoHeader}>{countrySelected?.name} </Text>
-                                <Text style={Styles.mobileNoHeader}>{Strings?.mobileNumber} </Text>
+                                <Text style={Styles.mobileNoHeader}>{Strings.mobileNumber} </Text>
                             </View>
                             <View
                                 style={Styles.loginMobileLowerContainer}
@@ -114,136 +154,140 @@ export default function LoginPage2() {
                                     <TextInput
                                         value={mobileNo}
                                         onChangeText={handleMobileNoInput}
-                                        placeholder={Strings?.enterNumberPlaceHoler.toUpperCase()}
+                                        placeholder={Strings.enterNumberPlaceHoler.toUpperCase()}
                                         keyboardType='numeric'
+                                        placeholderTextColor={Colors.textFadeBlack}
                                         style={Styles.MobileInputContainer}
                                     />
                                     <View style={Styles.customBorder} />
-                                    <Text style={Styles.egMobile}>{Strings?.EgMobile} </Text>
+                                    <Text style={Styles.egMobile}>{Strings.EgMobile} </Text>
                                 </View>
                                 <TouchableOpacity
                                     style={[Styles.submitButton, goodToLogin ? null : Styles.ActiveButton]}
                                     onPress={handleSubmit}
                                 >
-                                    <Text style={[Styles.SubmitButtonText, goodToLogin ? null : Styles.ActiveButtonText]}>{Strings?.submit.toUpperCase()} </Text>
+                                    <Text style={[Styles.SubmitButtonText, goodToLogin ? null : Styles.ActiveButtonText]}>{Strings.submit.toUpperCase()} </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <View style={Styles.SocialContainer}>
-                            <Text style={Styles.chooseLangHeader}>{Strings?.loginWithSocialHeader} </Text>
-
+                            <Text style={Styles.chooseLangHeader}>{Strings.loginWithSocialHeader} </Text>
                             <View style={Styles.FaangContainer}>
-
                                 <TouchableOpacity
                                     style={Styles.faangButton}
-                                    onPress={handleSubmit}
+                                    onPress={signInWithGoogle}
                                 >
-                                    <Image source={Images?.facebook} style={Styles.faangLogo} />
-                                    <Text style={Styles.faangButtonText}>{Strings?.facebook.toUpperCase()} </Text>
+                                    <Image source={Images.facebook} style={Styles.faangLogo} />
+                                    <Text style={Styles.faangButtonText}>{Strings.facebook.toUpperCase()} </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={Styles.faangButton}
-                                    onPress={handleSubmit}
+                                    onPress={signInWithGoogle}
                                 >
-                                    <Image source={Images?.google} style={Styles.faangLogo} />
-                                    <Text style={Styles.faangButtonText}>{Strings?.google.toUpperCase()} </Text>
+                                    <Image source={Images.google} style={Styles.faangLogo} />
+                                    <Text style={Styles.faangButtonText}>{Strings.google.toUpperCase()} </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                     </View>
-                </View>
+                </KeyboardAwareScrollView>
             </TouchableWithoutFeedback>
             <View style={[Styles.TcContainer, { bottom: inset.bottom }]}>
                 <View style={Styles.TcInnerContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.pop()}>
-                        <Text style={Styles.tcText}>{Strings?.tc.toUpperCase()} </Text>
+                        onPress={() => navigation.navigate(Strings.AppStack, { screen: Strings.TermsAndConditionsScreen })}>
+                        <Text style={Styles.tcText}>{Strings.tc.toUpperCase()} </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(Strings?.HomeScreen)}>
-                        <Text style={Styles.tcText}>{Strings?.skipLoginAndContinue.toUpperCase()} </Text>
+                        onPress={() => navigation.replace(Strings.AppStack, { screen: Strings.HomeScreen })}>
+                        <Text style={Styles.tcText}>{Strings.skipLoginAndContinue.toUpperCase()} </Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </View>
     )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const styles = StyleSheet.create({
         ParentContainer: {
             height: '100%'
         },
+        scrollviewBottom: {
+            paddingBottom: vh(50)
+        },
+        UpperCOntainer: {
+            backgroundColor: Colors.bodyColor,
+        },
         ThreeColumnStyle: {
             alignSelf: 'center',
             width: '32%',
-            height: 200,
-            top: 0,
+            height: vh(200),
+            top: vh(0),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
             position: 'absolute'
         },
         singleCOlumnStyle: {
-            height: 100,
-            width: 25,
-            backgroundColor: Colors?.KFC_red,
+            height: vh(100),
+            width: vw(25),
+            backgroundColor: Colors.KFC_red,
         },
         KFC_ComboImage: {
-            height: 200,
-            width: 200,
+            height: vh(200),
+            width: vw(200),
             alignSelf: 'center',
-            shadowColor: '#000',
-            shadowOffset: { width: 2, height: 10 },
+            shadowColor: Colors.blueShadows,
+            shadowOffset: { width: vw(2), height: vh(10) },
             shadowOpacity: .5,
-            shadowRadius: 5,
+            shadowRadius: normalize(5),
             elevation: 5,
         },
         Welcome2: {
-            fontSize: 18,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 700,
-            marginHorizontal: 5,
+            fontSize: normalize(18),
+            fontFamily: Fonts.helveticaBold,
+            marginHorizontal: vw(5),
             alignSelf: 'center',
-            letterSpacing: .2
+            letterSpacing: normalize(.2),
+            color: Colors.textBlack
         },
         SecondLine: {
             display: 'flex',
             flexDirection: 'row',
             alignSelf: 'center',
-            margin: 5
+            margin: normalize(5)
         },
         SecondLineText: {
-            fontSize: 22,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 700,
-            marginHorizontal: 4
+            fontSize: normalize(22),
+            fontFamily: Fonts.helveticaBold,
+            marginHorizontal: vw(4),
+            color: Colors.textBlack
         },
-
         LowerContaienr: {
             width: '100%',
             height: '100%',
             alignSelf: 'center',
-            backgroundColor: Colors?.bodyShadeColor,
+            backgroundColor: Colors.bodyShadeColor,
         },
         ChooseLanguageContainer: {
             width: '100%',
             alignSelf: 'center',
-            height: 100,
-            backgroundColor: Colors?.bodyColor,
-            marginTop: 10
+            height: vh(100),
+            backgroundColor: Colors.bodyColor,
+            marginTop: vh(10)
         },
         headerTextContainer: {
             display: 'flex',
             flexDirection: 'row',
-            marginLeft: 15,
-            marginTop: 15
+            marginLeft: vw(15),
+            marginTop: vh(15)
         },
         chooseLangHeader: {
-            color: Colors?.timerFadeText,
-            fontWeight: 700,
-            fontSize: 13,
-            marginTop: 15,
-            marginLeft: 15
+            color: Colors.timerFadeText,
+            fontFamily: Fonts.helveticaMedium,
+            fontSize: normalize(13),
+            marginTop: vh(15),
+            marginLeft: vw(15)
         },
         languageContainer: {
             width: '90%',
@@ -252,54 +296,53 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
-            gap: 10,
+            gap: normalize(10),
         },
         LanguageButton: {
             width: '50%',
-            height: 60,
+            height: vh(60),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-            alignSelf: 'center',
-
+            alignSelf: 'center'
         },
         chooseLangText: {
-            fontSize: 16,
-            fontWeight: 600,
-            fontFamily: Fonts?.subHeader
+            fontSize: normalize(16),
+            fontFamily: Fonts.helveticaMedium,
+            color: Colors.textBlack
         },
         TickMarkOuter: {
-            width: 20,
-            height: 20,
-            borderWidth: 2,
-            borderColor: Colors?.textFadeBlack,
-            borderRadius: 40,
+            width: vw(20),
+            height: vh(20),
+            borderWidth: normalize(2),
+            borderColor: Colors.textFadeBlack,
+            borderRadius: normalize(40),
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
         },
         ActiveBorder: {
-            borderColor: Colors?.KFC_red,
+            borderColor: Colors.KFC_red,
         },
         CheckBox: {
-            width: 10,
-            height: 10,
-            backgroundColor: Colors?.KFC_red,
-            borderRadius: 50,
+            width: vw(10),
+            height: vh(10),
+            backgroundColor: Colors.KFC_red,
+            borderRadius: normalize(50),
         },
         MobileNumberIPContainer: {
             width: '100%',
             alignSelf: 'center',
-            height: 140,
-            backgroundColor: Colors?.bodyColor,
-            marginTop: 10,
+            height: vh(140),
+            backgroundColor: Colors.bodyColor,
+            marginTop: vh(10),
         },
         mobileNoHeader: {
-            color: Colors?.timerFadeText,
-            fontWeight: 700,
-            fontSize: 13,
-            marginRight: 4
+            color: Colors.timerFadeText,
+            fontFamily: Fonts.helveticaBold,
+            fontSize: normalize(13),
+            marginRight: vw(4)
         },
         loginMobileLowerContainer: {
             display: 'flex',
@@ -309,107 +352,105 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignSelf: 'center',
         },
         MobileInputContainer: {
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 600
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.textBlack
         },
         customBorder: {
-            borderBottomWidth: 1,
-            borderBottomColor: Colors?.fadeBorder,
-            marginTop: 10,
-            marginRight: 10
+            borderBottomWidth: normalize(1),
+            borderBottomColor: Colors.fadeBorder,
+            marginTop: vh(10),
+            marginRight: vw(10)
         },
         CountryCode: {
-            marginRight: 10,
-            marginTop: -8,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 700
+            marginRight: vw(10),
+            marginTop: vh(-8),
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.textFadeBlack2
         },
         centralMobileContainer: {
-            width: 200,
+            width: vw(200),
             display: 'flex',
             flexDirection: 'column',
             alignSelf: 'center',
-            marginTop: 20
+            marginTop: vh(20)
         },
         egMobile: {
-            color: Colors?.timerFadeText,
-            fontFamily: Fonts?.subHeader,
-            fontSize: 12,
-            marginTop: 2
+            color: Colors.timerFadeText,
+            fontFamily: Fonts.subHeader,
+            fontSize: normalize(12),
+            marginTop: vh(2)
         },
         submitButton: {
-            height: 30,
-            backgroundColor: Colors?.fadeVerify,
-            paddingHorizontal: 10,
+            height: vh(30),
+            backgroundColor: Colors.fadeVerify,
+            paddingHorizontal: vw(10),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             marginHorizontal: 'auto',
-            borderRadius: 2,
+            borderRadius: normalize(2),
         },
         ActiveButton: {
-            backgroundColor: Colors?.KFC_red
+            backgroundColor: Colors.KFC_red
         },
         ActiveButtonText: {
-            color: Colors?.constantWhite,
-            fontWeight: 700,
+            color: Colors.constantWhite,
+            fontFamily: Fonts.helveticaBold
         },
         SubmitButtonText: {
-            fontSize: 13,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 600,
-            color: Colors?.textFadeBlack,
-            paddingHorizontal: 10,
+            fontSize: normalize(13),
+            fontFamily: Fonts.helveticaMedium,
+            color: Colors.textFadeBlack,
+            paddingHorizontal: vw(10),
         },
         SocialContainer: {
             width: '100%',
             alignSelf: 'center',
-            height: 130,
-            backgroundColor: Colors?.bodyColor,
-            marginTop: 10,
+            height: vh(130),
+            backgroundColor: Colors.bodyColor,
+            marginTop: vh(10),
         },
         FaangContainer: {
             display: 'flex',
             flexDirection: 'row',
             width: '90%',
             alignSelf: 'center',
-            marginTop: 20
+            marginTop: vh(20)
         },
         faangButton: {
-            height: 50,
-            backgroundColor: Colors?.bodyColor,
-            paddingHorizontal: 25,
+            height: vh(50),
+            backgroundColor: Colors.bodyColor,
+            paddingHorizontal: vw(25),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'flex-start',
             alignItems: 'center',
             marginHorizontal: 'auto',
-            borderRadius: 2,
-            shadowColor: Colors?.blueShadows,
-            shadowOffset: { width: 0, height: 2 },
+            borderRadius: normalize(2),
+            shadowColor: Colors.blueShadows,
+            shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.3,
-            shadowRadius: 5,
+            shadowRadius: normalize(5),
             elevation: 5,
         },
         faangLogo: {
-            height: 20,
-            width: 20,
+            height: vh(20),
+            width: vw(20),
         },
         faangButtonText: {
-            fontSize: 13,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 600,
-            color: Colors?.textBlack,
-            paddingHorizontal: 10,
-            marginLeft: 8
+            fontSize: normalize(13),
+            fontFamily: Fonts.helveticaMedium,
+            color: Colors.textBlack,
+            paddingHorizontal: vw(10),
+            marginLeft: vw(8)
         },
         TcContainer: {
             width: '100%',
             position: 'absolute',
-            left: 0,
-            height: 60,
-            backgroundColor: Colors?.bodyColor,
+            left: vw(0),
+            height: vh(60),
+            backgroundColor: Colors.bodyColor,
             display: 'flex',
             justifyContent: 'center',
         },
@@ -422,9 +463,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'space-between',
         },
         tcText: {
-            color: Colors?.ButtonBlueColor,
-            fontWeight: 700,
-            fontSize: 12
+            color: Colors.ButtonBlueColor,
+            fontFamily: Fonts.helveticaBold,
+            fontSize: normalize(12)
         }
     })
     return styles

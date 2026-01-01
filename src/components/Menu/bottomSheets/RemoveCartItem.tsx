@@ -1,25 +1,27 @@
 import { StyleSheet, Text, View, Animated, TouchableOpacity, Image, TouchableWithoutFeedback } from 'react-native';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
+// redux
+import { removeFromCart } from '../../../features/cartSlice';
+import { useAppDispatch } from '../../../store/store';
 // utils
 import Fonts from '../../../utils/Fonts';
 import { useStrings } from '../../../utils/Strings';
 import { useThemeColors } from '../../../utils/Colors';
-import { useCart } from '../../../context/CartContext';
+import { normalize, vh, vw } from '../../../utils/Dimensions';
 
-export default function RemoveCartItem({ imageLink, idx }: RemoveCartItemProps) {
+export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const Styles = createDynamicStyles(Colors, Fonts);
-    const slide = useRef(new Animated.Value(500)).current;
-    const fade = useRef(new Animated.Value(0)).current;
-    const { CartItem, setCartItem } = useCart()
-    const slideUp = () => {
+    const Styles = createDynamicStyles(Colors);
+    const slide = useRef<Animated.Value>(new Animated.Value(500)).current;
+    const fade = useRef<Animated.Value>(new Animated.Value(0)).current;
+    const dispatch = useAppDispatch()
+    const slideUp = useCallback((): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -32,9 +34,8 @@ export default function RemoveCartItem({ imageLink, idx }: RemoveCartItemProps) 
                 useNativeDriver: true,
             })
         ]).start();
-    };
-
-    const slideDown = () => {
+    }, [slide, fade])
+    const slideDown = (): void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 500,
@@ -48,46 +49,41 @@ export default function RemoveCartItem({ imageLink, idx }: RemoveCartItemProps) 
             })
         ]).start();
     };
-    const handleConfirmDelete = () => {
-        setCartItem((prev: CartItemType[]) => prev.filter(((_, index) => 
-            index != idx
-        )))
+    const handleConfirmDelete = (): void => {
+        dispatch(removeFromCart(uid))
         navigation.pop()
-
     }
-    const closeModal = () => {
+    const closeModal = (): void => {
         slideDown();
-        setTimeout(() => {
+        setTimeout((): void => {
             navigation.pop();
         }, 400);
     };
 
-    useEffect(() => {
+    useEffect((): void => {
         slideUp();
-    }, []);
+    }, [slideUp]);
     return (
         <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
             <TouchableWithoutFeedback onPress={closeModal}>
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
             <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
-                < View style={Styles.OuterContainer}>
-                    <View
-                        style={Styles.InnerContainer}>
-                        <Image source={imageLink} style={Styles.foodImage} />
-                        <Text style={Styles.confirmAskingText} numberOfLines={3}>{Strings?.confirmAskingText} </Text>
-                        <View style={[Styles.DoneButtonContainer, { bottom: inset.bottom }]}>
-                            <TouchableOpacity
-                                style={[Styles.Button, Styles.ChangeButton]}
-                                onPress={() => navigation.pop()}>
-                                <Text style={[Styles.DoneButtonText, Styles.ChangeButtonText]}>{Strings?.cancel.toLocaleUpperCase()}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={[Styles.Button]}
-                                onPress={handleConfirmDelete}>
-                                <Text style={Styles.DoneButtonText}>{Strings?.yesConfirm.toLocaleUpperCase()}</Text>
-                            </TouchableOpacity>
-                        </View>
+                <View
+                    style={Styles.InnerContainer}>
+                    <Image src={imageLink} style={Styles.foodImage} />
+                    <Text style={Styles.confirmAskingText} numberOfLines={3}>{Strings.confirmAskingText} </Text>
+                    <View style={[Styles.DoneButtonContainer, { bottom: inset.bottom }]}>
+                        <TouchableOpacity
+                            style={[Styles.Button, Styles.ChangeButton]}
+                            onPress={() => navigation.pop()}>
+                            <Text style={[Styles.DoneButtonText, Styles.ChangeButtonText]}>{Strings.cancel.toLocaleUpperCase()}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={Styles.Button}
+                            onPress={handleConfirmDelete}>
+                            <Text style={Styles.DoneButtonText}>{Strings.yesConfirm.toLocaleUpperCase()}</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Animated.View>
@@ -95,7 +91,7 @@ export default function RemoveCartItem({ imageLink, idx }: RemoveCartItemProps) 
     )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         backDrop: {
             backgroundColor: Colors.SemiTransparent,
@@ -105,22 +101,20 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         bottomSheet: {
             width: '100%',
-            height: 500,
-        },
-        OuterContainer: {
+            height: vh(500),
         },
         InnerContainer: {
-            height: 500,
+            height: vh(500),
             backgroundColor: Colors.bodyColor,
-            borderTopRightRadius: 40,
-            borderTopLeftRadius: 40,
+            borderTopRightRadius: normalize(40),
+            borderTopLeftRadius: normalize(40),
             position: 'relative',
         },
         closeButton: {
-            marginVertical: 8,
+            marginVertical: vh(8),
             marginHorizontal: 'auto',
-            height: 40,
-            width: 40,
+            height: vh(40),
+            width: vw(40),
             borderRadius: '50%',
             backgroundColor: Colors.Black,
             display: 'flex',
@@ -128,31 +122,30 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center'
         },
         closeBtnImage: {
-            height: 20,
-            width: 20,
-            padding: 5
+            height: vh(20),
+            width: vw(20),
+            padding: normalize(5)
         },
         foodImage: {
-            height: 220,
-            width: 220,
+            height: vh(220),
+            width: vw(220),
             alignSelf: 'center',
-            marginTop: 30,
-            shadowColor: Colors?.textBlack,
-            shadowOffset: { width: 2, height: 2 },
+            marginTop: vh(30),
+            shadowColor: Colors.textBlack,
+            shadowOffset: { width: vw(2), height: vh(2) },
             shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+            shadowRadius: normalize(3.84),
             elevation: 5,
         },
         confirmAskingText: {
             width: '75%',
-            marginTop: 20,
-            lineHeight: 40,
-            fontFamily: Fonts?.font17,
-            fontWeight: 700,
+            marginTop: vh(20),
+            lineHeight: vh(40),
+            fontFamily: Fonts.helveticaBold,
             textAlign: 'center',
             alignSelf: 'center',
-            fontSize: 24,
-            color: Colors?.textBlack,
+            fontSize: normalize(24),
+            color: Colors.textBlack,
         },
         DoneButtonContainer: {
             position: 'absolute',
@@ -163,32 +156,28 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
-
         },
         Button: {
-            backgroundColor: Colors?.KFC_red,
-            borderRadius: 2,
-            paddingVertical: 10,
+            backgroundColor: Colors.KFC_red,
+            borderRadius: normalize(2),
+            paddingVertical: vh(10),
             width: '47%',
-
         },
         ChangeButton: {
-            backgroundColor: Colors?.bodyColor,
-            borderWidth: 1,
-            borderColor: Colors?.fadeWhiteText2,
-
+            backgroundColor: Colors.bodyColor,
+            borderWidth: normalize(1),
+            borderColor: Colors.fadeWhiteText2,
         },
         ChangeButtonText: {
-            color: Colors?.textBlack,
+            color: Colors.textBlack,
             textAlign: 'center'
         },
         DoneButtonText: {
-            fontSize: 16,
-            fontFamily: Fonts?.subHeader,
-            fontWeight: 700,
-            color: Colors?.constantWhite,
-            marginHorizontal: 20,
-            marginVertical: 3
+            fontSize: normalize(15),
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.constantWhite,
+            marginHorizontal: vw(20),
+            marginVertical: vh(3)
         }
     })
     return Styles;

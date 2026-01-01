@@ -39,6 +39,7 @@ const Images = {
     Green_Tick: require(fixedPath+ 'Green_Tick.png'), 
     Orange_Warning: require(fixedPath+ 'Orange_Warning.png'), 
 
+    KfcTextLogo: require(fixedPath+ 'HomeScreen/KfcTextLogo.png'), 
     Home_Page_Main_Image: require(fixedPath+ 'HomeScreen/Home_Page_Main_Image.png'), 
     Menu: require(fixedPath+ 'HomeScreen/Menu.png'), 
     Location: require(fixedPath+ 'HomeScreen/Location.png'), 
@@ -47,6 +48,9 @@ const Images = {
     French_Fries_Coke: require(fixedPath+ 'HomeScreen/French_Fries_Coke.png'), 
     Chicken_Bucket: require(fixedPath+ 'HomeScreen/Chicken_Bucket.png'), 
     Chicken_Roll: require(fixedPath+ 'HomeScreen/Chicken_Roll.png'), 
+    BurgerPNG: require(fixedPath+ 'HomeScreen/BurgerPNG.png'), 
+    ChickenNuget: require(fixedPath+ 'HomeScreen/ChickenNuget.png'), 
+    ChickenBox: require(fixedPath+ 'HomeScreen/ChickenBox.png'), 
 
     Favourite_Combo_Pack: require(fixedPath+ 'HomeScreen/Favourite_Combo_Pack.png'), 
     Burger: require(fixedPath+ 'HomeScreen/Burger.png'), 
@@ -54,6 +58,7 @@ const Images = {
     Cloud: require(fixedPath+ 'HomeScreen/Cloud.png'), 
     Cloud2: require(fixedPath+ 'HomeScreen/Cloud2.png'), 
     laurel_leaves_Left: require(fixedPath+ 'HomeScreen/laurel_leaves_Left.png'), 
+    Camera: require(fixedPath+ 'HomeScreen/Camera.png'), 
     
     Track_Order: require(fixedPath+ 'Sidebar/Track_Order.png'), 
     Great_Menu: require(fixedPath+ 'Sidebar/Great_Menu.png'), 
@@ -61,7 +66,9 @@ const Images = {
     Fill_Call: require(fixedPath+ 'Sidebar/Fill_Call.png'), 
     Down_Arrow_Thick: require(fixedPath+ 'Sidebar/Down_Arrow_Thick.png'), 
     Theme_Icon: require(fixedPath+ 'Sidebar/Theme_Icon.png'), 
-    Logout_Icon: require(fixedPath+ 'Sidebar/Logout_Icon.png'), 
+    Logout_Icon: require(fixedPath+ 'Sidebar/Logout_Icon.png'),
+    MyCart: require(fixedPath+ 'Sidebar/MyCart.png'),
+    UserIcon: require(fixedPath+ 'Sidebar/UserIcon.png'),
 
     Search_Icon: require(fixedPath+ 'MenuScreen/Search_Icon.png'), 
     Thin_Back_Icon: require(fixedPath+ 'MenuScreen/Thin_Back_Icon.png'), 
@@ -80,5 +87,23 @@ const Images = {
     COD_Cash: require(fixedPath+ 'CheckOutScreen/COD_Cash.png'), 
     CreditCard: require(fixedPath+ 'CheckOutScreen/CreditCard.png'), 
     Visa_Text: require(fixedPath+ 'CheckOutScreen/Visa_Text.png'), 
+    HomeIcon: require(fixedPath+ 'CheckOutScreen/HomeIcon.png'), 
+    GreenPhoneCall: require(fixedPath+ 'CheckOutScreen/GreenPhoneCall.png'), 
+    RoundLoader: require(fixedPath+ 'CheckOutScreen/RoundLoader.png'), 
+    CredtiCardStack: require(fixedPath+ 'CheckOutScreen/CredtiCardStack.png'), 
+    ApplePay: require(fixedPath+ 'CheckOutScreen/ApplePay.png'), 
+    ClickToPay: require(fixedPath+ 'CheckOutScreen/ClickToPay.png'), 
+    CashIcon: require(fixedPath+ 'CheckOutScreen/CashIcon.png'), 
+    VisaPNG: require(fixedPath+ 'CheckOutScreen/VisaPNG.png'), 
+
+    EmptyBox: require(fixedPath+ 'CartScreens/EmptyBox.png'), 
+    Edit_Icon: require(fixedPath+ 'CartScreens/Edit_Icon.png'), 
+    Info_Button: require(fixedPath+ 'CartScreens/Info_Button.png'), 
+    CartEmptyDustbin: require(fixedPath+ 'CartScreens/CartEmptyDustbin.png'), 
+
+    DownloadIcon: require(fixedPath+ 'OrderScreen/DownloadIcon.png'), 
+    OvenIcon: require(fixedPath+ 'OrderScreen/OvenIcon.png'), 
+    PopCornCup: require(fixedPath+ 'OrderScreen/PopCornCup.png'), 
+    ShareIcon: require(fixedPath+ 'OrderScreen/ShareIcon.png'), 
 }
 export default Images   

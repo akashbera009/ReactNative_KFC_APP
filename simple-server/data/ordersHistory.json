@@ -1,0 +1,740 @@
+[
+  {
+    "id": 1765250000003,
+    "orderId": "ORD-1001",
+    "date": "Jan 12 2025",
+    "status": "Delivered",
+    "Items": [
+      {
+        "id": 1,
+        "name": "Cheese Burst Pizza",
+        "description": [
+          "3 Chicken Pc - Orgl",
+          "Fries - Regular",
+          "Coleslaw",
+          "Bun",
+          "Pepsi - Regular"
+        ],
+        "price": 399,
+        "oldPrice": 499,
+        "tag": "BestSeller",
+        "image": "Chicken_Bucket",
+        "isFavorite": true,
+        "customizable": true,
+        "categories": [
+          "Pizza",
+          "Italian"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 2,
+        "name": "Crispy Fries",
+        "description": [
+          "Mighty Zinger Sandwich",
+          "1 Chicken pc",
+          "1 Pepsi - Regular",
+          "Fries - Regular"
+        ],
+        "price": 89,
+        "oldPrice": 120,
+        "tag": "Popular",
+        "image": "KFC_Combo_Pack",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Snacks"
+        ],
+        "quantity": 2
+      },
+      {
+        "id": 14,
+        "name": "Mighty Zinger",
+        "description": [
+          "2 Chicken breast fillets with KFC’s Spicy Zinger Recipe",
+          "1 Fries - Regular",
+          "1 Pepsi - Regular"
+        ],
+        "price": 129,
+        "oldPrice": 170,
+        "tag": "Recommended",
+        "image": "FoodImage9",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Beverage"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 17,
+        "name": "Lemon Ice Tea",
+        "description": [
+          "Chilled",
+          "Low sugar"
+        ],
+        "price": 79,
+        "oldPrice": 110,
+        "tag": "Popular",
+        "image": "Chicken_Bucket",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Beverage"
+        ],
+        "quantity": 1
+      }
+    ],
+    "paymentMode": "",
+    "paymentId": ""
+  },
+  {
+    "id": 1765250000002,
+    "orderId": "ORD-1002",
+    "date": "Jan 03 2025",
+    "status": "Cancelled",
+    "Items": [
+      {
+        "id": 3,
+        "name": "Veggie Burger",
+        "description": [
+          "Lettuce",
+          "Tomato",
+          "Cheese"
+        ],
+        "price": 149,
+        "oldPrice": 199,
+        "tag": "Combo",
+        "image": "Chicken_Nugedts",
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Burger",
+          "FastFood"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 5,
+        "name": "Cold Coffee",
+        "description": [
+          "Iced",
+          "No sugar"
+        ],
+        "price": 99,
+        "oldPrice": 150,
+        "tag": "Recommended",
+        "image": "FoodImage3",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Beverage"
+        ],
+        "quantity": 1
+      }
+    ],
+    "paymentMode": "",
+    "paymentId": ""
+  },
+  {
+    "id": 1765261852800,
+    "Items": [
+      {
+        "id": 4,
+        "name": "Chicken Wrap",
+        "description": [
+          "1 Chicken Pc - Org",
+          "1 Twister - Org",
+          "Paper Jack Cheese Tomato",
+          "Fries - Regular"
+        ],
+        "price": 229,
+        "oldPrice": 260,
+        "tag": "New",
+        "image": "KFC_Combo_Pack",
+        "isFavorite": true,
+        "customizable": true,
+        "categories": [
+          "Wraps"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 5,
+        "name": "Mighty Twist",
+        "description": [
+          "Mighty Zinger",
+          "1 Twister - Org",
+          "Fries - Regular",
+          "Pepsi - Regular"
+        ],
+        "price": 99,
+        "oldPrice": 150,
+        "tag": "Recommended",
+        "image": "Chicken_Nugedts",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Beverage"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 12,
+        "name": "Garlic Breadsticks",
+        "description": [
+          "1 Chicken Pc - Org",
+          "1 Twister - Org",
+          "Paper Jack Cheese Tomato",
+          "Fries - Regular"
+        ],
+        "price": 149,
+        "oldPrice": 199,
+        "tag": "Popular",
+        "image": "French_Fries_Coke",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Snacks",
+          "Sides"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 27 2024",
+    "orderId": "ORD-1003",
+    "status": "Being Prepared",
+    "paymentMode": "",
+    "paymentId": ""
+  },
+  {
+    "id": 1765250000004,
+    "orderId": "ORD-2001",
+    "date": "Feb 02 2025",
+    "status": "Delivered",
+    "Items": [
+      {
+        "id": 11,
+        "name": "Pepperoni Pizza",
+        "description": [
+          "Large",
+          "Extra pepperoni"
+        ],
+        "price": 499,
+        "oldPrice": 599,
+        "tag": "BestSeller",
+        "image": "FoodImage7",
+        "isFavorite": true,
+        "customizable": true,
+        "categories": [
+          "Pizza",
+          "Italian"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 12,
+        "name": "Garlic Breadsticks",
+        "description": [
+          "Cheesy",
+          "6 pieces"
+        ],
+        "price": 149,
+        "oldPrice": 199,
+        "tag": "Popular",
+        "image": "FoodImage5",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Snacks",
+          "Sides"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 1,
+        "name": "Cheese Burst Pizza",
+        "description": [
+          "Extra cheese",
+          "Medium size"
+        ],
+        "price": 399,
+        "oldPrice": 499,
+        "tag": "BestSeller",
+        "image": "Chicken_Bucket",
+        "isFavorite": true,
+        "customizable": true,
+        "categories": [
+          "Pizza",
+          "Italian"
+        ],
+        "quantity": 1
+      }
+    ],
+    "paymentMode": "",
+    "paymentId": ""
+  },
+  {
+    "id": 1765250000004,
+    "orderId": "ORD-2002",
+    "date": "Jan 28 2025",
+    "status": "Delivered",
+    "Items": [
+      {
+        "id": 13,
+        "name": "Spicy Chicken Burger",
+        "description": [
+          "Jalapeños",
+          "Spicy mayo"
+        ],
+        "price": 199,
+        "oldPrice": 249,
+        "tag": "Hot",
+        "image": "FoodImage3",
+        "isFavorite": true,
+        "customizable": true,
+        "categories": [
+          "Burger",
+          "FastFood"
+        ],
+        "quantity": 2
+      },
+      {
+        "id": 14,
+        "name": "Chocolate Shake",
+        "description": [
+          "Thick",
+          "Extra Choco"
+        ],
+        "price": 129,
+        "oldPrice": 170,
+        "tag": "Recommended",
+        "image": "FoodImage9",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Beverage"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 2,
+        "name": "Crispy Fries",
+        "description": [
+          "Salted",
+          "Regular"
+        ],
+        "price": 89,
+        "oldPrice": 120,
+        "tag": "Popular",
+        "image": "KFC_Combo_Pack",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Snacks"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 17,
+        "name": "Lemon Ice Tea",
+        "description": [
+          "Chilled",
+          "Low sugar"
+        ],
+        "price": 79,
+        "oldPrice": 110,
+        "tag": "Popular",
+        "image": "Chicken_Bucket",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Beverage"
+        ],
+        "quantity": 1
+      }
+    ],
+    "paymentMode": "",
+    "paymentId": ""
+  },
+  {
+    "id": 1765250000004,
+    "orderId": "ORD-2003",
+    "date": "Jan 15 2025",
+    "status": "Cancelled",
+    "Items": [
+      {
+        "id": 15,
+        "name": "Paneer Tikka Wrap",
+        "description": [
+          "Spicy paneer",
+          "Mint chutney"
+        ],
+        "price": 179,
+        "oldPrice": 220,
+        "tag": "Offer",
+        "image": "Chicken_Roll",
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Wraps",
+          "Indian"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 5,
+        "name": "Cold Coffee",
+        "description": [
+          "Iced",
+          "No sugar"
+        ],
+        "price": 99,
+        "oldPrice": 150,
+        "tag": "Recommended",
+        "image": "FoodImage3",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Beverage"
+        ],
+        "quantity": 1
+      }
+    ],
+    "paymentMode": "",
+    "paymentId": ""
+  },
+  {
+    "id": 1735372800000,
+    "orderId": "ORD-2004",
+    "date": "Dec 30 2024",
+    "status": "Delivered",
+    "Items": [
+      {
+        "id": 16,
+        "name": "BBQ Chicken Wings",
+        "description": [
+          "Spicy BBQ",
+          "6 pcs"
+        ],
+        "price": 299,
+        "oldPrice": 350,
+        "tag": "New",
+        "image": "Chicken_Nugedts",
+        "isFavorite": true,
+        "customizable": false,
+        "categories": [
+          "Chicken",
+          "Snacks"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 17,
+        "name": "Lemon Ice Tea",
+        "description": [
+          "Chilled",
+          "Low sugar"
+        ],
+        "price": 79,
+        "oldPrice": 110,
+        "tag": "Popular",
+        "image": "Chicken_Bucket",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Beverage"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 12,
+        "name": "Garlic Breadsticks",
+        "description": [
+          "Cheesy",
+          "6 pieces"
+        ],
+        "price": 149,
+        "oldPrice": 199,
+        "tag": "Popular",
+        "image": "FoodImage5",
+        "isFavorite": false,
+        "customizable": false,
+        "categories": [
+          "Snacks",
+          "Sides"
+        ],
+        "quantity": 1
+      }
+    ],
+    "paymentMode": "",
+    "paymentId": ""
+  },
+  {
+    "id": 1765261852777,
+    "Items": [
+      {
+        "id": 1,
+        "name": "Cheese Pizza",
+        "description": [
+          "Cheese",
+          "Medium"
+        ],
+        "price": 300,
+        "oldPrice": 350,
+        "image": "PizzaImg",
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Pizza"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 09 2025",
+    "orderId": "ORD-3001",
+    "status": "Pending",
+    "paymentMode": "Card",
+    "paymentId": "PAY-12345"
+  },
+  {
+    "id": 1765343755128,
+    "Items": [
+      {
+        "id": 2,
+        "name": "Mighty Twist",
+        "description": [
+          "Mighty Zinger",
+          "1 Twister - Org",
+          "Fries - Regular"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "tag": "",
+        "image": 39,
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Deals",
+          "For One"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 10 2025",
+    "orderId": "ORD-30",
+    "status": "Being Prepared",
+    "paymentMode": "Cash On Delivery",
+    "paymentId": ""
+  },
+  {
+    "id": 1765345918061,
+    "Items": [
+      {
+        "id": 2,
+        "name": "Mighty Twist",
+        "description": [
+          "Mighty Zinger",
+          "1 Twister - Org",
+          "Fries - Regular"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "tag": "",
+        "image": 39,
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Deals",
+          "For One"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 10 2025",
+    "orderId": "ORD-1",
+    "status": "Being Prepared",
+    "paymentMode": "Cash On Delivery",
+    "paymentId": ""
+  },
+  {
+    "id": 1765346782923,
+    "Items": [
+      {
+        "id": 1,
+        "name": "Twister BBQ Box",
+        "description": [
+          "1 Chicken Pc - Org",
+          "1 Twister - Org",
+          "Paper Jack Cheese Tomato",
+          "Fries - Regular"
+        ],
+        "price": 22.3,
+        "oldPrice": 24.7,
+        "tag": "Previously Ordered",
+        "image": 41,
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Deals",
+          "Slides & Deserts",
+          "For Sharing",
+          "Shrimp"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 2,
+        "name": "Mighty Twist",
+        "description": [
+          "Mighty Zinger",
+          "1 Twister - Org",
+          "Fries - Regular"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "tag": "",
+        "image": 39,
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Deals",
+          "For One"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 3,
+        "name": "Super Mega Deal",
+        "description": [
+          "12 Chicken pcs",
+          "Family fries"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "tag": "",
+        "image": 32,
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Deals",
+          "For Sharing"
+        ],
+        "quantity": 1
+      },
+      {
+        "id": 4,
+        "name": "Dinner Meal",
+        "description": [
+          "3 Chicken Pc - Orgl",
+          "Fries - Regular",
+          "Coleslaw",
+          "Bun",
+          "Pepsi - Regular"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "tag": "",
+        "image": 43,
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Deals"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 10 2025",
+    "orderId": "ORD-33",
+    "status": "Being Prepared",
+    "paymentMode": "Cash On Delivery",
+    "paymentId": ""
+  },
+  {
+    "id": 1765350623761,
+    "Items": [
+      {
+        "id": 2,
+        "name": "Mighty Twist",
+        "description": [
+          "Mighty Zinger",
+          "1 Twister - Org",
+          "Fries - Regular"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "tag": "",
+        "image": 39,
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Deals",
+          "For One"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 10 2025",
+    "orderId": "ORD-_dDx30r",
+    "status": "Being Prepared",
+    "paymentMode": "Cash On Delivery",
+    "paymentId": ""
+  },
+  {
+    "id": 1765359568665,
+    "Items": [
+      {
+        "id": 2,
+        "name": "Mighty Twist",
+        "description": [
+          "Mighty Zinger",
+          "1 Twister - Org",
+          "Fries - Regular"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "tag": "",
+        "image": "https://i.ibb.co/mCH5ZNcq/Chicken-Nuget.png",
+        "isFavorite": false,
+        "customizable": true,
+        "categories": [
+          "Deals",
+          "For One"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 10 2025",
+    "orderId": "ORD-ZoSl-D6",
+    "status": "Being Prepared",
+    "paymentMode": "Online",
+    "paymentId": "pay_RprWLaoUh4GNPN"
+  },
+  {
+    "id": 1767083985547,
+    "Items": [
+      {
+        "cartUid": 1767083915232,
+        "menuItemUid": "menu-3",
+        "name": "Super Mega Deal",
+        "description": [
+          "12 Chicken pcs",
+          "Family fries"
+        ],
+        "price": 24,
+        "oldPrice": 24.7,
+        "image": "https://i.ibb.co/V0Qx3vcX/KFC-Combo-Pack.webp",
+        "categories": [
+          "Deals",
+          "For Sharing"
+        ],
+        "quantity": 1
+      }
+    ],
+    "date": "Dec 30 2025",
+    "orderId": "ORD-roUS2we",
+    "status": "Being Prepared",
+    "paymentMode": "Dec 30 2025",
+    "paymentId": "pay_RxlBg58heKTM5p"
+  }
+]

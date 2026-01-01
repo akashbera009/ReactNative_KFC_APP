@@ -1,10 +1,9 @@
 import React from 'react'
 import CheckOut from '../components/CheckOut/CheckOut'
 
-const CheckOutScreen = ({route}:CheckOutScreenProps ) => {
-    const {totalAmount} = route.params
+const CheckOutScreen = ({ route }: CheckOutScreenProps) => {
   return (
-   <CheckOut totalAmount= {totalAmount}/>
+    <CheckOut route={route} />
   )
 }
 

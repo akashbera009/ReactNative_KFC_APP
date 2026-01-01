@@ -2,136 +2,142 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
 // data import 
-import DeliveryDetails from '../../data/DeliveryDetails'
+import { DeliveryDetails } from '../../data/DeliveryDetails'
 // util imports 
 import Fonts from '../../utils/Fonts'
 import { useThemeColors } from '../../utils/Colors';
 import { useStrings } from '../../utils/Strings';
-
-
+// redux 
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+// utils
+import { selectCurrentOrder } from '../../features/getCurrentOrder';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 export default function CurrentOrder() {
   const Colors = useThemeColors()
   const Strings = useStrings()
-  const Styles = createDynamicStyles(Colors, Fonts);
+  const Styles = createDynamicStyles(Colors);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const currentOrder = useSelector<RootState, OrderHistory | null>(selectCurrentOrder)
+  const ItemNames = currentOrder?.Items.map((item: CartItemType) => item?.name).join(',') ?? ''
   return (
     <View style={Styles.ParentDeliveryContainer} >
-      <Text style={Styles.Header}>{Strings?.CurrentOrder.toUpperCase()} </Text>
+      <Text style={Styles.Header}>{Strings.CurrentOrder.toUpperCase()} </Text>
       <View style={Styles.WrapperContainer} >
         <View style={Styles.LeftTextContainer}>
           <View style={Styles.LeftTopContainer}>
-            <Text style={Styles.orderIdText}>{Strings?.orderIdText}: </Text>
-            <Text style={Styles.orderId}>{DeliveryDetails?.orderId}</Text>
+            <Text style={Styles.orderIdText}>{Strings.orderIdText}: </Text>
+            <Text style={Styles.orderId}>{currentOrder?.orderId}</Text>
             <View style={Styles.VerticalBorder} />
-            <Text style={Styles.date}>{DeliveryDetails?.date}</Text>
+            <Text style={Styles.date}>{currentOrder?.date}</Text>
           </View>
-          <Text style={Styles.orderItem} numberOfLines={1}>{DeliveryDetails?.orderItem}</Text>
+          <Text style={Styles.orderItem} numberOfLines={1}>{ItemNames}</Text>
           <Text style={Styles.beverages}>{DeliveryDetails?.beverages}</Text>
         </View>
         <TouchableOpacity
           style={Styles.trackButton}
-          onPress={() => navigation.push(Strings?.MapsScreen)}
+          onPress={() => navigation.navigate(Strings.OrderStack,
+            {
+              screen: Strings.OrderDetailsScreen,
+              params: { order: currentOrder }
+            })}
         >
-          <Text style={Styles.TrackOrderText}>{Strings?.trackOrder} </Text>
+          <Text style={Styles.TrackOrderText}>{Strings.trackOrder} </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </View >
   )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
   const Styles = StyleSheet.create({
     ParentDeliveryContainer: {
-      width: '93%',
+      marginHorizontal: vw(15),
       alignSelf: 'center',
     },
     WrapperContainer: {
       width: '100%',
-      height: 100,
+      height: vh(100),
       alignSelf: 'center',
-      backgroundColor: Colors?.bodyColor,
+      backgroundColor: Colors.bodyColor,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 2, 
-      shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: .25,
-      shadowRadius: 5,
-      elevation: 5,
+      borderRadius: normalize(2),
+      shadowColor: Colors.blueShadows,
+      shadowOffset: { width: vw(0), height: vh(4) },
+      shadowOpacity: normalize(.25),
+      shadowRadius: normalize(5),
+      elevation: normalize(5),
     },
     LeftTextContainer: {
       display: 'flex',
       flexDirection: 'column',
-      marginLeft: 15,
-      width:'60%' ,
-      height: '65%',
-      marginTop: 10 , 
-      justifyContent:'space-around'
+      marginLeft: vw(15),
+      width: vw(240),
+      height: vh(70),
+      marginTop: vh(0),
+      justifyContent: 'space-around',
     },
     LeftTopContainer: {
       display: 'flex',
       flexDirection: 'row',
     },
     orderIdText: {
-      color: Colors?.textFadeBlack2,
-      fontFamily: Fonts?.subHeader,
-      fontWeight: 600,
-      fontSize: 13, 
+      color: Colors.textFadeBlack2,
+      fontFamily: Fonts.helveticaMedium,
+      fontSize: normalize(13),
     },
     Header: {
-      color: Colors?.textBlack,
-      fontFamily: Fonts?.subHeader,
-      fontWeight: 700,
-      fontSize: 14,
-      marginVertical: 10
+      color: Colors.textBlack,
+      fontFamily: Fonts.helveticaBold,
+      fontSize: normalize(14),
+      marginVertical: vw(10),
     },
     orderId: {
-      fontSize: 13,
-      color: Colors?.textBlack,
-      fontWeight: 700,
-      fontFamily: Fonts?.subHeader
+      fontSize: normalize(13),
+      color: Colors.textBlack,
+      fontFamily: Fonts.helveticaBold,
+      letterSpacing: normalize(.1),
     },
     date: {
-      fontSize: 13,
-      color: Colors?.textBlack,
-      fontWeight: 600,
-      fontFamily: Fonts?.subHeader
+      fontSize: normalize(13),
+      color: Colors.textBlack,
+      fontFamily: Fonts.helveticaMedium,
+      letterSpacing: normalize(.1),
     },
     VerticalBorder: {
       height: '80%',
-      width: 2,
-      borderRightColor: Colors?.fadeBorder,
-      borderRightWidth: 2,
-      marginHorizontal: 4,
+      width: vw(2),
+      borderRightColor: Colors.fadeBorder,
+      borderRightWidth: normalize(2),
+      marginHorizontal: vw(4),
       marginVertical: 'auto'
     },
     orderItem: {
-      fontSize: 12,
-      color: Colors?.timerFadeText, 
-      fontWeight: 600,
+      fontSize: normalize(12),
+      color: Colors.timerFadeText,
+      fontFamily: Fonts.helveticaMedium
     },
     beverages: {
-      fontSize: 12,
-      fontWeight: 600,
-      color: Colors?.timerFadeText
+      fontSize: normalize(12),
+      color: Colors.timerFadeText,
+      fontFamily: Fonts.helveticaMedium
     },
     trackButton: {
-      backgroundColor: Colors?.KFC_red,
+      backgroundColor: Colors.KFC_red,
       marginHorizontal: 'auto',
-      borderRadius: 4,
-      marginRight: 15,
-      fontSize: 12
+      borderRadius: normalize(4),
+      marginRight: vw(15),
+      fontSize: normalize(12)
     },
     TrackOrderText: {
-      color: Colors?.constantWhite,
-      paddingHorizontal: 8,
-      paddingVertical: 6,
-      fontWeight: 700,
-      fontSize: 13 , 
-      fontFamily: Fonts?.subHeader
+      color: Colors.constantWhite,
+      paddingHorizontal: vw(8),
+      paddingVertical: vh(6),
+      fontSize: normalize(13),
+      fontFamily: Fonts.helveticaBold,
     }
   })
   return Styles

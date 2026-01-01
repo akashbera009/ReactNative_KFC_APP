@@ -1,30 +1,93 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, StyleSheet, View, Text, Image, TouchableWithoutFeedback } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity, StyleSheet, View, Text, Image, TouchableWithoutFeedback, Linking, Alert, Platform } from 'react-native';
+import { CommonActions, DrawerActions, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+//redux
+import { useSelector } from 'react-redux';
+import { selectCurrentOrder } from '../../features/getCurrentOrder';
+import { fetctUserDeatails } from '../../actions/UserAction';
+import { RootState, useAppDispatch } from '../../store/store';
 //util files 
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages';
 import { useThemeColors } from '../../utils/Colors';
 import { useTheme } from '../../context/ThemeContext';
 import { useStrings } from '../../utils/Strings';
-import DeliveryDetails from '../../data/DeliveryDetails';
+import { DeliveryDetails } from '../../data/DeliveryDetails';
 import { useLanguage } from '../../context/LanguageContex';
 import { useCountry } from '../../context/CountryContext';
 import { CountryInfo } from '../../data/CountryInfo';
+import { normalize, vh, vw } from '../../utils/Dimensions';
+import MediaSkeleton from '../../Loaders/MediaShimmer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SideBar = () => {
   const Colors = useThemeColors()
   const Strings = useStrings()
-  const Styles = createDynamicStyles(Colors, Fonts);
+  const Styles = createDynamicStyles(Colors);
   const inset = useSafeAreaInsets();
   const languae = useLanguage()
   const { countrySelected, setCountrySelected } = useCountry()
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  // const drawerNavigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
   const [countryMenuOpen, setCountryMenuOpen] = useState<boolean>(false)
   const { isDarkMode, setIsDarkMode } = useTheme()
   const [isSettingsMenunOpen, setIsSettingsMenuOpen] = useState<boolean>(false)
+  const currentOrder: OrderHistory | null = useSelector(selectCurrentOrder)
+  // customer support linking 
+  const handleOpenDialer = (): void => {
+    const phone = DeliveryDetails?.supprotMobile;
+    let phoneNumber = phone;
+    if (Platform.OS === 'ios') {
+      phoneNumber = `tel:${phone}`;
+    } else if (Platform.OS === 'android') {
+      phoneNumber = `telprompt:${phone}`;
+    } else {
+      return;
+    }
+    Linking.canOpenURL(phoneNumber)
+      .then((supported) => {
+        if (!supported) {
+          Alert.alert('Phone dialer not available on this device.');
+        } else {
+          return Linking.openURL(phoneNumber);
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+  const dispatch = useAppDispatch();
+  const [storedPhone, setStoredPhone] = useState<string>('');
+  useEffect(() => {
+    const loadPhone = async () => {
+      const phone = await AsyncStorage.getItem('phoneNo');
+      if (phone) {
+        setStoredPhone(phone);
+      }
+    };
+    loadPhone();
+  }, []);
+  useEffect(() => {
+    if (!storedPhone) return;
+    dispatch(fetctUserDeatails(storedPhone));
+  }, [dispatch, storedPhone]);
+  const userdata = useSelector((state: RootState) => state?.users)
+  const currentUser = userdata?.currentUser
+  const handleLogout = async (): Promise<void> => {
+    try {
+      await AsyncStorage.removeItem('phoneNo')
+      navigation.dispatch(DrawerActions.closeDrawer());
+      setIsSettingsMenuOpen(false)
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: Strings.SplashStack }],
+        })
+      );
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -35,14 +98,26 @@ const SideBar = () => {
         <View style={[Styles.TopNameContainer, { marginTop: inset.top }]}>
           <View style={Styles.NameContainer}>
             <View style={Styles.PersonImageContainer}>
-              <Text style={Styles.NameLetter}>{DeliveryDetails?.personName.charAt(0)} </Text>
+              {userdata?.loading === 'success' ? (
+                <Image
+                  source={{ uri: currentUser?.avatar }}
+                  style={Styles.avatarImage} />
+              ) : (
+                <MediaSkeleton height={vh(100)} width={vh(100)} />
+              )}
             </View>
-            <Text style={Styles.Name}>{DeliveryDetails?.personName} </Text>
+            {userdata?.loading === 'success' ? (
+              <Text style={Styles.Name}>{currentUser?.name} </Text>
+            ) : (
+              <>
+                {/* <MediaSkeleton height={vh(20)} width={vh(150)} /> */}
+              </>
+            )}
           </View>
           <TouchableOpacity
             onPress={() => setIsSettingsMenuOpen(!isSettingsMenunOpen)}
           >
-            <Image source={Images?.setting} style={Styles.SettingsIcon} />
+            <Image source={Images.setting} style={Styles.SettingsIcon} />
           </TouchableOpacity>
           {isSettingsMenunOpen && (
             <View style={Styles.SettingOptionMenu}>
@@ -50,38 +125,59 @@ const SideBar = () => {
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
                 onPress={() => {
-                  setIsDarkMode(!isDarkMode)
+                  navigation.navigate(Strings.AuthStack, {
+                    screen: Strings.CreateProfileScreen,
+                    params: { phoneNo: storedPhone }
+                  })
                   setIsSettingsMenuOpen(false)
                 }}>
-                <Image source={Images?.Theme_Icon} style={Styles.ThemeIcon} />
-                <Text style={Styles.countryEntriesText}>{Strings?.ChangeTheme}</Text>
+                <Image source={Images.UserIcon} style={Styles.ThemeIcon} />
+                <Text style={Styles.countryEntriesText}>{Strings.profileSettings}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={Styles.SettingsMenuEntries}
                 activeOpacity={.7}
                 onPress={() => {
-                  navigation.navigate(Strings?.SplashScreen)
+                  setIsDarkMode(!isDarkMode)
                   setIsSettingsMenuOpen(false)
                 }}>
-                <Image source={Images?.Logout_Icon} style={Styles.ThemeIcon} />
-                <Text style={Styles.countryEntriesText}>{Strings?.logout}</Text>
+                <Image source={Images.Theme_Icon} style={Styles.ThemeIcon} />
+                <Text style={Styles.countryEntriesText}>{Strings.ChangeTheme}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={Styles.SettingsMenuEntries}
+                activeOpacity={.7}
+                onPress={handleLogout}>
+                <Image source={Images.Logout_Icon} style={Styles.ThemeIcon} />
+                <Text style={Styles.countryEntriesText}>{Strings.logout}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={Styles.SettingsMenuEntries}
+                activeOpacity={.7}
+                onPress={() => {
+                  navigation.navigate(Strings.TestingStack, { screen: Strings.ReAnimatedScreen })
+                  setIsSettingsMenuOpen(false)
+                }}>
+                <Text>{Strings.ReAnimatedScreen}</Text>
               </TouchableOpacity>
             </View>
           )}
         </View>
-
         <View style={Styles.LanguageCountryContainer}>
           <View style={Styles.LanguageContainer}>
-            <Text style={Styles.Language}>{Strings?.language} / {Strings?.languageToggle}</Text>
+            <Text style={Styles.Language}>{Strings.language} / {Strings.languageToggle}</Text>
             <TouchableOpacity
               style={Styles.LanguageChangeButton}
-              onPress={() => navigation.navigate(Strings?.PopUpScreens)}
+              onPress={() => {
+                navigation.navigate(Strings.ModalStack, { screen: Strings.PopUpScreens });
+                setIsSettingsMenuOpen(false)
+              }}
             >
-              <Text style={Styles.LanguageText}>{languae?.language == 'en' ? Strings?.english : Strings?.arabic} </Text>
+              <Text style={Styles.LanguageText}>{languae?.language === 'en' ? Strings.english : Strings.arabic} </Text>
             </TouchableOpacity>
           </View>
           <View style={Styles.CountryContainer}>
-            <Text style={Styles.Language}>{Strings?.country} </Text>
+            <Text style={Styles.Language}>{Strings.country} </Text>
             <TouchableOpacity
               style={Styles.CountryChangeButton}
               activeOpacity={.7}
@@ -89,7 +185,7 @@ const SideBar = () => {
             >
               <Image source={countrySelected?.flag} style={Styles.Flag} />
               <Text style={Styles.countryName}>{countrySelected?.name.toUpperCase()}</Text>
-              <Image source={Images?.Down_Arrow_Thick} style={Styles.Arrow} />
+              <Image source={Images.Down_Arrow_Thick} style={Styles.Arrow} />
             </TouchableOpacity>
             {countryMenuOpen && (
               <View style={Styles.countrySelectorOption}>
@@ -111,55 +207,112 @@ const SideBar = () => {
           </View>
         </View>
         <View style={Styles.MenuListContainer}>
-          <View style={Styles.SingleEntry}>
-            <Image source={Images?.Track_Order} style={[Styles.SideImageIcon, Styles.TrackOrderIcon]} />
-            <Text style={Styles.singleEntryText}>{Strings?.trackOrder} </Text>
-          </View>
-          <View style={Styles.SingleEntry}>
-            <Image source={Images?.menu} style={Styles.SideImageIcon} />
-            <Text style={Styles.singleEntryText}>{Strings?.orderHistory} </Text>
-          </View>
-          <View style={Styles.SingleEntry}>
-            <Image source={Images?.discount} style={Styles.SideImageIcon} />
-            <Text style={Styles.singleEntryText}>{Strings?.dealsAndOffer} </Text>
-          </View>
-          <View style={Styles.SingleEntry}>
-            <Image source={Images?.Great_Menu} style={Styles.SideImageIcon} />
-            <Text style={Styles.singleEntryText}>{Strings?.greatMenu} </Text>
-          </View>
-          <View style={Styles.SingleEntry}>
-            <Image source={Images?.Combo_Menu} style={Styles.SideImageIcon} />
-            <Text style={Styles.singleEntryText}>{Strings?.combo} </Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(Strings.OrderStack, {
+                screen: Strings.OrderDetailsScreen,
+                params: {
+                  order: currentOrder
+                }
+              });
+              setIsSettingsMenuOpen(false)
+            }}
+            style={Styles.SingleEntry}>
+            <Image source={Images.Track_Order} style={[Styles.SideImageIcon, Styles.TrackOrderIcon]} />
+            <Text style={Styles.singleEntryText}>{Strings.trackOrder} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(Strings.OrderStack, { screen: Strings.OrderHistoryScreens })
+              setIsSettingsMenuOpen(false)
+            }}
+            style={Styles.SingleEntry}>
+            <Image source={Images.menu} style={Styles.SideImageIcon} />
+            <Text style={Styles.singleEntryText}>{Strings.orderHistory} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(Strings.DealsAndOfferScreen)
+              setIsSettingsMenuOpen(false)
+            }}
+            style={Styles.SingleEntry}>
+            <Image source={Images.discount} style={Styles.SideImageIcon} />
+            <Text style={Styles.singleEntryText}>{Strings.dealsAndOffer} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(Strings.ExploreMenuScreen, {
+                categoryType: Strings.dealsString
+              })
+              setIsSettingsMenuOpen(false)
+            }}
+            style={Styles.SingleEntry}>
+            <Image source={Images.Great_Menu} style={Styles.SideImageIcon} />
+            <Text style={Styles.singleEntryText}>{Strings.greatMenu} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(Strings.CartScreen, {
+                discount: 0,
+                discountPercentage: 0,
+                offerCode: ''
+              })
+              setIsSettingsMenuOpen(false)
+            }
+            }
+            style={Styles.SingleEntry}>
+            <Image source={Images.MyCart} style={Styles.SideImageIcon} />
+            <Text style={Styles.singleEntryText}>{Strings.myCart} </Text>
+          </TouchableOpacity>
         </View>
-
-
 
         <View style={[Styles.LowerCallSupportContainer, { bottom: inset.bottom + 10 }]}>
           <View style={Styles.LowerFAQSection}>
-            <Text style={Styles.BottomViewText}>{Strings?.faq.toUpperCase()} </Text>
-            <Text style={Styles.BottomViewText}>{Strings?.termsCondition} </Text>
-            <Text style={Styles.BottomViewText}>{Strings?.nutritionInfo} </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(Strings.FAQPageScreen)
+                setIsSettingsMenuOpen(false)
+              }}
+            >
+              <Text style={Styles.BottomViewText}>{Strings.faq.toUpperCase()} </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(Strings.TermsAndConditionsScreen)
+                setIsSettingsMenuOpen(false)
+              }}
+            >
+              <Text style={Styles.BottomViewText}>{Strings.termsCondition} </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(Strings.HelpScreen)
+                setIsSettingsMenuOpen(false)
+              }}>
+              <Text style={Styles.BottomViewText}>{Strings.userInfoHeader} </Text>
+            </TouchableOpacity>
           </View>
-          <View style={Styles.LowerCallWrappper}>
+          <TouchableOpacity
+            onPress={handleOpenDialer}
+            style={Styles.LowerCallWrappper}>
             <View style={Styles.CallImageContainer}>
-              <Image source={Images?.Fill_Call} style={Styles.CallImageContainerImage} />
+              <Image source={Images.Fill_Call} style={Styles.CallImageContainerImage} />
             </View>
-            <Text style={Styles.CallSupport}>{Strings?.callSupport.toUpperCase()} </Text>
-          </View>
+            <Text style={Styles.CallSupport}>{Strings.callSupport.toUpperCase()} </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableWithoutFeedback>
   )
 }
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
   const Styles = StyleSheet.create({
     ParentContainer: {
       height: '100%',
-      backgroundColor: Colors?.bodyColor
+      backgroundColor: Colors.bodyColor
     },
     TopNameContainer: {
-      height: 80,
+      height: vh(80),
       width: '100%',
       display: 'flex',
       flexDirection: 'row',
@@ -175,102 +328,98 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       alignItems: 'center',
     },
     PersonImageContainer: {
-      height: 60,
-      width: 60,
-      borderRadius: 100,
-      marginLeft: 10,
-      backgroundColor: Colors?.KFC_red,
+      height: vh(70),
+      width: vw(70),
+      borderRadius: normalize(100),
+      marginLeft: vw(10),
+      objectFit: 'contain',
+      overflow: 'hidden',
+      backgroundColor: Colors.KFC_red,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
     },
-    NameLetter: {
-      fontFamily: Fonts?.headerRegular,
-      fontSize: 30,
-      color: Colors?.constantWhite,
-      fontWeight: 800,
-      textAlign: 'center',
+    avatarImage: {
+      height: vh(100),
+      width: vw(100)
     },
     Name: {
-      fontFamily: Fonts?.headerRegular,
-      fontSize: 22,
-      color: Colors?.textBlack,
-      fontWeight: 600,
+      fontFamily: Fonts.helveticaBold,
+      fontSize: normalize(22),
+      color: Colors.textBlack,
       textAlign: 'center',
-      margin: 15
+      margin: normalize(15)
     },
     SettingsIcon: {
-      height: 20,
-      width: 20,
-      tintColor: Colors?.textBlack,
+      height: vh(20),
+      width: vw(20),
+      tintColor: Colors.textBlack,
     },
     SettingOptionMenu: {
-      minHeight: 60,
-      width: 170,
-      borderWidth: 1,
-      borderColor: Colors?.fadeBorder,
-      backgroundColor: Colors?.bodyColor,
+      minHeight: vh(60),
+      width: vw(190),
+      borderWidth: normalize(1),
+      borderColor: Colors.fadeBorder,
+      backgroundColor: Colors.bodyColor,
       position: 'absolute',
       zIndex: 5,
-      right: 35,
-      top: 55,
-      borderRadius: 5,
-      shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 2 },
+      right: vw(35),
+      top: vh(55),
+      borderRadius: normalize(5),
+      shadowColor: Colors.blueShadows,
+      shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
-      shadowRadius: 3.84,
+      shadowRadius: normalize(3.84),
       elevation: 5,
     },
     SettingsMenuEntries: {
       display: 'flex',
       flexDirection: 'row',
-      marginHorizontal: 10,
+      marginHorizontal: vw(10),
       alignItems: 'center',
-      marginVertical: 10,
+      marginVertical: vh(10),
     },
     ThemeIcon: {
-      height: 25,
-      width: 25,
-      tintColor: Colors?.textBlack,
-      margin: 5
+      height: vh(25),
+      width: vw(25),
+      tintColor: Colors.textBlack,
+      margin: normalize(5)
     },
     LanguageCountryContainer: {
-      height: 100,
-      marginLeft: 20
+      height: vh(100),
+      marginLeft: vw(20)
     },
     LanguageContainer: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      marginVertical: 10,
+      marginVertical: vh(10),
       width: '90%',
       alignSelf: 'center',
       justifyContent: 'space-between',
     },
     Language: {
-      fontSize: 15,
-      color: Colors?.textBlack,
-      fontWeight: 600,
-      fontFamily: Fonts?.font17
+      fontSize: normalize(15),
+      color: Colors.textBlack,
+      fontFamily: Fonts.helveticaMedium
     },
     LanguageChangeButton: {
-      borderWidth: 1,
-      borderColor: Colors?.KFC_red,
-      borderRadius: 2,
-      marginHorizontal: 10
+      borderWidth: normalize(1),
+      borderColor: Colors.KFC_red,
+      borderRadius: normalize(2),
+      marginHorizontal: vw(10)
     },
     LanguageText: {
-      marginHorizontal: 12,
-      color: Colors?.textBlack,
-      marginVertical: 8,
-      fontWeight: 600,
-      fontFamily: Fonts?.font17
+      marginHorizontal: vw(12),
+      color: Colors.textBlack,
+      marginVertical: vh(8),
+      fontFamily: Fonts.helveticaMedium
     },
     CountryContainer: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      marginVertical: 10,
+      marginVertical: vh(10),
       width: '90%',
       alignSelf: 'center',
       justifyContent: 'space-between',
@@ -278,115 +427,114 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     CountryChangeButton: {
       display: 'flex',
       flexDirection: 'row',
-      marginHorizontal: 10,
+      marginHorizontal: vw(10),
       alignItems: 'center'
     },
     Flag: {
-      height: 20,
-      width: 30,
-      marginHorizontal: 10
+      height: vh(20),
+      width: vw(30),
+      marginHorizontal: vw(10)
     },
     countryName: {
-      fontSize: 16,
-      fontWeight: 600,
-      color: Colors?.textBlack,
+      fontSize: normalize(16),
+      fontFamily: Fonts.helveticaMedium,
+      color: Colors.textBlack,
     },
     Arrow: {
-      height: 10,
-      width: 10,
-      marginHorizontal: 8,
-      tintColor: Colors?.textBlack,
+      height: vh(10),
+      width: vw(10),
+      marginHorizontal: vw(8),
+      tintColor: Colors.textBlack,
     },
     countrySelectorOption: {
-      minHeight: 100,
-      width: 120,
-      borderWidth: 1,
-      borderColor: Colors?.fadeBorder,
-      backgroundColor: Colors?.bodyColor,
+      minHeight: vh(100),
+      width: vw(120),
+      borderWidth: normalize(1),
+      borderColor: Colors.fadeBorder,
+      backgroundColor: Colors.bodyColor,
       position: 'absolute',
-      right: 0,
-      top: 30,
-      borderRadius: 5,
-      shadowColor: Colors?.blueShadows,
-      shadowOffset: { width: 0, height: 2 },
+      right: vw(0),
+      top: vh(30),
+      zIndex: 1000,
+      borderRadius: normalize(5),
+      shadowColor: Colors.blueShadows,
+      shadowOffset: { width: vw(0), height: vh(2) },
       shadowOpacity: 0.25,
-      shadowRadius: 3.84,
+      shadowRadius: normalize(3.84),
       elevation: 5,
     },
     countryEntries: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      height: 40
+      height: vh(40)
     },
     ActiveCountry: {
-      backgroundColor: Colors?.blueLightBG,
+      backgroundColor: Colors.blueLightBG,
     },
     countryEntriesText: {
-      marginBottom: 4,
-      fontWeight: 600,
-      fontSize: 16,
-      color: Colors?.textBlack,
-      marginLeft: 4
+      marginBottom: vh(4),
+      fontFamily: Fonts.helveticaBold,
+      fontSize: normalize(16),
+      color: Colors.textBlack,
+      marginLeft: vw(4)
     },
     CustomBottomBorder: {
       width: '100%',
-      height: 40,
+      height: vh(40),
       position: 'absolute',
-      borderBottomColor: Colors?.fadeBorder,
-      borderBottomWidth: 1,
+      borderBottomColor: Colors.fadeBorder,
+      borderBottomWidth: normalize(1),
     },
     MenuListContainer: {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      marginTop: 30
+      marginTop: vh(30)
     },
     SingleEntry: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      margin: 5,
-      marginLeft: 20,
+      margin: normalize(5),
+      marginLeft: vw(20),
 
     },
     SideImageIcon: {
-      height: 28,
-      width: 28,
-      margin: 12,
-      tintColor: Colors?.textBlack,
+      height: vh(28),
+      width: vw(28),
+      margin: normalize(12),
+      tintColor: Colors.textBlack,
     },
     TrackOrderIcon: {
-      height: 35,
-      width: 35,
-      margin: 8
+      height: vh(35),
+      width: vw(35),
+      margin: normalize(8)
     },
     singleEntryText: {
-      fontFamily: Fonts?.headerRegular,
-      fontWeight: 600,
-      fontSize: 17,
-      margin: 5,
-      color: Colors?.textBlack,
+      fontFamily: Fonts.helveticaBold,
+      fontSize: normalize(17),
+      margin: normalize(5),
+      color: Colors.textBlack,
     },
     LowerFAQSection: {
 
-      height: 150,
+      height: vh(150),
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-around',
-      marginLeft: 40,
-      marginTop: 30,
-      marginBottom: 25,
+      marginLeft: vw(40),
+      marginTop: vh(30),
+      marginBottom: vh(25),
     },
     BottomViewText: {
-      fontFamily: Fonts?.font17,
-      fontWeight: 600,
-      fontSize: 17,
-      color: Colors?.textBlack,
+      fontFamily: Fonts.helveticaMedium,
+      fontSize: normalize(17),
+      color: Colors.textBlack,
     },
     LowerCallSupportContainer: {
       position: 'absolute',
-      left: 10,
+      left: vw(10),
     },
     LowerCallWrappper: {
       display: 'flex',
@@ -394,29 +542,27 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
-      marginLeft: 20
+      marginLeft: vw(20)
     },
     CallImageContainer: {
-      backgroundColor: Colors?.KFC_red,
-      height: 30,
-      width: 30,
-      borderRadius: 50,
+      backgroundColor: Colors.KFC_red,
+      height: vh(30),
+      width: vw(30),
+      borderRadius: normalize(50),
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      margin: 10,
+      margin: normalize(10),
     },
     CallImageContainerImage: {
-      height: 18,
-      width: 18,
-      tintColor: Colors?.constantWhite,
-
+      height: vh(18),
+      width: vw(18),
+      tintColor: Colors.constantWhite,
     },
     CallSupport: {
-      fontFamily: Fonts?.font9,
-      fontWeight: 600,
-      fontSize: 26,
-      color: Colors?.textBlack,
+      fontFamily: Fonts.nationalMedium,
+      fontSize: normalize(26),
+      color: Colors.textBlack,
     }
   })
   return Styles

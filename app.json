@@ -1,4 +1,15 @@
 {
   "name": "KFC_App",
-  "displayName": "KFC_App"
+  "displayName": "KFC_App",
+  "androidStatusBar": {
+    "backgroundColor": "#000000"
+  },
+  "plugins":[
+    [
+      "@react-native-google-signin/google-signin",
+      {
+        "iosUrlScheme":"com.googleusercontent.apps.857311075920-em3gq4d9vhpjelvkq4plmgsv4e5oj617"
+      }
+    ]
+  ]
 }

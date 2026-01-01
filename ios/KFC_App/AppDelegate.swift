@@ -2,6 +2,8 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
+import GoogleMaps
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
+    GMSServices.provideAPIKey("AIzaSyBP_AkyyuLiBbBiiFBhnLXugYYbkTNvvRk")
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)
     delegate.dependencyProvider = RCTAppDependencyProvider()
@@ -28,9 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       in: window,
       launchOptions: launchOptions
     )
- printAllFonts()
+    printAllFonts()
     return true
   }
+  //  for google sign in 
+    func application(
+      _ app: UIApplication,
+      open url: URL,
+      options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    ) -> Bool {
+        print("🔔 App opened with URL:", url)
+      return GIDSignIn.sharedInstance.handle(url)
+    }
+    /// fonts printing 
    func printAllFonts() {
     for family in UIFont.familyNames.sorted() {
         print("👨‍🎨 Font family: \(family)")

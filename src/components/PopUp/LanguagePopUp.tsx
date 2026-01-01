@@ -1,29 +1,28 @@
-import { StyleSheet, Text, View, Animated, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
-
+import { StyleSheet, Text, View, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
 // util imports 
 import { useThemeColors } from '../../utils/Colors';
 import Fonts from '../../utils/Fonts'
+import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useLanguage } from '../../context/LanguageContex';
-import Images from '../../utils/LocalImages';
+import { normalize, vh, vw } from '../../utils/Dimensions';
 
-export default function LanguagePopUp() { 
+export default function LanguagePopUp() {
     const Colors = useThemeColors()
     const Strings = useStrings()
-    const Styles = createDynamicStyles(Colors, Fonts)
+    const Styles = createDynamicStyles(Colors)
     const inset = useSafeAreaInsets();
     const { language, setLanguage } = useLanguage()
-    const[tempLang , settempLang] = useState(language)
+    const [tempLang, settempLang] = useState<string>(language)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const handleSelectionLanguage =(lang: string )=>{
+    const handleSelectionLanguage = (lang: string): void => {
         settempLang(lang)
-    } 
-    const handleSetLanguage =()=>{
+    }
+    const handleSetLanguage = (): void => {
         setLanguage(tempLang);
         navigation.pop()
     }
@@ -33,47 +32,45 @@ export default function LanguagePopUp() {
                 <View style={[Styles.Wrapper, { marginTop: inset.top }]}>
                     <TouchableWithoutFeedback>
                         <View style={Styles.PopUpContainer}>
-                            <Text style={Styles.selectionLanguageHeader}>{Strings?.pleaseSelectlanguage} </Text>
+                            <Text style={Styles.selectionLanguageHeader}>{Strings.pleaseSelectlanguage} </Text>
                             <View style={[Styles.LanguageChangeContainer,]}>
                                 < TouchableOpacity
                                     activeOpacity={.7}
-                                    onPress={() => handleSelectionLanguage('en') }
+                                    onPress={() => handleSelectionLanguage('en')}
                                     style={[Styles.languageContainer]}>
-                                    <Text style={Styles.changeText}>{Strings?.english}</Text>
+                                    <Text style={Styles.changeText}>{Strings.english}</Text>
                                     <View
                                         style={[Styles.checkBox]}
                                     >
-                                        {tempLang == 'en' && (
+                                        {tempLang === 'en' && (
                                             <View style={Styles.TickMarkImageContainer}>
-                                                <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
+                                                <Image source={Images.Tick_Mark} style={[Styles.tickMark]} />
                                             </View>
                                         )}
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={() => handleSelectionLanguage('ar') }
+                                    onPress={() => handleSelectionLanguage('ar')}
                                     style={[Styles.languageContainer,]}>
-                                    <Text style={Styles.changeText}>{Strings?.arabic}</Text>
+                                    <Text style={Styles.changeText}>{Strings.arabic}</Text>
                                     <View
                                         style={[Styles.checkBox]}
                                     >
-                                        {tempLang == 'ar' && (
+                                        {tempLang === 'ar' && (
                                             <View style={Styles.TickMarkImageContainer}>
-                                                <Image source={Images?.Tick_Mark} style={[Styles.tickMark]} />
+                                                <Image source={Images.Tick_Mark} style={[Styles.tickMark]} />
                                             </View>
                                         )}
                                     </View>
                                 </TouchableOpacity>
                             </View>
-
                             <TouchableOpacity
                                 activeOpacity={.5}
                                 style={[Styles.loginButton, {}]}
                                 onPress={handleSetLanguage}>
-                                <Text style={[Styles.LoginButtonText]}>{Strings?.done}</Text>
+                                <Text style={[Styles.LoginButtonText]}>{Strings.done}</Text>
                             </TouchableOpacity>
                         </View>
-
                     </TouchableWithoutFeedback>
                 </View>
             </TouchableWithoutFeedback>
@@ -81,7 +78,7 @@ export default function LanguagePopUp() {
     )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         backDrop: {
             backgroundColor: Colors.SemiTransparent,
@@ -98,90 +95,87 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         PopUpContainer: {
-            height: 250,
-            width: 350,
-            borderWidth: 1,
-            borderRadius: 15,
-            backgroundColor: Colors?.bodyColor,
+            height: vh(250),
+            width: vw(350),
+            borderWidth: normalize(1),
+            borderRadius: normalize(15),
+            backgroundColor: Colors.bodyColor,
         },
         selectionLanguageHeader: {
-            fontSize: 20,
-            fontWeight: 600,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textBlack,
+            fontSize: normalize(20),
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.textBlack,
             alignSelf: 'center',
-            marginVertical: 20,
+            marginVertical: vh(20),
         },
         LanguageChangeContainer: {
             width: '90%',
-            height: 45,
+            height: vh(45),
             marginHorizontal: 'auto',
-            borderRadius: 2,
+            borderRadius: normalize(2),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-            marginVertical: 20
+            marginVertical: vh(20)
         },
         languageContainer: {
             width: '45%',
-            height: 45,
-            backgroundColor: Colors?.bodyShadeColor,
-            borderRadius: 6,
+            height: vh(45),
+            backgroundColor: Colors.bodyShadeColor,
+            borderRadius: normalize(6),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            borderWidth: 1,
-            borderColor: Colors?.fadeBorder
+            borderWidth: normalize(1),
+            borderColor: Colors.fadeBorder
         },
         checkBox: {
-            height: 25,
-            width: 25,
+            height: vh(25),
+            width: vw(25),
             borderRadius: '50%',
-            borderWidth: 2,
+            borderWidth: normalize(2),
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            marginRight: 15,
-            borderColor: Colors?.textFadeBlack
+            marginRight: vw(15),
+            borderColor: Colors.textFadeBlack
         },
         tickMark: {
-            height: 15,
-            width: 15,
+            height: vh(15),
+            width: vw(15),
         },
         TickMarkImageContainer: {
-            borderRadius: 50,
-            padding: 6,
-            tintColor: Colors?.constantWhite,
-            backgroundColor: Colors?.KFC_red
+            borderRadius: normalize(50),
+            padding: normalize(6),
+            tintColor: Colors.constantWhite,
+            backgroundColor: Colors.KFC_red
         },
         changeText: {
-            marginRight: 10,
-            marginLeft: 15,
-            fontWeight: 700,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textBlack
+            marginRight: vw(10),
+            marginLeft: vw(15),
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.textBlack
         },
         loginButton: {
             position: 'absolute',
             left: '5%',
             bottom: '10%',
-            height: 50,
+            height: vh(50),
             width: '90%',
             marginHorizontal: 'auto',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             paddingVertical: 10,
-            borderRadius: 2,
-            backgroundColor: Colors?.KFC_red
+            borderRadius: normalize(2),
+            backgroundColor: Colors.KFC_red
         },
         LoginButtonText: {
-            fontSize: 16,
-            fontWeight: 800,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.constantWhite
+            fontSize: normalize(16),
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.constantWhite
         },
     })
     return Styles

@@ -1,21 +1,19 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
-import { menuData } from '../data/MenuData';
+import React, { createContext, useState, ReactNode, useContext } from 'react';
+export const MenuCategoryContext = createContext<MenuCategoryContextType | undefined>(undefined);
 
-const MenuContext = createContext<MenuContextType | undefined>(undefined);
-
-export const MenuProvider = ({ children }: { children: ReactNode }) => {
-    const [menuItem , setMenuItem] = useState<menuDataType[]>(menuData);
+export const MenuCategoryProvider = ({  children }: { children: ReactNode }) => {
+    const [activeCategory, setActiveCategory] = useState<string>('');
     return (
-        <MenuContext.Provider value={{ menuItem , setMenuItem }}>
+        <MenuCategoryContext.Provider value={{ activeCategory, setActiveCategory }}>
             {children}
-        </MenuContext.Provider>
+        </MenuCategoryContext.Provider>
     );
 };
 
-export const useMenu = () => {
-    const context = useContext(MenuContext);
-    if (!context) {     
-        throw new Error('useMenu must be used within a Menu Provider');
+export const useMenuCategory = () => {
+    const context = useContext(MenuCategoryContext);
+    if (!context) {
+        throw new Error('useMenuCategory must be used within a MenuCategoryProvider');
     }
     return context;
-}
+};

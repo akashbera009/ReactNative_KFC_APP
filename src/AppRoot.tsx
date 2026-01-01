@@ -1,0 +1,33 @@
+
+import React, { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Config from 'react-native-config';
+//redux
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from './store/store';
+import {
+    checkBiometricSupportThunk,
+} from './actions/biometricAction';
+// google sign in 
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import AppNavigation from './navigation/AppNavigation';
+
+const AppRoot = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    GoogleSignin.configure({
+        iosClientId: Config.IOS_GOOGLE_SIGNIN_CLIENT_ID,
+        webClientId: Config.WEB_GOOGLE_SIGNIN_CLIENT_ID,
+    })
+
+    useEffect(() => {
+        dispatch(checkBiometricSupportThunk());
+    }, [dispatch]);
+
+    return (
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <AppNavigation/>
+        </GestureHandlerRootView>
+    );
+};
+
+export default AppRoot;

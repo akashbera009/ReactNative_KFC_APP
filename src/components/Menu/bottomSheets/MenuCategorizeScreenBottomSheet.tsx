@@ -1,22 +1,25 @@
 import { StyleSheet, Text, View, Animated, TouchableOpacity, Image, TouchableWithoutFeedback, ScrollView } from 'react-native'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // util imports 
 import { useThemeColors } from '../../../utils/Colors';
-import Fonts from '../../../utils/Fonts'
 import { useStrings } from '../../../utils/Strings';
+import Fonts from '../../../utils/Fonts'
 import Images from '../../../utils/LocalImages';
-export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, frequencyArray }: MenuCategorizationScreenProps) {
+import { normalize, vh, vw } from '../../../utils/Dimensions';
+import { useMenuCategory } from '../../../context/MenuContext';
+export default function MenuCategorizeScreenBottomSheet({ frequencyArray }: MenuCategorizationScreenProps) {
     const slide = useRef(new Animated.Value(800)).current;
     const fade = useRef(new Animated.Value(0)).current;
     const Colors = useThemeColors()
     const Strings = useStrings()
-    const Styles = createDynamicStyles(Colors, Fonts)
+    const Styles = createDynamicStyles(Colors)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const slideUp = () => {
+    const {setActiveCategory} = useMenuCategory()
+    const slideUp = useCallback(() :void=> {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 0,
@@ -29,9 +32,8 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
                 useNativeDriver: true,
             })
         ]).start();
-    };
-
-    const slideDown = () => {
+    },[slide , fade])
+    const slideDown = ():void => {
         Animated.parallel([
             Animated.timing(slide, {
                 toValue: 450,
@@ -45,29 +47,26 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
             })
         ]).start();
     };
-
-    const closeModal = () => {
+    const closeModal = ():void => {
         slideDown();
-        setTimeout(() => {
+        setTimeout(() :void=> {
             navigation.pop();
         }, 400);
     };
-
-    useEffect(() => {
+    useEffect(():void => {
         slideUp();
-    }, []);
+    }, [slideUp]);
     return (
         <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
             <TouchableWithoutFeedback onPress={closeModal}>
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
             <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
-                <View style={Styles.OuterContainer}>
+                <View>
                     <View style={Styles.InnerContainer}>
                         <View style={Styles.HeaderContainer}>
                             <View style={Styles.HeaderWrapper}>
-
-                                <Text style={Styles.Header} >{Strings?.menuCategorizationHeader.toUpperCase()} </Text>
+                                <Text style={Styles.Header} >{Strings.menuCategorizationHeader.toUpperCase()} </Text>
                                 <TouchableOpacity
                                     onPress={() => navigation.pop()}
                                     style={Styles.crossIconContainer}>
@@ -92,23 +91,21 @@ export default function MenuCategorizeScreenBottomSheet({ setActiveCategory, fre
                                             style={Styles.ArrowContainer}
                                             onPress={() => { }}
                                         >
-                                            <Image source={Images?.Arrow_down} style={Styles.arrowRight} />
+                                            <Image source={Images.Arrow_down} style={Styles.arrowRight} />
                                         </TouchableOpacity>
                                         <View style={Styles.customBorder} />
                                     </TouchableOpacity>
                                 ))}
                             </ScrollView>
                         </View>
-
                     </View>
                 </View>
             </Animated.View>
-
         </Animated.View >
     )
 }
 
-const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
+const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         backDrop: {
             backgroundColor: Colors.SemiTransparent,
@@ -118,10 +115,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         bottomSheet: {
             width: '100%',
-            height: 600
-        },
-        OuterContainer: {
-
+            height: vh(600)
         },
         InnerContainer: {
             height: '100%',
@@ -129,9 +123,9 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             position: 'relative',
         },
         HeaderContainer: {
-            height: 70,
+            height: vh(70),
             width: '100%',
-            backgroundColor: Colors?.blueMixBG,
+            backgroundColor: Colors.blueMixBG,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -145,37 +139,36 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         Header: {
-            fontSize: 18,
-            fontWeight: 700,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textBlack
+            fontSize: normalize(18),
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.textBlack
         },
         crossIconContainer: {
-            height: 23,
-            width: 23,
+            height: vh(23),
+            width: vw(23),
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: 50,
-            backgroundColor: Colors?.textBlack,
+            borderRadius: normalize(50),
+            backgroundColor: Colors.textBlack,
         },
         crossIcon: {
-            height: 10,
-            width: 10,
-            tintColor: Colors?.bodyColor
+            height: vh(10),
+            width: vw(10),
+            tintColor: Colors.bodyColor
         },
         categoryContainer: {
             width: '100%',
         },
         categoryEntries: {
             width: '90%',
-            height: 45,
+            height: vh(45),
             alignSelf: 'center',
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginVertical: 10,
+            marginVertical: vh(10),
         },
         CategoryTextContainer: {
             display: 'flex',
@@ -183,26 +176,25 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
         },
         CategoryText: {
-            fontSize: 18,
-            fontWeight: 600,
-            fontFamily: Fonts?.subHeader,
-            color: Colors?.textBlack,
+            fontSize: normalize(18),
+            fontFamily: Fonts.helveticaMedium,
+            color: Colors.textBlack,
         },
         ArrowContainer: {
             transform: [{ rotate: '-90deg' }],
         },
         arrowRight: {
-            height: 25,
-            width: 25,
-            tintColor: Colors?.textFadeBlack
+            height: vh(25),
+            width: vw(25),
+            tintColor: Colors.textFadeBlack
         },
         customBorder: {
             position: 'absolute',
             bottom: 0,
             left: 0,
             width: '100%',
-            borderBottomColor: Colors?.blueLightBG,
-            borderBottomWidth: 1,
+            borderBottomColor: Colors.blueLightBG,
+            borderBottomWidth: normalize(1),
         }
     })
     return Styles

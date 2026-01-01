@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>KFC_App</string>
+	<string>SHREYANSH</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -33,7 +33,25 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is needed to show your position on the map.</string>
-	<!-- <string/> -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to your photos.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to your camera.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app needs permission to save photos.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Use Face ID to authenticate</string>
+	<key>GIDClientID</key>
+	<string>857311075920-em3gq4d9vhpjelvkq4plmgsv4e5oj617.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.857311075920-em3gq4d9vhpjelvkq4plmgsv4e5oj617</string>
+			</array>
+		</dict>
+	</array>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -48,60 +66,25 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+		<string>telprompt</string>
+	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Friz Quadrata Bold.otf</string>
-		<string>TestNational2Condensed-Black.otf</string>
-		<string>TestNational2Condensed-BlackItalic.otf</string>
 		<string>TestNational2Condensed-Bold.otf</string>
-		<string>TestNational2Condensed-BoldItalic.otf</string>
-		<string>TestNational2Condensed-Extrabold.otf</string>
-		<string>TestNational2Condensed-ExtraboldItalic.otf</string>
-		<string>TestNational2Condensed-Extralight.otf</string>
-		<string>TestNational2Condensed-ExtralightItalic.otf</string>
-		<string>TestNational2Condensed-Light.otf</string>
-		<string>TestNational2Condensed-LightItalic.otf</string>
 		<string>TestNational2Condensed-Medium.otf</string>
-		<string>TestNational2Condensed-MediumItalic.otf</string>
-		<string>TestNational2Condensed-Regular.otf</string>
-		<string>TestNational2Condensed-RegularItalic.otf</string>
-		<string>TestNational2Condensed-Thin.otf</string>
-		<string>TestNational2Condensed-ThinItalic.otf</string>
 		<string>Playball-Regular.ttf</string>
-		<string>RobotoSlab-Black.ttf</string>
-		<string>RobotoSlab-Bold.ttf</string>
 		<string>RobotoSlab-ExtraBold.ttf</string>
-		<string>RobotoSlab-ExtraLight.ttf</string>
-		<string>RobotoSlab-Light.ttf</string>
-		<string>RobotoSlab-Medium.ttf</string>
-		<string>RobotoSlab-Regular.ttf</string>
-		<string>RobotoSlab-SemiBold.ttf</string>
-		<string>RobotoSlab-Thin.ttf</string>
-		<string>RobotoSlab-VariableFont_wght.ttf</string>
-		<string>Rubik-Italic-VariableFont_wght.ttf</string>
-		<string>Rubik-VariableFont_wght.ttf</string>
-		<string>ZalandoSansSemiExpanded-Italic-VariableFont_wght.ttf</string>
 		<string>ZalandoSansSemiExpanded-VariableFont_wght.ttf</string>
-		<string>friz-quadrata-bold-italic-os-5870341205e0f.ttf</string>
-		<string>friz-quadrata-regular-os-5870333951e7c.ttf</string>
 		<string>HelveticaNeueBold.otf</string>
-		<string>HelveticaNeueBoldItalic.otf</string>
 		<string>HelveticaNeueLight.otf</string>
-		<string>HelveticaNeueLightItalic.otf</string>
 		<string>HelveticaNeueMedium.otf</string>
 		<string>HelveticaNeueMediumItalic.otf</string>
-		<string>HelveticaNeueThin.otf</string>
-		<string>HelveticaNeueThinItalic.otf</string>
-		<string>HelveticaNeueUltraLight.otf</string>
-		<string>HelveticaNeueUltraLightItalic.otf</string>
-		<string>HelveticaNeueBlack.otf</string>
-		<string>HelveticaNeueBlackItalic.otf</string>
-		<string>HelveticaNeueHeavy.otf</string>
-		<string>HelveticaNeueHeavyItalic.otf</string>
-		<string>HelveticaNeueRoman.otf</string>
-		<string>HelveticaNeueItalic.ttf</string>
+		<string>Jersey20-Regular.ttf</string>
 	</array>
 </dict>
 </plist>
