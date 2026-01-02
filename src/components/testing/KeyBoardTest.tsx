@@ -78,6 +78,60 @@ export default function KeyBoardTest() {
         setPeopleDate(prev => prev.filter(peop => peop.id !== idx))
     }, [])
     // linear gradient color 
+    const [isRightSwipe, setIsRightSwipe] = useState<number>(0)
+    return (
+        <View style={Styles.parent}>
+            <View style={[Styles.NavWrapper, { paddingTop: inset.top, }]}>
+                <View style={Styles.BackIconAndHeaderText}>
+                    <TouchableOpacity
+                        onPress={() => navigation.pop()}
+                        style={{ padding: vw(12) }}
+                    >
+                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
+                    </TouchableOpacity>
+                    <Text style={Styles.headerText}>{Strings.ReAnimatedScreen}</Text>
+                </View>
+            </View>
+            <View style={Styles.body}>
+                <View style={Styles.CardsContainer}>
+                    {peopleData.map((item, idx) => (
+                        < CardComponent
+                            key={idx}
+                            idx={idx}
+                            item={item}
+                            Styles={Styles}
+                            peopleData={peopleData}
+                            handelDelecard={handelDelecard}
+                            setIsRightSwipe={setIsRightSwipe}
+                        />
+                    ))}
+                </View>
+                <View style={[Styles.IndicatorContainer, { bottom: inset.bottom }]}>
+                    <TouchableOpacity
+                        onPress={() => { handelDelecard(peopleData.at(0)?.id) }}
+                    >
+                        <Image
+                            source={Images.Cross_Icon}
+                            style={[Styles.IndicatotImage, isRightSwipe === -1 && Styles.CancelBG]}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            Alert.alert('Accepted ')
+                        }}
+                    >
+                        <Image
+                            source={Images.Tick_Mark}
+                            style={[Styles.IndicatotImage, isRightSwipe === 1 && Styles.AcceptBG]}
+                        />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </View>
+    );
+}
+
+const CardComponent = ({ idx, setIsRightSwipe, Styles, item, peopleData, handelDelecard, }: any) => {
     const linearGradientColorList = ["#00000007", "#0000002c", "#080808ff"]
     const peopleLength = peopleData.length
     // gesture and reanimated initializations
@@ -87,7 +141,6 @@ export default function KeyBoardTest() {
     const position = useSharedValue({ x: 0, y: 0 })
     // gestures 
     const fakeTap = Gesture.Tap()
-    const [isRightSwipe, setIsRightSwipe] = useState<number>(0)
     const [isAccepting, setIsAccepting] = useState<number>(0)
     const pan = Gesture.Pan()
         .onBegin((e) => {
@@ -156,78 +209,38 @@ export default function KeyBoardTest() {
         ]
     }))
     return (
-        <View style={Styles.parent}>
-            <View style={[Styles.NavWrapper, { paddingTop: inset.top, }]}>
-                <View style={Styles.BackIconAndHeaderText}>
-                    <TouchableOpacity
-                        onPress={() => navigation.pop()}
-                        style={{ padding: vw(12) }}
-                    >
-                        <Image source={Images.back_arrow} style={Styles.BackIcon} />
-                    </TouchableOpacity>
-                    <Text style={Styles.headerText}>{Strings.ReAnimatedScreen}</Text>
-                </View>
-            </View>
-            <View style={Styles.body}>
-                <View style={Styles.CardsContainer}>
-                    {peopleData.map((item, idx) => (
-                        <GestureDetector gesture={idx === 0 ? pan : fakeTap} key={idx}>
-                            <Animated.View
-                                entering={RotateInUpLeft.duration(800).delay(idx * 120)}
-                                exiting={RotateOutDownLeft.duration(400)}
-                                layout={JumpingTransition}
-                                style={[Styles.CardWrapper,
-                                {
-                                    top: 5 * (peopleLength - idx),
-                                    zIndex: peopleLength - idx,
-                                }]}
-                            >
-                                <Animated.View
-                                    ref={CardRef}
-                                    style={[
-                                        Styles.Card,
-                                        idx === 0 && cardgestureStyle,
-                                        {
-                                            transform: [{ scaleX: 1 - idx * 0.05 - idx * idx * 0.02 }]
-                                        }
-                                    ]}
-                                >
-                                    <Image source={{ uri: item.image }} style={Styles.Image} />
-                                    <LinearGradient colors={linearGradientColorList} style={StyleSheet.absoluteFill} />
-                                    <View style={Styles.NameAndDescContainer}>
-                                        <Text style={Styles.name}>{item.name}</Text>
-                                        <Text style={Styles.description} numberOfLines={1}>{item.description}</Text>
-                                    </View>
-                                </Animated.View>
-                            </Animated.View>
-                        </GestureDetector>
-                    ))}
-                </View>
-                <View style={[Styles.IndicatorContainer, { bottom: inset.bottom }]}>
-                    <TouchableOpacity
-                        onPress={() => { handelDelecard(peopleData.at(0)?.id) }}
-                    >
-                        <Image
-                            source={Images.Cross_Icon}
-                            style={[Styles.IndicatotImage, isRightSwipe === -1 && Styles.CancelBG]}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {
-                            Alert.alert('Accepted ')
-                        }}
-                    >
-                        <Image
-                            source={Images.Tick_Mark}
-                            style={[Styles.IndicatotImage, isRightSwipe === 1 && Styles.AcceptBG]}
-                        />
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>
-    );
+        <GestureDetector gesture={idx === 0 ? pan : fakeTap} key={idx}>
+            <Animated.View
+                entering={RotateInUpLeft.duration(800).delay(idx * 120)}
+                exiting={RotateOutDownLeft.duration(400)}
+                layout={JumpingTransition}
+                style={[Styles.CardWrapper,
+                {
+                    top: 5 * (peopleLength - idx),
+                    zIndex: peopleLength - idx,
+                }]}
+            >
+                <Animated.View
+                    ref={CardRef}
+                    style={[
+                        Styles.Card,
+                        idx === 0 && cardgestureStyle,
+                        {
+                            transform: [{ scaleX: 1 - idx * 0.05 - idx * idx * 0.02 }]
+                        }
+                    ]}
+                >
+                    <Image source={{ uri: item.image }} style={Styles.Image} />
+                    <LinearGradient colors={linearGradientColorList} style={StyleSheet.absoluteFill} />
+                    <View style={Styles.NameAndDescContainer}>
+                        <Text style={Styles.name}>{item.name}</Text>
+                        <Text style={Styles.description} numberOfLines={1}>{item.description}</Text>
+                    </View>
+                </Animated.View>
+            </Animated.View>
+        </GestureDetector>
+    )
 }
-
 const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parent: {
