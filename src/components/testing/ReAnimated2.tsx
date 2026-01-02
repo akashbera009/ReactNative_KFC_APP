@@ -8,25 +8,16 @@ import Animated, {
     Easing, useSharedValue, withTiming, withRepeat, cancelAnimation, ZoomInDown,
     Keyframe,
     JumpingTransition,
-    FadeIn,
-    SequencedTransition,
+    FadeIn, 
     withDelay,
     EntryAnimationsValues,
     ExitAnimationsValues,
     ReduceMotion,
     withSpring,
-    withSequence,
-    CurvedTransition,
-    LinearTransition,
-    FadingTransition,
-    LightSpeedInRight,
-    LightSpeedInLeft,
-    LightSpeedOutLeft,
-    LightSpeedOutRight,
+    withSequence, 
     useAnimatedStyle,
     interpolate,
     Extrapolation,
-    withClamp,
     interpolateColor,
     getRelativeCoords,
     useAnimatedRef,
@@ -120,36 +111,36 @@ export default function ReAnimated2() {
 
 
     // keyfram animation 
-    const enteringAnimation = new Keyframe({
-        0: {
-            opacity: 0,
-            transform: [
-                { translateY: 50 },
-                { rotate: '820deg' },
-                { skewX: '0deg' },
-                { scale: 0 },
-            ],
-        },
-        50: {
-            opacity: 0.5,
-            transform: [
-                { translateY: 25 },
-                { rotate: '-180deg' },
-                { skewX: '30deg' },
-                { scale: 0.5 },
-            ],
-            easing: Easing.out(Easing.quad),
-        },
-        100: {
-            opacity: 1,
-            transform: [
-                { translateY: 0 },
-                { rotate: '0deg' },
-                { skewX: '0deg' },
-                { scale: 1 },
-            ],
-        },
-    }).duration(1000)
+    // const enteringAnimation = new Keyframe({
+    //     0: {
+    //         opacity: 0,
+    //         transform: [
+    //             { translateY: 50 },
+    //             { rotate: '820deg' },
+    //             { skewX: '0deg' },
+    //             { scale: 0 },
+    //         ],
+    //     },
+    //     50: {
+    //         opacity: 0.5,
+    //         transform: [
+    //             { translateY: 25 },
+    //             { rotate: '-180deg' },
+    //             { skewX: '30deg' },
+    //             { scale: 0.5 },
+    //         ],
+    //         easing: Easing.out(Easing.quad),
+    //     },
+    //     100: {
+    //         opacity: 1,
+    //         transform: [
+    //             { translateY: 0 },
+    //             { rotate: '0deg' },
+    //             { skewX: '0deg' },
+    //             { scale: 1 },
+    //         ],
+    //     },
+    // }).duration(1000)
     const exitingAnimation = new Keyframe({
         0: {
             opacity: 1,
@@ -264,7 +255,7 @@ export default function ReAnimated2() {
             -1,
             true
         );
-    }, []);
+    }, [offset]);
 
     // extrapolation 
     const offset23 = useSharedValue<number>(0);
