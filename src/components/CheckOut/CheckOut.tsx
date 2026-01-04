@@ -403,6 +403,7 @@ export default function CheckOut({ route }: CheckOutScreenProps) {
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
+            flex : 1 , 
             backgroundColor: Colors.bodyColor,
         },
         NavWrapper: {
@@ -430,7 +431,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginHorizontal: vw(18),
         },
         ContentConatiner: {
-            height: '90%',
+            flex : 1 ,
             backgroundColor: Colors.bodyLigheterColor,
         },
         CustomerCard: {

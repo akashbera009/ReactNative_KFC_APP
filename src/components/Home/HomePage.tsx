@@ -112,11 +112,7 @@ export default function HomePage() {
           <RadialGradient x="50%" y="50%" rx="50%" ry="50%" colorList={colorList} />
         </View>
         <View style={[Styles.ImagesAndAddressContainer, Platform.OS === 'android' && Styles.AndroidHeight]}>
-          <TouchableOpacity
-            onPress={() => navigation.replace(Strings.SplashStack)}
-          >
-            <Image source={Images.KfcTextLogo} style={[Styles.HeaderKFC, { marginTop: inset.top }]} />
-          </TouchableOpacity>
+          <Image source={Images.KfcTextLogo} style={[Styles.HeaderKFC, { marginTop: inset.top }]} />
           <Animated.View style={{ opacity: fadeAnimation }}>
             <View style={Styles.SVGContainerLeft}>
               <Svg width={vw(200)} height={vh(200)}>
@@ -375,7 +371,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       zIndex: 2,
       width: '100%',
       height: '100%',
-       
+
       flexDirection: 'column',
       alignItems: 'center',
     },
@@ -421,7 +417,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       width: vw(80)
     },
     SvgOrderContainer3Upper: {
-       
+
       alignItems: 'center',
       flexDirection: 'row',
       position: 'relative',
@@ -431,7 +427,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       transform: [{ rotate: '-5deg' }]
     },
     SvgOrderContainer3Lower: {
-       
+
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row',
@@ -483,7 +479,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       objectFit: 'contain'
     },
     IndexContainer: {
-       
+
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row',
@@ -507,7 +503,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       alignSelf: 'center',
       backgroundColor: Colors.bodyColor,
       borderRadius: normalize(2),
-       
+
       flexDirection: 'row',
       alignItems: 'center',
     },
@@ -519,13 +515,11 @@ const createDynamicStyles = (Colors: ColorType) => {
       tintColor: Colors.textBlack,
     },
     DeliveryTextContainer: {
-       
       flexDirection: 'column',
       height: '75%',
       justifyContent: 'space-around'
     },
     upperDeliveryContainer: {
-       
       flexDirection: 'row',
     },
     DeliveryTo: {
@@ -568,7 +562,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginTop: 15
     },
     headerExplore: {
-       
+
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
@@ -583,7 +577,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       fontSize: normalize(12)
     },
     ExploreCardsContainer: {
-       
+
       flexDirection: 'row',
       justifyContent: 'center',
       width: '100%',
@@ -744,7 +738,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginHorizontal: "auto",
       width: vw(80),
       height: vh(20),
-       
+
       flexDirection: 'row',
       justifyContent: 'space-around',
       position: 'absolute',
@@ -778,7 +772,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       borderRadius: normalize(1),
       marginHorizontal: 'auto',
       marginLeft: 0,
-       
+
       flexDirection: 'row',
       alignItems: 'center',
       padding: normalize(5),
@@ -816,7 +810,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     menuDataLoader: {
       gap: vw(10),
-       
+
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row',
@@ -839,7 +833,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     TopContainer: {
       height: '100%',
-       
+
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
@@ -856,13 +850,13 @@ const createDynamicStyles = (Colors: ColorType) => {
       elevation: 5,
     },
     RightContainer: {
-       
+
       flexDirection: 'column',
       width: '60%',
       height: '80%',
     },
     TextContainer: {
-       
+
       flexDirection: 'row',
       alignItems: 'center',
       height: '60%',
