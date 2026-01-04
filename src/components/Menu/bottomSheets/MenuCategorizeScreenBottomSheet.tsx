@@ -18,7 +18,7 @@ export default function MenuCategorizeScreenBottomSheet({ frequencyArray }: Menu
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { setActiveCategory } = useMenuCategory()
     // animation
-    const slideRef = useSharedValue(0)
+    const slideRef = useSharedValue<number>(0)
     const animatedStyles = useAnimatedStyle(() => ({
         transform: [{ translateY: slideRef.value }],
     }))

@@ -305,7 +305,7 @@ export default function ReAnimated2() {
     // dymanic color IOS 
     const LIGHT_COLORS = ['#38acdd', '#57b495'];
     const DARK_COLORS = ['#b58df1', '#ff6259'];
-    const progress = useSharedValue(0); 
+    const progress = useSharedValue<number>(0); 
     
     const animatedStyle44 = useAnimatedStyle(() => {
         const lightColor = interpolateColor(progress.value, [0, 1], LIGHT_COLORS);

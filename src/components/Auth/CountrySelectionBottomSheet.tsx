@@ -20,7 +20,7 @@ export default function CountrySelectionBottomSheet() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { countrySelected, setCountrySelected } = useCountry();
   // animation
-  const slideRef = useSharedValue(0)
+  const slideRef = useSharedValue<number>(0)
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [{ translateY: slideRef.value }],
   }))

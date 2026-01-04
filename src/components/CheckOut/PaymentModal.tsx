@@ -43,7 +43,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
         onSuccess?.(payment_id, success)
     }
     // animation
-    const slideRef = useSharedValue(0)
+    const slideRef = useSharedValue<number>(0)
     const animatedStyles = useAnimatedStyle(() => ({
         transform: [{ translateY: slideRef.value }],
     }))

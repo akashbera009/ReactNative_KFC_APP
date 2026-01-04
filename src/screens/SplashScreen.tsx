@@ -21,8 +21,8 @@ export default function SplashScreen() {
     const { isAuthenticated, loading, biometricChecked } = useSelector(
         (state: RootState) => state?.bioAuth
     );
-    const [autoAuthTried, setAutoAuthTried] = useState(false);
-    const [showAuthAlert, setShowAuthAlert] = useState(false);
+    const [autoAuthTried, setAutoAuthTried] = useState<boolean>(false);
+    const [showAuthAlert, setShowAuthAlert] = useState<boolean>(false);
 
     useEffect(() => {
         const loadPhone = async () => {
@@ -70,7 +70,7 @@ export default function SplashScreen() {
             ],
             { cancelable: false }
         );
-    }, [showAuthAlert, dispatch]);
+    }, [showAuthAlert, dispatch, Strings.authRequired, Strings.authReQuiredDesc, Strings.Authenticate]);
 
     useEffect(() => {
         if (!isPhoneChecked) return;

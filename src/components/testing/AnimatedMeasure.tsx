@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, ScrollView } from 'react-native';
 import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -18,8 +18,8 @@ export default function AnimatedMeasure() {
     const WIDTH = 400;
 
     // Move a box horizontally when button is pressed.
-    const translateX = useSharedValue(0);
-    const translateY = useSharedValue(0);
+    const translateX = useSharedValue<number>(0);
+    const translateY = useSharedValue<number>(0);
     const savedPOsition = useSharedValue({ x: 0, y: 0 })
 
     const handleMoveForward = () => {
@@ -38,8 +38,8 @@ export default function AnimatedMeasure() {
     // Drag the box with pan gesture.
     const pan = Gesture.Pan()
         .onChange((e) => {
-            translateX.value = e.translationX + savedPOsition.value.x,
-                translateY.value = e.translationY + savedPOsition.value.y
+            translateX.value = e.translationX + savedPOsition.value.x
+            translateY.value = e.translationY + savedPOsition.value.y
         })
         .onEnd(() => {
             savedPOsition.value = {
@@ -67,9 +67,9 @@ export default function AnimatedMeasure() {
     }))
 
     // Scroll a ScrollView programmatically with animation.
-    const scrollRef = useAnimatedRef()
+    const scrollRef = useAnimatedRef<ScrollView>()
     const scrollOffset = useScrollOffset(scrollRef)
-    const scrollIdx = useSharedValue(0)
+    const scrollIdx = useSharedValue<number>(0)
     const scrolUp = () => {
         if (scrollIdx.value > 0)
             scrollIdx.value -= 1
@@ -243,7 +243,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.greenOk,
             height: 50,
             width: 120,
-            alignSelf: 'center',alignItems: 'center',
+            alignSelf: 'center', alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
