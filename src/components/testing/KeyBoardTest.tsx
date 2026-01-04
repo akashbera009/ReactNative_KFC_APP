@@ -1,5 +1,5 @@
 import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -17,8 +17,9 @@ import Animated, {
     getRelativeCoords,
     interpolate,
     JumpingTransition,
-    RotateInUpLeft,
-    RotateOutDownLeft,
+    SharedValue,
+    SlideInRight,
+    SlideOutLeft,
     useAnimatedRef,
     useAnimatedStyle,
     useSharedValue,
@@ -28,6 +29,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import { runOnJS } from 'react-native-worklets';
 
 const WIDTH = screenWidth
+const HEIGHT = vh(600)
+interface peopleType {
+    id: string,
+    name: string,
+    image: string,
+    description: string
+}
 export default function KeyBoardTest() {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -35,12 +43,6 @@ export default function KeyBoardTest() {
     const Styles = createDynamicStyles(Colors, Fonts);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     // data 
-    interface peopleType {
-        id: string,
-        name: string,
-        image: string,
-        description: string
-    }
     const peopleRawData: peopleType[] = [
         {
             id: '1',
@@ -77,8 +79,27 @@ export default function KeyBoardTest() {
     const handelDelecard = useCallback((idx: string | undefined) => {
         setPeopleDate(prev => prev.filter(peop => peop.id !== idx))
     }, [])
-    // linear gradient color 
-    const [isRightSwipe, setIsRightSwipe] = useState<number>(0)
+    // nimation
+    const swipeDirection = useSharedValue<number>(0);
+    const acceptAnimatedStyle = useAnimatedStyle(() => {
+        return {
+            backgroundColor:
+                swipeDirection.value === 1
+                    ? Colors.greenShade
+                    : Colors.timerFadeText,
+            transform: [{ scale: swipeDirection.value === 1 ? 1.15 : 1, },],
+        };
+    });
+
+    const rejectAnimatedStyle = useAnimatedStyle(() => {
+        return {
+            backgroundColor:
+                swipeDirection.value === -1
+                    ? Colors.KFC_red_Fade_Solid
+                    : Colors.timerFadeText,
+            transform: [{ scale: swipeDirection.value === -1 ? 1.15 : 1, },],
+        };
+    });
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { paddingTop: inset.top, }]}>
@@ -94,54 +115,73 @@ export default function KeyBoardTest() {
             </View>
             <View style={Styles.body}>
                 <View style={Styles.CardsContainer}>
-                    {peopleData.map((item, idx) => (
-                        < CardComponent
-                            key={idx}
-                            idx={idx}
-                            item={item}
-                            Styles={Styles}
-                            peopleData={peopleData}
-                            handelDelecard={handelDelecard}
-                            setIsRightSwipe={setIsRightSwipe}
-                        />
-                    ))}
+                    {peopleData.length === 0 ? null : (
+                        peopleData.map((item, idx) => (
+                            < CardComponent
+                                key={idx}
+                                idx={idx}
+                                item={item}
+                                Styles={Styles}
+                                peopleData={peopleData}
+                                handelDelecard={handelDelecard}
+                                swipeDirection={swipeDirection}
+                                Colors={Colors}
+                            />
+                        ))
+                    )}
                 </View>
                 <View style={[Styles.IndicatorContainer, { bottom: inset.bottom }]}>
-                    <TouchableOpacity
-                        onPress={() => { handelDelecard(peopleData.at(0)?.id) }}
-                    >
-                        <Image
-                            source={Images.Cross_Icon}
-                            style={[Styles.IndicatotImage, isRightSwipe === -1 && Styles.CancelBG]}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {
-                            Alert.alert('Accepted ')
-                        }}
-                    >
-                        <Image
-                            source={Images.Tick_Mark}
-                            style={[Styles.IndicatotImage, isRightSwipe === 1 && Styles.AcceptBG]}
-                        />
-                    </TouchableOpacity>
+                    <Animated.View style={[Styles.IndicatotImageContainer, rejectAnimatedStyle,]}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                handelDelecard(peopleData.at(0)?.id);
+                            }}
+                        >
+                            <Image
+                                source={Images.Cross_Icon}
+                                style={Styles.IndicatotImage}
+                            />
+                        </TouchableOpacity>
+                    </Animated.View>
+                    <Animated.View style={[Styles.IndicatotImageContainer, acceptAnimatedStyle,]}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                Alert.alert('Accepted');
+                            }}>
+                            <Image
+                                source={Images.Tick_Mark}
+                                style={Styles.IndicatotImage}
+                            />
+                        </TouchableOpacity>
+                    </Animated.View>
                 </View>
             </View>
         </View>
     );
 }
 
-const CardComponent = ({ idx, setIsRightSwipe, Styles, item, peopleData, handelDelecard, }: any) => {
-    const linearGradientColorList = ["#00000007", "#0000002c", "#080808ff"]
-    const peopleLength = peopleData.length
+interface CardProp {
+    idx: number,
+    swipeDirection: SharedValue<number>,
+    Styles: ReturnType<typeof createDynamicStyles>,
+    item: peopleType,
+    peopleData: peopleType[],
+    handelDelecard: (ele: string | undefined) => void,
+    Colors: ColorType
+}
+const CardComponent = ({
+    idx, swipeDirection, Styles, item, peopleData, handelDelecard, Colors
+}: CardProp
+) => {
+    const linearGradientColorList: string[] = [Colors.HyperTransparent2, Colors.HyperTransparent, Colors.constantBlack]
+    const peopleLength: number = peopleData?.length
     // gesture and reanimated initializations
-    const [cord, setCord] = useState({ x: 0, y: 0 })
-    const [cardIsUpperTap, setCardIsUppertap] = useState<boolean>(true)
-    const CardRef = useAnimatedRef()
-    const position = useSharedValue({ x: 0, y: 0 })
+    const cardIsUpperTap = useSharedValue<boolean>(true)
+    const CardRef = useAnimatedRef<View>()
+    const position = useSharedValue<{ x: number, y: number }>({ x: 0, y: 0 })
     // gestures 
-    const fakeTap = Gesture.Tap()
     const [isAccepting, setIsAccepting] = useState<number>(0)
+    const fakeTap = Gesture.Tap()
     const pan = Gesture.Pan()
         .onBegin((e) => {
             const relativeCoords = getRelativeCoords(
@@ -150,7 +190,7 @@ const CardComponent = ({ idx, setIsRightSwipe, Styles, item, peopleData, handelD
                 e.absoluteY
             )
             if (relativeCoords) {
-                runOnJS(setCord)(relativeCoords)
+                cardIsUpperTap.value = relativeCoords.y < HEIGHT / 2
             }
         })
         .onUpdate((e) => {
@@ -158,10 +198,7 @@ const CardComponent = ({ idx, setIsRightSwipe, Styles, item, peopleData, handelD
                 x: e.translationX,
                 y: e.translationY
             }
-            if (e.translationX > 0)
-                runOnJS(setIsRightSwipe)(1)
-            else
-                runOnJS(setIsRightSwipe)(-1)
+            swipeDirection.value = e.translationX > 0 ? 1 : -1;
         })
         .onEnd((e) => {
             if (e.translationX > 110) {
@@ -170,30 +207,20 @@ const CardComponent = ({ idx, setIsRightSwipe, Styles, item, peopleData, handelD
                 runOnJS(setIsAccepting)(-1)
             }
             position.value = withSpring({ x: 0, y: 0 })
-            runOnJS(setIsRightSwipe)(0)
+            swipeDirection.value = 0;
             runOnJS(setIsAccepting)(0)
         })
-    // animated styles 
-    useEffect(() => {
-        if (cord.y > 400) {
-            console.log('lower touch');
-            setCardIsUppertap(false)
-        } else {
-            console.log('upper touchh ');
-            setCardIsUppertap(true)
-        }
-    }, [cord.y])
     useEffect(() => {
         if (isAccepting === 1) {
             Alert.alert('This card has been accepted ')
             console.log('accepted ');
         }
         else if (isAccepting === -1) {
-            handelDelecard(peopleData.at(0)?.id)
+            handelDelecard(peopleData?.at(0)?.id)
             console.log('deletd ');
         }
     }, [isAccepting, handelDelecard, peopleData])
-
+    // animated styles
     const cardgestureStyle = useAnimatedStyle(() => ({
         transform: [
             { translateX: position.value.x },
@@ -202,7 +229,7 @@ const CardComponent = ({ idx, setIsRightSwipe, Styles, item, peopleData, handelD
                 rotate: interpolate(
                     position.value.x,
                     [-100, 100],
-                    cardIsUpperTap ? [-10, 10] : [10, -10],
+                    cardIsUpperTap.value ? [-10, 10] : [10, -10],
                     Extrapolation.CLAMP
                 ) + 'deg'
             }
@@ -211,8 +238,8 @@ const CardComponent = ({ idx, setIsRightSwipe, Styles, item, peopleData, handelD
     return (
         <GestureDetector gesture={idx === 0 ? pan : fakeTap} key={idx}>
             <Animated.View
-                entering={RotateInUpLeft.duration(800).delay(idx * 120)}
-                exiting={RotateOutDownLeft.duration(400)}
+                entering={SlideInRight.duration(800).delay(idx * 120)}
+                exiting={SlideOutLeft.duration(400)}
                 layout={JumpingTransition}
                 style={[Styles.CardWrapper,
                 {
@@ -295,7 +322,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             left: 0,
         },
         Card: {
-            height: vh(600),
+            height: HEIGHT,
             width: WIDTH - vw(10),
             borderRadius: normalize(20),
             borderWidth: normalize(1),
@@ -330,13 +357,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             alignItems: 'center',
             justifyContent: 'space-evenly'
         },
-        IndicatotImage: {
+        IndicatotImageContainer: {
             height: vh(50),
             width: vh(50),
-            tintColor: Colors.constantWhite,
             backgroundColor: Colors.timerFadeText,
             borderRadius: normalize(50),
-            padding: normalize(15)
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+        IndicatotImage: {
+            height: vh(25),
+            width: vh(25),
+            tintColor: Colors.constantWhite,
         },
         CancelBG: {
             backgroundColor: Colors.KFC_red_Fade_Solid
