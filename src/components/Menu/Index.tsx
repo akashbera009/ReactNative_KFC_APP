@@ -32,7 +32,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
     }, [dispatch])
     const cartData = useSelector((state: RootState) => state?.cart)
     const menuData = useSelector((state: RootState) => state?.menuData)
-    const iSFavouriteMenuData = useSelector((state: RootState) => state.favourite)
+    const iSFavouriteMenuData = useSelector((state: RootState) => state?.favourite)
     const cartItem: CartItemType[] = cartData?.cartItems
     const menuItem: menuDataType[] = menuData?.menuData
     const iSFavouriteMenuArray: string[] = iSFavouriteMenuData?.favorites
@@ -212,7 +212,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                     </View>
                     <ExploreMenu activeCategory={activeCategory} />
                     {cartItem.length > 0 && (
-                        <Animated.View style={[Styles.BottomCartContainer, { bottom: inset.bottom - 10 }, {
+                        <Animated.View style={[Styles.BottomCartContainer, { bottom: inset.bottom }, {
                             opacity: slideUp.interpolate({
                                 inputRange: [0, 1],
                                 outputRange: [0, 1]
@@ -243,9 +243,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.bodyColor,flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -256,9 +254,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
-        BackIconAndHeaderText: {
-            display: 'flex',
-            flexDirection: 'row',
+        BackIconAndHeaderText: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -280,9 +276,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '100%',
             height: vh(40),
             backgroundColor: Colors?.bodyColor,
-            position: 'absolute',
-            display: 'flex',
-            alignItems: 'center',
+            position: 'absolute',alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -308,9 +302,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         CategorySelector: {
             height: vh(45),
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
+            width: '100%',flexDirection: 'row',
             alignItems: 'flex-end',
             borderBottomWidth: normalize(1),
             borderColor: Colors.fadeWhiteText,
@@ -318,9 +310,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         menuIconContainer: {
             height: '100%',
             width: vw(65),
-            backgroundColor: Colors.KFC_red,
-            display: 'flex',
-            justifyContent: 'center',
+            backgroundColor: Colors.KFC_red,justifyContent: 'center',
             alignItems: 'center',
         },
         menuIcon: {
@@ -330,9 +320,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         categoryContainer: {
             height: vh(40),
-            marginHorizontal: vw(5),
-            display: 'flex',
-            justifyContent: 'center',
+            marginHorizontal: vw(5),justifyContent: 'center',
             alignItems: 'center',
         },
         ActiveBorder: {
@@ -349,9 +337,13 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
+        shimmerContainer: {
+            marginTop: vh(20),
+            height: vh(100),
+            width: '100%'
+        },
         BottomCartContainer: {
             width: '100%',
-            height: vh(70),
             backgroundColor: Colors.bodyColor,
             position: 'absolute',
             left: 0,

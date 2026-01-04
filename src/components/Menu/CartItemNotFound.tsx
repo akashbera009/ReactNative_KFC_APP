@@ -38,9 +38,7 @@ export const CartItemNotFound = () => {
 }
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
-        NotFoundContainer: {
-            display: 'flex',
-            alignItems: 'center',
+        NotFoundContainer: {alignItems: 'center',
             justifyContent: 'center',
         },
         imageContaienr: {
@@ -49,9 +47,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             borderRadius: normalize(200),
             backgroundColor: Colors.blueLightBG,
             marginHorizontal: 'auto',
-            marginTop: vh(120),
-            display: 'flex',
-            alignItems: 'center',
+            marginTop: vh(120),alignItems: 'center',
             justifyContent: 'center',
         },
         ConfeeCupImage: {

@@ -20,11 +20,11 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
     const Strings = useStrings();
     const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const cartItem = useSelector((state: RootState) => state.cart)
+    const cartItem = useSelector((state: RootState) => state?.cart)
     const itemInCart: CartItemType | undefined = cartItem?.cartItems?.find((item: CartItemType) => item?.menuItemUid === foodItem?.uid)
     const quantity: number = itemInCart ? itemInCart?.quantity : 0;
     const dispatch = useAppDispatch()
-    const favouritelist = useSelector((state: RootState) => state.favourite)
+    const favouritelist = useSelector((state: RootState) => state?.favourite)
     const handleCartAdding = () => {
         if (cartItem?.cartItems?.find((item: CartItemType) => item?.menuItemUid === foodItem?.uid)) return;
         const newItem: CartItemType = {
@@ -69,7 +69,7 @@ export default function MenuCard({ foodItem }: { foodItem: menuDataType }) {
                         <View style={Styles.ribbonTriangle} />
                     </View>
                 )}
-                <Image src={foodItem?.image} style={Styles.LeftfoodImage} />
+                <Image source={{ uri: foodItem?.image }} style={Styles.LeftfoodImage} />
                 <View style={Styles.RightContainer}>
                     <View style={Styles.nameAndFavButton}>
                         <Text style={Styles.FoodName}>{foodItem?.name}</Text>
@@ -198,9 +198,7 @@ const createDynamicStyles = (Colors: ColorType) => {
 
         },
         UpperContainer: {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
+            width: '100%',flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
         },
@@ -217,9 +215,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             paddingTop: vh(5),
             marginLeft: vw(10),
         },
-        nameAndFavButton: {
-            display: 'flex',
-            alignItems: 'center',
+        nameAndFavButton: {alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
         },
@@ -229,16 +225,12 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginVertical: vh(10),
             color: Colors.textBlack
         },
-        DescriptionContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        DescriptionContainer: {flexDirection: 'row',
             flexWrap: 'wrap',
             width: '100%',
             marginLeft: vw(1)
         },
-        DotAndDescription: {
-            display: 'flex',
-            flexDirection: 'row',
+        DotAndDescription: {flexDirection: 'row',
             alignItems: 'center',
             marginVertical: vh(4)
         },
@@ -257,9 +249,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         CustomizeContainer: {
             position: 'relative',
-            top: vh(10),
-            display: 'flex',
-            flexDirection: 'row',
+            top: vh(10),flexDirection: 'row',
             alignItems: 'center',
             marginVertical: vh(10)
         },
@@ -275,17 +265,13 @@ const createDynamicStyles = (Colors: ColorType) => {
             transform: [{ rotate: '180deg' }],
             tintColor: Colors.ButtonBlueColor,
         },
-        LowerContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        LowerContainer: {flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
             width: '100%',
         },
-        LowerLeftPriceContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        LowerLeftPriceContainer: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
             marginHorizontal: vw(20)
@@ -296,9 +282,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginHorizontal: vw(2),
             color: Colors.textBlack,
         },
-        OldPriceContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        OldPriceContainer: {flexDirection: 'row',
             marginLeft: vw(4)
         },
         OldPrice: {
@@ -315,9 +299,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             top: vh(8),
             left: vw(0),
         },
-        AddedCartButtonContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        AddedCartButtonContainer: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             marginHorizontal: vw(20),
@@ -342,9 +324,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         AddCounterButton: {
             height: vh(30),
-            width: vw(30),
-            display: 'flex',
-            flexDirection: 'row',
+            width: vw(30),flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: normalize(4),
@@ -352,9 +332,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         AddCounterButtonFade: {
             height: vh(30),
-            width: vw(30),
-            display: 'flex',
-            flexDirection: 'row',
+            width: vw(30),flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: normalize(4),

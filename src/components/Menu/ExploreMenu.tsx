@@ -13,11 +13,11 @@ import { vh } from '../../utils/Dimensions'
 export default function ExploreMenu({ activeCategory }: { activeCategory: string }) {
     const Colors = useThemeColors()
     const Styles = createDynamicStyles(Colors)
-    const menuData = useSelector((state: RootState) => state.menuData)
+    const menuData = useSelector((state: RootState) => state?.menuData)
     const menuItem: menuDataType[] = menuData?.menuData
-    const cartData = useSelector((state: RootState) => state.cart)
+    const cartData = useSelector((state: RootState) => state?.cart)
     const cartItem: CartItemType[] = cartData?.cartItems
-    const favoriteListData = useSelector((state: RootState) => state.favourite)
+    const favoriteListData = useSelector((state: RootState) => state?.favourite)
     const favouriteList: string[] = favoriteListData.favorites
     const insets = useSafeAreaInsets();
     let prepareMenuList: menuDataType[] = [];
@@ -48,7 +48,6 @@ const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         ScrollContainer: {
             backgroundColor: Colors.bodyShadeColor,
-            width: '100%',
             position: 'relative',
             zIndex: 1,
             marginTop: vh(4),

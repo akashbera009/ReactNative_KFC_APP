@@ -5,8 +5,6 @@ const MenuCategorizeScreen = ({ route }: MenuCategorizationScreenProps) => {
   const { frequencyArray } = route.params;
   return (
     <MenuCategorizeScreenBottomSheet
-      // activeCategory={activeCategory}
-      // setActiveCategory={setActiveCategory}
       frequencyArray={frequencyArray}
     />
   )

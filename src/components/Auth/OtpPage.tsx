@@ -60,7 +60,7 @@ export default function OtpPage({ phoneNo }: { phoneNo: string }) {
     dispatch(fetctUserDeatails(phoneNo))
   }, [dispatch, phoneNo])
   const existingUser = useSelector((state: RootState) =>
-    state.users.currentUser
+    state?.users?.currentUser
   );
   const handleVerify = async (): Promise<void> => {
     if (goodToLogin) {
@@ -196,7 +196,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     NavWrapper: {
       width: '100%',
       backgroundColor: Colors.bodyColor,
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -214,7 +214,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       color: Colors.textBlack
     },
     BackIconAndHeaderText: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       alignSelf: 'center',
@@ -255,7 +255,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       width: '90%',
       alignSelf: 'center',
       backgroundColor: Colors.bodyColor,
-      display: 'flex',
+       
       flexDirection: 'column',
       shadowColor: Colors.blueShadows,
       shadowOffset: { width: vw(5), height: vh(5) },
@@ -265,14 +265,14 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     innerOtpContainer: {
       alignSelf: 'center',
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-around',
       width: '95%',
       marginTop: vh(50),
     },
     SingleOtp: {
-      display: 'flex',
+       
       justifyContent: 'center',
       alignItems: 'center',
       borderBottomWidth: normalize(2),
@@ -316,18 +316,18 @@ const createDynamicStyles = (Colors: ColorType) => {
       margin: normalize(10),
       width: '90%',
       alignSelf: 'center',
-      display: 'flex',
+       
       flexDirection: 'column',
       justifyContent: 'center',
     },
     LowerOtpContainerEntries: {
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between',
       margin: normalize(8),
     },
     LowerOtpContainerEntriesLeft: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       height: vh(40),

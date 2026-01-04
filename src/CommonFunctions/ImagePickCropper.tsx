@@ -315,7 +315,6 @@ const createDynamicStyles = (Colors: ColorType) => {
         NavWrapper: {
             width: '100%',
             backgroundColor: Colors.bodyColor,
-            display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -333,7 +332,6 @@ const createDynamicStyles = (Colors: ColorType) => {
             color: Colors.textBlack
         },
         BackIconAndHeaderText: {
-            display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
@@ -395,7 +393,6 @@ const createDynamicStyles = (Colors: ColorType) => {
         editButtonContainer: {
             width: '100%',
             height: vh(50),
-            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
@@ -440,7 +437,6 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaMedium,
         },
         videoPreviewContainer: {
-            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
@@ -461,7 +457,6 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         viewOnlyModalContainer: {
             flex: 1,
-            display: 'flex',
             height: vh(50),
             width: '100%',
             backgroundColor: Colors.bodyColor,
@@ -485,7 +480,6 @@ const createDynamicStyles = (Colors: ColorType) => {
         headerCOntainer: {
             height: vh(25),
             backgroundColor: Colors.bodyColor,
-            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
         },

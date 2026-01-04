@@ -97,7 +97,7 @@ export default function OrderStatus({
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={Styles.OrderBox}>
                         <View style={Styles.Row}>
-                            <Image src={currentOrder?.Items[0]?.image} style={Styles.BucketImg} />
+                            <Image source={{uri :currentOrder?.Items[0]?.image}} style={Styles.BucketImg} />
                             {orderStatus ? (
                                 <>
                                     {pending ? (
@@ -324,9 +324,7 @@ const createDynamicStyles = (Colors: ColorType) =>
             width: vw(60),
             marginRight: vw(15)
         },
-        orderNotConfrimedAndRotator: {
-            display: 'flex',
-            alignItems: 'center',
+        orderNotConfrimedAndRotator: {alignItems: 'center',
             flexDirection: 'row',
         },
         OrderConfirmed: {
@@ -474,9 +472,7 @@ const createDynamicStyles = (Colors: ColorType) =>
         },
         paymentModeContainer: {
             marginTop: vh(15),
-            marginBottom: vh(15),
-            display: 'flex',
-            alignItems: 'center',
+            marginBottom: vh(15),alignItems: 'center',
             flexDirection: 'row',
         },
         paymentMode: {
@@ -502,9 +498,7 @@ const createDynamicStyles = (Colors: ColorType) =>
             marginTop: vh(12),
         },
         ItemRowQty: {
-            width: '55%',
-            display: 'flex',
-            alignItems: 'center',
+            width: '55%',alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -533,9 +527,7 @@ const createDynamicStyles = (Colors: ColorType) =>
             justifyContent: 'space-between',
             marginTop: vh(25),
         },
-        TotalLabelLeft: {
-            display: 'flex',
-            alignItems: 'center',
+        TotalLabelLeft: {alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -548,9 +540,7 @@ const createDynamicStyles = (Colors: ColorType) =>
             height: vh(20),
             width: vw(20),
             borderRadius: normalize(15),
-            backgroundColor: Colors.blueMixBG,
-            display: 'flex',
-            alignItems: 'center',
+            backgroundColor: Colors.blueMixBG,alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
             marginHorizontal: vw(10)
@@ -572,9 +562,7 @@ const createDynamicStyles = (Colors: ColorType) =>
             marginTop: vh(12),
             marginLeft: vw(10),
         },
-        BillRowEntries: {
-            display: 'flex',
-            alignItems: 'center',
+        BillRowEntries: {alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
         },
@@ -685,9 +673,7 @@ const createDynamicStyles = (Colors: ColorType) =>
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack,
         },
-        addressAndCall: {
-            display: 'flex',
-            alignItems: 'center',
+        addressAndCall: {alignItems: 'center',
             flexDirection: 'row',
             justifyContent: 'space-between',
         },

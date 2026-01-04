@@ -562,9 +562,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.bodyColor,flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -575,9 +573,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
-        BackIconAndHeaderText: {
-            display: 'flex',
-            flexDirection: 'row',
+        BackIconAndHeaderText: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -605,18 +601,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: vh(30),
             width: vw(300),
             alignSelf: 'center',
-            margin: normalize(5),
-            display: 'flex',
-            alignItems: 'center',
+            margin: normalize(5),alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
         Cardbutton: {
             backgroundColor: Colors.greenOk,
             height: '100%',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
+            width: '100%',alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -641,9 +633,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
         emoji: {
             fontSize: normalize(28),
         },
-        container: {
-            display: 'flex',
-            justifyContent: 'space-between',
+        container: {justifyContent: 'space-between',
             alignItems: 'center',
             height: '100%',
             minHeight: vh(400)
@@ -661,18 +651,14 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             height: vh(40),
             alignSelf: 'center',
             borderRadius: normalize(10),
-            backgroundColor: Colors.KFC_red,
-            display: 'flex',
-            alignItems: 'center',
+            backgroundColor: Colors.KFC_red,alignItems: 'center',
             justifyContent: 'center',
         },
         box: {
             backgroundColor: 'lightblue',
             borderRadius: 8,
             margin: 5,
-            width: 100,
-            display: 'flex',
-            justifyContent: 'center',
+            width: 100,justifyContent: 'center',
             alignItems: 'center',
         },
         customAnimationCOntainer: {
@@ -684,9 +670,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             padding: normalize(16),
         },
         innerContainer: {
-            height: vh(600),
-            display: 'flex',
-            alignItems: 'center',
+            height: vh(600),alignItems: 'center',
             backgroundColor: '#ddf0c0ff',
         },
         container23: {

@@ -314,14 +314,14 @@ const createDynamicStyles = (Colors: ColorType) => {
     TopNameContainer: {
       height: vh(80),
       width: '100%',
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
     },
     NameContainer: {
-      display: 'flex',
+       
       flexDirection: 'row',
       width: '80%',
       alignSelf: 'center',
@@ -335,7 +335,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       objectFit: 'contain',
       overflow: 'hidden',
       backgroundColor: Colors.KFC_red,
-      display: 'flex',
+       
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -373,7 +373,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       elevation: 5,
     },
     SettingsMenuEntries: {
-      display: 'flex',
+       
       flexDirection: 'row',
       marginHorizontal: vw(10),
       alignItems: 'center',
@@ -390,7 +390,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginLeft: vw(20)
     },
     LanguageContainer: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       marginVertical: vh(10),
@@ -416,7 +416,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       fontFamily: Fonts.helveticaMedium
     },
     CountryContainer: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       marginVertical: vh(10),
@@ -425,7 +425,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       justifyContent: 'space-between',
     },
     CountryChangeButton: {
-      display: 'flex',
+       
       flexDirection: 'row',
       marginHorizontal: vw(10),
       alignItems: 'center'
@@ -464,7 +464,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       elevation: 5,
     },
     countryEntries: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       height: vh(40)
@@ -487,13 +487,13 @@ const createDynamicStyles = (Colors: ColorType) => {
       borderBottomWidth: normalize(1),
     },
     MenuListContainer: {
-      display: 'flex',
+       
       flexDirection: 'column',
       justifyContent: 'center',
       marginTop: vh(30)
     },
     SingleEntry: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       margin: normalize(5),
@@ -520,7 +520,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     LowerFAQSection: {
 
       height: vh(150),
-      display: 'flex',
+       
       flexDirection: 'column',
       justifyContent: 'space-around',
       marginLeft: vw(40),
@@ -537,7 +537,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       left: vw(10),
     },
     LowerCallWrappper: {
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
@@ -549,7 +549,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       height: vh(30),
       width: vw(30),
       borderRadius: normalize(50),
-      display: 'flex',
+       
       justifyContent: 'center',
       alignItems: 'center',
       margin: normalize(10),

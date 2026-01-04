@@ -219,9 +219,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.bodyColor,flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -233,9 +231,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             elevation: 5,
             zIndex: 999
         },
-        BackIconAndHeaderText: {
-            display: 'flex',
-            flexDirection: 'row',
+        BackIconAndHeaderText: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -246,9 +242,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignSelf: 'flex-start',
             marginHorizontal: vw(18),
         },
-        HeaderTextContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        HeaderTextContainer: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-end',
             alignSelf: 'center',
@@ -272,9 +266,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         TopContentSlider: {
             height: vh(300),
             width: "100%",
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            alignItems: "center",
+            backgroundColor: Colors.bodyColor,alignItems: "center",
             justifyContent: 'center',
             shadowColor: Colors.blueShadows,
             shadowOffset: { width: 0, height: 2 },
@@ -284,9 +276,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         MediaImageContainer: {
             width: '100%',
-            height: vh(230),
-            display: 'flex',
-            alignItems: 'center',
+            height: vh(230),alignItems: 'center',
             justifyContent: 'center',
         },
         foodImage: {

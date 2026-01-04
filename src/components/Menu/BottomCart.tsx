@@ -19,7 +19,7 @@ export default function BottomCart({ ButtonType, navLink, totalAmount, discount 
     const Styles = createDynamicStyles(Colors);
     const { countrySelected } = useCountry()
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const cartData = useSelector((state: RootState) => state.cart)
+    const cartData = useSelector((state: RootState) => state?.cart)
     const cartItem: CartItemType[] = cartData.cartItems
     let totalPrice: string = cartItem.reduce((acc, item) => acc + item?.price * item?.quantity, 0).toFixed(2);
     let discountPrice: number = cartItem.reduce((acc2, item) => acc2 + item?.oldPrice * item?.quantity, 0);
@@ -75,22 +75,16 @@ const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         ViewCartWrapper: {
             width: '93%',
-            alignSelf: 'center',
-            display: 'flex',
-            flexDirection: 'row',
+            alignSelf: 'center',flexDirection: 'row',
             alignItems: 'center',
         },
         DetailsContainer: {
-            width: '50%',
-            display: 'flex',
-            flexDirection: 'row',
+            width: '50%',flexDirection: 'row',
             marginLeft: 0,
             alignItems: 'center',
         },
         ImageContainer: {
-            width: vw(42),
-            display: 'flex',
-            flexDirection: 'row',
+            width: vw(42),flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -103,9 +97,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             left: '-50%',
             zIndex: 4,
             borderRadius: normalize(1),
-            backgroundColor: Colors.HyperTransparent,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.HyperTransparent,flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
         },
@@ -123,9 +115,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             borderRadius: normalize(1),
         },
         PriceDetails: {
-            marginLeft: vw(10),
-            display: 'flex',
-            justifyContent: 'center',
+            marginLeft: vw(10),justifyContent: 'center',
             alignSelf: 'center',
         },
         totalPrice: {
@@ -138,9 +128,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             color: Colors.textFadeBlack,
             fontFamily: Fonts.helveticaBold,
         },
-        DisctointContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        DisctointContainer: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',

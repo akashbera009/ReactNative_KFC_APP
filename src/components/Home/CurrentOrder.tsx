@@ -60,7 +60,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       height: vh(100),
       alignSelf: 'center',
       backgroundColor: Colors.bodyColor,
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
@@ -72,7 +72,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       elevation: normalize(5),
     },
     LeftTextContainer: {
-      display: 'flex',
+       
       flexDirection: 'column',
       marginLeft: vw(15),
       width: vw(240),
@@ -81,7 +81,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       justifyContent: 'space-around',
     },
     LeftTopContainer: {
-      display: 'flex',
+       
       flexDirection: 'row',
     },
     orderIdText: {

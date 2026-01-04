@@ -135,14 +135,14 @@ const createDynamicStyles = (Colors: ColorType) => {
       width: '100%'
     },
     backgroundThreeScreen: {
-      display: 'flex',
+       
       flexDirection: 'column',
       height: '100%',
       flexGrow: 1
     },
     TopImageLayer: {
       width: '100%',
-      display: 'flex',
+       
       flexDirection: 'row',
       flexWrap: 'wrap',
       marginHorizontal: 'auto'
@@ -168,7 +168,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       right: 0,
       top: 0,
       bottom: 0,
-      display: 'flex',
+       
       flexDirection: 'column',
       justifyContent: "flex-end"
     },
@@ -191,7 +191,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     MiddleContainer: {
       marginTop: vh(100),
       marginHorizontal: 'auto',
-      display: 'flex',
+       
       alignItems: 'center'
     },
     DealsAndOffersContainer: {
@@ -199,13 +199,13 @@ const createDynamicStyles = (Colors: ColorType) => {
       width: '90%',
       marginVertical: vh(10),
       alignSelf: 'center',
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
     },
     DealsAndOffersInnerContainer: {
-      display: 'flex',
+       
       flexDirection: 'row',
     },
     middleSectionImagesIcon: {
@@ -233,7 +233,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       height: vh(45),
       marginHorizontal: 'auto',
       borderRadius: normalize(2),
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -242,7 +242,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       width: '48%',
       height: vh(45),
       borderRadius: normalize(2),
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -253,7 +253,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       width: vw(25),
       borderRadius: '50%',
       borderWidth: normalize(2),
-      display: 'flex',
+       
       justifyContent: 'center',
       alignItems: 'center',
       marginRight: vw(15),
@@ -274,7 +274,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       height: vh(50),
       marginHorizontal: 'auto',
       borderRadius: normalize(2),
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -282,7 +282,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       backgroundColor: Colors.constantWhite
     },
     flagAndNameContainer: {
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -306,7 +306,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       height: vh(50),
       width: '90%',
       marginHorizontal: 'auto',
-      display: 'flex',
+       
       alignItems: 'center',
       justifyContent: 'center',
       paddingVertical: vh(10),
@@ -322,7 +322,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       width: '90%',
       marginVertical: vh(20),
       marginHorizontal: 'auto',
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between'
     },

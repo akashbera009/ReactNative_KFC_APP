@@ -62,9 +62,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignSelf: 'center',
             marginVertical: vh(10)
         },
-        headerExplore: {
-            display: 'flex',
-            flexDirection: 'row',
+        headerExplore: {flexDirection: 'row',
             justifyContent: 'space-between',
         },
         BestSellerHeader: {
@@ -95,9 +93,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             elevation: normalize(5),
         },
         TopContainer: {
-            height: '80%',
-            display: 'flex',
-            flexDirection: 'row',
+            height: '80%',flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -112,9 +108,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             shadowRadius: normalize(3.84),
             elevation: normalize(5),
         },
-        RightContainer: {
-            display: 'flex',
-            flexDirection: 'column',
+        RightContainer: {flexDirection: 'column',
             width: '63%',
             justifyContent: 'center',
             position: 'relative',
@@ -140,9 +134,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             borderTopWidth: normalize(1),
             borderTopColor: Colors.fadeWhiteText2,
             width: '100%',
-            height: vh(45),
-            display: 'flex',
-            flexDirection: 'row',
+            height: vh(45),flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -150,9 +142,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             bottom: normalize(0),
             left: normalize(0),
         },
-        PriceaContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        PriceaContainer: {flexDirection: 'row',
             marginHorizontal: vw(20)
         },
         price: {

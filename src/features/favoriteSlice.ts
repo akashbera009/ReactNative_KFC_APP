@@ -8,7 +8,7 @@ const favouriteSlice = createSlice({
     reducers: {
         toggleFavourite: (state, action) => {
             const uid: string = action.payload
-            const index = state.favorites.indexOf(uid)
+            const index = state?.favorites?.indexOf(uid)
             if (index === -1) {
                 state.favorites.push(uid)
             } else {

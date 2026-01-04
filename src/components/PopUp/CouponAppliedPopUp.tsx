@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, Animated, TouchableOpacity, TouchableWithoutFeedback, Image } from 'react-native'
-import React, { useRef, useEffect, useCallback } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, Image } from 'react-native'
+import React, { useEffect } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 // utils files 
 import Fonts from '../../utils/Fonts'
 import Images from '../../utils/LocalImages';
@@ -13,60 +14,43 @@ export default function CouponAppliedPopUp() {
     const Colors = useThemeColors()
     const Styles = createDynamicStyles(Colors)
     const Strings = useStrings()
-    const slide = useRef(new Animated.Value(500)).current;
-    const fade = useRef(new Animated.Value(0)).current;
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const slideUp = useCallback((): void => {
-        Animated.parallel([
-            Animated.timing(slide, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fade, {
-                toValue: 1,
-                duration: 300,
-                useNativeDriver: true,
-            })
-        ]).start();
-    }, [slide , fade])
-    const slideDown = (): void => {
-        Animated.parallel([
-            Animated.timing(slide, {
-                toValue: 500,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fade, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            })
-        ]).start();
-    };
+    // animation
+    const slideRef = useSharedValue(0)
+    const animatedStyles = useAnimatedStyle(() => ({
+        transform: [{ translateY: slideRef.value }],
+    }))
+    const fadeStyle = useAnimatedStyle(() => ({
+        opacity: interpolate(
+            slideRef.value,
+            [0, 500],
+            [1, 0]
+        )
+    }))
+    const slideDown = () => {
+        slideRef.value = withTiming(450, { duration: 500 })
+    }
     const closeModal = (): void => {
         slideDown();
         setTimeout(() => {
-            navigation.pop();
+            navigation.pop()
         }, 400);
     };
-    useEffect((): ()=> void | void => {
+    useEffect((): () => void | void => {
         const timer = setTimeout(() => {
-            navigation.pop();
+            navigation.pop()
         }, 1500);
-
         return () => clearTimeout(timer);
     }, [navigation]);
-
     useEffect((): void => {
-        slideUp();
-    }, [slideUp]);
+        slideRef.value = withTiming(0, { duration: 500 })
+    }, [slideRef]);
     return (
-        <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
+        <Animated.View style={[Styles.backDrop, fadeStyle]}>
             <TouchableWithoutFeedback onPress={closeModal}>
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
-            <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
+            <Animated.View style={[Styles.bottomSheet, animatedStyles]}>
                 <View style={Styles.OuterContainer}>
                     <View style={Styles.InnerContainer}>
                         <View style={Styles.CoupoonAppliedContainer}>
@@ -116,9 +100,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '93%',
             alignSelf: 'center',
             borderRadius: normalize(2),
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.bodyColor,flexDirection: 'row',
             alignItems: 'center',
         },
         verticalStrap: {
@@ -175,9 +157,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: vh(40),
             width: vw(40),
             borderRadius: '50%',
-            backgroundColor: Colors.Black,
-            display: 'flex',
-            justifyContent: 'center',
+            backgroundColor: Colors.Black,justifyContent: 'center',
             alignItems: 'center'
         },
         closeBtnImage: {

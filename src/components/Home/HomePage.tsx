@@ -282,7 +282,7 @@ export default function HomePage() {
                   {menuItem.map((item, idx) => (
                     <View key={idx} style={Styles.Cards}>
                       <View style={Styles.TopContainer}>
-                        <Image src={item?.image} style={Styles.cardImage} />
+                        <Image source={{ uri: item?.image }} style={Styles.cardImage} />
                         <View style={Styles.RightContainer}>
                           <View style={Styles.TextContainer}>
                             <Text style={Styles.title} numberOfLines={2}>{item?.name} </Text>
@@ -375,7 +375,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       zIndex: 2,
       width: '100%',
       height: '100%',
-      display: 'flex',
+       
       flexDirection: 'column',
       alignItems: 'center',
     },
@@ -421,7 +421,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       width: vw(80)
     },
     SvgOrderContainer3Upper: {
-      display: 'flex',
+       
       alignItems: 'center',
       flexDirection: 'row',
       position: 'relative',
@@ -431,7 +431,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       transform: [{ rotate: '-5deg' }]
     },
     SvgOrderContainer3Lower: {
-      display: 'flex',
+       
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row',
@@ -483,7 +483,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       objectFit: 'contain'
     },
     IndexContainer: {
-      display: 'flex',
+       
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row',
@@ -507,7 +507,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       alignSelf: 'center',
       backgroundColor: Colors.bodyColor,
       borderRadius: normalize(2),
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
     },
@@ -519,13 +519,13 @@ const createDynamicStyles = (Colors: ColorType) => {
       tintColor: Colors.textBlack,
     },
     DeliveryTextContainer: {
-      display: 'flex',
+       
       flexDirection: 'column',
       height: '75%',
       justifyContent: 'space-around'
     },
     upperDeliveryContainer: {
-      display: 'flex',
+       
       flexDirection: 'row',
     },
     DeliveryTo: {
@@ -568,7 +568,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginTop: 15
     },
     headerExplore: {
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
@@ -583,7 +583,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       fontSize: normalize(12)
     },
     ExploreCardsContainer: {
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'center',
       width: '100%',
@@ -744,7 +744,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginHorizontal: "auto",
       width: vw(80),
       height: vh(20),
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-around',
       position: 'absolute',
@@ -778,7 +778,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       borderRadius: normalize(1),
       marginHorizontal: 'auto',
       marginLeft: 0,
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       padding: normalize(5),
@@ -816,7 +816,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     menuDataLoader: {
       gap: vw(10),
-      display: 'flex',
+       
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row',
@@ -839,7 +839,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     },
     TopContainer: {
       height: '100%',
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
@@ -856,13 +856,13 @@ const createDynamicStyles = (Colors: ColorType) => {
       elevation: 5,
     },
     RightContainer: {
-      display: 'flex',
+       
       flexDirection: 'column',
       width: '60%',
       height: '80%',
     },
     TextContainer: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       height: '60%',

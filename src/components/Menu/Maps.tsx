@@ -292,9 +292,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.bodyColor,flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -305,9 +303,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
-        BackIconAndHeaderText: {
-            display: 'flex',
-            flexDirection: 'row',
+        BackIconAndHeaderText: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -321,9 +317,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         headerCountrySelection: {
             marginRight: vw(20),
             flexDirection: "row",
-            justifyContent: "space-between",
-            display: 'flex',
-            alignItems: 'center',
+            justifyContent: "space-between",alignItems: 'center',
             alignSelf: 'center',
         },
         arrowdonwn: {
@@ -372,9 +366,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         container: {
             flex: 1,
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
+            height: '100%',alignItems: 'center',
         },
         contentContainerStyle:{ 
             paddingBottom: vh(50) 
@@ -398,9 +390,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             flex: 1,
             marginHorizontal: vw(10),
         },
-        locationTypeSelection: {
-            display: 'flex',
-            flexDirection: 'row',
+        locationTypeSelection: {flexDirection: 'row',
             alignItems: 'center',
             marginTop: vh(20),
             marginLeft: vw(10)
@@ -409,9 +399,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack
         },
-        selectionContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        selectionContainer: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -421,9 +409,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: vh(20),
             width: vw(20),
             borderRadius: normalize(50),
-            borderColor: Colors.textBlack,
-            display: 'flex',
-            justifyContent: 'center',
+            borderColor: Colors.textBlack,justifyContent: 'center',
             alignItems: 'center',
             borderWidth: normalize(2),
             marginHorizontal: vw(8),
@@ -452,9 +438,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             fontSize: normalize(16),
         },
-        adressAndChangeButton: {
-            display: 'flex',
-            flexDirection: 'row',
+        adressAndChangeButton: {flexDirection: 'row',
             alignItems: 'center',
             width: '100%',
             alignSelf: 'center',
@@ -486,9 +470,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             borderBottomWidth: normalize(1),
             borderBottomColor: Colors.fadeBorder
         },
-        BuildingAndFLat: {
-            display: 'flex',
-            flexDirection: 'row',
+        BuildingAndFLat: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -501,9 +483,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         FlatNoContainer: {
             width: '40%',
         },
-        AddressTagsContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        AddressTagsContainer: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -514,9 +494,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
         },
-        TagsContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        TagsContainer: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -546,9 +524,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '100%',
             height: vh(50),
             alignSelf: 'center',
-            backgroundColor: Colors.timerFadeText,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.timerFadeText,flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: vh(30),
