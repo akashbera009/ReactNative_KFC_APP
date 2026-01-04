@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import SplashPage from '../components/LandingPage/SplashPage'
 //utils 
 import { useStrings } from '../utils/Strings';
+import { Alert } from 'react-native';
 
 export default function SplashScreen() {
     const Strings = useStrings();
@@ -20,6 +21,9 @@ export default function SplashScreen() {
     const { isAuthenticated, loading, biometricChecked } = useSelector(
         (state: RootState) => state?.bioAuth
     );
+    const [autoAuthTried, setAutoAuthTried] = useState(false);
+    const [showAuthAlert, setShowAuthAlert] = useState(false);
+
     useEffect(() => {
         const loadPhone = async () => {
             try {
@@ -35,12 +39,38 @@ export default function SplashScreen() {
         };
         loadPhone();
     }, []);
-
     useEffect(() => {
-        if (isPhoneChecked && storedPhone) {
-            dispatch(authenticateWithBiometricsThunk());
+        if (!isPhoneChecked || !storedPhone) return;
+        if (autoAuthTried) return;
+        setAutoAuthTried(true);
+        dispatch(authenticateWithBiometricsThunk());
+
+    }, [isPhoneChecked, storedPhone, autoAuthTried, dispatch]);
+    useEffect(() => {
+        if (!autoAuthTried) return;
+        if (loading) return;
+
+        if (!isAuthenticated && biometricChecked) {
+            setShowAuthAlert(true);
         }
-    }, [isPhoneChecked, storedPhone, dispatch]);
+    }, [autoAuthTried, biometricChecked, loading, isAuthenticated]);
+    useEffect(() => {
+        if (!showAuthAlert) return;
+        Alert.alert(
+            Strings.authRequired,
+            Strings.authReQuiredDesc,
+            [
+                {
+                    text: Strings.Authenticate,
+                    onPress: () => {
+                        setShowAuthAlert(false);
+                        dispatch(authenticateWithBiometricsThunk());
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    }, [showAuthAlert, dispatch]);
 
     useEffect(() => {
         if (!isPhoneChecked) return;
@@ -60,7 +90,6 @@ export default function SplashScreen() {
             });
             return;
         }
-        dispatch(authenticateWithBiometricsThunk());
     }, [dispatch, isPhoneChecked, storedPhone, biometricChecked, loading, isAuthenticated, Strings.AppStack, Strings.AuthStack, navigation]);
 
     return <SplashPage />

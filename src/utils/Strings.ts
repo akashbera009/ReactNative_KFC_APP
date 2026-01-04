@@ -57,7 +57,9 @@ const en = {
   cancelledString: "Cancelled",
   // landing
   lickingGood: "It's finger lickin' good",
-
+  authRequired: 'Authentication Required',
+  authReQuiredDesc: 'Please authenticate to continue using the app.',
+  Authenticate: 'Authenticate',
   // login
   KFC: 'KFC',
   loginToUlock: 'Login to Unlock',
@@ -405,7 +407,9 @@ const ar = {
   cancelledString: "Cancelled",
   // landing
   lickingGood: 'إنه لذيذ للغاية',
-
+  authRequired: 'المصادقة مطلوبة',
+  authReQuiredDesc: 'يرجى المصادقة للمتابعة في استخدام التطبيق',
+  Authenticate: 'مصادقة',
   // country bottomsheet
   welcome: 'مرحبًا بكم في كنتاكي',
   countryDescription: 'يمكنك الآن الطلب في البلدان التالية باستخدام هذا التطبيق. يرجى اختيار البلد الذي ترغب في تقديم الطلب فيه 😎',
