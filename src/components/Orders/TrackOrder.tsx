@@ -206,7 +206,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     NavWrapper: {
       width: '100%',
       backgroundColor: Colors.bodyColor,
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -219,7 +219,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       color: Colors.textBlack
     },
     BackIconAndHeaderText: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       alignSelf: 'center',

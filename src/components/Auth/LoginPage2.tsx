@@ -222,9 +222,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignSelf: 'center',
             width: '32%',
             height: vh(200),
-            top: vh(0),
-            display: 'flex',
-            flexDirection: 'row',
+            top: vh(0),flexDirection: 'row',
             justifyContent: 'space-around',
             position: 'absolute'
         },
@@ -251,9 +249,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             letterSpacing: normalize(.2),
             color: Colors.textBlack
         },
-        SecondLine: {
-            display: 'flex',
-            flexDirection: 'row',
+        SecondLine: {flexDirection: 'row',
             alignSelf: 'center',
             margin: normalize(5)
         },
@@ -276,9 +272,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: Colors.bodyColor,
             marginTop: vh(10)
         },
-        headerTextContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        headerTextContainer: {flexDirection: 'row',
             marginLeft: vw(15),
             marginTop: vh(15)
         },
@@ -290,9 +284,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginLeft: vw(15)
         },
         languageContainer: {
-            width: '90%',
-            display: 'flex',
-            flexDirection: 'row',
+            width: '90%',flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -300,9 +292,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         LanguageButton: {
             width: '50%',
-            height: vh(60),
-            display: 'flex',
-            flexDirection: 'row',
+            height: vh(60),flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
             alignSelf: 'center'
@@ -317,9 +307,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: vh(20),
             borderWidth: normalize(2),
             borderColor: Colors.textFadeBlack,
-            borderRadius: normalize(40),
-            display: 'flex',
-            justifyContent: 'center',
+            borderRadius: normalize(40),justifyContent: 'center',
             alignItems: 'center',
         },
         ActiveBorder: {
@@ -344,9 +332,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(13),
             marginRight: vw(4)
         },
-        loginMobileLowerContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        loginMobileLowerContainer: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -368,9 +354,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             color: Colors.textFadeBlack2
         },
         centralMobileContainer: {
-            width: vw(200),
-            display: 'flex',
-            flexDirection: 'column',
+            width: vw(200),flexDirection: 'column',
             alignSelf: 'center',
             marginTop: vh(20)
         },
@@ -383,9 +367,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         submitButton: {
             height: vh(30),
             backgroundColor: Colors.fadeVerify,
-            paddingHorizontal: vw(10),
-            display: 'flex',
-            flexDirection: 'row',
+            paddingHorizontal: vw(10),flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             marginHorizontal: 'auto',
@@ -411,9 +393,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: Colors.bodyColor,
             marginTop: vh(10),
         },
-        FaangContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        FaangContainer: {flexDirection: 'row',
             width: '90%',
             alignSelf: 'center',
             marginTop: vh(20)
@@ -421,9 +401,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         faangButton: {
             height: vh(50),
             backgroundColor: Colors.bodyColor,
-            paddingHorizontal: vw(25),
-            display: 'flex',
-            flexDirection: 'row',
+            paddingHorizontal: vw(25),flexDirection: 'row',
             justifyContent: 'flex-start',
             alignItems: 'center',
             marginHorizontal: 'auto',
@@ -450,15 +428,11 @@ const createDynamicStyles = (Colors: ColorType) => {
             position: 'absolute',
             left: vw(0),
             height: vh(60),
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            justifyContent: 'center',
+            backgroundColor: Colors.bodyColor,justifyContent: 'center',
         },
         TcInnerContainer: {
             width: '85%',
-            alignSelf: 'center',
-            display: 'flex',
-            flexDirection: 'row',
+            alignSelf: 'center',flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
         },

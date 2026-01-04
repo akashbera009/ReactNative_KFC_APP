@@ -2,18 +2,18 @@ import {
     StyleSheet,
     Text,
     View,
-    Animated,
     TouchableOpacity,
     Image,
     TouchableWithoutFeedback,
     ScrollView,
 } from 'react-native';
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useRazorpayPayment } from '../../utils/RazorpayPayments';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 // utils
+import { useRazorpayPayment } from '../../utils/RazorpayPayments';
 import Fonts from '../../utils/Fonts';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
@@ -27,8 +27,6 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors);
-    const slide = useRef(new Animated.Value(500)).current;
-    const fade = useRef(new Animated.Value(0)).current;
     const [selectedCard, setSelectedCard] = useState<number | null>(0);
     const [selectedMethod, setSelectedMethod] = useState<string>('');
     const [preferred, setPreferred] = useState<boolean>(false);
@@ -43,46 +41,23 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
     ): void => {
         console.log(payment_id, success);
         onSuccess?.(payment_id, success)
-
-        
-        // navigation.popTo(Strings.OrderStack, {
-        //     screen: Strings.CheckOutScreen,
-        //     params: {
-        //         result : success , 
-        //         payment_id : payment_id,
-        //      }
-        // })
-
     }
-    const slideUp = useCallback((): void => {
-        Animated.parallel([
-            Animated.timing(slide, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true
-            }),
-            Animated.timing(fade, {
-                toValue: 1,
-                duration: 300,
-                useNativeDriver: true
-            })
-        ]).start();
-    }, [slide, fade])
-    const slideDown = (): void => {
-        Animated.parallel([
-            Animated.timing(slide, {
-                toValue: 500,
-                duration: 300,
-                useNativeDriver: true
-            }),
-            Animated.timing(fade, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true
-            })
-        ]).start();
-    };
-    const closeModal = (): () => void | void => {
+    // animation
+    const slideRef = useSharedValue(0)
+    const animatedStyles = useAnimatedStyle(() => ({
+        transform: [{ translateY: slideRef.value }],
+    }))
+    const fadeStyle = useAnimatedStyle(() => ({
+        opacity: interpolate(
+            slideRef.value,
+            [0, 500],
+            [1, 0]
+        )
+    }))
+    const slideDown = () => {
+        slideRef.value = withTiming(800, { duration: 350 })
+    }
+    const closeModal = () => {
         slideDown();
         const timeoutId: number = setTimeout(() => {
             navigation.pop();
@@ -90,15 +65,15 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
         return () => clearTimeout(timeoutId)
     };
     useEffect((): void => {
-        slideUp();
-    }, [slideUp]);
+        slideRef.value = withTiming(0, { duration: 350 })
+    }, [slideRef]);
 
     return (
-        <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
+        <Animated.View style={[Styles.backDrop, fadeStyle]}>
             <TouchableWithoutFeedback onPress={closeModal}>
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
-            <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
+            <Animated.View style={[Styles.bottomSheet, animatedStyles]}>
                 <View style={Styles.InnerContainer}>
                     <View style={Styles.ThreeColumnStyle}>
                         <View style={[Styles.singleCOlumnStyle,]} />
@@ -225,9 +200,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         ThreeColumnStyle: {
             alignSelf: 'center',
             width: '34%',
-            height: vh(30),
-            display: 'flex',
-            flexDirection: 'row',
+            height: vh(30),flexDirection: 'row',
             justifyContent: 'space-around',
         },
         singleCOlumnStyle: {
@@ -271,9 +244,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             right: vw(5),
             top: vh(30)
         },
-        HeaderAndButton: {
-            display: 'flex',
-            flexDirection: 'row',
+        HeaderAndButton: {flexDirection: 'row',
             width: '100%',
             justifyContent: 'space-between',
         },

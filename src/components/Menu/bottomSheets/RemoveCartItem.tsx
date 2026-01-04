@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View, Animated, TouchableOpacity, Image, TouchableWithoutFeedback } from 'react-native';
-import React, { useRef, useEffect, useCallback } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, TouchableWithoutFeedback } from 'react-native';
+import React, { useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+
 // redux
 import { removeFromCart } from '../../../features/cartSlice';
 import { useAppDispatch } from '../../../store/store';
@@ -17,61 +19,45 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const Styles = createDynamicStyles(Colors);
-    const slide = useRef<Animated.Value>(new Animated.Value(500)).current;
-    const fade = useRef<Animated.Value>(new Animated.Value(0)).current;
+    const Styles = createDynamicStyles(Colors)
     const dispatch = useAppDispatch()
-    const slideUp = useCallback((): void => {
-        Animated.parallel([
-            Animated.timing(slide, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fade, {
-                toValue: 1,
-                duration: 300,
-                useNativeDriver: true,
-            })
-        ]).start();
-    }, [slide, fade])
-    const slideDown = (): void => {
-        Animated.parallel([
-            Animated.timing(slide, {
-                toValue: 500,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fade, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            })
-        ]).start();
-    };
+    // animation
+    const slideRef = useSharedValue(0)
+    const animatedStyles = useAnimatedStyle(() => ({
+        transform: [{ translateY: slideRef.value }],
+    }))
+    const fadeStyle = useAnimatedStyle(() => ({
+        opacity: interpolate(
+            slideRef.value,
+            [0, 500],
+            [1, 0]
+        )
+    }))
+    const slideDown = () => {
+        slideRef.value = withTiming(450, { duration: 500 })
+    }
     const handleConfirmDelete = (): void => {
         dispatch(removeFromCart(uid))
         navigation.pop()
     }
     const closeModal = (): void => {
         slideDown();
-        setTimeout((): void => {
+        setTimeout(() => {
             navigation.pop();
         }, 400);
     };
-
     useEffect((): void => {
-        slideUp();
-    }, [slideUp]);
+        slideRef.value = withTiming(0, { duration: 500 })
+    }, [slideRef]);
     return (
-        <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
+        <Animated.View style={[Styles.backDrop, fadeStyle]}>
             <TouchableWithoutFeedback onPress={closeModal}>
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
-            <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
+            <Animated.View style={[Styles.bottomSheet, animatedStyles]}>
                 <View
                     style={Styles.InnerContainer}>
-                    <Image src={imageLink} style={Styles.foodImage} />
+                    <Image source={{uri : imageLink}} style={Styles.foodImage} />
                     <Text style={Styles.confirmAskingText} numberOfLines={3}>{Strings.confirmAskingText} </Text>
                     <View style={[Styles.DoneButtonContainer, { bottom: inset.bottom }]}>
                         <TouchableOpacity
@@ -116,9 +102,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: vh(40),
             width: vw(40),
             borderRadius: '50%',
-            backgroundColor: Colors.Black,
-            display: 'flex',
-            justifyContent: 'center',
+            backgroundColor: Colors.Black,justifyContent: 'center',
             alignItems: 'center'
         },
         closeBtnImage: {
@@ -151,9 +135,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             position: 'absolute',
             left: '10%',
             width: '80%',
-            alignSelf: 'center',
-            display: 'flex',
-            alignItems: 'center',
+            alignSelf: 'center',alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
         },

@@ -26,7 +26,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
     const inset = useSafeAreaInsets();
     const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const cartData = useSelector((state: RootState) => state.cart)
+    const cartData = useSelector((state: RootState) => state?.cart)
     const cartItem = cartData?.cartItems
     const { countrySelected } = useCountry();
     const isOfferApplied: boolean = discount !== 0 || discountPercentage !== 0;
@@ -87,7 +87,6 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                     </View>
                 </View>
                 {cartItem?.length !== 0 && (
-
                     <TouchableOpacity
                         onPress={() => seteditingMode(!editingMode)}
                         style={Styles.editButton}
@@ -105,6 +104,9 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                 <View style={Styles.EditingButtons}>
                                     <View style={Styles.EditingButtonContainerWrapper}>
                                         <TouchableOpacity
+                                            onPress={() => navigation.navigate(Strings.FoodCustomizationScreen, {
+                                                foodItem: item
+                                            })}
                                             style={Styles.EditingButtonWrapper}>
                                             <Image source={Images.Edit_Icon} style={Styles.EditingIcons} />
                                         </TouchableOpacity>
@@ -117,7 +119,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                 </View>
                                 <View style={Styles.EditingRightMainContainer}>
                                     <View style={Styles.EditUpperContainer}>
-                                        <Image src={item?.image} style={Styles.EditLeftfoodImage} />
+                                        <Image source={{ uri: item?.image }} style={Styles.EditLeftfoodImage} />
                                         <View style={Styles.EditRightContainer}>
                                             <Text style={Styles.FoodName}>{item?.name}</Text>
                                             <View style={Styles.EditModeDescriptionContainer}>
@@ -176,7 +178,11 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                     {cartItem?.length !== 0 ?
                         (<View style={Styles.outerScrollContainer}>
                             <View style={Styles.scrollContainer}>
-                                <ScrollView showsVerticalScrollIndicator={false} >
+                                <ScrollView
+                                    contentContainerStyle={{
+                                        paddingBottom: vh(120) + inset.bottom
+                                    }}
+                                    showsVerticalScrollIndicator={false} >
                                     {topOfferAppliedIndicator && (
                                         <View style={Styles.OfferAppliedTopIndicator}>
                                             <View style={Styles.discountImageContainer}>
@@ -199,7 +205,7 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                     {cartItem.map((item, idx) => (
                                         <View key={idx} style={Styles.CardContainer}>
                                             <View style={Styles.UpperContainer}>
-                                                <Image src={item?.image} style={Styles.LeftfoodImage} />
+                                                <Image source={{ uri: item?.image }} style={Styles.LeftfoodImage} />
                                                 <View style={Styles.RightContainer}>
                                                     <Text style={Styles.FoodName}>{item?.name}</Text>
                                                     <View style={Styles.DescriptionContainer}>
@@ -315,13 +321,15 @@ export default function CartPage({ discount, discountPercentage, offerCode }: Ca
                                     </View>
                                 </ScrollView>
                             </View>
-                            <View style={[Styles.BottomCartContainer ,  { bottom: inset.bottom - 10 }]}>
-                                <BottomCart ButtonType={Strings.placeOrder} navLink={Strings.CheckOutScreen} totalAmount={Number(GrandAmount)} discount={discount} />
-                            </View>
                         </View>
                         ) : (
                             <CartItemNotFound />
                         )}
+                </View>
+            )}
+            {cartItem?.length !== 0 && !editingMode && (
+                <View style={[Styles.BottomCartContainer, { bottom: inset.bottom }]}>
+                    <BottomCart ButtonType={Strings.placeOrder} navLink={Strings.CheckOutScreen} totalAmount={Number(GrandAmount)} discount={discount} />
                 </View>
             )}
         </View>
@@ -336,9 +344,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.bodyColor,flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -349,9 +355,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
-        BackIconAndHeaderText: {
-            display: 'flex',
-            flexDirection: 'row',
+        BackIconAndHeaderText: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -362,9 +366,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignSelf: 'flex-start',
             marginHorizontal: vw(18),
         },
-        HeaderTextContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        HeaderTextContainer: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-end',
             alignSelf: 'center',
@@ -406,9 +408,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '95%',
             alignSelf: 'center',
             backgroundColor: Colors.bodyColor,
-            marginVertical: vh(10),
-            display: 'flex',
-            flexDirection: 'row',
+            marginVertical: vh(10),flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             borderRadius: normalize(2),
@@ -423,9 +423,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '95%',
             alignSelf: 'center',
             backgroundColor: Colors.bodyColor,
-            marginVertical: vh(10),
-            display: 'flex',
-            flexDirection: 'row',
+            marginVertical: vh(10),flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             borderRadius: normalize(2),
@@ -439,15 +437,11 @@ const createDynamicStyles = (Colors: ColorType) => {
             borderWidth: normalize(1),
             borderRadius: normalize(4),
             borderColor: Colors.greenOk,
-            borderStyle: 'dashed',
-            display: 'flex',
-            alignItems: 'center',
+            borderStyle: 'dashed',alignItems: 'center',
             flexDirection: 'column'
         },
         AboveCouponCOntainer: {
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
+            width: '100%',alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
             marginTop: vh(5),
@@ -475,16 +469,12 @@ const createDynamicStyles = (Colors: ColorType) => {
             transform: [{ scaleX: -1 }]
         },
         LeftCouponCOntaienr: {
-            marginHorizontal: vw(20),
-            display: 'flex',
-            flexDirection: 'row',
+            marginHorizontal: vw(20),flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
         TopCouponCOntaienr: {
-            marginHorizontal: vw(20),
-            display: 'flex',
-            flexDirection: 'row',
+            marginHorizontal: vw(20),flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -516,9 +506,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         AppliedOfferDetail: {
             width: '90%',
             marginVertical: vh(10),
-            marginHorizontal: vw(10),
-            display: 'flex',
-            flexDirection: 'row',
+            marginHorizontal: vw(10),flexDirection: 'row',
         },
         offerAppliedGreenText: {
             fontSize: normalize(14),
@@ -539,13 +527,9 @@ const createDynamicStyles = (Colors: ColorType) => {
             shadowOffset: { width: vw(2), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
-            elevation: 5,
-            display: 'flex',
-            justifyContent: 'center',
+            elevation: 5,justifyContent: 'center',
         },
-        PriceEntries: {
-            display: 'flex',
-            flexDirection: 'row',
+        PriceEntries: {flexDirection: 'row',
             marginVertical: vh(10),
             marginHorizontal: vw(15),
         },
@@ -567,26 +551,24 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         BottomCartContainer: {
             width: '100%',
-            height: vh(70),
             backgroundColor: Colors.bodyColor,
             position: 'absolute',
             left: 0,
-            bottom: 0,
             zIndex: 2,
             shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(0) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(5),
             elevation: 5,
-        }, 
+        },
         cartItemContainer: {
-            flexGrow : 1 , 
+            flex: 1,
         },
         outerScrollContainer: {
-            flexGrow: 1,
+            flex: 1,
         },
         scrollContainer: {
-            flexGrow: 1,
+            flex: 1,
             backgroundColor: Colors.bodyLigheterColor,
         },
         OfferAppliedTopIndicator: {
@@ -597,25 +579,19 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginTop: vh(20),
             borderRadius: normalize(2),
             width: '95%',
-            alignSelf: 'center',
-            display: 'flex',
-            alignItems: 'center',
+            alignSelf: 'center',alignItems: 'center',
             flexDirection: 'row',
         },
         discountImageContainer: {
             backgroundColor: Colors.greenOk,
             width: vw(60),
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
+            height: '100%',alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
         GreenTextContainer: {
             marginLeft: vw(10),
-            marginRight: vw(5),
-            display: 'flex',
-            alignItems: 'center',
+            marginRight: vw(5),alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -652,7 +628,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         EditingScrollView: {
             backgroundColor: Colors.bodyLigheterColor,
-            height: '88%'
+            flex: 1,
         },
         EditingCardContainer: {
             width: '93%',
@@ -663,9 +639,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             shadowOffset: { width: vw(2), height: vh(2) },
             shadowOpacity: .4,
             shadowRadius: normalize(10),
-            elevation: 5,
-            display: 'flex',
-            alignItems: 'center',
+            elevation: 5,alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -677,9 +651,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         EditingButtonContainerWrapper: {
             position: 'absolute',
             height: '100%',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
+            width: '100%',alignItems: 'center',
             flexDirection: 'column',
             justifyContent: 'space-around',
         },
@@ -698,16 +670,12 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '80%',
         },
         UpperContainer: {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
+            width: '100%',flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
         },
         EditUpperContainer: {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
+            width: '100%',flexDirection: 'row',
             justifyContent: 'space-around',
         },
         LeftfoodImage: {
@@ -739,24 +707,18 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginVertical: vh(10),
             color: Colors.textBlack
         },
-        DescriptionContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        DescriptionContainer: {flexDirection: 'row',
             flexWrap: 'wrap',
             width: '100%',
             marginLeft: vw(1),
             marginBottom: vh(10),
         },
-        EditModeDescriptionContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        EditModeDescriptionContainer: {flexDirection: 'row',
             flexWrap: 'wrap',
             width: '85%',
             marginLeft: vw(1),
         },
-        DotAndDescription: {
-            display: 'flex',
-            flexDirection: 'row',
+        DotAndDescription: {flexDirection: 'row',
             alignItems: 'center',
             marginVertical: vh(4)
         },
@@ -773,33 +735,25 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(11),
             marginRight: vw(5),
         },
-        LowerContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        LowerContainer: {flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
             width: '100%',
         },
-        EditLowerContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        EditLowerContainer: {flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
             width: '100%',
             marginBottom: vh(10),
         },
-        LowerLeftPriceContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        LowerLeftPriceContainer: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
             marginHorizontal: vw(20)
         },
-        EditLowerLeftPriceContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        EditLowerLeftPriceContainer: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
             marginLeft: vw(20)
@@ -824,22 +778,16 @@ const createDynamicStyles = (Colors: ColorType) => {
             top: vh(8),
             left: 0,
         },
-        OldPriceContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        OldPriceContainer: {flexDirection: 'row',
             marginLeft: vw(4)
         },
-        AddedCartButtonContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        AddedCartButtonContainer: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             marginHorizontal: vw(20),
             marginVertical: vh(10),
         },
-        EditModeAddedCartButtonContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        EditModeAddedCartButtonContainer: {flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             marginHorizontal: vw(10),
@@ -864,9 +812,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         AddCounterButton: {
             height: vh(30),
-            width: vw(30),
-            display: 'flex',
-            flexDirection: 'row',
+            width: vw(30),flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: normalize(4),
@@ -874,9 +820,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         AddCounterButtonFade: {
             height: vh(30),
-            width: vw(30),
-            display: 'flex',
-            flexDirection: 'row',
+            width: vw(30),flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: normalize(4),

@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Animated, TouchableOpacity, Image, TouchableWithoutFeedback } from 'react-native'
-import React, { useCallback, useEffect, useRef } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TouchableWithoutFeedback } from 'react-native'
+import React, { useEffect } from 'react'
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -12,41 +13,26 @@ import { useStrings } from '../../utils/Strings';
 import Images from '../../utils/LocalImages';
 import { DeliveryDetails } from '../../data/DeliveryDetails';
 export default function ChangeLocationBottomSheet() {
-    const slide = useRef(new Animated.Value(500)).current;
-    const fade = useRef(new Animated.Value(0)).current;
     const Colors = useThemeColors()
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors)
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const slideUp = useCallback((): void => {
-        Animated.parallel([
-            Animated.timing(slide, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fade, {
-                toValue: 1,
-                duration: 300,
-                useNativeDriver: true,
-            })
-        ]).start();
-    }, [slide, fade])
-    const slideDown = (): void => {
-        Animated.parallel([
-            Animated.timing(slide, {
-                toValue: 450,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fade, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            })
-        ]).start();
-    };
+    // animation
+    const slideRef = useSharedValue(0)
+    const animatedStyles = useAnimatedStyle(() => ({
+        transform: [{ translateY: slideRef.value }],
+    }))
+    const fadeStyle = useAnimatedStyle(() => ({
+        opacity: interpolate(
+            slideRef.value,
+            [0, 500],
+            [1, 0]
+        )
+    }))
+    const slideDown = () => {
+        slideRef.value = withTiming(450, { duration: 500 })
+    } 
     const closeModal = (): void => {
         slideDown();
         setTimeout(() => {
@@ -54,14 +40,14 @@ export default function ChangeLocationBottomSheet() {
         }, 400);
     };
     useEffect((): void => {
-        slideUp();
-    }, [slideUp]);
+        slideRef.value = withTiming(0, { duration: 500 })
+    }, [slideRef]);
     return (
-        <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
+        <Animated.View style={[Styles.backDrop, fadeStyle]}>
             <TouchableWithoutFeedback onPress={closeModal}>
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
-            <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
+            <Animated.View style={[Styles.bottomSheet, animatedStyles]}>
                 <View >
                     <View style={Styles.InnerContainer}>
                         <View style={Styles.bottomSheeetContentContainer}>
@@ -128,9 +114,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: vh(40),
             width: vw(40),
             borderRadius: normalize(100),
-            backgroundColor: Colors.textBlack,
-            display: 'flex',
-            justifyContent: 'center',
+            backgroundColor: Colors.textBlack,justifyContent: 'center',
             alignItems: 'center'
         },
         bottomSheeetContentContainer: {
@@ -180,9 +164,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: vh(50),
             marginVertical: vw(30),
             borderRadius: normalize(2),
-            backgroundColor: Colors.blueLightBG,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.blueLightBG,flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             overflow: 'hidden'
@@ -203,9 +185,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             position: 'absolute',
             left: '5%',
             width: '90%',
-            alignSelf: 'center',
-            display: 'flex',
-            alignItems: 'center',
+            alignSelf: 'center',alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
         },

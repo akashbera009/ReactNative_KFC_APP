@@ -481,9 +481,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.bodyColor,flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -494,9 +492,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
-        BackIconAndHeaderText: {
-            display: 'flex',
-            flexDirection: 'row',
+        BackIconAndHeaderText: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -534,9 +530,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         svgCOntainer: {
             width: '100%',
             height: vh(100),
-            backgroundColor: '#f5d7d7ff',
-            display: 'flex',
-            alignItems: 'center',
+            backgroundColor: '#f5d7d7ff',alignItems: 'center',
             justifyContent: 'center',
         },
         SecondSection: {
@@ -597,9 +591,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: '#f47d7dff',
             marginBottom: vh(10),
             alignSelf: 'center',
-            borderRadius: normalize(10),
-            display: 'flex',
-            alignItems: 'center',
+            borderRadius: normalize(10),alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -633,9 +625,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         IncrementBUtton: {
             backgroundColor: Colors.greenOk,
             height: vh(40),
-            width: vw(200),
-            display: 'flex',
-            alignItems: 'center',
+            width: vw(200),alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
             borderRadius: normalize(10)

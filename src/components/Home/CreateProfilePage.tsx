@@ -41,7 +41,7 @@ export default function CreateProfilePage({ phoneNo }: { phoneNo: string }) {
         dispatch(fetctUserDeatails(rawPhone))
     }, [dispatch, rawPhone])
     const existingUser = useSelector((state: RootState) =>
-        state.users.currentUser
+        state?.users?.currentUser
     );
     const userdata = useSelector((state: RootState) => state?.users)
     const currentUser = userdata?.currentUser
@@ -387,9 +387,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         CreateProfileRelatedContainer: {
             marginTop: vh(15),
             marginHorizontal: vw(15),
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            flexDirection: 'column',
+            backgroundColor: Colors.bodyColor,flexDirection: 'column',
             shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(5), height: vh(5) },
             shadowOpacity: .25,
@@ -404,9 +402,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         OrangeBorder: {
             borderBottomColor: Colors.orangeColorText,
         },
-        InputEntriesContainer: {
-            display: 'flex',
-            flexDirection: 'column',
+        InputEntriesContainer: {flexDirection: 'column',
             marginHorizontal: vw(20),
             alignSelf: 'center',
             marginTop: vh(25),
@@ -422,9 +418,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginVertical: vh(8),
         },
         PhoneNoContainer: {
-            marginVertical: vh(4),
-            display: 'flex',
-            flexDirection: 'row',
+            marginVertical: vh(4),flexDirection: 'row',
             justifyContent: 'space-around',
             alignSelf: 'center',
         },
@@ -432,9 +426,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: vw(80),
             marginRight: vw(10),
         },
-        mobileCodeAndArrow: {
-            display: 'flex',
-            flexDirection: 'row',
+        mobileCodeAndArrow: {flexDirection: 'row',
             justifyContent: 'space-around'
         },
         mobileCode: {
@@ -475,9 +467,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         EmailAndWarning: {
             marginTop: vh(20),
-            marginBottom: vh(10),
-            display: 'flex',
-            flexDirection: 'row',
+            marginBottom: vh(10),flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
         },
@@ -502,9 +492,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginTop: vh(8)
         },
         mobileAndImage: {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
+            width: '100%',flexDirection: 'row',
             alignSelf: 'center',
             justifyContent: 'space-between'
         },
@@ -514,9 +502,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             borderRadius: normalize(100),
             backgroundColor: Colors.HyperTransparent,
             objectFit: 'fill',
-            overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
+            overflow: 'hidden',alignItems: 'center',
             flexDirection: 'row',
             justifyContent: 'center',
             marginHorizontal: 'auto'

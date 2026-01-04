@@ -1,1 +1,1 @@
-export const localVideoPath = require('../asstes/Videos/kfc_intro_video.mp4')
+export const localVideoPath = require('/Users/admin/Desktop/KFC_App/src/asstes/Videos/KFC_Intro_Video.mp4')

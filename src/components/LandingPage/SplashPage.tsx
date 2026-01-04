@@ -41,17 +41,13 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         backGroundContainer: {
             width: '100%',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
+            height: '100%',flexDirection: 'column',
             justifyContent: 'space-between',
         },
         ThreeColumnStyle: {
             marginHorizontal: "auto",
             width: '50%',
-            height: vh(180),
-            display: 'flex',
-            flexDirection: 'row',
+            height: vh(180),flexDirection: 'row',
             justifyContent: 'space-around',
         },
         singleCOlumnStyle: {
@@ -59,9 +55,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: vw(40),
             backgroundColor: Colors.constantWhite
         },
-        LowerContainer: {
-            display: 'flex',
-            flexDirection: 'column',
+        LowerContainer: {flexDirection: 'column',
             justifyContent: 'flex-end',
             transform: [{ rotate: '-8deg' }],
         },
@@ -70,9 +64,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             left: 0,
             top: 0,
             height: '100%',
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
+            width: '100%',justifyContent: 'center',
             alignItems: 'center',
         },
         LogoImage: {

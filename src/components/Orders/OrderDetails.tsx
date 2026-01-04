@@ -171,9 +171,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.bodyColor,flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -184,9 +182,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
-        BackIconAndHeaderText: {
-            display: 'flex',
-            flexDirection: 'row',
+        BackIconAndHeaderText: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -202,18 +198,14 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: '90%'
         },
         TrackUpperContainer: {
-            marginTop: vh(20),
-            display: 'flex',
-            alignItems: 'center',
+            marginTop: vh(20),alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
         leftContainer: {
             marginLeft: vw(15),
         },
-        LeftUpperContainer: {
-            display: 'flex',
-            alignItems: 'center',
+        LeftUpperContainer: {alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -250,13 +242,9 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignSelf: 'center',
             backgroundColor: Colors.bodyColor,
             marginTop: vh(25),
-            marginBottom: vh(20),
-            display: 'flex',
-            justifyContent: 'center',
+            marginBottom: vh(20),justifyContent: 'center',
         },
-        PriceEntries: {
-            display: 'flex',
-            flexDirection: 'row',
+        PriceEntries: {flexDirection: 'row',
             marginVertical: vh(5),
             marginHorizontal: vw(15),
         },
@@ -303,9 +291,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             elevation: 5,
             backgroundColor: Colors.bodyColor,
             marginVertical: vh(15),
-            borderRadius: normalize(2),
-            display: 'flex',
-            alignItems: 'center',
+            borderRadius: normalize(2),alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
         },
@@ -334,9 +320,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginVertical: vh(15),
             borderRadius: normalize(2),
         },
-        DeliveryUpperContainer: {
-            display: 'flex',
-            alignItems: 'center',
+        DeliveryUpperContainer: {alignItems: 'center',
             flexDirection: 'row',
             marginTop: vh(10),
         },
@@ -385,9 +369,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             elevation: 5,
         },
         UpperContainer: {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
+            width: '100%',flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
         },
@@ -409,16 +391,12 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginVertical: vh(10),
             color: Colors.textBlack
         },
-        DescriptionContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        DescriptionContainer: {flexDirection: 'row',
             flexWrap: 'wrap',
             width: '100%',
             marginLeft: vw(1)
         },
-        DotAndDescription: {
-            display: 'flex',
-            flexDirection: 'row',
+        DotAndDescription: {flexDirection: 'row',
             alignItems: 'center',
             marginVertical: vh(4)
         },
@@ -445,17 +423,13 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         LowerContainer: {
             height: vh(50),
-            marginBottom: vh(8),
-            display: 'flex',
-            flexDirection: 'row',
+            marginBottom: vh(8),flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
             width: '100%',
         },
-        LowerLeftPriceContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        LowerLeftPriceContainer: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
             marginHorizontal: vw(20)
@@ -466,9 +440,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             color: Colors.textFadeBlack2,
             fontFamily: Fonts.helveticaBold
         },
-        OldPriceContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        OldPriceContainer: {flexDirection: 'row',
             marginLeft: vw(4)
         },
         OldPrice: {
@@ -485,9 +457,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             top: vh(8),
             left: 0,
         },
-        QuantityContainer: {
-            display: 'flex',
-            alignItems: 'center',
+        QuantityContainer: {alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
             marginHorizontal: vw(20),

@@ -26,7 +26,7 @@ export default function Index() {
   useEffect(() => {
     dispatch(fetchOrders())
   }, [dispatch])
-  const ordersArray = useSelector((state: RootState) => state.orders);
+  const ordersArray = useSelector((state: RootState) => state?.orders);
   const previousOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status === Strings.deliveredString || item?.status === Strings.cancelledString) ?? []
   const currentOrders: OrderHistory[] = ordersArray?.orders?.filter(item => item?.status !== Strings.deliveredString && item?.status !== Strings.cancelledString) ?? []
   const sortedCrrentOrder: OrderHistory[] = currentOrders.sort((a, b) => Number(b?.id) - Number(a?.id))
@@ -99,7 +99,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     NavWrapper: {
       width: '100%',
       backgroundColor: Colors.bodyColor,
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -112,7 +112,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       color: Colors.textBlack
     },
     BackIconAndHeaderText: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       alignSelf: 'center',
@@ -148,7 +148,7 @@ const createDynamicStyles = (Colors: ColorType) => {
     EmptyCartContainer: {
       height: vh(700),
       width: '100%',
-      display: 'flex',
+       
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -158,7 +158,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       borderRadius: normalize(400),
       backgroundColor: Colors.ButtonTextBlueColor,
       opacity: .3,
-      display: 'flex',
+       
       alignItems: 'center',
       justifyContent: 'flex-end',
       overflow: 'hidden',

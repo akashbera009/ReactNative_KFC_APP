@@ -27,7 +27,7 @@ export default function CheckOut({ route }: CheckOutScreenProps) {
     const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { countrySelected } = useCountry()
-    const cartData = useSelector((state: RootState) => state.cart)
+    const cartData = useSelector((state: RootState) => state?.cart)
     const cartItem = cartData?.cartItems
     const totalItem = cartItem.length
     const [deliveryType, setDeliveryType] = useState<'now' | 'later'>('now');
@@ -403,13 +403,12 @@ export default function CheckOut({ route }: CheckOutScreenProps) {
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
+            flex : 1 , 
             backgroundColor: Colors.bodyColor,
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors.bodyColor,
-            display: 'flex',
-            flexDirection: 'row',
+            backgroundColor: Colors.bodyColor,flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -420,9 +419,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
-        BackIconAndHeaderText: {
-            display: 'flex',
-            flexDirection: 'row',
+        BackIconAndHeaderText: {flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -434,7 +431,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginHorizontal: vw(18),
         },
         ContentConatiner: {
-            height: '90%',
+            flex : 1 ,
             backgroundColor: Colors.bodyLigheterColor,
         },
         CustomerCard: {
@@ -450,9 +447,7 @@ const createDynamicStyles = (Colors: ColorType) => {
                 height: vh(2)
             },
             shadowOpacity: 0.25,
-            shadowRadius: normalize(3.84),
-            display: 'flex',
-            flexDirection: 'row',
+            shadowRadius: normalize(3.84),flexDirection: 'row',
             alignItems: 'center',
         },
         card: {
@@ -558,9 +553,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: Colors.activeBorder,
             width: '100%',
             height: vh(30),
-            borderRadius: normalize(10),
-            display: 'flex',
-            alignItems: 'center',
+            borderRadius: normalize(10),alignItems: 'center',
             justifyContent: 'center',
         },
         DateFixingButtonTxt: {
@@ -620,9 +613,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: vh(16),
             backgroundColor: Colors.KFC_red,
             marginRight: vw(6),
-            borderRadius: normalize(1),
-            display: 'flex',
-            justifyContent: 'center',
+            borderRadius: normalize(1),justifyContent: 'center',
             alignItems: 'center',
         },
         Tick_Mark: {
@@ -651,9 +642,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             paddingHorizontal: vw(10),
             borderRadius: normalize(2),
         },
-        ItemsCardUpperBox: {
-            display: 'flex',
-            flexDirection: 'row',
+        ItemsCardUpperBox: {flexDirection: 'row',
             alignItems: 'center',
         },
         itemCountRow: {
@@ -690,9 +679,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             borderRightWidth: normalize(1),
             marginHorizontal: vw(10),
         },
-        AmountBoxContainer: {
-            display: 'flex',
-            flexDirection: 'column',
+        AmountBoxContainer: {flexDirection: 'column',
             backgroundColor: Colors.blueMixBG,
             borderRadius: normalize(4),
             borderStyle: 'dashed',
@@ -701,9 +688,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         amountBox: {
             height: vh(60),
-            padding: normalize(12),
-            display: 'flex',
-            flexDirection: 'row',
+            padding: normalize(12),flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
         },
@@ -711,9 +696,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(14),
             fontFamily: Fonts.helveticaMedium
         },
-        AmountWithButton: {
-            display: 'flex',
-            alignItems: 'center',
+        AmountWithButton: {alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -726,9 +709,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: vh(16),
             width: vw(16),
             backgroundColor: Colors.blueShadows,
-            borderRadius: normalize(50),
-            display: 'flex',
-            alignItems: 'center',
+            borderRadius: normalize(50),alignItems: 'center',
             justifyContent: 'center',
         },
         ArrowDown: {
@@ -743,9 +724,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '100%',
             marginBottom: vh(6),
         },
-        PriceEntries: {
-            display: 'flex',
-            flexDirection: 'row',
+        PriceEntries: {flexDirection: 'row',
             marginVertical: vh(8),
             marginHorizontal: vw(15),
         },
@@ -768,26 +747,20 @@ const createDynamicStyles = (Colors: ColorType) => {
             backgroundColor: Colors.bodyColor,
             width: '93%',
             marginHorizontal: vw(12),
-            alignSelf: 'center',
-            display: 'flex',
-            marginBottom: vh(150),
+            alignSelf: 'center',marginBottom: vh(150),
             shadowColor: Colors.blueShadows,
             shadowOffset: { width: vw(0), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
             elevation: 5,
         },
-        PaymentMethodsEntries: {
-            display: 'flex',
-            alignItems: 'center',
+        PaymentMethodsEntries: {alignItems: 'center',
             justifyContent: 'space-between',
             marginHorizontal: vw(10),
             marginVertical: vh(6),
             flexDirection: 'row',
         },
-        PaymentTextLeft: {
-            display: 'flex',
-            alignItems: 'center',
+        PaymentTextLeft: {alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },

@@ -83,9 +83,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginTop: vh(15),
             paddingHorizontal: vw(0),
             paddingVertical: vh(12),
-            borderRadius: normalize(5),
-            display: 'flex',
-            alignItems: 'center',
+            borderRadius: normalize(5),alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
             backgroundColor: Colors.KFC_red

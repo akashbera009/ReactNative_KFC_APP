@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, Animated, TouchableOpacity, Image, TouchableWithoutFeedback, ScrollView } from 'react-native'
-import React, { useRef, useEffect, useCallback } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TouchableWithoutFeedback, ScrollView } from 'react-native'
+import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Animated ,{ interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 // util imports 
 import { useThemeColors } from '../../utils/Colors';
 import Fonts from '../../utils/Fonts'
@@ -12,101 +13,86 @@ import { useCountry } from '../../context/CountryContext';
 import { normalize, vh, vw } from '../../utils/Dimensions'
 
 export default function CountrySelectionBottomSheet() {
-  const slide = useRef<Animated.Value>(new Animated.Value(500)).current;
-  const fade = useRef<Animated.Value>(new Animated.Value(0)).current;
   const Colors = useThemeColors()
   const Strings = useStrings()
   const Styles = createDynamicStyles(Colors)
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { countrySelected, setCountrySelected } = useCountry();
-  const slideUp = useCallback((): void => {
-    Animated.parallel([
-      Animated.timing(slide, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }),
-      Animated.timing(fade, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      })
-    ]).start();
-  }, [slide, fade])
-  const slideDown = (): void => {
-    Animated.parallel([
-      Animated.timing(slide, {
-        toValue: 500,
-        duration: 300,
-        useNativeDriver: true,
-      }),
-      Animated.timing(fade, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      })
-    ]).start();
-  };
+  // animation
+  const slideRef = useSharedValue(0)
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [{ translateY: slideRef.value }],
+  }))
+  const fadeStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(
+      slideRef.value,
+      [0, 500],
+      [1, 0]
+    )
+  }))
+  const slideDown = () => {
+    slideRef.value = withTiming(450, { duration: 500 })
+  }
   const closeModal = (): void => {
     slideDown();
     setTimeout(() => {
       navigation.pop();
     }, 400);
   };
-  useEffect(() => {
-    slideUp();
-  }, [slideUp]);
+  useEffect((): void => {
+    slideRef.value = withTiming(0, { duration: 500 })
+  }, [slideRef]);
   return (
-    <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
+    <Animated.View style={[Styles.backDrop, fadeStyle]}>
       <TouchableWithoutFeedback onPress={closeModal}>
         <View style={StyleSheet.absoluteFillObject} />
       </TouchableWithoutFeedback>
-      <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
-        <View style={Styles.InnerContainer}>
-          <View style={Styles.ThreeColumnStyle}>
-            <View style={[Styles.singleCOlumnStyle,]} />
-            <View style={[Styles.singleCOlumnStyle,]} />
-            <View style={[Styles.singleCOlumnStyle,]} />
-          </View>
-          <View style={Styles.bottomSheeetContentContainer}>
-            <Text style={Styles.WelcomeHeader}>{Strings.welcome}</Text>
-            <Text style={Styles.countryDescription} numberOfLines={3} >{Strings.countryDescription}</Text>
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              style={Styles.CountryContainer}>
-              {CountryInfo.map((country, idx) => (
-                <TouchableOpacity
-                  activeOpacity={.5}
-                  onPress={() => {
-                    setCountrySelected(country)
-                  }}
-                  key={idx} style={Styles.CountryEntries}>
-                  <View style={Styles.CountryEntriesLeft}>
-                    <Image source={country?.flag} style={Styles.FlagIcon} />
-                    <View style={Styles.CountryEntriesRight}>
-                      <Text style={Styles.CountryName}>{country?.name}</Text>
-                      {countrySelected?.code === country?.code && (
-                        <Text style={Styles.needToHaveLocalNumber}>{Strings.needToHaveLocalNumber}</Text>
-                      )}
-                    </View>
-                  </View>
-                  <View style={Styles.CheckBox}>
+      <Animated.View style={[Styles.bottomSheet, animatedStyles ]}>
+      <View style={Styles.InnerContainer}>
+        <View style={Styles.ThreeColumnStyle}>
+          <View style={[Styles.singleCOlumnStyle,]} />
+          <View style={[Styles.singleCOlumnStyle,]} />
+          <View style={[Styles.singleCOlumnStyle,]} />
+        </View>
+        <View style={Styles.bottomSheeetContentContainer}>
+          <Text style={Styles.WelcomeHeader}>{Strings.welcome}</Text>
+          <Text style={Styles.countryDescription} numberOfLines={3} >{Strings.countryDescription}</Text>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={Styles.CountryContainer}>
+            {CountryInfo.map((country, idx) => (
+              <TouchableOpacity
+                activeOpacity={.5}
+                onPress={() => {
+                  setCountrySelected(country)
+                }}
+                key={idx} style={Styles.CountryEntries}>
+                <View style={Styles.CountryEntriesLeft}>
+                  <Image source={country?.flag} style={Styles.FlagIcon} />
+                  <View style={Styles.CountryEntriesRight}>
+                    <Text style={Styles.CountryName}>{country?.name}</Text>
                     {countrySelected?.code === country?.code && (
-                      <View style={Styles.CheckBoxSelected} />
+                      <Text style={Styles.needToHaveLocalNumber}>{Strings.needToHaveLocalNumber}</Text>
                     )}
                   </View>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-            <TouchableOpacity
-              style={[Styles.DoneButtonContainer, { bottom: inset.bottom + vh(30) }]}
-              onPress={() => navigation.pop()}>
-              <Text style={Styles.DoneButtonText}>{Strings.done.toLocaleUpperCase()}</Text>
-            </TouchableOpacity>
-          </View>
+                </View>
+                <View style={Styles.CheckBox}>
+                  {countrySelected?.code === country?.code && (
+                    <View style={Styles.CheckBoxSelected} />
+                  )}
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+          <TouchableOpacity
+            style={[Styles.DoneButtonContainer, { bottom: inset.bottom + vh(30) }]}
+            onPress={() => navigation.pop()}>
+            <Text style={Styles.DoneButtonText}>{Strings.done.toLocaleUpperCase()}</Text>
+          </TouchableOpacity>
         </View>
-      </Animated.View>
+      </View>
+    </Animated.View>
     </Animated.View >
   )
 }
@@ -137,7 +123,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       alignSelf: 'center',
       width: '22%',
       height: vh(30),
-      display: 'flex',
+       
       flexDirection: 'row',
       justifyContent: 'space-around',
     },
@@ -153,7 +139,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       width: vw(40),
       borderRadius: '50%',
       backgroundColor: Colors.textBlack,
-      display: 'flex',
+       
       justifyContent: 'center',
       alignItems: 'center'
     },
@@ -183,12 +169,12 @@ const createDynamicStyles = (Colors: ColorType) => {
       marginTop: vh(10),
       width: '100%',
       alignSelf: 'center',
-      display: 'flex',
+       
       flexDirection: 'column',
       paddingBottom: vh(10)
     },
     CountryEntries: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -204,12 +190,12 @@ const createDynamicStyles = (Colors: ColorType) => {
       shadowRadius: normalize(8)
     },
     CountryEntriesLeft: {
-      display: 'flex',
+       
       flexDirection: 'row',
       alignItems: 'center'
     },
     CountryEntriesRight: {
-      display: 'flex',
+       
       flexDirection: 'column',
       justifyContent: 'center',
       marginLeft: vw(20),
@@ -236,7 +222,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       borderWidth: normalize(2),
       borderColor: Colors.fadeBorder,
       borderRadius: normalize(10),
-      display: 'flex',
+       
       justifyContent: 'center',
       alignItems: 'center',
       marginRight: vw(15)
@@ -256,7 +242,7 @@ const createDynamicStyles = (Colors: ColorType) => {
       backgroundColor: Colors.KFC_red,
       borderRadius: normalize(2),
       paddingVertical: vh(10),
-      display: 'flex',
+       
       alignItems: 'center'
     },
     DoneButtonText: {

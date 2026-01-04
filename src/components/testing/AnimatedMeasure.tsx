@@ -1,13 +1,12 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // utils
 import Fonts from '../../utils/Fonts';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing, useAnimatedProps, measure, useAnimatedRef, useAnimatedReaction, useDerivedValue, useScrollOffset, scrollTo, withClamp, clamp, useAnimatedScrollHandler } from 'react-native-reanimated';
-import { runOnJS } from 'react-native-worklets';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing, useAnimatedProps, useAnimatedRef, useAnimatedReaction, useDerivedValue, useScrollOffset, scrollTo, clamp, useAnimatedScrollHandler } from 'react-native-reanimated';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Images from '../../utils/LocalImages';
@@ -88,7 +87,7 @@ export default function AnimatedMeasure() {
             }
         }, 2000);
         return () => clearInterval(timerId)
-    }, [])
+    }, [scrollIdx])
     // useDerivedValue(() => {
     //     scrollTo(
     //         scrollRef,
@@ -98,7 +97,7 @@ export default function AnimatedMeasure() {
     //     )
     // })
     const scrollHandeler = useAnimatedScrollHandler({
-        onScroll: (e) => {
+        onScroll: () => {
             // console.log(e.contentOffset.y)
         },
         onMomentumEnd: (e) => {
@@ -244,9 +243,7 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             backgroundColor: Colors.greenOk,
             height: 50,
             width: 120,
-            alignSelf: 'center',
-            display: 'flex',
-            alignItems: 'center',
+            alignSelf: 'center',alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },

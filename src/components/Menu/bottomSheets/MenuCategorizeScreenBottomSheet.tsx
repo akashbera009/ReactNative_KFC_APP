@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Animated, TouchableOpacity, Image, TouchableWithoutFeedback, ScrollView } from 'react-native'
-import React, { useCallback, useEffect, useRef } from 'react'
-
+import { StyleSheet, Text, View, TouchableOpacity, Image, TouchableWithoutFeedback, ScrollView } from 'react-native'
+import React, { useEffect } from 'react'
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -12,56 +12,41 @@ import Images from '../../../utils/LocalImages';
 import { normalize, vh, vw } from '../../../utils/Dimensions';
 import { useMenuCategory } from '../../../context/MenuContext';
 export default function MenuCategorizeScreenBottomSheet({ frequencyArray }: MenuCategorizationScreenProps) {
-    const slide = useRef(new Animated.Value(800)).current;
-    const fade = useRef(new Animated.Value(0)).current;
     const Colors = useThemeColors()
     const Strings = useStrings()
     const Styles = createDynamicStyles(Colors)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const {setActiveCategory} = useMenuCategory()
-    const slideUp = useCallback(() :void=> {
-        Animated.parallel([
-            Animated.timing(slide, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fade, {
-                toValue: 1,
-                duration: 300,
-                useNativeDriver: true,
-            })
-        ]).start();
-    },[slide , fade])
-    const slideDown = ():void => {
-        Animated.parallel([
-            Animated.timing(slide, {
-                toValue: 450,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(fade, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            })
-        ]).start();
-    };
-    const closeModal = ():void => {
+    const { setActiveCategory } = useMenuCategory()
+    // animation
+    const slideRef = useSharedValue(0)
+    const animatedStyles = useAnimatedStyle(() => ({
+        transform: [{ translateY: slideRef.value }],
+    }))
+    const fadeStyle = useAnimatedStyle(() => ({
+        opacity: interpolate(
+            slideRef.value,
+            [0, 500],
+            [1, 0]
+        )
+    }))
+    const slideDown = () => {
+        slideRef.value = withTiming(450, { duration: 500 })
+    }
+    const closeModal = (): void => {
         slideDown();
-        setTimeout(() :void=> {
+        setTimeout(() => {
             navigation.pop();
         }, 400);
     };
-    useEffect(():void => {
-        slideUp();
-    }, [slideUp]);
+    useEffect((): void => {
+        slideRef.value = withTiming(0, { duration: 500 })
+    }, [slideRef]);
     return (
-        <Animated.View style={[Styles.backDrop, { opacity: fade }]}>
+        <Animated.View style={[Styles.backDrop, fadeStyle]}>
             <TouchableWithoutFeedback onPress={closeModal}>
                 <View style={StyleSheet.absoluteFillObject} />
             </TouchableWithoutFeedback>
-            <Animated.View style={[Styles.bottomSheet, { transform: [{ translateY: slide }] }]}>
+            <Animated.View style={[Styles.bottomSheet, animatedStyles]}>
                 <View>
                     <View style={Styles.InnerContainer}>
                         <View style={Styles.HeaderContainer}>
@@ -125,16 +110,12 @@ const createDynamicStyles = (Colors: ColorType) => {
         HeaderContainer: {
             height: vh(70),
             width: '100%',
-            backgroundColor: Colors.blueMixBG,
-            display: 'flex',
-            justifyContent: 'center',
+            backgroundColor: Colors.blueMixBG,justifyContent: 'center',
             alignItems: 'center',
         },
         HeaderWrapper: {
             width: '90%',
-            alignSelf: 'center',
-            display: 'flex',
-            flexDirection: 'row',
+            alignSelf: 'center',flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
         },
@@ -145,9 +126,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         crossIconContainer: {
             height: vh(23),
-            width: vw(23),
-            display: 'flex',
-            justifyContent: 'center',
+            width: vw(23),justifyContent: 'center',
             alignItems: 'center',
             borderRadius: normalize(50),
             backgroundColor: Colors.textBlack,
@@ -163,16 +142,12 @@ const createDynamicStyles = (Colors: ColorType) => {
         categoryEntries: {
             width: '90%',
             height: vh(45),
-            alignSelf: 'center',
-            display: 'flex',
-            flexDirection: 'row',
+            alignSelf: 'center',flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             marginVertical: vh(10),
         },
-        CategoryTextContainer: {
-            display: 'flex',
-            flexDirection: 'row',
+        CategoryTextContainer: {flexDirection: 'row',
             alignItems: 'center',
         },
         CategoryText: {

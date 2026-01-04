@@ -20,7 +20,7 @@ export default function DealsAndOffer() {
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const Styles = createDynamicStyles(Colors);
-    const cartData = useSelector((state: RootState) => state.cart)
+    const cartData = useSelector((state: RootState) => state?.cart)
     const cartItem: CartItemType[] = cartData.cartItems
     const handleApplyOffer = (
         discount: number, discountPercentage: number, offerCode: string
