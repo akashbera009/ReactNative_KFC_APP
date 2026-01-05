@@ -30,7 +30,7 @@ export default function MenuCategorizeScreenBottomSheet({ frequencyArray }: Menu
         )
     }))
     const slideDown = () => {
-        slideRef.value = withTiming(450, { duration: 500 })
+        slideRef.value = withTiming(450, { duration: 350 })
     }
     const closeModal = (): void => {
         slideDown();
@@ -39,7 +39,7 @@ export default function MenuCategorizeScreenBottomSheet({ frequencyArray }: Menu
         }, 400);
     };
     useEffect((): void => {
-        slideRef.value = withTiming(0, { duration: 500 })
+        slideRef.value = withTiming(0, { duration: 350 })
     }, [slideRef]);
     return (
         <Animated.View style={[Styles.backDrop, fadeStyle]}>

@@ -10,6 +10,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing, useAnim
 import { normalize, vh, vw } from '../../utils/Dimensions';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Images from '../../utils/LocalImages';
+import GradientText from './GradientText';
 
 export default function AnimatedMeasure() {
     const Colors = useThemeColors();
@@ -170,6 +171,9 @@ export default function AnimatedMeasure() {
                     <AnimatedTextInput animatedProps={scrollProps} />
                 </View>
             </View >
+            <View style={Styles.GradientText}>
+                <GradientText style={Styles.textStyle}>{Strings.youreHere}</GradientText>
+            </View>
         </SafeAreaView >
     );
 }
@@ -178,10 +182,10 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
     const Styles = StyleSheet.create({
         parent: {
             flex: 1,
-            backgroundColor: '#fededeff',
+            backgroundColor: Colors.bodyLigheterColor , 
         },
         NavWrapper: {
-            backgroundColor: '#c1f1a5ff',
+            backgroundColor: Colors.bodyColor,
         },
         BackIconAndHeaderText: {
             flexDirection: 'row',
@@ -247,6 +251,18 @@ const createDynamicStyles = (Colors: ColorType, Fonts: FontType) => {
             justifyContent: 'center',
             flexDirection: 'row',
         },
+        GradientText:{
+            height : vh(100),
+            width: '100%',
+            backgroundColor:Colors.bodyLigheterColor,
+            justifyContent : 'center',
+            alignItems : 'center'
+        },
+        textStyle:{
+            fontFamily : Fonts.helveticaBold,
+            color : Colors.textBlack,
+            fontSize : normalize(26)
+        }
     });
     return Styles;
 };
