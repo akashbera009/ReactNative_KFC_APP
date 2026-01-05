@@ -30,7 +30,6 @@ const SideBar = () => {
   const languae = useLanguage()
   const { countrySelected, setCountrySelected } = useCountry()
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  // const drawerNavigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
   const [countryMenuOpen, setCountryMenuOpen] = useState<boolean>(false)
   const { isDarkMode, setIsDarkMode } = useTheme()
   const [isSettingsMenunOpen, setIsSettingsMenuOpen] = useState<boolean>(false)
@@ -40,9 +39,9 @@ const SideBar = () => {
     const phone = DeliveryDetails?.supprotMobile;
     let phoneNumber = phone;
     if (Platform.OS === 'ios') {
-      phoneNumber = `tel:${phone}`;
-    } else if (Platform.OS === 'android') {
       phoneNumber = `telprompt:${phone}`;
+    } else if (Platform.OS === 'android') {
+      phoneNumber = `tel:${phone}`;
     } else {
       return;
     }
