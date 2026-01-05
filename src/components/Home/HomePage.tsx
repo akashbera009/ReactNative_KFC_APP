@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Platform, Animated, RefreshControl, BackHandler, Alert } from 'react-native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Svg, { Polygon } from 'react-native-svg';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -76,23 +76,25 @@ export default function HomePage() {
       setRefreshing(false);
     }, 1000);
   }, [dispatch]);
-  useEffect(() => {
-    const backAction = (): boolean => {
-      Alert.alert(Strings.confirmToExitApp, Strings.confirmToExtDescription, [
-        {
-          text: Strings.cancel.toUpperCase(),
-          onPress: () => null,
-          style: 'cancel',
-        },
-        { text: 'YES', onPress: () => BackHandler.exitApp() },
-      ]);
-      return true;
-    };
-    const subscription = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction)
-    return () => subscription.remove()
-  }, [Strings.cancel, Strings.confirmToExitApp, Strings.confirmToExtDescription])
+  useFocusEffect(
+    useCallback(() => {
+      const backAction = (): boolean => {
+        Alert.alert(Strings.confirmToExitApp, Strings.confirmToExtDescription, [
+          {
+            text: Strings.cancel.toUpperCase(),
+            onPress: () => null,
+            style: 'cancel',
+          },
+          { text: 'YES', onPress: () => BackHandler.exitApp() },
+        ]);
+        return true;
+      };
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction)
+      return () => subscription.remove()
+    }, [Strings.cancel, Strings.confirmToExitApp, Strings.confirmToExtDescription])
+  )
   return (
     <View style={Styles.ParentContaine}>
       <View style={Styles.menuButtonContainer}>
