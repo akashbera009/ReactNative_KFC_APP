@@ -296,8 +296,7 @@ export default function ReAnimated() {
                                                 transitionBehavior: 'allow-discrete'
                                             }
                                         ]}
-                                    >
-                                    </AnimatedTouchableOpacity>
+                                     />
                                 )
                             })}
                         </View>
@@ -361,8 +360,7 @@ export default function ReAnimated() {
                                         // animationTimingFunction :  linear(0, [0.25, '75%'], 1),
 
                                     }]}
-                            >
-                            </Animated.View>
+                             />
                         ))}
                     </View>
 
