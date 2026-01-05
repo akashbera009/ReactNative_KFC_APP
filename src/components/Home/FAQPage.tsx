@@ -51,14 +51,6 @@ export default function FAQPage() {
         }
     };
     const faqItems = getFaqData();
-    const arrowStyle = (isOpen: boolean) => (
-        useAnimatedStyle(() => ({
-            transform: [
-                { rotate: withTiming(isOpen ? '270deg' : '180deg', { duration: 250 }) },
-            ],
-        }))
-    )
-
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -92,36 +84,61 @@ export default function FAQPage() {
                 {faqItems.map((item, index) => {
                     const isOpen = openIndex === index;
                     return (
-                        <View key={index}>
-                            <TouchableOpacity
-                                activeOpacity={0.9}
-                                onPress={() => toggleFAQ(index)}
-                                style={Styles.card}
-                            >
-                                <Text style={Styles.cardText}>{item.question}</Text>
-                                <Animated.Image
-                                    source={Images.back_arrow}
-                                    style={[
-                                        Styles.rightArrow,
-                                        arrowStyle(isOpen)
-                                    ]}
-                                />
-                            </TouchableOpacity>
-                            {isOpen && (
-                                <Animated.View
-                                    entering={SlideInDown.duration(200)}
-                                    exiting={FadeOut.duration(300)}
-                                    style={Styles.answerBox}>
-                                    <Text style={Styles.answerText}>{item.answer}</Text>
-                                </Animated.View >
-                            )}
-                        </View>
+                        <FAQItemRow
+                            key={index}
+                            item={item}
+                            index={index}
+                            isOpen={isOpen}
+                            onPress={() => toggleFAQ(index)}
+                            Styles={Styles}
+                        />
                     );
                 })}
+
             </ScrollView>
         </View>
     );
 }
+const FAQItemRow = ({ item, isOpen, onPress, Styles }: FAQItemRowProps) => {
+    const useArrowStyle = (isOpen: boolean) => (
+        useAnimatedStyle(() => ({
+            transform: [
+                { rotate: withTiming(isOpen ? '270deg' : '180deg', { duration: 250 }) },
+            ],
+        }))
+    )
+    const arrowAnimatedStyle = useArrowStyle(isOpen);
+
+    return (
+        <View>
+            <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={onPress}
+                style={Styles.card}
+            >
+                <Text style={Styles.cardText}>{item.question}</Text>
+
+                <Animated.Image
+                    source={Images.back_arrow}
+                    style={[
+                        Styles.rightArrow,
+                        arrowAnimatedStyle,
+                    ]}
+                />
+            </TouchableOpacity>
+
+            {isOpen && (
+                <Animated.View
+                    entering={SlideInDown.duration(200)}
+                    exiting={FadeOut.duration(300)}
+                    style={Styles.answerBox}
+                >
+                    <Text style={Styles.answerText}>{item.answer}</Text>
+                </Animated.View>
+            )}
+        </View>
+    );
+};
 const createDynamicStyles = (Colors: ColorType) => {
     const Styles = StyleSheet.create({
         parent: {
