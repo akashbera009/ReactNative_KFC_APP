@@ -95,6 +95,7 @@ export default function HomePage() {
       return () => subscription.remove()
     }, [Strings.cancel, Strings.confirmToExitApp, Strings.confirmToExtDescription])
   )
+  
   return (
     <View style={Styles.ParentContaine}>
       <View style={Styles.menuButtonContainer}>
