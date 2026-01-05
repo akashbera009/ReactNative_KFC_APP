@@ -29,7 +29,7 @@ export default function ReAnimated() {
     const Styles = createDynamicStyles(Colors);
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     // animation 
-    const aniWidth = useSharedValue(100)
+    const aniWidth = useSharedValue<number>(100)
     const handelIncrease = () => {
         aniWidth.value = withTiming((aniWidth.value + 50) % width, {
             duration: 1000,
@@ -37,7 +37,7 @@ export default function ReAnimated() {
         })
     }
     //2nd 
-    const translateAnimate = useSharedValue(0)
+    const translateAnimate = useSharedValue<number>(0)
     const handleSlide = () => {
         translateAnimate.value += 20
     }
@@ -77,7 +77,7 @@ export default function ReAnimated() {
         )
     }
     //. decay gesture 
-    const position = useSharedValue(0)
+    const position = useSharedValue<number>(0)
     // const savedPosition = useSharedValue(0)
     const Screen_OFFSET = vw(10);
     const BOX_SIZE = vw(80);
@@ -163,7 +163,7 @@ export default function ReAnimated() {
 
     // my scroll compoennt 
     const scrollRef2 = useAnimatedRef<Animated.ScrollView>()
-    const scrollIdx2 = useSharedValue(0)
+    const scrollIdx2 = useSharedValue<number>(0)
     const scrollOffset2 = useScrollOffset(scrollRef2)
     // useDerivedValue(() => {
     //     scrollTo(
@@ -296,8 +296,7 @@ export default function ReAnimated() {
                                                 transitionBehavior: 'allow-discrete'
                                             }
                                         ]}
-                                    >
-                                    </AnimatedTouchableOpacity>
+                                     />
                                 )
                             })}
                         </View>
@@ -361,8 +360,7 @@ export default function ReAnimated() {
                                         // animationTimingFunction :  linear(0, [0.25, '75%'], 1),
 
                                     }]}
-                            >
-                            </Animated.View>
+                             />
                         ))}
                     </View>
 

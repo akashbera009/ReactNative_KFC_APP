@@ -19,7 +19,7 @@ export default function ChangeLocationBottomSheet() {
     const inset = useSafeAreaInsets();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     // animation
-    const slideRef = useSharedValue(0)
+    const slideRef = useSharedValue<number>(0)
     const animatedStyles = useAnimatedStyle(() => ({
         transform: [{ translateY: slideRef.value }],
     }))

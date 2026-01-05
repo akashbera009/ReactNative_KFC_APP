@@ -22,7 +22,7 @@ export default function RemoveCartItem({ imageLink, uid }: RemoveCartItemProps) 
     const Styles = createDynamicStyles(Colors)
     const dispatch = useAppDispatch()
     // animation
-    const slideRef = useSharedValue(0)
+    const slideRef = useSharedValue<number>(0)
     const animatedStyles = useAnimatedStyle(() => ({
         transform: [{ translateY: slideRef.value }],
     }))
