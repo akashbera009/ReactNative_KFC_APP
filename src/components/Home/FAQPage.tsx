@@ -9,7 +9,7 @@ import Images from '../../utils/LocalImages';
 import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-import Animated, { FadeOut, SlideOutDown } from 'react-native-reanimated';
+import Animated, { FadeOut, SlideInDown, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
 export default function FAQPage() {
     const Colors = useThemeColors();
@@ -51,6 +51,14 @@ export default function FAQPage() {
         }
     };
     const faqItems = getFaqData();
+    const arrowStyle = (isOpen: boolean) => (
+        useAnimatedStyle(() => ({
+            transform: [
+                { rotate: withTiming(isOpen ? '270deg' : '180deg', { duration: 250 }) },
+            ],
+        }))
+    )
+
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -95,19 +103,13 @@ export default function FAQPage() {
                                     source={Images.back_arrow}
                                     style={[
                                         Styles.rightArrow,
-                                        {
-                                            transform: [{
-                                                rotate: isOpen ? '270deg' : '180deg'
-                                            }],
-                                            transitionProperty: 'transform',
-                                            transitionDuration: 250,
-                                        }
+                                        arrowStyle(isOpen)
                                     ]}
                                 />
                             </TouchableOpacity>
                             {isOpen && (
                                 <Animated.View
-                                    entering={SlideOutDown.duration(200)}
+                                    entering={SlideInDown.duration(200)}
                                     exiting={FadeOut.duration(300)}
                                     style={Styles.answerBox}>
                                     <Text style={Styles.answerText}>{item.answer}</Text>
