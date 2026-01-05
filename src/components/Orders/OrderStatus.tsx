@@ -26,6 +26,7 @@ export default function OrderStatus({
     deliveriCharge,
     orderStatus
 }: OrderStatusPageProps) {
+    console.log("status",orderStatus)
     const Colors = useThemeColors();
     const Strings = useStrings();
     const Styles = createDynamicStyles(Colors);
