@@ -123,7 +123,7 @@ export default function CheckOut({ route }: CheckOutScreenProps) {
         if (route.params?.result !== undefined) {
             onPaymentSuccess(route.params?.payment_id, OrderId, route.params?.result, Strings.onlineString);
         }
-    }, [route.params?.result, OrderDate, OrderId, OrderTime, Strings.onlineString, onPaymentSuccess])
+    }, [route.params?.result , route.params?.payment_id, OrderDate, OrderId, OrderTime, Strings.onlineString, onPaymentSuccess])
     useEffect((): (() => void) | void => {
         if (paymentMethodOpen) {
             const timeoutId: number = setTimeout(scrollToPosition, 100);
