@@ -99,7 +99,10 @@ export default function Maps() {
     useEffect((): void => {
         getCurrentLocation()
     }, [])
-
+    const saveLocationInfo = () => {
+        if (!goodToSave) return;
+        navigation.pop();
+    };
     return (
         <View style={Styles.parent}>
             <View style={[Styles.NavWrapper, { marginTop: inset.top }]}>
@@ -280,6 +283,35 @@ export default function Maps() {
                     </View>
                 </KeyboardAwareScrollView>
             </View>
+            {showPopup && (
+                <Animated.View style={[Styles.popupOverlay, { opacity }]}>
+                    <Animated.View style={[Styles.popupBox, { opacity: opacity }]}>
+                        <Text style={Styles.popupTitle}>{Strings.consfirmLocation}</Text>
+                        <Text style={Styles.popupMessage}>
+                            {Strings.saveLocationConfirmation}
+                        </Text>
+
+                        <View style={Styles.popupButtons}>
+                            <TouchableOpacity
+                                style={[Styles.popupButton, Styles.cancelButton]}
+                                onPress={() => setShowPopup(false)}
+                            >
+                                <Text style={Styles.cancelText}>{Strings.cancel}</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={[Styles.popupButton, Styles.saveButton]}
+                                onPress={() => {
+                                    setShowPopup(false);
+                                    saveLocationInfo();
+                                }}
+                            >
+                                <Text style={Styles.saveText}>{Strings.save}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Animated.View>
+                </Animated.View>
+            )}
         </View>
     );
 }
@@ -292,7 +324,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors.bodyColor,flexDirection: 'row',
+            backgroundColor: Colors.bodyColor, flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -303,7 +335,8 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
-        BackIconAndHeaderText: {flexDirection: 'row',
+        BackIconAndHeaderText: {
+            flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -317,7 +350,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         headerCountrySelection: {
             marginRight: vw(20),
             flexDirection: "row",
-            justifyContent: "space-between",alignItems: 'center',
+            justifyContent: "space-between", alignItems: 'center',
             alignSelf: 'center',
         },
         arrowdonwn: {
@@ -366,10 +399,10 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         container: {
             flex: 1,
-            height: '100%',alignItems: 'center',
+            height: '100%', alignItems: 'center',
         },
-        contentContainerStyle:{ 
-            paddingBottom: vh(50) 
+        contentContainerStyle: {
+            paddingBottom: vh(50)
         },
         body: {
             flex: 1,
@@ -390,7 +423,8 @@ const createDynamicStyles = (Colors: ColorType) => {
             flex: 1,
             marginHorizontal: vw(10),
         },
-        locationTypeSelection: {flexDirection: 'row',
+        locationTypeSelection: {
+            flexDirection: 'row',
             alignItems: 'center',
             marginTop: vh(20),
             marginLeft: vw(10)
@@ -399,7 +433,8 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack
         },
-        selectionContainer: {flexDirection: 'row',
+        selectionContainer: {
+            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -409,7 +444,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             height: vh(20),
             width: vw(20),
             borderRadius: normalize(50),
-            borderColor: Colors.textBlack,justifyContent: 'center',
+            borderColor: Colors.textBlack, justifyContent: 'center',
             alignItems: 'center',
             borderWidth: normalize(2),
             marginHorizontal: vw(8),
@@ -438,7 +473,8 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             fontSize: normalize(16),
         },
-        adressAndChangeButton: {flexDirection: 'row',
+        adressAndChangeButton: {
+            flexDirection: 'row',
             alignItems: 'center',
             width: '100%',
             alignSelf: 'center',
@@ -470,7 +506,8 @@ const createDynamicStyles = (Colors: ColorType) => {
             borderBottomWidth: normalize(1),
             borderBottomColor: Colors.fadeBorder
         },
-        BuildingAndFLat: {flexDirection: 'row',
+        BuildingAndFLat: {
+            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -483,7 +520,8 @@ const createDynamicStyles = (Colors: ColorType) => {
         FlatNoContainer: {
             width: '40%',
         },
-        AddressTagsContainer: {flexDirection: 'row',
+        AddressTagsContainer: {
+            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -494,7 +532,8 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaMedium,
             color: Colors.textBlack,
         },
-        TagsContainer: {flexDirection: 'row',
+        TagsContainer: {
+            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
@@ -524,7 +563,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '100%',
             height: vh(50),
             alignSelf: 'center',
-            backgroundColor: Colors.timerFadeText,flexDirection: 'row',
+            backgroundColor: Colors.timerFadeText, flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: vh(30),
@@ -535,5 +574,64 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             fontSize: normalize(17),
         },
+
+
+
+
+        popupOverlay: {
+            position: 'absolute',
+            top: vh(0),
+            left: vw(0),
+            height: '100%',
+            width: '100%',
+            backgroundColor: Colors.SemiTransparent,
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 999
+        },
+        popupBox: {
+            width: '80%',
+            backgroundColor: Colors.bodyColor,
+            padding: normalize(20),
+            borderRadius: normalize(10),
+            elevation: 10
+        },
+        popupTitle: {
+            fontSize: normalize(18),
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.textBlack,
+            marginBottom: vh(10),
+        },
+        popupMessage: {
+            fontSize: normalize(14),
+            fontFamily: Fonts.helveticaMedium,
+            color: Colors.textFadeBlack,
+            marginBottom: vh(20)
+        },
+        popupButtons: {
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            marginTop: vh(10)
+        },
+        popupButton: {
+            paddingHorizontal: vw(15),
+            paddingVertical: 8,
+            borderRadius: normalize(5),
+            marginLeft: vw(10)
+        },
+        cancelButton: {
+            backgroundColor: Colors.blueLightBG
+        },
+        saveButton: {
+            backgroundColor: Colors.KFC_red
+        },
+        cancelText: {
+            fontFamily: Fonts.helveticaMedium,
+            color: Colors.textBlack
+        },
+        saveText: {
+            fontFamily: Fonts.helveticaBold,
+            color: Colors.constantWhite,
+        }
     });
 };
