@@ -20,8 +20,7 @@ import { useThemeColors } from '../../utils/Colors';
 import Images from '../../utils/LocalImages';
 import { savedCards, otherPaymentOption } from '../../data/DeliveryDetails';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-
-export default function PaymentOptionsBottomSheet({ amount, onSuccess }: PaymentModalScreenProps) {
+export default function PaymentOptionsBottomSheet({ amount }: PaymentModalScreenProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
     const inset = useSafeAreaInsets();
@@ -40,7 +39,14 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
         payment_id: string | undefined
     ): void => {
         console.log(payment_id, success);
-        onSuccess(payment_id, success)
+        navigation.popTo(Strings.OrderStack, {
+            screen: Strings.CheckOutScreen,
+            params: {
+                result: success,
+                payment_id: payment_id,
+            }
+        })
+
     }
     // animation
     const slideRef = useSharedValue<number>(0)
@@ -200,7 +206,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         ThreeColumnStyle: {
             alignSelf: 'center',
             width: '34%',
-            height: vh(30),flexDirection: 'row',
+            height: vh(30), flexDirection: 'row',
             justifyContent: 'space-around',
         },
         singleCOlumnStyle: {
@@ -244,7 +250,8 @@ const createDynamicStyles = (Colors: ColorType) => {
             right: vw(5),
             top: vh(30)
         },
-        HeaderAndButton: {flexDirection: 'row',
+        HeaderAndButton: {
+            flexDirection: 'row',
             width: '100%',
             justifyContent: 'space-between',
         },

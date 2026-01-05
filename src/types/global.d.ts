@@ -190,3 +190,11 @@ interface AuthState {
   error?: string;
   biometricChecked: boolean; 
 }
+
+type FAQItemRowProps = {
+    item: FaqItem;
+    index: number;
+    isOpen: boolean;
+    onPress: () => void;
+    Styles: any;
+};
