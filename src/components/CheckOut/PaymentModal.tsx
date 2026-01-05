@@ -40,7 +40,7 @@ export default function PaymentOptionsBottomSheet({ amount, onSuccess }: Payment
         payment_id: string | undefined
     ): void => {
         console.log(payment_id, success);
-        onSuccess?.(payment_id, success)
+        onSuccess(payment_id, success)
     }
     // animation
     const slideRef = useSharedValue<number>(0)
