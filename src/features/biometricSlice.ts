@@ -3,6 +3,7 @@ import {
     checkBiometricSupportThunk,
     authenticateWithBiometricsThunk,
 } from '../actions/biometricAction';
+import { AuthState } from '../components/models';
 
 const initialState: AuthState = {
     isAuthenticated: false,

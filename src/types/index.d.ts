@@ -43,7 +43,7 @@ type ModalStackParamList = {
   LoginPageCountryBottomSheetScreen: undefined;
   MenuCategorizeScreen: {
     frequencyArray: CategoryFrequency[];
-  };
+  }; 
 };
 
 type TestingStackParamList = {

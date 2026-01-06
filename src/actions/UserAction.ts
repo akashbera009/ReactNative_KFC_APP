@@ -1,12 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import Config from "react-native-config";
+import { BACKEND_SERVER } from "../utils/constants";
 import axios from 'axios';
-
-export const fetctUserDeatails = createAsyncThunk<userDatailsType, string>(
+import { UpdateUserPayload, userDatailsType } from "../components/models";
+export const fetctUserDeatails = createAsyncThunk<
+    userDatailsType,
+    string
+>(
     'users/fetctUserDeatails',
     async (mobileNO: string) => {
         try {
-            const res = await axios.get(`${Config.BACKEND_SERVER}/users/mobile/${mobileNO}`)
+            const res = await axios.get(`${BACKEND_SERVER}/users/mobile/${mobileNO}`)
             return res.data
         } catch (e) {
             console.log(e);
@@ -14,11 +17,14 @@ export const fetctUserDeatails = createAsyncThunk<userDatailsType, string>(
         }
     })
 
-export const addUserDetails = createAsyncThunk(
+export const addUserDetails = createAsyncThunk<
+    userDatailsType,
+    Omit<userDatailsType, 'id'>
+>(
     "users/addUserDetails",
     async (newUser: Omit<userDatailsType, "id">) => {
         try {
-            const res = await axios.post(`${Config.BACKEND_SERVER}/users`, newUser);
+            const res = await axios.post(`${BACKEND_SERVER}/users`, newUser);
             return res.data as userDatailsType;
         } catch (e) {
             console.log(e);
@@ -35,13 +41,13 @@ export const updateUser = createAsyncThunk<
     async ({ id, data }) => {
         try {
             const res = await axios.put(
-                `${Config.BACKEND_SERVER}/users/${id}`,
+                `${BACKEND_SERVER}/users/${id}`,
                 data
             );
             return res.data;
         } catch (e) {
             console.log(e);
-            return e
+            throw e
         }
     }
 )

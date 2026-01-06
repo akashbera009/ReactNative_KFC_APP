@@ -9,7 +9,6 @@ import { RootState } from '../../store/store';
 //util files 
 import { useThemeColors } from '../../utils/Colors'
 import { vh } from '../../utils/Dimensions'
-
 export default function ExploreMenu({ activeCategory }: { activeCategory: string }) {
     const Colors = useThemeColors()
     const Styles = createDynamicStyles(Colors)

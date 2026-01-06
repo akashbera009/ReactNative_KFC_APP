@@ -35,3 +35,6 @@ type OrderQueueContextType = {
   orderQueueItem: OrderHistory[]
   setOrderQueueItem: React.Dispatch<SetStateAction<OrderHistory[]>>
 }
+type ToastContextType = {
+    showToast: (payload: ToastPayload) => void;
+};

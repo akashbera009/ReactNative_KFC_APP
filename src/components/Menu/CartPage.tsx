@@ -344,7 +344,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         NavWrapper: {
             width: '100%',
-            backgroundColor: Colors.bodyColor,flexDirection: 'row',
+            backgroundColor: Colors.bodyColor, flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
@@ -355,7 +355,8 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontFamily: Fonts.helveticaBold,
             color: Colors.textBlack
         },
-        BackIconAndHeaderText: {flexDirection: 'row',
+        BackIconAndHeaderText: {
+            flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -366,7 +367,8 @@ const createDynamicStyles = (Colors: ColorType) => {
             alignSelf: 'flex-start',
             marginHorizontal: vw(18),
         },
-        HeaderTextContainer: {flexDirection: 'row',
+        HeaderTextContainer: {
+            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'flex-end',
             alignSelf: 'center',
@@ -408,7 +410,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '95%',
             alignSelf: 'center',
             backgroundColor: Colors.bodyColor,
-            marginVertical: vh(10),flexDirection: 'row',
+            marginVertical: vh(10), flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             borderRadius: normalize(2),
@@ -423,7 +425,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '95%',
             alignSelf: 'center',
             backgroundColor: Colors.bodyColor,
-            marginVertical: vh(10),flexDirection: 'row',
+            marginVertical: vh(10), flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             borderRadius: normalize(2),
@@ -437,11 +439,11 @@ const createDynamicStyles = (Colors: ColorType) => {
             borderWidth: normalize(1),
             borderRadius: normalize(4),
             borderColor: Colors.greenOk,
-            borderStyle: 'dashed',alignItems: 'center',
+            borderStyle: 'dashed', alignItems: 'center',
             flexDirection: 'column'
         },
         AboveCouponCOntainer: {
-            width: '100%',alignItems: 'center',
+            width: '100%', alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
             marginTop: vh(5),
@@ -469,12 +471,12 @@ const createDynamicStyles = (Colors: ColorType) => {
             transform: [{ scaleX: -1 }]
         },
         LeftCouponCOntaienr: {
-            marginHorizontal: vw(20),flexDirection: 'row',
+            marginHorizontal: vw(20), flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
         TopCouponCOntaienr: {
-            marginHorizontal: vw(20),flexDirection: 'row',
+            marginHorizontal: vw(20), flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
         },
@@ -506,7 +508,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         AppliedOfferDetail: {
             width: '90%',
             marginVertical: vh(10),
-            marginHorizontal: vw(10),flexDirection: 'row',
+            marginHorizontal: vw(10), flexDirection: 'row',
         },
         offerAppliedGreenText: {
             fontSize: normalize(14),
@@ -527,9 +529,10 @@ const createDynamicStyles = (Colors: ColorType) => {
             shadowOffset: { width: vw(2), height: vh(2) },
             shadowOpacity: 0.25,
             shadowRadius: normalize(3.84),
-            elevation: 5,justifyContent: 'center',
+            elevation: 5, justifyContent: 'center',
         },
-        PriceEntries: {flexDirection: 'row',
+        PriceEntries: {
+            flexDirection: 'row',
             marginVertical: vh(10),
             marginHorizontal: vw(15),
         },
@@ -579,19 +582,19 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginTop: vh(20),
             borderRadius: normalize(2),
             width: '95%',
-            alignSelf: 'center',alignItems: 'center',
+            alignSelf: 'center', alignItems: 'center',
             flexDirection: 'row',
         },
         discountImageContainer: {
             backgroundColor: Colors.greenOk,
             width: vw(60),
-            height: '100%',alignItems: 'center',
+            height: '100%', alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
         GreenTextContainer: {
             marginLeft: vw(10),
-            marginRight: vw(5),alignItems: 'center',
+            marginRight: vw(5), alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -639,7 +642,7 @@ const createDynamicStyles = (Colors: ColorType) => {
             shadowOffset: { width: vw(2), height: vh(2) },
             shadowOpacity: .4,
             shadowRadius: normalize(10),
-            elevation: 5,alignItems: 'center',
+            elevation: 5, alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
         },
@@ -651,7 +654,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         EditingButtonContainerWrapper: {
             position: 'absolute',
             height: '100%',
-            width: '100%',alignItems: 'center',
+            width: '100%', alignItems: 'center',
             flexDirection: 'column',
             justifyContent: 'space-around',
         },
@@ -670,12 +673,12 @@ const createDynamicStyles = (Colors: ColorType) => {
             width: '80%',
         },
         UpperContainer: {
-            width: '100%',flexDirection: 'row',
+            width: '100%', flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
         },
         EditUpperContainer: {
-            width: '100%',flexDirection: 'row',
+            width: '100%', flexDirection: 'row',
             justifyContent: 'space-around',
         },
         LeftfoodImage: {
@@ -707,18 +710,21 @@ const createDynamicStyles = (Colors: ColorType) => {
             marginVertical: vh(10),
             color: Colors.textBlack
         },
-        DescriptionContainer: {flexDirection: 'row',
+        DescriptionContainer: {
+            flexDirection: 'row',
             flexWrap: 'wrap',
             width: '100%',
             marginLeft: vw(1),
             marginBottom: vh(10),
         },
-        EditModeDescriptionContainer: {flexDirection: 'row',
+        EditModeDescriptionContainer: {
+            flexDirection: 'row',
             flexWrap: 'wrap',
             width: '85%',
             marginLeft: vw(1),
         },
-        DotAndDescription: {flexDirection: 'row',
+        DotAndDescription: {
+            flexDirection: 'row',
             alignItems: 'center',
             marginVertical: vh(4)
         },
@@ -735,25 +741,29 @@ const createDynamicStyles = (Colors: ColorType) => {
             fontSize: normalize(11),
             marginRight: vw(5),
         },
-        LowerContainer: {flexDirection: 'row',
+        LowerContainer: {
+            flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
             width: '100%',
         },
-        EditLowerContainer: {flexDirection: 'row',
+        EditLowerContainer: {
+            flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             alignSelf: 'center',
             width: '100%',
             marginBottom: vh(10),
         },
-        LowerLeftPriceContainer: {flexDirection: 'row',
+        LowerLeftPriceContainer: {
+            flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
             marginHorizontal: vw(20)
         },
-        EditLowerLeftPriceContainer: {flexDirection: 'row',
+        EditLowerLeftPriceContainer: {
+            flexDirection: 'row',
             alignItems: 'center',
             alignSelf: 'center',
             marginLeft: vw(20)
@@ -778,16 +788,19 @@ const createDynamicStyles = (Colors: ColorType) => {
             top: vh(8),
             left: 0,
         },
-        OldPriceContainer: {flexDirection: 'row',
+        OldPriceContainer: {
+            flexDirection: 'row',
             marginLeft: vw(4)
         },
-        AddedCartButtonContainer: {flexDirection: 'row',
+        AddedCartButtonContainer: {
+            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             marginHorizontal: vw(20),
             marginVertical: vh(10),
         },
-        EditModeAddedCartButtonContainer: {flexDirection: 'row',
+        EditModeAddedCartButtonContainer: {
+            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             marginHorizontal: vw(10),
@@ -812,7 +825,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         AddCounterButton: {
             height: vh(30),
-            width: vw(30),flexDirection: 'row',
+            width: vw(30), flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: normalize(4),
@@ -820,7 +833,7 @@ const createDynamicStyles = (Colors: ColorType) => {
         },
         AddCounterButtonFade: {
             height: vh(30),
-            width: vw(30),flexDirection: 'row',
+            width: vw(30), flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: normalize(4),

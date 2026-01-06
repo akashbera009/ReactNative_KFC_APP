@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { FavoriteState } from "../components/models";
 const initialState: FavoriteState = {
-    favorites: []
+    favorites: [],
+    loading : false
 }
 const favouriteSlice = createSlice({
     name: 'favourites',

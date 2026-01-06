@@ -1,6 +1,6 @@
 import { useTheme } from "../context/ThemeContext";
 
-const LightTheme = {
+const LightTheme : ColorType = {
   bodyColor: '#ffffff',
   bodyShadeColor: '#ecf9fdff',
   bodyLigheterColor: '#f1f6f9ff',
@@ -42,7 +42,7 @@ const LightTheme = {
   greenShade: 'rgba(5, 220, 195, 1)'
 };
 
-const DarkTheme = {
+const DarkTheme: ColorType = {
   bodyColor: '#1B1212',
   bodyShadeColor: '#282828ff',
   bodyLigheterColor: '#1b1b1bff',

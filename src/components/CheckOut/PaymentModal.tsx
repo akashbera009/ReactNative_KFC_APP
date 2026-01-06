@@ -38,7 +38,6 @@ export default function PaymentOptionsBottomSheet({ amount }: PaymentModalScreen
         success: boolean,
         payment_id: string | undefined
     ): void => {
-        console.log(payment_id, success);
         navigation.popTo(Strings.OrderStack, {
             screen: Strings.CheckOutScreen,
             params: {

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 // actions 
 import { fetctUserDeatails, updateUser } from '../../src/actions/UserAction'
-
+import { userfetchedType } from "../components/models";
 export const initialState: userfetchedType = {
     currentUser: null,
     loading: 'ideal'

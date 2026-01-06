@@ -11,6 +11,7 @@ import {
 // google sign in 
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import AppNavigation from './navigation/AppNavigation';
+import Toast from './CommonFunctions/Toaster';
 
 const AppRoot = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -26,6 +27,7 @@ const AppRoot = () => {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <AppNavigation/>
+             <Toast />
         </GestureHandlerRootView>
     );
 };
