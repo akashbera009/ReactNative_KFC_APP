@@ -43,8 +43,7 @@ type ModalStackParamList = {
   LoginPageCountryBottomSheetScreen: undefined;
   MenuCategorizeScreen: {
     frequencyArray: CategoryFrequency[];
-  };
-  // ToasterScreen : { header: string, description: string, type : string}
+  }; 
 };
 
 type TestingStackParamList = {

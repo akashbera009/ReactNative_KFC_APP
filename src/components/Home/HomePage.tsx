@@ -25,7 +25,7 @@ import { useStrings } from '../../utils/Strings';
 import { DeliveryDetails } from '../../data/DeliveryDetails';
 import { useCountry } from '../../context/CountryContext';
 import { normalize, vh, vw } from '../../utils/Dimensions';
-
+import { screenName } from '../../utils/screenNames';
 export default function HomePage() {
   const [refreshing, setRefreshing] = React.useState(false);
   const Colors = useThemeColors()
@@ -170,11 +170,11 @@ export default function HomePage() {
               <Text style={Styles.DeliveryAddress} numberOfLines={1}>{DeliveryDetails?.address} </Text>
             </View>
             <TouchableOpacity
-              onPress={() =>{
+              onPress={() => {
                 navigation.navigate(Strings.ModalStack, {
                   screen: Strings.ChangeLocationBottomSheetScreen
                 })
-                }
+              }
               }
               style={Styles.RightSideButton}>
               <Text style={Styles.changeText}>{Strings.change} </Text>
@@ -187,7 +187,7 @@ export default function HomePage() {
               <Text style={Styles.ExploreHeader}>{Strings.exploreMore.toUpperCase()} </Text>
               <TouchableOpacity
                 onPress={() =>
-                    navigation.push(Strings.ExploreMenuScreen, {
+                  navigation.push(screenName.ExploreMenuScreen, {
                     categoryType: Strings.dealsString
                   })
                 }
@@ -197,7 +197,7 @@ export default function HomePage() {
             </View>
             <View style={Styles.ExploreCardsContainer}>
               <TouchableOpacity
-                onPress={() => navigation.push(Strings.ExploreMenuScreen, {
+                onPress={() => navigation.push(screenName.ExploreMenuScreen, {
                   categoryType: Strings.dealsString
                 })}
                 style={Styles.FirstCard}>
@@ -206,7 +206,7 @@ export default function HomePage() {
               </TouchableOpacity>
               <View style={Styles.SecondCardGroup}>
                 <TouchableOpacity
-                  onPress={() => navigation.push(Strings.ExploreMenuScreen, {
+                  onPress={() => navigation.push(screenName.ExploreMenuScreen, {
                     categoryType: Strings.fonOneString
                   })}
                   style={Styles.SecondCardTop}>
@@ -214,7 +214,7 @@ export default function HomePage() {
                   <Image source={Images.Chicken_Nugedts} style={[Styles.SecondCardImage, Styles.RotateImage]} />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => navigation.push(Strings.ExploreMenuScreen, {
+                  onPress={() => navigation.push(screenName.ExploreMenuScreen, {
                     categoryType: Strings.slideDesertString
                   })}
                   style={Styles.SecondCardDown}>
@@ -225,7 +225,7 @@ export default function HomePage() {
               <View
                 style={Styles.ThirdCardGroup}>
                 <TouchableOpacity
-                  onPress={() => navigation.push(Strings.ExploreMenuScreen, {
+                  onPress={() => navigation.push(screenName.ExploreMenuScreen, {
                     categoryType: Strings.forSharingString
                   })}
                   style={Styles.ThirdCardTop}>
@@ -233,7 +233,7 @@ export default function HomePage() {
                   <Image source={Images.Chicken_Roll} style={[Styles.ThirdCardImage, Styles.ThirdCardTopExtra]} />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => navigation.push(Strings.ExploreMenuScreen, {
+                  onPress={() => navigation.push(screenName.ExploreMenuScreen, {
                     categoryType: Strings.sandwichString
                   })}
                   style={Styles.ThirdCardDown}>
@@ -257,7 +257,7 @@ export default function HomePage() {
               <TouchableOpacity
                 style={Styles.OrderNowButton}
                 onPress={() => {
-                  navigation.push(Strings.ExploreMenuScreen, {
+                  navigation.push(screenName.ExploreMenuScreen, {
                     categoryType: Strings.dealsString
                   })
                 }}
@@ -292,7 +292,7 @@ export default function HomePage() {
                           <TouchableOpacity
                             style={Styles.OrderButton}
                             onPress={() => {
-                              navigation.push(Strings.ExploreMenuScreen, {
+                              navigation.push(screenName.ExploreMenuScreen, {
                                 categoryType: Strings.dealsString
                               })
                             }}

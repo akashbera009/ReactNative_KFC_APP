@@ -21,6 +21,7 @@ import { CountryInfo } from '../../data/CountryInfo';
 import { normalize, vh, vw } from '../../utils/Dimensions';
 import MediaSkeleton from '../../Loaders/MediaShimmer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { screenName } from '../../utils/screenNames';
 
 const SideBar = () => {
   const Colors = useThemeColors()
@@ -80,7 +81,7 @@ const SideBar = () => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: Strings.SplashStack }],
+          routes: [{ name: screenName.SplashStack }],
         })
       );
     } catch (error) {

@@ -1,6 +1,2 @@
-type FontType = {
-  [key: string]: string;
-}
-type ColorType = {
-  [key: string]: string
-}
+type FontType = Record<string, string>
+type ColorType = Record<string, string>

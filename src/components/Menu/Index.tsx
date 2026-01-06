@@ -19,6 +19,7 @@ import { normalize, vh, vw } from '../../utils/Dimensions';
 import { TextInput } from 'react-native-gesture-handler';
 import SearchComponent from './SearchComponent';
 import { useMenuCategory } from '../../context/MenuContext';
+import { screenName } from '../../utils/screenNames';
 
 const Index = ({ categoryType }: { categoryType: string }) => {
     const Colors = useThemeColors()
@@ -176,7 +177,7 @@ const Index = ({ categoryType }: { categoryType: string }) => {
                             onPress={() => {
                                 navigation.navigate(Strings.ModalStack,
                                     {
-                                        screen: Strings.MenuCategorizeScreen,
+                                        screen: screenName.MenuCategorizeScreen,
                                         params: {
                                             frequencyArray: frequencyArray
                                         }

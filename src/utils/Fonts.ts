@@ -1,5 +1,5 @@
 import { Platform } from "react-native"
-const Fonts = {
+const Fonts: FontType = {
     // Cursive / decorative
     firstPageCUrsuve: 'Playball-Regular',
     subHeader: Platform.OS === 'ios' ? 'ZalandoSansSemiExpanded-VariableFont_wght' : 'ZalandoSansSemiExpandedVariableFont_wght',

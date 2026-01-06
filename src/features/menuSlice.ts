@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 // action
 import { fetchMenu } from '../../src/actions/MenuAction'
+import { menuSliceInitialState } from "../components/models";
 const initialState: menuSliceInitialState = {
     menuData: [],
     loading: false

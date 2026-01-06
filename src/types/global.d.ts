@@ -1,4 +1,3 @@
-
 type RemoveCartItemProps = {
   imageLink: string;
   uid: string
@@ -41,15 +40,15 @@ type savedAddress = {
   lat: number;
   lng: number;
 }
-type userDatailsType = {
-  id: string,
-  name: string | undefined,
-  mobileNo: string,
-  email?: string | undefined,
-  avatar?: string | undefined,
-  orderCount?: number;
-  address?: savedAddress[]
-}
+// type userDatailsType = {
+//   id: string,
+//   name: string | undefined,
+//   mobileNo: string,
+//   email?: string | undefined,
+//   avatar?: string | undefined,
+//   orderCount?: number;
+//   address?: savedAddress[]
+// }
 type CategoryFrequency = {
   category: string;
   count: number;
@@ -182,24 +181,36 @@ type GradientStop = {
   color: string;
   opacity: string
 };
-interface AuthState {
-  isAuthenticated: boolean | null;
-  biometricEnabled: boolean;
-  biometricSupported: boolean;
-  loading: boolean;
-  error?: string;
-  biometricChecked: boolean;
-}
+// interface AuthState {
+//   isAuthenticated: boolean | null;
+//   biometricEnabled: boolean;
+//   biometricSupported: boolean;
+//   loading: boolean;
+//   error?: string;
+//   biometricChecked: boolean;
+// }
 
 type FAQItemRowProps = {
   item: FaqItem;
   index: number;
   isOpen: boolean;
   onPress: () => void;
-  Styles: any;
+  Styles: StyleSheetProperties;
 };
 type ToasterPropType = {
   header: string;
   description: string;
   type: string;
+}
+
+type ToastType = 'success' | 'error' | 'info' | 'warning';
+
+type ToastPayload = {
+  header?: string;
+  message: string;
+  type?: ToastType;
+  duration?: number;
+};
+interface ToastRef {
+  show: (payload: ToastPayload) => void;
 }

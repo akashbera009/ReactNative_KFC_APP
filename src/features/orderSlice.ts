@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 // action 
 import { fetchOrders, addAsyncOrder } from '../../src/actions/OrderAction'
+import { orderFetchedType } from '../components/models';
 const initialState: orderFetchedType = {
   orders: [],
   loading: false,

@@ -8,7 +8,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => (
     <LanguageProvider>
       <CountryProvider>
         <MenuCategoryProvider >
-          {children}
+            {children}
         </MenuCategoryProvider>
       </CountryProvider>
     </LanguageProvider>

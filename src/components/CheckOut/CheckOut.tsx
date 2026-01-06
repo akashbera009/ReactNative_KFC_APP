@@ -13,6 +13,8 @@ import { RootState, useAppDispatch } from '../../store/store';
 import { clearCart } from '../../features/cartSlice';
 import { useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+//toaster 
+import { ToastService } from '../../utils/toastService';
 // utils
 import Fonts from '../../utils/Fonts';
 import Images from '../../utils/LocalImages';
@@ -20,6 +22,7 @@ import { useStrings } from '../../utils/Strings';
 import { useThemeColors } from '../../utils/Colors';
 import { useCountry } from '../../context/CountryContext';
 import { normalize, vh, vw } from '../../utils/Dimensions';
+import { successStrings } from '../../utils/constants';
 export default function CheckOut({ route }: CheckOutScreenProps) {
     const Colors = useThemeColors();
     const Strings = useStrings();
@@ -89,10 +92,9 @@ export default function CheckOut({ route }: CheckOutScreenProps) {
             paymentMode: paymentMode,
             paymentId: paymentId
         };
-        Alert.alert(isSuccess ? Strings.success : Strings.failed);
         navigation.pop(2);
+        ToastService.show(isSuccess ? Strings.success : Strings.failed, isSuccess ? successStrings.success : successStrings.error)
         if (!isSuccess) return
-
         try {
             await dispatch(addAsyncOrder(newOrder))
             console.log('order added , now navigating ', orderLoading);

@@ -12,7 +12,6 @@ import OfferAppliedScreen from '../screens/OfferAppliedScreen';
 import LoginPageCountryBottomSheetScreen from '../screens/LoginPageCountryBottomSheetScreen';
 import PopUpScreens from '../screens/PopUpScreens';
 import MenuCategorizeScreen from '../screens/MenuCategorizeScreen';
-// import ToasterScreen from '../screens/ToasterScreen';
 
 const ModalStack = createNativeStackNavigator<ModalStackParamList>();
 export default function ModalStackNavigator() {
@@ -56,14 +55,6 @@ export default function ModalStackNavigator() {
                 name={Strings.PopUpScreens}
                 component={PopUpScreens}
             />
-            {/* <ModalStack.Screen
-                name={Strings.ToasterScreen}
-                component={ToasterScreen}
-                options={{
-                    presentation: 'formSheet',
-                    animation: 'none',
-                }}
-            /> */}
         </ModalStack.Navigator>
     );
 }
