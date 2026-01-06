@@ -183,18 +183,23 @@ type GradientStop = {
   opacity: string
 };
 interface AuthState {
-  isAuthenticated: boolean | null ;
+  isAuthenticated: boolean | null;
   biometricEnabled: boolean;
   biometricSupported: boolean;
   loading: boolean;
   error?: string;
-  biometricChecked: boolean; 
+  biometricChecked: boolean;
 }
 
 type FAQItemRowProps = {
-    item: FaqItem;
-    index: number;
-    isOpen: boolean;
-    onPress: () => void;
-    Styles: any;
+  item: FaqItem;
+  index: number;
+  isOpen: boolean;
+  onPress: () => void;
+  Styles: any;
 };
+type ToasterPropType = {
+  header: string;
+  description: string;
+  type: string;
+}

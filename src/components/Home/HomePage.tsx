@@ -95,7 +95,6 @@ export default function HomePage() {
       return () => subscription.remove()
     }, [Strings.cancel, Strings.confirmToExitApp, Strings.confirmToExtDescription])
   )
-  
   return (
     <View style={Styles.ParentContaine}>
       <View style={Styles.menuButtonContainer}>
@@ -171,10 +170,12 @@ export default function HomePage() {
               <Text style={Styles.DeliveryAddress} numberOfLines={1}>{DeliveryDetails?.address} </Text>
             </View>
             <TouchableOpacity
-              onPress={() =>
+              onPress={() =>{
                 navigation.navigate(Strings.ModalStack, {
                   screen: Strings.ChangeLocationBottomSheetScreen
-                })}
+                })
+                }
+              }
               style={Styles.RightSideButton}>
               <Text style={Styles.changeText}>{Strings.change} </Text>
             </TouchableOpacity>
@@ -185,9 +186,11 @@ export default function HomePage() {
             <View style={Styles.headerExplore}>
               <Text style={Styles.ExploreHeader}>{Strings.exploreMore.toUpperCase()} </Text>
               <TouchableOpacity
-                onPress={() => navigation.push(Strings.ExploreMenuScreen, {
-                  categoryType: Strings.dealsString
-                })}
+                onPress={() =>
+                    navigation.push(Strings.ExploreMenuScreen, {
+                    categoryType: Strings.dealsString
+                  })
+                }
               >
                 <Text style={Styles.ExploreHeaderViewAll}>{Strings.viewAll.toUpperCase()} </Text>
               </TouchableOpacity>

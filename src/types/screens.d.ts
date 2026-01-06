@@ -54,3 +54,6 @@ type CommonPopUpScreenProps =
 
 type MenuCategorizationScreenProps =
     NativeStackScreenProps<ModalStackParamList, 'MenuCategorizationScreen'>;
+    
+// type ToasterScreenProps = 
+//     NativeStackScreenProps<ModalStackParamList , 'ToasterScreen'>
